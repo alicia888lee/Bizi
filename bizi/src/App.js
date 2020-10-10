@@ -1,6 +1,6 @@
 import React from 'react';
 import logo from './logo.svg';
-import map from './images/map.jpg';
+import Map from './components/map.js';
 import foodImg from './images/pexels-mariana-kurnyk-1775043.jpg';
 import shopImg from './images/pexels-ksenia-chernaya-3965557.jpg';
 import serviceImg from './images/pexels-maria-gloss-4197693.jpg';
@@ -77,7 +77,7 @@ function Description(){
   return(
     <div className="description">
       <div className="map">
-        <img src={map} />
+        <Map />
       </div>
 
       <div className="description-text">

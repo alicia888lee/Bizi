@@ -155,6 +155,9 @@ nav li a{
   width: 60%;
   /* height: 900px; */
 }
+.pin {
+  font-size: 5em;
+}
 .description-text {
   width: 40%;
   padding: 10px 20px;
