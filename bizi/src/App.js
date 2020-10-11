@@ -1,5 +1,7 @@
 import React from 'react';
 import Map from './components/map.js';
+import Logo from './images/lightLogo.jpg';
+import hands from './images/hands.jpg';
 import foodImg from './images/pexels-mariana-kurnyk-1775043.jpg';
 import shopImg from './images/pexels-ksenia-chernaya-3965557.jpg';
 import serviceImg from './images/pexels-maria-gloss-4197693.jpg';
@@ -8,6 +10,7 @@ import topImg from './images/pexels-arnon-suksumran-996219.jpg';
 import busImg1 from './images/pexels-andrea-piacquadio-3932730.jpg';
 import busImg2 from './images/pexels-rfstudio-4177755.jpg';
 import busImg3 from './images/pexels-justin-l-4060881.jpg';
+import yogaImg from './images/pexels-cottonbro-4056535.jpg';
 import { BsBookmarkPlus, BsDownload } from "react-icons/bs";
 import { BiBadgeCheck, BiBrightness, BiCalendarPlus } from "react-icons/bi";
 import { AiOutlineFacebook, AiOutlineInstagram, AiOutlineQuestionCircle } from "react-icons/ai";
@@ -36,7 +39,7 @@ class Head extends React.Component {
     <div id="topImage">
       <Nav/>
       <img src={topImg} id="topImg" />
-      <h1 id="title" style={{color: 'white'}}>Stay Safe. Stay <span style={{color: '#263EE7'}}>Bizi</span>.</h1>
+      <h1 id="title" style={{color: 'white'}}>Stay Safe. Stay <span style={{color: '#385FDC'}}>Bizi</span>.</h1>
       <input type="text" id="searchbar" placeholder="&#xF002; Search small businesses near you" value={this.state.search} onChange={this.searchChange}/>
     </div>
   );}
@@ -46,14 +49,17 @@ class Head extends React.Component {
 function App() {
   return (
     <div className="App">
-      <Router>
+      <Router>        
         <Switch>          
-          <Route path="/">            
+          <Route exact path="/">                        
             <Head />
             <Description />
             <Discover />
             <ReadStories />
             <CompanyInfo />
+          </Route>
+          <Route path="/stories">
+            <Stories />
           </Route>                  
         </Switch>       
       </Router>
@@ -61,10 +67,35 @@ function App() {
   );
 }
 
+function Stories(){
+  return (
+    <div>
+      <Nav/>
+      <h1 className = "story-header">Meet the People Behind your Favorite Business</h1>
+      <Business />
+    </div>
+  )
+}
+function Business(){
+  return (
+    <div className="business">
+      <div className="business-text">
+        <h2>Meet Jessie</h2>
+        <h3>Owner of Yoga with Dogs</h3>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse vitae tincidunt quam. Cras elementum, nulla eu ultrices porta, neque dolor egestas lectus, ac tristique risus tellus et magna. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent dapibus ultricies lacus, eu venenatis odio euismod sit amet. Vestibulum lacus mauris, lacinia at turpis rhoncus, dapibus accumsan nunc. Integer vel fermentum odio. Vestibulum a massa tellus.</p>
+        <p>Curabitur vitae ex non ante interdum tristique sed ac tortor. Curabitur at leo ac ligula pellentesque luctus. Pellentesque tempus enim et augue hendrerit lacinia. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Suspendisse tempor lorem eu metus cursus, in lacinia nibh lacinia. Mauris ullamcorper rhoncus diam, in lacinia massa convallis et. Ut lectus purus, pretium ut est vel, dictum pulvinar nisi. Donec hendrerit leo odio, ac lobortis justo gravida sed.</p>
+        <button>Read More about Jessie</button>
+      </div>
+      <img src={yogaImg}/>
+    </div>
+  )
+}
+
 //Navbar component that links to other pages
 function Nav(){
   return(    
     <nav>
+      <img class="logo" src={Logo} />
       <ul>                  
         <li id='logIn'><Link to="/login">Log In</Link></li>
         <li><Link to="/contact">Contact</Link></li>
@@ -85,10 +116,12 @@ function Description(){
 
       <div className="description-text">
         <div className="textbox">
-          <h2>Bat 17 
-            <BsBookmarkPlus className="icon action"/>
-            <BsDownload className="icon action"/>
-          </h2>
+          <div className="center-icon">
+            <h2>Bat 17  <span className="center-text">
+              <BsBookmarkPlus className="icon action"/>
+              <BsDownload className="icon action"/>
+            </span></h2>                        
+          </div>
           <h2 className="right">
             <AiOutlineFacebook className="icon"/>
             <AiOutlineInstagram className="icon"/>
@@ -185,7 +218,8 @@ function ReadStories() {
         </div>
       </div>
       <div id='read-more'>
-        <Link to='/stories'><h1>Read More</h1></Link>
+        <div><img src={hands} /></div>
+        <div><Link to='/stories'><h1>Read More</h1></Link></div>
       </div>    
     </div>
   )

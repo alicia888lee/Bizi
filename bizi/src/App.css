@@ -40,8 +40,8 @@
 #title {
   position: absolute;
   top: 30%;
-  left: 44%;
-  bottom: 30%;
+  left: 50%;
+  bottom: 20%;
   transform: translate(-50%, -50%);
   align-self: center;
   font-size: 72px;
@@ -49,7 +49,7 @@
 }
 
 .discover {
-  background-color: #263EE7;
+  background-color: #385FDC;
   padding: 50px;
 }
 
@@ -103,7 +103,7 @@
 }
 
 .read-stories h1 {
-  color: #263EE7;
+  color: #385FDC;
   float: left;
   margin-left: 50px;
   margin-top: 80px;
@@ -128,7 +128,7 @@
 }
 
 .bus-cols h2 {
-  color: #263EE7;
+  color: #385FDC;
 }
 
 .bus-cols p {
@@ -144,26 +144,39 @@
 }
 
 #read-more {
-  width: 180px;
+  width: 100%;
   height: 80px;
-  border: 5px solid #263EE7;
-  border-radius: 25px;
-  margin-bottom: -100px;
+  margin-bottom: -20px;
   margin-left: auto;
   margin-right: auto;
+  bottom: 220px;
+  top: 50px;
+  position: relative;
 }
 
 #read-more h1 {
-  color: #263EE7;
+  color: #385FDC;
   font-size: 25px;
-  position: relative;
-  right: 23px;
-  bottom: 58px;
+  position: absolute;
+  left: 47%;
+  top: 50%;
+  transform: translate(-55%, -120%);
+  border: 5px solid #385FDC;
+  border-radius: 25px;
+  padding: 25px;
+  align-self: center;
+}
+
+#read-more img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: translate(0%, -30%);
 }
 
 .info {
   margin-top: 200px;
-  background-color: #263EE7;
+  background-color: #385FDC;
   height: 300px;
   width: 100%;
 }
@@ -188,6 +201,7 @@
   filter: brightness(50%);
   width: 100%;
   height: 600px;
+  object-fit: cover;
 }
 
 #searchbar {
@@ -206,13 +220,19 @@ nav{
   position: absolute;
   width: 100%;
   z-index: 9999;    
-  right:0;  
+  right: 0;    
+  display: flex;
+  justify-content: space-between;
+}
+
+.logo {
+  width: 14%;  
 }
 
 nav ul{
   list-style-type: none;
   padding-right: 30px;
-  margin: 0;
+  margin: 0;    
 }
 
 nav li {
@@ -232,7 +252,7 @@ nav #logIn {
   width: 80px;
   height: 60px;
   border-radius: 0 0 25px 25px;
-  background-color: #263EE7;
+  background-color: #385FDC;
 }
 
 .description {
@@ -302,7 +322,9 @@ nav #logIn {
 .textbox h2{
   font-size: 2em;
 }
-
+.center-text {
+  vertical-align: middle;
+}
 .icon{
   padding: 0 7px;
 }
@@ -342,4 +364,21 @@ nav #logIn {
 }
 .review1 div{
   flex: 9;
+}
+.story-header {
+  padding: 4em;
+  font-size: 4em;
+}
+.business {
+  display: flex;
+  background-color: #dee6f9;
+  padding: 4em;
+
+}
+.business-text {
+  flex: 1;
+}
+.business img {
+  flex: 1;
+  width: 10%;
 }
