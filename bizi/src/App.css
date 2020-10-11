@@ -1,5 +1,11 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+* {
+  font-family: 'Poppins', sans-serif;
+}
+
 .App {
-  text-align: center;
+  text-align: center;  
 }
 
 .App-logo {
@@ -379,6 +385,32 @@ nav #logIn {
   flex: 1;
 }
 .business img {
-  flex: 1;
+  flex: 2;
   width: 10%;
+  border-radius: 2em;
+}
+.business h2 {
+  color: #385FDC;
+  font-size: 2em;
+  margin-bottom: 0;
+}
+.business h3 {
+  color: #6e6767;
+  margin-top: 0.5em;
+}
+.business p{
+  line-height: 1.5;
+  text-align: left;
+  margin-top: 2em;
+  text-indent: 2em;
+}
+.business button {
+  background-color: #dee6f9;
+  color: #385FDC;
+  border: 3px solid #385FDC;
+  border-radius: 1em;
+  padding: 0.5em 1em;
+  font-size: 1.25em;
+  align-self: center;  
+  font-weight: bold;    
 }
