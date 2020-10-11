@@ -148,6 +148,10 @@ nav li a{
   text-align: left;
   padding: 2.5em;
 }
+
+.description p{
+  font-size: 1.2em;
+}
 .textbox{
   display: flex;
   justify-content: space-between;
@@ -211,10 +215,23 @@ nav li a{
   padding: 0 7px;
 }
 
-.right, .description-text a {
+.right, .description-text a, .name, .thumbsUp {
   color: #3b61dd;  
   text-decoration: none;
 }
+
+.icon-text {
+  display: flex;
+  align-items: center;
+}
+.icon-text .action{
+  font-size: 1.9em;
+  flex: 1;
+}
+.icon-text p{
+  flex: 9;  
+}
+
 
 .question, .action {
   color: #dee6f9;
@@ -225,4 +242,12 @@ nav li a{
   background-color: #dee6f9;
   padding: 10px 20px;
   border-radius: 30px;
+  display: flex;
+  align-items: center;
+}
+.review1 .thumbsUp {
+  flex: 1;
+}
+.review1 div{
+  flex: 9;
 }

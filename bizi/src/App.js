@@ -93,23 +93,32 @@ function Description(){
         
         <div className="textbox">
           <button type="button">A <BiBadgeCheck/></button>
-          <h2 className="question"><AiOutlineQuestionCircle/></h2>
+          <h2 className="question"><AiOutlineQuestionCircle className="question"/></h2>
         </div>
-        <p>
-          <GiHealthNormal/>
-          Air ventilation, Sanitize between customers, 1/2 capacity, Outdoor seating
-        </p>
-        <p><BiCalendarPlus/> <a href="#">Make a reservation</a></p>
+        
+        <div className="icon-text">
+          <GiHealthNormal className="action"/>
+          <p>Air ventilation, Sanitize between customers, 1/2 capacity, Outdoor seating</p>
+        </div>
+
+        <div className="icon-text">
+          <BiCalendarPlus className="action"/> 
+          <p><a href="#">Make a reservation</a></p>
+        </div>
+        
 
         <div className="reviews">
           <div className="textbox">
             <p>Reviews</p>
-            <a href="#">See more</a>
+            <p><a href="#">See more</a></p>
           </div>
 
           <div className="review1">
-            <p><FiThumbsUp/> Jason</p>
-            <p>Donna porta hendreit ex, et sagittis magna.</p>
+            <FiThumbsUp className="thumbsUp"/>
+            <div>
+              <p className="name">Jason</p>
+              <p>Donna porta hendreit ex, et sagittis magna.</p>
+            </div>                      
           </div>
         </div>
       </div>      
