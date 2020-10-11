@@ -42,14 +42,14 @@
   top: 30%;
   left: 50%;
   bottom: 30%;
-  transform: translate(-30%, -50%);
+  transform: translate(-50%, -50%);
   align-self: center;
   font-size: 72px;
   
 }
 
 .discover {
-  background-color: #0473DD;
+  background-color: #263EE7;
   padding: 50px;
 }
 
@@ -103,7 +103,7 @@
 }
 
 .read-stories h1 {
-  color: #0473DD;
+  color: #263EE7;
   float: left;
   margin-left: 50px;
   margin-top: 80px;
@@ -128,7 +128,7 @@
 }
 
 .bus-cols h2 {
-  color: #0473DD;
+  color: #263EE7;
 }
 
 .bus-cols p {
@@ -146,7 +146,7 @@
 #read-more {
   width: 180px;
   height: 80px;
-  border: 5px solid #0473DD;
+  border: 5px solid #263EE7;
   border-radius: 25px;
   margin-bottom: -100px;
   margin-left: auto;
@@ -154,7 +154,7 @@
 }
 
 #read-more h1 {
-  color: #0473DD;
+  color: #263EE7;
   font-size: 25px;
   position: relative;
   right: 23px;
@@ -163,7 +163,7 @@
 
 .info {
   margin-top: 200px;
-  background-color: #0473DD;
+  background-color: #263EE7;
   height: 300px;
   width: 100%;
 }
@@ -199,7 +199,7 @@
   font-family: FontAwesome;
   position: absolute;
   top: 50%;
-  left: 55%;
+  left: 50%;
   transform: translate(-50%, -55%);
 }
 nav{
@@ -212,19 +212,29 @@ nav{
 nav ul{
   list-style-type: none;
   padding-right: 30px;
+  margin: 0;
 }
 
 nav li {
   display: inline;
   text-decoration: none;
   float: right;
-  padding: 20px 24px;
+  padding: 35px 24px;
 }
 
 nav li a{
   text-decoration: none;
   color: white;
+  font-size: 1.2em;
 }
+
+nav #logIn {
+  width: 80px;
+  height: 60px;
+  border-radius: 0 0 25px 25px;
+  background-color: #263EE7;
+}
+
 .description {
   display: flex;  
   text-align: left;
@@ -254,7 +264,7 @@ nav li a{
   top: -50px;
   left: -50px;
   text-align: center;
-  color: #3f51b5;  
+  color: #263EE7;  
   font-weight: bold;
   padding: 4px;  
 }
@@ -298,7 +308,7 @@ nav li a{
 }
 
 .right, .description-text a, .name, .thumbsUp {
-  color: #3b61dd;  
+  color: #263EE7;  
   text-decoration: none;
 }
 
