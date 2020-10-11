@@ -36,7 +36,7 @@ class Head extends React.Component {
     <div id="topImage">
       <Nav/>
       <img src={topImg} id="topImg" />
-      <h1 id="title" style={{color: 'white'}}>Stay Safe. Stay <span style={{color: 'blue'}}>Bizi</span>.</h1>
+      <h1 id="title" style={{color: 'white'}}>Stay Safe. Stay <span style={{color: '#263EE7'}}>Bizi</span>.</h1>
       <input type="text" id="searchbar" placeholder="&#xF002; Search small businesses near you" value={this.state.search} onChange={this.searchChange}/>
     </div>
   );}
@@ -66,7 +66,7 @@ function Nav(){
   return(    
     <nav>
       <ul>                  
-        <li><Link to="/login">Log In</Link></li>
+        <li id='logIn'><Link to="/login">Log In</Link></li>
         <li><Link to="/contact">Contact</Link></li>
         <li><Link to="/stories">Stories</Link></li>
         <li><Link to="/discover">Discover</Link></li>
@@ -185,7 +185,7 @@ function ReadStories() {
         </div>
       </div>
       <div id='read-more'>
-        <a href='#'><h1>Read More</h1></a>
+        <Link to='/stories'><h1>Read More</h1></Link>
       </div>    
     </div>
   )
