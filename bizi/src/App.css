@@ -50,71 +50,54 @@
 
 .discover {
   background-color: #0473DD;
+  padding: 50px;
 }
 
 .discover h1 {
   float: left;
-  margin-left: 2em;
-  margin-top: 1em;
+  margin-top: 30px;
   color: white;
   font-size: 2.7em;
 }
 
 .discover-cols {
-  height: 400px;
+  height: 425px;
   width: 100%;
   display: grid;
-  grid-template-columns: 375px 375px 375px 375px;
+  grid-template-columns: repeat(4, 1fr);
+  column-gap: 150px;
 }
 
 .discover-images-1 {
-  width: 270px;
-  height: 370px;
   position: relative;
-  left: -120px;
-  bottom: 100px;
 }
 
 .discover-images-2 {
-  width: 270px;
-  height: 370px;
-  left: -120px;
-  bottom: 100px;
   position: relative;
 }
 
 .discover-images-3 {
-  width: 270px;
-  height: 370px;
-  left: -120px;
-  bottom: 100px;
   position: relative;
 }
 
 .discover-images-4 {
-  width: 270px;
-  height: 370px;
-  left: -120px;
-  bottom: 100px;
   position: relative;
 }
 
 .discover-cols img {
   width: 100%;
-  height: 90%;
+  height: 340px;
   object-fit: cover;
   filter: brightness(60%) blur(1px);
   border-radius: 35px;
-  margin-left: 180px;
-  margin-top: 120px;
+  margin-top: 10px;
 }
 
 .discover-cols h2 {
   position: absolute;
-  width: 100%;
-  height: 100%;
-  top: 230px;
-  left: 180px;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  top: 150px;
   font-size: 2em;
   color: white;
 }
@@ -122,55 +105,42 @@
 .read-stories h1 {
   color: #0473DD;
   float: left;
-  margin-left: 2em;
-  margin-top: 1.5em;
+  margin-left: 50px;
+  margin-top: 80px;
   font-size: 2.7em;
 }
 
 .bus-cols {
-  height: 400px;
+  height: auto;
   width: 100%;
   display: grid;
-  grid-template-columns: 450px 450px 450px;
+  grid-template-columns: repeat(3, 1fr);
+  margin-bottom: 25px;
 }
 
 .bus-cols img {
-  width: 110%;
-  height: 80%;
-  background-size: 100px;
+  width: 300px;
+  height: 300px;
   object-fit: cover;
   border-radius: 50%;
-  margin-left: 140px;
   margin-top: 50px;
-}
-
-.bus-col-1 {
-  width: 270px;
-  height: 370px;
-}
-
-.bus-col-2 {
-  width: 270px;
-  height: 370px;
-}
-
-.bus-col-3 {
-  width: 270px;
-  height: 370px;
+  position: relative;
 }
 
 .bus-cols h2 {
   color: #0473DD;
-  margin-left: 160px;
-  margin-right: -150px;
 }
 
 .bus-cols p {
-  margin-left: 160px;
-  margin-right: -150px;
   font-weight: 500;
   font-size: 20px;
   line-height: 1em;
+}
+
+.read-stories a {
+  display: inline-block;
+  width: 100%;
+  height: 100%;
 }
 
 #read-more {
@@ -178,11 +148,9 @@
   height: 80px;
   border: 5px solid #0473DD;
   border-radius: 25px;
-  position: relative;
-  top: 125px;
-  left: 645px;
-  text-align: center;
-  margin-bottom: 50px;
+  margin-bottom: -100px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 #read-more h1 {
@@ -190,7 +158,7 @@
   font-size: 25px;
   position: relative;
   right: 23px;
-  bottom: 16px;
+  bottom: 58px;
 }
 
 .info {

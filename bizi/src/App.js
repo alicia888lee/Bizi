@@ -156,27 +156,25 @@ function ReadStories() {
         <h1>Read their Stories</h1>
       </div>
       <div className='bus-cols'>
-        <div className='bus-col-1'>
+        <div>
           <img src={busImg1}/>
           <h2>Business 1</h2>
           <p>Lorem ipsum dolor sit amet, consectetur...</p>
         </div>
-        <div className='bus-col-2'>
+        <div>
           <img src={busImg2}/>
           <h2>Business 2</h2>
           <p>Lorem ipsum dolor sit amet, consectetur...</p>
         </div>
-        <div className='bus-col-3'>
+        <div>
           <img src={busImg3}/>
           <h2>Business 3</h2>
           <p>Lorem ipsum dolor sit amet, consectetur...</p>
         </div>
       </div>
-      <a href='#'>
-        <div id='read-more'>
-          <h1>Read More</h1>
-        </div>
-      </a>
+      <div id='read-more'>
+        <a href='#'><h1>Read More</h1></a>
+      </div>    
     </div>
   )
 }
