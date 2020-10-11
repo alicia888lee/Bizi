@@ -40,7 +40,7 @@
 #title {
   position: absolute;
   top: 30%;
-  left: 50%;
+  left: 44%;
   bottom: 30%;
   transform: translate(-50%, -50%);
   align-self: center;
@@ -196,11 +196,11 @@
   text-align: center;
   border-radius: 50px;
   font-size: 24px;
-  font-family: FontAwesome;
+  font-family: "FontAwesome";
   position: absolute;
-  top: 50%;
+  top: 70%;
   left: 50%;
-  transform: translate(-50%, -55%);
+  transform: translate(-50%, -50%);
 }
 nav{
   position: absolute;
