@@ -121,24 +121,27 @@ h1:nth-child(1) {
   transform: translate(-50%, -55%);
 }
 nav{
-  overflow: hidden;
+  position: absolute;
+  width: 100%;
+  z-index: 9999;    
+  right:0;  
 }
 
 nav ul{
   list-style-type: none;
-  margin: 0;
-  padding: 0;
+  padding-right: 30px;
 }
 
 nav li {
   display: inline;
   text-decoration: none;
   float: right;
-  padding: 20px 14px;
+  padding: 20px 24px;
 }
 
 nav li a{
   text-decoration: none;
+  color: white;
 }
 .description {
   display: flex;  

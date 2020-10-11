@@ -33,6 +33,7 @@ class Head extends React.Component {
   render (){
     return (
     <div id="topImage">
+      <Nav/>
       <img src={topImg} id="topImg" />
       <h1 id="title" style={{color: 'white'}}>Stay Safe. Stay <span style={{color: 'blue'}}>Bizi</span>.</h1>
       <input type="text" id="searchbar" placeholder="&#xF002; Search small businesses near you" value={this.state.search} onChange={this.searchChange}/>
@@ -45,7 +46,6 @@ function App() {
   return (
     <div className="App">
       <Router>
-        <Nav/>
         <Switch>          
           <Route path="/">            
             <Head />
