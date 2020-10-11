@@ -42,14 +42,14 @@
   top: 30%;
   left: 44%;
   bottom: 30%;
-  transform: translate(-30%, -50%);
+  transform: translate(-50%, -50%);
   align-self: center;
   font-size: 72px;
   
 }
 
 .discover {
-  background-color: #0473DD;
+  background-color: #263EE7;
   padding: 50px;
 }
 
@@ -103,7 +103,7 @@
 }
 
 .read-stories h1 {
-  color: #0473DD;
+  color: #263EE7;
   float: left;
   margin-left: 50px;
   margin-top: 80px;
@@ -128,7 +128,7 @@
 }
 
 .bus-cols h2 {
-  color: #0473DD;
+  color: #263EE7;
 }
 
 .bus-cols p {
@@ -146,7 +146,7 @@
 #read-more {
   width: 180px;
   height: 80px;
-  border: 5px solid #0473DD;
+  border: 5px solid #263EE7;
   border-radius: 25px;
   margin-bottom: -100px;
   margin-left: auto;
@@ -154,7 +154,7 @@
 }
 
 #read-more h1 {
-  color: #0473DD;
+  color: #263EE7;
   font-size: 25px;
   position: relative;
   right: 23px;
@@ -163,7 +163,7 @@
 
 .info {
   margin-top: 200px;
-  background-color: #0473DD;
+  background-color: #263EE7;
   height: 300px;
   width: 100%;
 }
@@ -203,54 +203,85 @@
   transform: translate(-50%, -50%);
 }
 nav{
-  overflow: hidden;
+  position: absolute;
+  width: 100%;
+  z-index: 9999;    
+  right:0;  
 }
 
 nav ul{
   list-style-type: none;
+  padding-right: 30px;
   margin: 0;
-  padding: 0;
 }
 
 nav li {
   display: inline;
   text-decoration: none;
   float: right;
-  padding: 20px 14px;
+  padding: 35px 24px;
 }
 
 nav li a{
   text-decoration: none;
+  color: white;
+  font-size: 1.2em;
 }
+
+nav #logIn {
+  width: 80px;
+  height: 60px;
+  border-radius: 0 0 25px 25px;
+  background-color: #263EE7;
+}
+
 .description {
   display: flex;  
   text-align: left;
+  padding: 2.5em;
+}
+
+.description p{
+  font-size: 1.2em;
 }
 .textbox{
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
 
 .map {
   text-align: center;
   padding: 30px;
   width: 60%;
+  flex: 1.33;
   /* height: 900px; */
 }
+.pin {
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  top: -50px;
+  left: -50px;
+  text-align: center;
+  color: #263EE7;  
+  font-weight: bold;
+  padding: 4px;  
+}
+
+.pin-icon{
+  font-size: 6em;
+}
+.pin-text{
+  font-size: 2em;
+}
+
 .description-text {
   width: 40%;
   padding: 10px 20px;
-}
-.description-text, .map{
   flex: 1;
 }
-.map img{  
-  width: 100%;
-  /* height: 500px; */
-}
-.description-text p {
-  display: block;
-}
+  
 .description-text button{
   background-color: #83cb7b;
   color: white;
@@ -258,28 +289,57 @@ nav li a{
   border-radius: 30px;
   text-align: center;
   width: 90%;
-  padding: 15px 32px;
+  padding: 10px 28px;
   font-size: 20px;
   font-weight: bold;
   display: table-cell;
   align-items: center;
 }
+.right {
+  font-size: 2em;
+}
 
-.right, .description-text a {
-  color: #3b61dd;
+.textbox h2{
+  font-size: 2em;
+}
+
+.icon{
+  padding: 0 7px;
+}
+
+.right, .description-text a, .name, .thumbsUp {
+  color: #263EE7;  
   text-decoration: none;
 }
 
-.question {
-  color: #dee6f9;
-  text-align: center;
+.icon-text {
+  display: flex;
+  align-items: center;
+}
+.icon-text .action{
+  font-size: 1.9em;
+  flex: 1;
+}
+.icon-text p{
+  flex: 9;  
 }
 
-.description-text h2{    
+
+.question, .action {
+  color: #dee6f9;
+  text-align: center;
 }
 
 .review1{
   background-color: #dee6f9;
   padding: 10px 20px;
   border-radius: 30px;
+  display: flex;
+  align-items: center;
+}
+.review1 .thumbsUp {
+  flex: 1;
+}
+.review1 div{
+  flex: 9;
 }
