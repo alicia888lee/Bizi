@@ -85,8 +85,8 @@ function Business(){
         <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse vitae tincidunt quam. Cras elementum, nulla eu ultrices porta, neque dolor egestas lectus, ac tristique risus tellus et magna. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent dapibus ultricies lacus, eu venenatis odio euismod sit amet. Vestibulum lacus mauris, lacinia at turpis rhoncus, dapibus accumsan nunc. Integer vel fermentum odio. Vestibulum a massa tellus.</p>
         <p> Curabitur vitae ex non ante interdum tristique sed ac tortor. Curabitur at leo ac ligula pellentesque luctus. Pellentesque tempus enim et augue hendrerit lacinia. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Suspendisse tempor lorem eu metus cursus, in lacinia nibh lacinia. Mauris ullamcorper rhoncus diam, in lacinia massa convallis et. Ut lectus purus, pretium ut est vel, dictum pulvinar nisi. Donec hendrerit leo odio, ac lobortis justo gravida sed.</p>
         <button>Read More about Jessie</button>
-      </div>
-      <img src={yogaImg}/>
+      </div>      
+      <img src={yogaImg} alt="yoga"/>      
     </div>
   )
 }

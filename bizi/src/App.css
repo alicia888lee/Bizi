@@ -372,22 +372,23 @@ nav #logIn {
   flex: 9;
 }
 .story-header {
-  padding: 4em;
+  padding: 3em 6em 0 6em;      
   font-size: 4em;
 }
 .business {
   display: flex;
   background-color: #dee6f9;
   padding: 4em;
-
+  align-items: center;
 }
+
 .business-text {
   flex: 1;
 }
 .business img {
   flex: 2;
-  width: 10%;
-  border-radius: 2em;
+  width: 8%;
+  border-radius: 2em;   
 }
 .business h2 {
   color: #385FDC;
