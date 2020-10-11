@@ -5,11 +5,16 @@ import shopImg from './images/pexels-ksenia-chernaya-3965557.jpg';
 import serviceImg from './images/pexels-maria-gloss-4197693.jpg';
 import otherImg from './images/pexels-oleg-magni-1005638.jpg';
 import topImg from './images/pexels-arnon-suksumran-996219.jpg';
+import busImg1 from './images/pexels-andrea-piacquadio-3932730.jpg';
+import busImg2 from './images/pexels-rfstudio-4177755.jpg';
+import busImg3 from './images/pexels-justin-l-4060881.jpg';
 import { BsBookmarkPlus, BsDownload } from "react-icons/bs";
 import { BiBadgeCheck, BiBrightness, BiCalendarPlus } from "react-icons/bi";
 import { AiOutlineFacebook, AiOutlineInstagram, AiOutlineQuestionCircle } from "react-icons/ai";
 import { FiTwitter, FiThumbsUp } from "react-icons/fi";
 import { GiHealthNormal } from "react-icons/gi";
+import Grid from '@material-ui/core/Grid';
+
 
 import { BrowserRouter as Router, Route, Switch, Link} from "react-router-dom";
 import './App.css';
@@ -47,6 +52,8 @@ function App() {
             <Head />
             <Description />
             <Discover />
+            <ReadStories />
+            <CompanyInfo />
           </Route>                  
         </Switch>       
       </Router>
@@ -126,25 +133,75 @@ function Description(){
   )
 }
 
-function Discover(){
+function Discover() {
   return (
     <div className='discover'>
-      <h1>Discover</h1>
-      <div className='discover-images'>
-        <img src={foodImg} />
-        <h1>Food</h1>
+      <div>
+        <h1>Discover</h1>
       </div>
-      <div className='discover-images'>
-        <img src={shopImg} />
-        <h1>Shopping</h1>
+      <div className='discover-cols'>
+        <div className='discover-images-1'>
+          <img src={foodImg}/>
+          <h2>Food</h2>
+        </div>
+        <div className='discover-images-2'>
+          <img src={shopImg}/>
+          <h2>Shopping</h2>
+        </div>
+        <div className = 'discover-images-3'>
+          <img src={serviceImg}/>
+          <h2>Services</h2>
+        </div>
+        <div className = 'discover-images-4'>
+          <img src={otherImg}/>
+          <h2>More</h2>
+        </div>
       </div>
-      <div className = 'discover-images'>
-        <img src={serviceImg} />
-        <h1>Services</h1>
+    </div>
+  )
+}
+
+function ReadStories() {
+  return (
+    <div className='read-stories'>
+      <div>
+        <h1>Read their Stories</h1>
       </div>
-      <div className = 'discover-images'>
-        <img src={otherImg} />
-        <h1>More</h1>
+      <div className='bus-cols'>
+        <div>
+          <img src={busImg1}/>
+          <h2>Business 1</h2>
+          <p>Lorem ipsum dolor sit amet, consectetur...</p>
+        </div>
+        <div>
+          <img src={busImg2}/>
+          <h2>Business 2</h2>
+          <p>Lorem ipsum dolor sit amet, consectetur...</p>
+        </div>
+        <div>
+          <img src={busImg3}/>
+          <h2>Business 3</h2>
+          <p>Lorem ipsum dolor sit amet, consectetur...</p>
+        </div>
+      </div>
+      <div id='read-more'>
+        <a href='#'><h1>Read More</h1></a>
+      </div>    
+    </div>
+  )
+}
+
+function CompanyInfo() {
+  return (
+    <div className='info'>
+      <div>
+        <h1>Bizi LLC.</h1>
+      </div>
+      <div>
+        <h1>hello@bizi.com | 1111 Campus Dr., Evanston, IL 60201</h1>
+      </div>
+      <div>
+        <h1><AiOutlineFacebook/> <AiOutlineInstagram/> <FiTwitter/></h1>
       </div>
     </div>
   )
