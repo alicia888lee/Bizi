@@ -1,5 +1,4 @@
 import React from 'react';
-import logo from './logo.svg';
 import Map from './components/map.js';
 import foodImg from './images/pexels-mariana-kurnyk-1775043.jpg';
 import shopImg from './images/pexels-ksenia-chernaya-3965557.jpg';
@@ -12,11 +11,8 @@ import { AiOutlineFacebook, AiOutlineInstagram, AiOutlineQuestionCircle } from "
 import { FiTwitter, FiThumbsUp } from "react-icons/fi";
 import { GiHealthNormal } from "react-icons/gi";
 
-
-
 import { BrowserRouter as Router, Route, Switch, Link} from "react-router-dom";
 import './App.css';
-
 
 class Head extends React.Component {
 
@@ -82,8 +78,15 @@ function Description(){
 
       <div className="description-text">
         <div className="textbox">
-          <h2>Bat 17 <BsBookmarkPlus/> <BsDownload /></h2>
-          <h2 className="right"><AiOutlineFacebook/> <AiOutlineInstagram/> <FiTwitter/></h2>
+          <h2>Bat 17 
+            <BsBookmarkPlus className="icon action"/>
+            <BsDownload className="icon action"/>
+          </h2>
+          <h2 className="right">
+            <AiOutlineFacebook className="icon"/>
+            <AiOutlineInstagram className="icon"/>
+            <FiTwitter className="icon"/>
+          </h2>
         </div>
         
         <p className="textbox">Lorem ipsum dolor sit amet, consectetar adipiscing elit. Donec porta hendreit ex, et sagittis magna.</p>                        

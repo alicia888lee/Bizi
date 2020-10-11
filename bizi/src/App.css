@@ -146,35 +146,46 @@ nav li a{
 .description {
   display: flex;  
   text-align: left;
+  padding: 2.5em;
 }
 .textbox{
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
 
 .map {
   text-align: center;
   padding: 30px;
   width: 60%;
+  flex: 1.33;
   /* height: 900px; */
 }
 .pin {
-  font-size: 5em;
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  top: -50px;
+  left: -50px;
+  text-align: center;
+  color: #3f51b5;  
+  font-weight: bold;
+  padding: 4px;  
 }
+
+.pin-icon{
+  font-size: 6em;
+}
+.pin-text{
+  font-size: 2em;
+}
+
 .description-text {
   width: 40%;
   padding: 10px 20px;
-}
-.description-text, .map{
   flex: 1;
 }
-.map img{  
-  width: 100%;
-  /* height: 500px; */
-}
-.description-text p {
-  display: block;
-}
+  
 .description-text button{
   background-color: #83cb7b;
   color: white;
@@ -182,24 +193,32 @@ nav li a{
   border-radius: 30px;
   text-align: center;
   width: 90%;
-  padding: 15px 32px;
+  padding: 10px 28px;
   font-size: 20px;
   font-weight: bold;
   display: table-cell;
   align-items: center;
 }
+.right {
+  font-size: 2em;
+}
+
+.textbox h2{
+  font-size: 2em;
+}
+
+.icon{
+  padding: 0 7px;
+}
 
 .right, .description-text a {
-  color: #3b61dd;
+  color: #3b61dd;  
   text-decoration: none;
 }
 
-.question {
+.question, .action {
   color: #dee6f9;
   text-align: center;
-}
-
-.description-text h2{    
 }
 
 .review1{

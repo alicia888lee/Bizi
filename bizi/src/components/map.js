@@ -10,6 +10,7 @@ const location = {
 const LocationPin = ({ text }) => (
     <div className="pin">
       <FiMapPin className="pin-icon" />      
+      <p className="pin-text">{text}</p>
     </div>
   )
   
@@ -25,7 +26,7 @@ class Map extends Component {
           <LocationPin
             lat={location.lat}
             lng={location.lng}
-            text="My Marker"
+            text="Bat 17"
           />
         </GoogleMapReact>
       </div>
