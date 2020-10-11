@@ -1,6 +1,7 @@
 import React from 'react';
 import Map from './components/map.js';
-import Logo from './images/lightLogo.jpg';
+import LightLogo from './images/lightLogo.jpg';
+import DarkLogo from './images/darkLogo.jpg';
 import hands from './images/hands.jpg';
 import foodImg from './images/pexels-mariana-kurnyk-1775043.jpg';
 import shopImg from './images/pexels-ksenia-chernaya-3965557.jpg';
@@ -37,7 +38,7 @@ class Head extends React.Component {
   render (){
     return (
     <div id="topImage">
-      <Nav/>
+      <Nav light={true} />
       <img src={topImg} id="topImg" />
       <h1 id="title" style={{color: 'white'}}>Stay Safe. Stay <span style={{color: '#385FDC'}}>Bizi</span>.</h1>
       <input type="text" id="searchbar" placeholder="&#xF002; Search small businesses near you" value={this.state.search} onChange={this.searchChange}/>
@@ -70,7 +71,7 @@ function App() {
 function Stories(){
   return (
     <div>
-      <Nav/>
+      <Nav light={false} />
       <h1 className = "story-header">Meet the People Behind your Favorite Business</h1>
       <Business />
     </div>
@@ -92,17 +93,31 @@ function Business(){
 }
 
 //Navbar component that links to other pages
-function Nav(){
-  return(    
-    <nav>
-      <img class="logo" src={Logo} />
-      <ul>                  
-        <li id='logIn'><Link to="/login">Log In</Link></li>
-        <li><Link to="/contact">Contact</Link></li>
-        <li><Link to="/stories">Stories</Link></li>
-        <li><Link to="/discover">Discover</Link></li>
-        <li><Link to="/search">Search</Link></li>                                
-      </ul>
+function Nav(props){
+  if(props.light){
+    return(    
+      <nav>
+        <img class="logo" src={LightLogo} />
+        <ul>                  
+          <li id='logIn'><Link to="/login">Log In</Link></li>
+          <li><Link to="/contact">Contact</Link></li>
+          <li><Link to="/stories">Stories</Link></li>
+          <li><Link to="/discover">Discover</Link></li>
+          <li><Link to="/search">Search</Link></li>                                
+        </ul>
+      </nav>          
+    )
+  }
+  return (
+    <nav class="dark">
+        <img class="logo" src={DarkLogo} />
+        <ul>                  
+          <li id='logIn'><Link to="/login">Log In</Link></li>
+          <li><Link to="/contact">Contact</Link></li>
+          <li><Link to="/stories">Stories</Link></li>
+          <li><Link to="/discover">Discover</Link></li>
+          <li><Link to="/search">Search</Link></li>                                
+        </ul>
     </nav>          
   )
 }

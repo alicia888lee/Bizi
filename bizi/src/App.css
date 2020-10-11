@@ -230,6 +230,12 @@ nav{
   display: flex;
   justify-content: space-between;
 }
+nav.dark{
+  position: relative;
+}
+nav.dark a{
+  color: #385FDC;
+}
 
 .logo {
   width: 14%;  
@@ -290,7 +296,7 @@ nav #logIn {
   top: -50px;
   left: -50px;
   text-align: center;
-  color: #263EE7;  
+  color: #385FDC;  
   font-weight: bold;
   padding: 4px;  
 }
@@ -372,7 +378,7 @@ nav #logIn {
   flex: 9;
 }
 .story-header {
-  padding: 3em 6em 0 6em;      
+  padding: 0em 6em;
   font-size: 4em;
 }
 .business {
