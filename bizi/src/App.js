@@ -46,11 +46,10 @@ class Head extends React.Component {
   );}
 }
 
-
 function App() {
   return (
     <div className="App">
-      <Router>        
+      <Router>
         <Switch>          
           <Route exact path="/">                        
             <Head />
@@ -219,24 +218,26 @@ function ReadStories() {
       </div>
       <div className='bus-cols'>
         <div>
-          <img src={busImg1}/>
+          <img id='bus1' src={busImg1}/>
           <h2>Business 1</h2>
           <p>Lorem ipsum dolor sit amet, consectetur...</p>
         </div>
         <div>
-          <img src={busImg2}/>
+          <img id='bus2' src={busImg2}/>
           <h2>Business 2</h2>
           <p>Lorem ipsum dolor sit amet, consectetur...</p>
         </div>
         <div>
-          <img src={busImg3}/>
+          <img id='bus3' src={busImg3}/>
           <h2>Business 3</h2>
           <p>Lorem ipsum dolor sit amet, consectetur...</p>
         </div>
       </div>
-      <div id='read-more'>
-        <div><img src={hands} /></div>
-        <div><Link to='/stories'><h1>Read More</h1></Link></div>
+      <div className='read-more-col'>
+        <div className='read-more-hands'>
+          <img src={hands}/>
+          <Link to='/stories'><h2>Read More</h2></Link>
+        </div>
       </div>    
     </div>
   )

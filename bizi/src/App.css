@@ -124,9 +124,21 @@
   margin-bottom: 25px;
 }
 
+#bus1 {
+  position: relative;
+}
+
+#bus2 {
+  position: relative;
+}
+
+#bus3 {
+  position: relative;
+}
+
 .bus-cols img {
-  width: 300px;
-  height: 300px;
+  width: 20vw;
+  height: 20vw;
   object-fit: cover;
   border-radius: 50%;
   margin-top: 50px;
@@ -144,44 +156,40 @@
 }
 
 .read-stories a {
-  display: inline-block;
   width: 100%;
   height: 100%;
 }
 
-#read-more {
+.read-more-col {
+  height: 250px;
   width: 100%;
-  height: 80px;
-  margin-bottom: -20px;
-  margin-left: auto;
-  margin-right: auto;
-  bottom: 220px;
-  top: 50px;
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+}
+
+.read-more-hands {
   position: relative;
 }
 
-#read-more h1 {
-  color: #385FDC;
-  font-size: 25px;
+.read-more-col img {
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+  margin-top: -35px;
+}
+
+.read-more-col h2 {
   position: absolute;
-  left: 47%;
-  top: 50%;
-  transform: translate(-55%, -120%);
+  left: 50%;
+  transform: translate(-50%, -50%);
+  top: 90px;
+  color: #385FDC;
   border: 5px solid #385FDC;
   border-radius: 25px;
   padding: 25px;
-  align-self: center;
-}
-
-#read-more img{
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transform: translate(0%, -30%);
 }
 
 .info {
-  margin-top: 200px;
   background-color: #385FDC;
   height: 300px;
   width: 100%;
@@ -235,6 +243,7 @@ nav.dark{
 }
 nav.dark a{
   color: #385FDC;
+  border-style: none;
 }
 
 .logo {
@@ -262,18 +271,19 @@ nav li a{
 
 nav #logIn {
   width: 80px;
-  height: 60px;
+  height: 40px;
   border-radius: 0 0 25px 25px;
   background-color: #385FDC;
 }
 nav.dark #logIn a{
   color: white;
 }
+
 .active {
   width: 80px;
-  height: -20px;  
-  border-radius: 0 0 25px 25px;
-  background-color: #385FDC;
+  padding-top: 29px;
+  border-top: 6px solid;
+  border-top-color: #385FDC;
 }
 
 .description {
