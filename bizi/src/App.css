@@ -266,6 +266,15 @@ nav #logIn {
   border-radius: 0 0 25px 25px;
   background-color: #385FDC;
 }
+nav.dark #logIn a{
+  color: white;
+}
+.active {
+  width: 80px;
+  height: -20px;  
+  border-radius: 0 0 25px 25px;
+  background-color: #385FDC;
+}
 
 .description {
   display: flex;  

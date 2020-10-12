@@ -20,7 +20,7 @@ import { GiHealthNormal } from "react-icons/gi";
 import Grid from '@material-ui/core/Grid';
 
 
-import { BrowserRouter as Router, Route, Switch, Link} from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch, NavLink as Link} from "react-router-dom";
 import './App.css';
 
 class Head extends React.Component {
@@ -68,6 +68,38 @@ function App() {
   );
 }
 
+//Navbar component that links to other pages
+function Nav(props){
+  if(props.light){
+    return(    
+      <nav>
+        <img class="logo" src={LightLogo} />
+        <ul>                  
+          <li id='logIn'><Link to="/login" activeClassName="active">Log In</Link></li>
+          <li><Link to="/contact" activeClassName="active">Contact</Link></li>
+          <li><Link to="/stories">Stories</Link></li>
+          <li><Link to="/discover" activeClassName="active">Discover</Link></li>
+          <li><Link to="/search" activeClassName="active">Search</Link></li>                                
+        </ul>
+      </nav>          
+    )
+  }
+  return (
+    <nav class="dark">
+        <img class="logo" src={DarkLogo} />
+        <ul>                  
+          <li id='logIn'><Link to="/login">Log In</Link></li>
+          <li><Link to="/contact">Contact</Link></li>
+          <li className={window.location.pathname.startsWith('/stories') && 'active'}>
+            <Link to="/stories">Stories</Link>
+          </li>
+          <li><Link to="/discover">Discover</Link></li>
+          <li><Link to="/search">Search</Link></li>                                
+        </ul>
+    </nav>          
+  )
+}
+
 function Stories(){
   return (
     <div>
@@ -77,7 +109,7 @@ function Stories(){
     </div>
   )
 }
-function Business(){
+function Business(){  
   return (
     <div className="business">
       <div className="business-text">
@@ -89,36 +121,6 @@ function Business(){
       </div>      
       <img src={yogaImg} alt="yoga"/>      
     </div>
-  )
-}
-
-//Navbar component that links to other pages
-function Nav(props){
-  if(props.light){
-    return(    
-      <nav>
-        <img class="logo" src={LightLogo} />
-        <ul>                  
-          <li id='logIn'><Link to="/login">Log In</Link></li>
-          <li><Link to="/contact">Contact</Link></li>
-          <li><Link to="/stories">Stories</Link></li>
-          <li><Link to="/discover">Discover</Link></li>
-          <li><Link to="/search">Search</Link></li>                                
-        </ul>
-      </nav>          
-    )
-  }
-  return (
-    <nav class="dark">
-        <img class="logo" src={DarkLogo} />
-        <ul>                  
-          <li id='logIn'><Link to="/login">Log In</Link></li>
-          <li><Link to="/contact">Contact</Link></li>
-          <li><Link to="/stories">Stories</Link></li>
-          <li><Link to="/discover">Discover</Link></li>
-          <li><Link to="/search">Search</Link></li>                                
-        </ul>
-    </nav>          
   )
 }
 
