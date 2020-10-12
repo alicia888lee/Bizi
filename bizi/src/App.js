@@ -1,6 +1,7 @@
 import React from 'react';
 import Map from './components/map.js';
-import Logo from './images/lightLogo.jpg';
+import LightLogo from './images/lightLogo.jpg';
+import DarkLogo from './images/darkLogo.jpg';
 import hands from './images/hands.jpg';
 import foodImg from './images/pexels-mariana-kurnyk-1775043.jpg';
 import shopImg from './images/pexels-ksenia-chernaya-3965557.jpg';
@@ -19,7 +20,7 @@ import { GiHealthNormal } from "react-icons/gi";
 import Grid from '@material-ui/core/Grid';
 
 
-import { BrowserRouter as Router, Route, Switch, Link} from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch, NavLink as Link} from "react-router-dom";
 import './App.css';
 
 class Head extends React.Component {
@@ -37,7 +38,7 @@ class Head extends React.Component {
   render (){
     return (
     <div id="topImage">
-      <Nav/>
+      <Nav light={true} />
       <img src={topImg} id="topImg" />
       <h1 id="title" style={{color: 'white'}}>Stay Safe. Stay <span style={{color: '#385FDC'}}>Bizi</span>.</h1>
       <input type="text" id="searchbar" placeholder="&#xF002; Search small businesses near you" value={this.state.search} onChange={this.searchChange}/>
@@ -67,43 +68,59 @@ function App() {
   );
 }
 
+//Navbar component that links to other pages
+function Nav(props){
+  if(props.light){
+    return(    
+      <nav>
+        <img class="logo" src={LightLogo} />
+        <ul>                  
+          <li id='logIn'><Link to="/login" activeClassName="active">Log In</Link></li>
+          <li><Link to="/contact" activeClassName="active">Contact</Link></li>
+          <li><Link to="/stories">Stories</Link></li>
+          <li><Link to="/discover" activeClassName="active">Discover</Link></li>
+          <li><Link to="/search" activeClassName="active">Search</Link></li>                                
+        </ul>
+      </nav>          
+    )
+  }
+  return (
+    <nav class="dark">
+        <img class="logo" src={DarkLogo} />
+        <ul>                  
+          <li id='logIn'><Link to="/login">Log In</Link></li>
+          <li><Link to="/contact">Contact</Link></li>
+          <li className={window.location.pathname.startsWith('/stories') && 'active'}>
+            <Link to="/stories">Stories</Link>
+          </li>
+          <li><Link to="/discover">Discover</Link></li>
+          <li><Link to="/search">Search</Link></li>                                
+        </ul>
+    </nav>          
+  )
+}
+
 function Stories(){
   return (
     <div>
-      <Nav/>
+      <Nav light={false} />
       <h1 className = "story-header">Meet the People Behind your Favorite Business</h1>
       <Business />
     </div>
   )
 }
-function Business(){
+function Business(){  
   return (
     <div className="business">
       <div className="business-text">
         <h2>Meet Jessie</h2>
         <h3>Owner of Yoga with Dogs</h3>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse vitae tincidunt quam. Cras elementum, nulla eu ultrices porta, neque dolor egestas lectus, ac tristique risus tellus et magna. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent dapibus ultricies lacus, eu venenatis odio euismod sit amet. Vestibulum lacus mauris, lacinia at turpis rhoncus, dapibus accumsan nunc. Integer vel fermentum odio. Vestibulum a massa tellus.</p>
-        <p>Curabitur vitae ex non ante interdum tristique sed ac tortor. Curabitur at leo ac ligula pellentesque luctus. Pellentesque tempus enim et augue hendrerit lacinia. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Suspendisse tempor lorem eu metus cursus, in lacinia nibh lacinia. Mauris ullamcorper rhoncus diam, in lacinia massa convallis et. Ut lectus purus, pretium ut est vel, dictum pulvinar nisi. Donec hendrerit leo odio, ac lobortis justo gravida sed.</p>
+        <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse vitae tincidunt quam. Cras elementum, nulla eu ultrices porta, neque dolor egestas lectus, ac tristique risus tellus et magna. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent dapibus ultricies lacus, eu venenatis odio euismod sit amet. Vestibulum lacus mauris, lacinia at turpis rhoncus, dapibus accumsan nunc. Integer vel fermentum odio. Vestibulum a massa tellus.</p>
+        <p> Curabitur vitae ex non ante interdum tristique sed ac tortor. Curabitur at leo ac ligula pellentesque luctus. Pellentesque tempus enim et augue hendrerit lacinia. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Suspendisse tempor lorem eu metus cursus, in lacinia nibh lacinia. Mauris ullamcorper rhoncus diam, in lacinia massa convallis et. Ut lectus purus, pretium ut est vel, dictum pulvinar nisi. Donec hendrerit leo odio, ac lobortis justo gravida sed.</p>
         <button>Read More about Jessie</button>
-      </div>
-      <img src={yogaImg}/>
+      </div>      
+      <img src={yogaImg} alt="yoga"/>      
     </div>
-  )
-}
-
-//Navbar component that links to other pages
-function Nav(){
-  return(    
-    <nav>
-      <img class="logo" src={Logo} />
-      <ul>                  
-        <li id='logIn'><Link to="/login">Log In</Link></li>
-        <li><Link to="/contact">Contact</Link></li>
-        <li><Link to="/stories">Stories</Link></li>
-        <li><Link to="/discover">Discover</Link></li>
-        <li><Link to="/search">Search</Link></li>                                
-      </ul>
-    </nav>          
   )
 }
 

@@ -1,5 +1,11 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+* {
+  font-family: 'Poppins', sans-serif;
+}
+
 .App {
-  text-align: center;
+  text-align: center;  
 }
 
 .App-logo {
@@ -224,6 +230,12 @@ nav{
   display: flex;
   justify-content: space-between;
 }
+nav.dark{
+  position: relative;
+}
+nav.dark a{
+  color: #385FDC;
+}
 
 .logo {
   width: 14%;  
@@ -251,6 +263,15 @@ nav li a{
 nav #logIn {
   width: 80px;
   height: 60px;
+  border-radius: 0 0 25px 25px;
+  background-color: #385FDC;
+}
+nav.dark #logIn a{
+  color: white;
+}
+.active {
+  width: 80px;
+  height: -20px;  
   border-radius: 0 0 25px 25px;
   background-color: #385FDC;
 }
@@ -284,7 +305,7 @@ nav #logIn {
   top: -50px;
   left: -50px;
   text-align: center;
-  color: #263EE7;  
+  color: #385FDC;  
   font-weight: bold;
   padding: 4px;  
 }
@@ -366,19 +387,46 @@ nav #logIn {
   flex: 9;
 }
 .story-header {
-  padding: 4em;
+  padding: 0em 6em;
   font-size: 4em;
 }
 .business {
   display: flex;
   background-color: #dee6f9;
   padding: 4em;
-
+  align-items: center;
 }
+
 .business-text {
   flex: 1;
 }
 .business img {
-  flex: 1;
-  width: 10%;
+  flex: 2;
+  width: 8%;
+  border-radius: 2em;   
+}
+.business h2 {
+  color: #385FDC;
+  font-size: 2em;
+  margin-bottom: 0;
+}
+.business h3 {
+  color: #6e6767;
+  margin-top: 0.5em;
+}
+.business p{
+  line-height: 1.5;
+  text-align: left;
+  margin-top: 2em;
+  text-indent: 2em;
+}
+.business button {
+  background-color: #dee6f9;
+  color: #385FDC;
+  border: 3px solid #385FDC;
+  border-radius: 1em;
+  padding: 0.5em 1em;
+  font-size: 1.25em;
+  align-self: center;  
+  font-weight: bold;    
 }
