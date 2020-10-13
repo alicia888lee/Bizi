@@ -3,6 +3,7 @@ import Map from './components/map.js';
 import LightLogo from './images/lightLogo.jpg';
 import DarkLogo from './images/darkLogo.jpg';
 import hands from './images/hands.jpg';
+import blankImg from './images/noImage.png';
 import foodImg from './images/pexels-mariana-kurnyk-1775043.jpg';
 import shopImg from './images/pexels-ksenia-chernaya-3965557.jpg';
 import serviceImg from './images/pexels-maria-gloss-4197693.jpg';
@@ -167,21 +168,21 @@ function ImageGrid(){
     <div className="picRow">
       <div className="picCol" id='picCol1'>
         <img className="gridImg" src={busImg1} />
-        <img className="gridImg" src={busImg2} />
-        <img className="gridImg" src={busImg3} />
-        <img className="gridImg" src={busImg1} />
+        <img className="gridImg" src={blankImg} id='blank1' />
+        <img className="gridImg" src={blankImg} id='blank2' />
+        <img className="gridImg" src={blankImg} id='blank3' />
       </div>
       <div className="picCol">
-        <img className="gridImg" src={busImg1} />
         <img className="gridImg" src={busImg2} />
-        <img className="gridImg" src={busImg3} />
-        <img className="gridImg" src={busImg1} />
+        <img className="gridImg" src={blankImg} id='blank3' />
+        <img className="gridImg" src={blankImg} id='blank1' />
+        <img className="gridImg" src={blankImg} id='blank2' />
       </div>
       <div className="picCol" id='picCol3'>
-        <img className="gridImg" src={busImg1} />
-        <img className="gridImg" src={busImg2} />
         <img className="gridImg" src={busImg3} />
-        <img className="gridImg" src={busImg1} />
+        <img className="gridImg" src={blankImg} id='blank2' />
+        <img className="gridImg" src={blankImg} id='blank3' />
+        <img className="gridImg" src={blankImg} id='blank1' />
       </div>
     </div>
   )

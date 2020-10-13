@@ -487,6 +487,18 @@ nav.dark #myAccount a{
   grid-template-rows: repeat(1, 1fr);
 }
 
+#blank1 {
+  opacity: .2;
+}
+
+#blank2 {
+  opacity: .4;
+}
+
+#blank3 {
+  opacity: .6;
+}
+
 .picCol {
   position: relative;
 }
