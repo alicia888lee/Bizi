@@ -18,10 +18,9 @@ import { AiOutlineFacebook, AiOutlineInstagram, AiOutlineQuestionCircle } from "
 import { FiTwitter, FiThumbsUp } from "react-icons/fi";
 import { GiHealthNormal } from "react-icons/gi";
 import Grid from '@material-ui/core/Grid';
-
-
 import { BrowserRouter as Router, Route, Switch, NavLink as Link} from "react-router-dom";
 import './App.css';
+import ScrollToTop from './components/ScrollToTop.js';
 
 class Head extends React.Component {
 
@@ -50,6 +49,7 @@ function App() {
   return (
     <div className="App">
       <Router>
+        <ScrollToTop />
         <Switch>          
           <Route exact path="/">                        
             <Head />
