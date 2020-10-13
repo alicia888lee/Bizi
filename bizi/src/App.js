@@ -18,7 +18,7 @@ import { AiOutlineFacebook, AiOutlineInstagram, AiOutlineQuestionCircle } from "
 import { FiTwitter, FiThumbsUp } from "react-icons/fi";
 import { GiHealthNormal } from "react-icons/gi";
 import Grid from '@material-ui/core/Grid';
-import { BrowserRouter as Router, Route, Switch, NavLink as Link} from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch, Link} from "react-router-dom";
 import './App.css';
 import ScrollToTop from './components/ScrollToTop.js';
 
@@ -40,7 +40,7 @@ class Head extends React.Component {
       <Nav light={true} />
       <img src={topImg} id="topImg" />
       <h1 id="title" style={{color: 'white'}}>Stay Safe. Stay <span style={{color: '#385FDC'}}>Bizi</span>.</h1>
-      <input type="text" id="searchbar" placeholder="&#xF002; Search small businesses near you" value={this.state.search} onChange={this.searchChange}/>
+      <input type="text" id="searchbar" placeholder="&#xF002; Search businesses near you" value={this.state.search} onChange={this.searchChange}/>
     </div>
   );}
 }
@@ -68,13 +68,14 @@ function App() {
 }
 
 //Navbar component that links to other pages
+//<Link to ="/"><img class="logo" src={LightLogo} /></Link>
 function Nav(props){
   if(props.light){
     return(    
       <nav>
-        <img class="logo" src={LightLogo} />
+        <Link to='/'><img class="logo" src={LightLogo} /></Link>
         <ul>                  
-          <li id='logIn'><Link to="/login" activeClassName="active">Log In</Link></li>
+          <li id='myAccount'><Link to="/login" activeClassName="active">My Account</Link></li>
           <li><Link to="/contact" activeClassName="active">Contact</Link></li>
           <li><Link to="/stories">Stories</Link></li>
           <li><Link to="/discover" activeClassName="active">Discover</Link></li>
@@ -85,9 +86,9 @@ function Nav(props){
   }
   return (
     <nav class="dark">
-        <img class="logo" src={DarkLogo} />
+        <Link to='/'><img class="logo" src={DarkLogo} /></Link>
         <ul>                  
-          <li id='logIn'><Link to="/login">Log In</Link></li>
+          <li id='myAccount'><Link to="/login">Log In</Link></li>
           <li><Link to="/contact">Contact</Link></li>
           <li className={window.location.pathname.startsWith('/stories') && 'active'}>
             <Link to="/stories">Stories</Link>
@@ -105,42 +106,82 @@ function Stories(){
       <Nav light={false} />
       <h1 className = "story-header">Meet the People Behind your Favorite Business</h1>
       <Business />
-      <ImageGrid />
+      <div className="imageGrid">
+        <StoriesSearchBar />
+        <ImageGrid />
+      </div>
     </div>
   )
 }
 function Business(){  
   return (
     <div className="business">
-      <div className="business-text">
-        <h2>Meet Jessie</h2>
-        <h3>Owner of Yoga with Dogs</h3>
-        <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse vitae tincidunt quam. Cras elementum, nulla eu ultrices porta, neque dolor egestas lectus, ac tristique risus tellus et magna. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent dapibus ultricies lacus, eu venenatis odio euismod sit amet. Vestibulum lacus mauris, lacinia at turpis rhoncus, dapibus accumsan nunc. Integer vel fermentum odio. Vestibulum a massa tellus.</p>
-        <p> Curabitur vitae ex non ante interdum tristique sed ac tortor. Curabitur at leo ac ligula pellentesque luctus. Pellentesque tempus enim et augue hendrerit lacinia. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Suspendisse tempor lorem eu metus cursus, in lacinia nibh lacinia. Mauris ullamcorper rhoncus diam, in lacinia massa convallis et. Ut lectus purus, pretium ut est vel, dictum pulvinar nisi. Donec hendrerit leo odio, ac lobortis justo gravida sed.</p>
-        <button>Read More about Jessie</button>
-      </div>      
-      <img src={yogaImg} alt="yoga"/>      
+      <div className="business-wrapper">
+        <div className="business-text">
+          <h2>Meet Jessie</h2>
+          <h3>Owner of Yoga with Dogs</h3>
+          <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse vitae tincidunt quam. Cras elementum, nulla eu ultrices porta, neque dolor egestas lectus, ac tristique risus tellus et magna. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent dapibus ultricies lacus, eu venenatis odio euismod sit amet. Vestibulum lacus mauris, lacinia at turpis rhoncus, dapibus accumsan nunc. Integer vel fermentum odio. Vestibulum a massa tellus.</p>
+          <p> Curabitur vitae ex non ante interdum tristique sed ac tortor. Curabitur at leo ac ligula pellentesque luctus. Pellentesque tempus enim et augue hendrerit lacinia. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Suspendisse tempor lorem eu metus cursus, in lacinia nibh lacinia. Mauris ullamcorper rhoncus diam, in lacinia massa convallis et. Ut lectus purus, pretium ut est vel, dictum pulvinar nisi. Donec hendrerit leo odio, ac lobortis justo gravida sed.</p>
+          <button>Read More about Jessie</button>
+        </div>      
+        <div className="yogaImg">
+          <img src={yogaImg} alt="yoga"/>      
+        </div>      
+      </div>
+      <div className="circles">
+        <div className="circle"></div>
+        <div className="circle blueCircle"></div>
+        <div className="circle"></div>
+        <div className="circle"></div>
+      </div>
     </div>
   )
 }
 
+class StoriesSearchBar extends React.Component {
+    
+  constructor(props) {
+    super(props);
+    this.state={search: ""};
+    this.searchChange = this.searchChange.bind(this);
+  }
+
+  searchChange(e){
+    this.setState({search: e.target.value});
+  }
+
+
+  render(){
+    return (
+      <div style={{bottom: "50%"}}>
+        <h1 id="stories-search">Read Their Stories.</h1>
+        <input type="text" id="searchbar2" placeholder="&#xF002; Search by name, location, category..." value={this.state.search} onChange={this.searchChange}/>
+      </div>
+      
+    );
+  }
+}
+
 function ImageGrid(){
-  return (
+  return (    
     <div className="picRow">
-      <div className="picCol">
-        <img src={busImg1} />
-        <img src={busImg1} />
-        <img src={busImg1} />
+      <div className="picCol" id='picCol1'>
+        <img className="gridImg" src={busImg1} />
+        <img className="gridImg" src={busImg1} />
+        <img className="gridImg" src={busImg1} />
+        <img className="gridImg" src={busImg1} />
       </div>
       <div className="picCol">
-        <img src={busImg1} />
-        <img src={busImg1} />
-        <img src={busImg1} />
+        <img className="gridImg" src={busImg1} />
+        <img className="gridImg" src={busImg1} />
+        <img className="gridImg" src={busImg1} />
+        <img className="gridImg" src={busImg1} />
       </div>
-      <div className="picCol">
-        <img src={busImg1} />
-        <img src={busImg1} />
-        <img src={busImg1} />
+      <div className="picCol" id='picCol3'>
+        <img className="gridImg" src={busImg1} />
+        <img className="gridImg" src={busImg1} />
+        <img className="gridImg" src={busImg1} />
+        <img className="gridImg" src={busImg1} />
       </div>
     </div>
   )
@@ -271,12 +312,16 @@ function CompanyInfo() {
     <div className='info'>
       <div>
         <h1>Bizi LLC.</h1>
+      </div>      
+      <div>
+        <h1 id="footer-icons">
+          <AiOutlineFacebook className="footer-icon"/>
+          <AiOutlineInstagram className="footer-icon"/>
+          <FiTwitter className="footer-icon"/>
+        </h1>
       </div>
       <div>
-        <h1>hello@bizi.com | 1111 Campus Dr., Evanston, IL 60201</h1>
-      </div>
-      <div>
-        <h1><AiOutlineFacebook/> <AiOutlineInstagram/> <FiTwitter/></h1>
+        <h1 className="contact">hello@bizi.com | 1111 Campus Dr., Evanston, IL 60201</h1>
       </div>
     </div>
   )

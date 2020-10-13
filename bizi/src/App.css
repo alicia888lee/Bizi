@@ -45,12 +45,12 @@
 
 #title {
   position: absolute;
-  top: 30%;
+  top: 35%;
   left: 50%;
   bottom: 20%;
   transform: translate(-50%, -50%);
   align-self: center;
-  font-size: 72px;
+  font-size: 60px;
   
 }
 
@@ -128,9 +128,6 @@
   position: relative;
 }
 
-#bus2 {
-  position: relative;
-}
 
 #bus3 {
   position: relative;
@@ -197,12 +194,21 @@
 
 .info h1 {
   color: white;
-  font-size: 20px;
+  font-size: 25px;
   top: 80px;
-  margin-top: 50px;
+  margin-top: 20px;
   position: relative;
 }
-
+#footer-icons {
+  font-size: 2em;    
+}
+.footer-icon {
+  padding-left: 0.2em;
+  padding-right: 0.2em;
+}
+.contact{
+  font-weight: 500;
+}
 
 #topImage {
   position: relative;
@@ -226,10 +232,17 @@
   font-size: 24px;
   font-family: 'FontAwesome', 'Poppins';
   position: absolute;
-  top: 70%;
+  top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  font-size: 1.25em;
+  padding: 0.25em 0.5em;
+  margin-top: 2em;  
 }
+#searchbar::placeholder{
+  color: #a5b4e4;
+}
+
 nav{
   position: absolute;
   width: 100%;
@@ -248,6 +261,8 @@ nav.dark a{
 
 .logo {
   width: 14%;  
+  position: absolute;
+  margin-right: 500px;
 }
 
 nav ul{
@@ -257,7 +272,7 @@ nav ul{
 }
 
 nav li {
-  display: inline;
+  /* display: inline; */
   text-decoration: none;
   float: right;
   padding: 35px 24px;
@@ -269,13 +284,14 @@ nav li a{
   font-size: 1.2em;
 }
 
-nav #logIn {
-  width: 80px;
-  height: 40px;
+nav #myAccount {
+  width: 120px;
+  height: 30px;
   border-radius: 0 0 25px 25px;
   background-color: #385FDC;
 }
-nav.dark #logIn a{
+
+nav.dark #myAccount a{
   color: white;
 }
 
@@ -400,21 +416,29 @@ nav.dark #logIn a{
   padding: 0em 6em;
   font-size: 4em;
 }
-.business {
-  display: flex;
+
+.business {  
   background-color: #dee6f9;
   padding: 4em;
+}
+
+.business-wrapper {
+  display: flex;
+  width: 100%;
   align-items: center;
 }
 
 .business-text {
   flex: 1;
 }
-.business img {
+.business .yogaImg {
   flex: 2;
-  width: 8%;
+}
+.yogaImg img{
+  width: 90%;
   border-radius: 2em;   
 }
+
 .business h2 {
   color: #385FDC;
   font-size: 2em;
@@ -440,13 +464,72 @@ nav.dark #logIn a{
   align-self: center;  
   font-weight: bold;    
 }
-
-.picRow {
+.circles {
   display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 3em;
+}
+.circle {
+  background: white;
+  border-radius: 50%;
+  width: 15px;
+  height: 15px;  
+  margin-left: 0.75em;
+  display: block;
+}
+.blueCircle{
+  background: #385FDC;
+}
+.picRow {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(1, 1fr);
 }
 
 .picCol {
-  flex: 33%;
-  width: 33%;
+  position: relative;
+}
+.imageGrid {
+  /* padding: 2em 2em 2em 2em; */
+}
 
+#picCol1 img{
+  margin-left: 4.46vw;
+}
+
+#picCol3 img{
+  margin-right: 4.46vw;
+}
+
+.picCol img {
+  width: 30vw;
+  height: 30vw;
+  object-fit: cover;
+  position: relative;
+  margin-top: -10px;
+}
+
+#stories-search {
+  color: #385FDC;
+  text-align: center;
+  font-size: 2.7em;
+  top: 50;
+}
+
+#searchbar2 {
+  background-color: #dee6f9;
+  color: #a5b4e4;
+  font-family: "FontAwesome", 'Poppins', sans-serif;  
+  width: 85%;
+  top: 50%;
+  border-radius: 50px;
+  border: none;
+  font-size: 1.25em;
+  padding: 0.75em 1.25em;
+  margin-top: 1em;
+  margin-bottom: 3em;  
+}
+#searchbar2::placeholder{
+  color: #a5b4e4;
 }
