@@ -167,20 +167,20 @@ function ImageGrid(){
     <div className="picRow">
       <div className="picCol" id='picCol1'>
         <img className="gridImg" src={busImg1} />
-        <img className="gridImg" src={busImg1} />
-        <img className="gridImg" src={busImg1} />
+        <img className="gridImg" src={busImg2} />
+        <img className="gridImg" src={busImg3} />
         <img className="gridImg" src={busImg1} />
       </div>
       <div className="picCol">
         <img className="gridImg" src={busImg1} />
-        <img className="gridImg" src={busImg1} />
-        <img className="gridImg" src={busImg1} />
+        <img className="gridImg" src={busImg2} />
+        <img className="gridImg" src={busImg3} />
         <img className="gridImg" src={busImg1} />
       </div>
       <div className="picCol" id='picCol3'>
         <img className="gridImg" src={busImg1} />
-        <img className="gridImg" src={busImg1} />
-        <img className="gridImg" src={busImg1} />
+        <img className="gridImg" src={busImg2} />
+        <img className="gridImg" src={busImg3} />
         <img className="gridImg" src={busImg1} />
       </div>
     </div>
