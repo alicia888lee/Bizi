@@ -105,6 +105,7 @@ function Stories(){
       <Nav light={false} />
       <h1 className = "story-header">Meet the People Behind your Favorite Business</h1>
       <Business />
+      <ImageGrid />
     </div>
   )
 }
@@ -119,6 +120,28 @@ function Business(){
         <button>Read More about Jessie</button>
       </div>      
       <img src={yogaImg} alt="yoga"/>      
+    </div>
+  )
+}
+
+function ImageGrid(){
+  return (
+    <div className="picRow">
+      <div className="picCol">
+        <img src={busImg1} />
+        <img src={busImg1} />
+        <img src={busImg1} />
+      </div>
+      <div className="picCol">
+        <img src={busImg1} />
+        <img src={busImg1} />
+        <img src={busImg1} />
+      </div>
+      <div className="picCol">
+        <img src={busImg1} />
+        <img src={busImg1} />
+        <img src={busImg1} />
+      </div>
     </div>
   )
 }
