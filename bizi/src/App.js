@@ -165,23 +165,41 @@ class StoriesSearchBar extends React.Component {
 
 function ImageGrid(){
   return (    
-    <div className="picRow">
-      <div className="picCol" id='picCol1'>
+    <div className='imageContainer'>
+      <div className="gridElement">
         <img className="gridImg" src={busImg1} />
-        <img className="gridImg" src={blankImg} id='blank1' />
-        <img className="gridImg" src={blankImg} id='blank2' />
-        <img className="gridImg" src={blankImg} id='blank3' />
       </div>
-      <div className="picCol">
+      <div className="gridElement">
         <img className="gridImg" src={busImg2} />
-        <img className="gridImg" src={blankImg} id='blank3' />
+      </div>
+      <div className="gridElement">
+        <img className="gridImg" src={busImg3} />
+      </div>
+      <div className="gridElement">
         <img className="gridImg" src={blankImg} id='blank1' />
+      </div>
+      <div className="gridElement">
         <img className="gridImg" src={blankImg} id='blank2' />
       </div>
-      <div className="picCol" id='picCol3'>
-        <img className="gridImg" src={busImg3} />
-        <img className="gridImg" src={blankImg} id='blank2' />
+      <div className="gridElement">
         <img className="gridImg" src={blankImg} id='blank3' />
+      </div>
+      <div className="gridElement">
+        <img className="gridImg" src={blankImg} id='blank3' />
+      </div>
+      <div className="gridElement">
+        <img className="gridImg" src={blankImg} id='blank1' />
+      </div>
+      <div className="gridElement">
+        <img className="gridImg" src={blankImg} id='blank2' />
+      </div>
+      <div className="gridElement">
+        <img className="gridImg" src={blankImg} id='blank2' />
+      </div>
+      <div className="gridElement">
+        <img className="gridImg" src={blankImg} id='blank3' />
+      </div>
+      <div className="gridElement">
         <img className="gridImg" src={blankImg} id='blank1' />
       </div>
     </div>
