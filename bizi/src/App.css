@@ -536,3 +536,89 @@ nav.dark #myAccount a{
 #searchbar2::placeholder{
   color: #a5b4e4;
 }
+
+.loginBody{
+  display: flex;  
+  padding: 1.5em;
+}
+
+.loginHeader h1{
+  font-size: 4em;
+  margin-bottom: 0;
+}
+.loginHeader p {
+  font-size: 1.25em;
+  margin-top: 0;
+}
+.loginBody input[type=text] {
+  width: 40%;
+  padding: 1em 2em;
+  border-radius: 15px;
+  border: none;
+  margin-bottom: 2em;
+  background-color: #f1f5ff;
+}
+
+.loginBody form{
+  flex: 1;      
+  justify-content: center;
+
+}
+.loginbody .inputGroup{
+  margin-top: 2em;
+  
+}
+.checkboxGroup {
+  display: inline;
+}
+
+.loginBody form input, .socialLogin button  {
+  display: block;
+  margin-right: auto;
+  margin-left: auto;
+
+}
+.socialLogin{
+  flex: 1;
+  border-left: thick solid #385FDC;
+}
+.loginBtn{
+  background-color: #385FDC;
+  color: white;
+  width: 25%;
+  padding: 0.5em 1em;
+  border-radius: 10px;
+  display: block;
+  margin-right: auto;
+  margin-left: auto;
+  font-size: 1.1em;
+  margin-top: 2em;
+  margin-bottom: 1em;
+}
+.smallText {
+  text-decoration: none;
+  font-size: 0.8em;
+}
+
+.loginBody form input[type=checkbox] {  
+  height: 20px;
+  width: 20px;
+}
+
+.socialLogin button {
+  width: 55%;
+  margin-top: 2em;
+  padding: 0.5em 1em;  
+  border-radius: 10px;
+  font-size: 1em;
+}
+.facebook {
+  background-color: #3b5a97;
+  color: white;
+  border: none;
+}
+.google {
+  background-color: white;
+  border-color: #3b5a97;
+  border-width: 0.2em;
+}
