@@ -12,7 +12,7 @@ function Nav(props){
             <li id='myAccount'><Link to="/login" activeClassName="active">My Account</Link></li>
             <li><Link to="/contact" activeClassName="active">Contact</Link></li>
             <li><Link to="/stories">Stories</Link></li>
-            <li><Link to="/discover" activeClassName="active">Discover</Link></li>
+            {/* <li><Link to="/discover" activeClassName="active">Discover</Link></li> */}
             <li><Link to="/search" activeClassName="active">Search</Link></li>                                
           </ul>
         </nav>          
@@ -27,7 +27,7 @@ function Nav(props){
             <li className={window.location.pathname.startsWith('/stories') && 'active'}>
               <Link to="/stories">Stories</Link>
             </li>
-            <li><Link to="/discover">Discover</Link></li>
+            {/* <li><Link to="/discover">Discover</Link></li> */}
             <li><Link to="/search">Search</Link></li>                                
           </ul>
       </nav>          

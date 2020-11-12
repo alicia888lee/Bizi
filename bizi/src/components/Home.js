@@ -11,7 +11,7 @@ function Home(){
         <>
             <Header />
             <Description />
-            <Discover />
+            {/* <Discover /> */}
             <ReadStories />
             <Footer />
         </>
