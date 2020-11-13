@@ -1,5 +1,6 @@
 import React from 'react'
 import Nav from './Nav'
+import { Link } from 'react-router-dom'
 
 function Login(){
     return (
@@ -7,7 +8,7 @@ function Login(){
             <Nav light={false} />
             <div className="loginHeader">
                 <h1>Welcome Back!</h1>
-                <p>New to Bizi? <a href="#">Create an Account</a></p>
+                <p>New to Bizi? <Link to="/create">Create an Account</Link></p>
             </div>
 
             <div className="loginBody">

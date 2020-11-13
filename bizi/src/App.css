@@ -124,15 +124,6 @@
   margin-bottom: 25px;
 }
 
-#bus1 {
-  position: relative;
-}
-
-
-#bus3 {
-  position: relative;
-}
-
 .bus-cols img {
   width: 20vw;
   height: 20vw;
@@ -535,6 +526,42 @@ nav.dark #myAccount a{
 }
 #searchbar2::placeholder{
   color: #a5b4e4;
+}
+
+.createAccountHeader h1 {
+  font-size: 4em;
+}
+
+.createAccountHeader p {
+  text-align: left;
+  margin-left: 16vw;
+}
+
+.userTypeGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  margin: 0 auto;
+  width: 70vw;
+  height: 13vw;
+  column-gap: 20vw;
+}
+
+.userCol {
+  border-style: solid;
+  border-radius: 20px;
+  border-color: #385FDC;
+  border-width: 5px;
+  position: relative;
+}
+
+.userCol p {
+  position: absolute;
+  font-size: 1.25em;
+  color: #385FDC;
+  text-align: center;
+  bottom: 10px;
+  left: 0;
+  right: 0;
 }
 
 .loginBody{

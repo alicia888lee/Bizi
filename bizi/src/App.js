@@ -2,6 +2,7 @@ import React from 'react';
 import Home from './components/Home'
 import Stories from './components/Stories'
 import Login from './components/Login'
+import CreateAccount from './components/CreateAccount'
 
 import { BrowserRouter as Router, Route, Switch} from "react-router-dom";
 import './App.css';
@@ -21,7 +22,10 @@ function App() {
           </Route>        
           <Route path="/login">
             <Login />
-          </Route>                 
+          </Route>
+          <Route path="/create">
+            <CreateAccount />
+          </Route>
         </Switch>       
       </Router>
     </div>
