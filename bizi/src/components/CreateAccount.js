@@ -8,11 +8,15 @@ class CreateAccount extends React.Component {
 
         this.goToSecondStep = this.goToSecondStep.bind(this)
         this.goToThirdStep = this.goToThirdStep.bind(this)
+        this.setUserCustomer = this.setUserCustomer.bind(this)
+        this.setUserBusiness = this.setUserBusiness.bind(this)
 
         this.state = {
             firstStep: true,
             secondStep: false,
-            thirdStep: false
+            thirdStep: false,
+            typeCustomerSelected: false,
+            typeBusinessSelected: false
         }
     }
 
@@ -32,11 +36,38 @@ class CreateAccount extends React.Component {
         })
     }
 
+    setUserCustomer = () => {
+        this.setState({
+            typeCustomerSelected: true,
+            typeBusinessSelected: false
+        })
+    }
+
+    setUserBusiness = () => {
+        this.setState({
+            typeBusinessSelected: true,
+            typeCustomerSelected: false
+        })
+    }
+
     render() {
-        const { firstStep, secondStep, thirdStep } = this.state;
+        const { 
+            firstStep, 
+            secondStep, 
+            thirdStep, 
+            typeBusinessSelected, 
+            typeCustomerSelected } = this.state;
         return (
             <div>
-                {firstStep && <Step1 next = {this.goToSecondStep} />}
+                {firstStep && 
+                <Step1 
+                next = {this.goToSecondStep} 
+                selectCustomer = {this.setUserCustomer}
+                selectBusiness = {this.setUserBusiness}
+                customerSelected = {typeCustomerSelected}
+                businessSelected = {typeBusinessSelected}
+                />}
+                
                 {secondStep && <Step2 next = {this.goToThirdStep} />}
             </div>
         )

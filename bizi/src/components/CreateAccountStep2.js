@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
-class Step2 extends React.Component {
+class Step2 extends Component {
     
 
     render() {

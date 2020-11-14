@@ -38,9 +38,9 @@ function Login(){
                 </div>
                 
             </div>
-            
-            <a className="smallText" href="#">Terms of Agreement</a>   
-                     
+            <div className='termsAgreement'>
+                <a className="smallText" href="#">Terms of Agreement</a>   
+            </div>                     
         </div>
     )
 }

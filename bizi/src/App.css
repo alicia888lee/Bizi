@@ -469,6 +469,18 @@ nav.dark #myAccount a{
   margin-left: 0.75em;
   display: block;
 }
+
+.circleCreateAcct {
+  background: #dee6f9;
+  border-radius: 50%;
+  width: 15px;
+  height: 15px;
+  margin-left: 0.75em;
+  margin-right: 0.75em;
+  column-gap: 2em;
+  display: block;
+}
+
 .blueCircle{
   background: #385FDC;
 }
@@ -534,16 +546,28 @@ nav.dark #myAccount a{
 
 .createAccountHeader p {
   text-align: left;
-  margin-left: 16vw;
+  margin-left: 21vw;
+}
+
+.createNextButton {
+  margin-top: 50px;
+}
+
+.createNextButton button {
+  width: 180px;
+  height: 40px;
+  color: white;
+  background-color: #385FDC;
+  border-radius: 10px;
 }
 
 .userTypeGrid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   margin: 0 auto;
-  width: 70vw;
+  width: 60vw;
   height: 13vw;
-  column-gap: 20vw;
+  column-gap: 5vw;
 }
 
 .userCol {
@@ -552,6 +576,10 @@ nav.dark #myAccount a{
   border-color: #385FDC;
   border-width: 5px;
   position: relative;
+}
+
+#userTypeHighlighted {
+  background-color: #dee6f9;
 }
 
 .userCol p {
@@ -625,6 +653,11 @@ nav.dark #myAccount a{
 .smallText {
   text-decoration: none;
   font-size: 0.8em;
+}
+
+.termsAgreement {
+  margin-top: 3vw;
+  margin-bottom: 1vw;
 }
 
 .loginBody form input[type=checkbox] {  
