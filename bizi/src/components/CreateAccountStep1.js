@@ -9,7 +9,6 @@ class Step1 extends Component {
             selectBusiness,
             customerSelected, 
             businessSelected } = this.props;
-            console.log('Step1 customer selected = ' + customerSelected + 'and business selected = ' + businessSelected);
         return (
             <div className='createAccountStep1'>
                 <Nav light={false} />
