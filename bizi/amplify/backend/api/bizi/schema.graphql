@@ -1,0 +1,5 @@
+type Todo @model {
+  id: ID!
+  username: String!
+  password: String!
+}
