@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import Step1 from './CreateAccountStep1'
 import Step2 from './CreateAccountStep2'
 
-class CreateAccount extends React.Component {
+class CreateAccount extends Component {
     constructor(props) {
         super(props)
 
