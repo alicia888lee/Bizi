@@ -578,6 +578,11 @@ nav.dark #myAccount a{
   position: relative;
 }
 
+.userInfoBody{
+  display: flex;  
+  padding: 1.5em;
+}
+
 #userTypeHighlighted {
   background-color: #dee6f9;
 }
@@ -605,7 +610,7 @@ nav.dark #myAccount a{
   font-size: 1.25em;
   margin-top: 0;
 }
-.loginBody input[type=text] {
+.loginBody input[type=text], input[type=password] {
   width: 40%;
   padding: 1em 2em;
   border-radius: 15px;

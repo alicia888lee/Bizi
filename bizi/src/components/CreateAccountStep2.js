@@ -10,6 +10,30 @@ class Step2 extends Component {
                 <div className='createAccountHeader'>
                     <h1>Start Making Change!</h1>
                 </div>
+                <div className='loginBody'>
+                    <form>
+                        <div className='inputGroup'>
+                            <label className='createUserLabel' for='name'>What's your name?</label>
+                            <input type='text' name='name'/>
+                        </div>
+                        <div className='inputGroup'>
+                            <label className='createUserLabel' for='email'>What's your e-mail?</label>
+                            <input type='text' name='email'/>
+                        </div>
+                        <div className='inputGroup'>
+                            <label className='createUserLabel' for='password'>Password</label>
+                            <input type='password' name='password'/>
+                        </div>
+                        <div className='inputGroup'>
+                            <label className='createUserLabel' for='confirmPassword'>Confirm your password?</label>
+                            <input type='password' name='confirmPassword'/>
+                        </div>
+                    </form>
+                </div>
+
+
+
+
                 <div className='createNextButton'>
                     <button onClick={next}>Create</button>
                 </div>

@@ -20,7 +20,7 @@ function Login(){
                     
                     <div className="inputGroup">                    
                         <label className="loginLabel" for="password">Password</label>
-                        <input type="text" name="password"/>            
+                        <input type="password" name="password"/>            
                     </div>        
 
                     <div className="checkboxGroup">
