@@ -9,6 +9,11 @@
             "UnauthRoleName": "amplify-bizi-dev-212038-unauthRole",
             "StackName": "amplify-bizi-dev-212038",
             "StackId": "arn:aws:cloudformation:us-east-1:533184094755:stack/amplify-bizi-dev-212038/22652f20-2639-11eb-8834-12328959da6d"
+        },
+        "categories": {
+            "auth": {
+                "bizi6c67d2f6": {}
+            }
         }
     }
 }

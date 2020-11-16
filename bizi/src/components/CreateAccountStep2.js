@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import Nav from './Nav'
 
 class Step2 extends Component {
+    
     render() {
         const { next } = this.props;
         return (
@@ -35,7 +36,8 @@ class Step2 extends Component {
 
 
                 <div className='createNextButton'>
-                    <button onClick={next}>Create</button>
+                    <button
+                    onClick = {next}>Create</button>
                 </div>
                 <div className="circles">
                     <div className="circleCreateAcct"></div>

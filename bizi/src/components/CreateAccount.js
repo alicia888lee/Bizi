@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import Step1 from './CreateAccountStep1'
 import Step2 from './CreateAccountStep2'
+import { Auth } from 'aws-amplify'
 
 class CreateAccount extends Component {
     constructor(props) {
@@ -10,6 +11,7 @@ class CreateAccount extends Component {
         this.goToThirdStep = this.goToThirdStep.bind(this)
         this.setUserCustomer = this.setUserCustomer.bind(this)
         this.setUserBusiness = this.setUserBusiness.bind(this)
+        this.makeAccount = this.makeAccount.bind(this)
 
         this.state = {
             firstStep: true,
@@ -19,6 +21,25 @@ class CreateAccount extends Component {
             typeBusinessSelected: false
         }
     }
+
+    makeAccount = async signUp => {
+        let username = 'testUserName';
+        let password = 'testPassword';
+        let name = 'testName';
+        try {
+            const { user } = await Auth.signUp({
+                username,
+                password,
+                attributes: {
+                    name,
+                }             
+            });
+        }
+    
+        catch (error) {
+            console.log('error signing up', error);
+        }
+    }    
 
     goToSecondStep = () => {
         this.setState({
@@ -68,7 +89,11 @@ class CreateAccount extends Component {
                 businessSelected = {typeBusinessSelected}
                 />}
                 
-                {secondStep && <Step2 next = {this.goToThirdStep} />}
+                {secondStep && <Step2 next = {() => {
+                    this.goToThirdStep();
+                    this.makeAccount();
+                }} />
+                }
             </div>
         )
     }
