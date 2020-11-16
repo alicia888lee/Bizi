@@ -25,16 +25,19 @@ class CreateAccount extends Component {
     makeAccount = async signUp => {
         let username = 'testUserName';
         let password = 'testPassword';
-        let name = 'testName';
+        let email = 'testEmail@gmail.com';
         try {
             const { user } = await Auth.signUp({
                 username,
                 password,
                 attributes: {
-                    name,
+                    email,
                 }             
             });
+            
+        console.log(user);
         }
+
     
         catch (error) {
             console.log('error signing up', error);
