@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import Step1 from './CreateAccountStep1'
 import Step2 from './CreateAccountStep2'
-import { Auth } from 'aws-amplify'
+import { Auth, API } from 'aws-amplify'
+import * as mutations from '../graphql/mutations'
 
 class CreateAccount extends Component {
     constructor(props) {
@@ -81,8 +82,6 @@ class CreateAccount extends Component {
                 
             console.log(user);
             }
-
-        
             catch (error) {
                 console.log('error signing up', error);
             }
@@ -151,12 +150,36 @@ class CreateAccount extends Component {
         }
     }
 
+    updateUserPreferences = async() => {
+        const { typeBusinessSelected, userEmail } = this.state;
+
+        const userType = typeBusinessSelected ? "Business" : "Customer";
+
+        const userDetails = {
+            userEmail: userEmail,
+            userType: userType
+        };
+
+        try {
+            const newUser = await API.graphql({
+                query: mutations.createUser,
+                variables: {input: userDetails}
+            });
+        console.log(newUser);
+        }
+        catch(error) {
+            console.log(error);
+        }
+
+    }
+
     goToThirdStep = () => {
         this.setState({
             firstStep: false,
             secondStep: false,
             thirdStep: true
         })
+        this.updateUserPreferences();        
     }
 
     setUserCustomer = () => {

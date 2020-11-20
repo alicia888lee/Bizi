@@ -1,5 +1,4 @@
-type Todo @model {
-  id: ID!
-  username: String!
-  password: String!
+type User @model @key(fields: ["userEmail"]) {
+  userEmail: String!
+  userType: String!
 }
