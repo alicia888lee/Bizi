@@ -570,6 +570,13 @@ nav.dark #myAccount a{
   column-gap: 5vw;
 }
 
+.userCol img {
+  width: 12vw;
+  height: 8vw;
+  margin-bottom: 2vw;
+  margin-top: 1vw;
+}
+
 .step1Invalid p {
   font-style: italic;
   color: red;
@@ -597,7 +604,7 @@ nav.dark #myAccount a{
   font-size: 1.25em;
   color: #385FDC;
   text-align: center;
-  bottom: 10px;
+  bottom: -1vw;
   left: 0;
   right: 0;
 }

@@ -3,6 +3,10 @@ import Step1 from './CreateAccountStep1'
 import Step2 from './CreateAccountStep2'
 import { Auth, API } from 'aws-amplify'
 import * as mutations from '../graphql/mutations'
+import communityImg from '../images/community.png'
+import envImg from '../images/environment.png'
+import handImg from '../images/heart_hand.png'
+
 
 class CreateAccount extends Component {
     constructor(props) {

@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import Nav from './Nav'
+import cartImg from '../images/shopping_cart.png'
+import businessImg from '../images/business.png'
 
 class Step1 extends Component {
     render() {
@@ -20,9 +22,11 @@ class Step1 extends Component {
                 </div>
                 <div className='userTypeGrid'>
                     <div onClick={selectCustomer} className='userCol' id={customerSelected && 'userTypeHighlighted'}>
+                        <img src={cartImg} />
                         <p>Customer</p>
                     </div>
                     <div onClick={selectBusiness} className='userCol' id={businessSelected && 'userTypeHighlighted'}>
+                        <img src={businessImg} />
                         <p>Business</p>
                     </div>
                 </div>
