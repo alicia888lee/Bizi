@@ -18,7 +18,7 @@
 		}
 	},
 	"auth": {
-		"bizi6c67d2f6": {
+		"bizibf381b1c": {
 			"service": "Cognito",
 			"providerPlugin": "awscloudformation",
 			"dependsOn": []

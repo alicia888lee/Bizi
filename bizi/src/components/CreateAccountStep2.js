@@ -4,7 +4,21 @@ import Nav from './Nav'
 class Step2 extends Component {
     
     render() {
-        const { next } = this.props;
+        const { 
+            next, 
+            onNameChange, 
+            onEmailChange, 
+            onPasswordChange, 
+            onConfirmPasswordChange,
+            passwordsMatch,
+            passwordLengthGood,
+            passwordUppercase,
+            passwordLowercase,
+            passwordSpecialChar,
+            passwordNumbers,
+            validEmail,
+            validName
+        } = this.props;
         return (
             <div className='createAccountStep1'>
                 <Nav light={false} />
@@ -15,19 +29,33 @@ class Step2 extends Component {
                     <form>
                         <div className='inputGroup'>
                             <label className='createUserLabel' for='name'>What's your name?</label>
-                            <input type='text' name='name'/>
+                            <input id={!validName && 'invalidInput'} type='text' name='name' onBlur={onNameChange}/>
+                            {!validName && <p>You must enter a name</p>}
+
                         </div>
                         <div className='inputGroup'>
                             <label className='createUserLabel' for='email'>What's your e-mail?</label>
-                            <input type='text' name='email'/>
+                            <input id={!validEmail && 'invalidInput'} type='text' name='email' onBlur={onEmailChange}/>
+                            {!validEmail && <p>Must be a valid email address</p>}
+
                         </div>
                         <div className='inputGroup'>
                             <label className='createUserLabel' for='password'>Password</label>
-                            <input type='password' name='password'/>
+                            <input id={!(passwordLengthGood 
+                                && passwordUppercase 
+                                && passwordLowercase 
+                                && passwordSpecialChar 
+                                && passwordNumbers) && 'invalidInput'} type='password' name='password' onBlur={onPasswordChange}/>
+                            {!passwordLengthGood && <p>Must be at least 8 characters long</p>}
+                            {!passwordUppercase && <p>Must contain at least 1 uppercase character</p>}
+                            {!passwordLowercase && <p>Must contain at least 1 lowercase character</p>}
+                            {!passwordSpecialChar && <p>Must contain at least 1 special character</p>}
+                            {!passwordNumbers && <p>Must contain at least 1 number</p>}
                         </div>
                         <div className='inputGroup'>
-                            <label className='createUserLabel' for='confirmPassword'>Confirm your password?</label>
-                            <input type='password' name='confirmPassword'/>
+                            <label className='createUserLabel' for='confirmPassword'>Confirm your password</label>
+                            <input type='password' id={!passwordsMatch && 'invalidInput'} name='confirmPassword' onBlur={onConfirmPasswordChange}/>
+                            {!passwordsMatch && <p>Passwords must match!</p>}
                         </div>
                     </form>
                 </div>

@@ -8,7 +8,9 @@ class Step1 extends Component {
             selectCustomer,
             selectBusiness,
             customerSelected, 
-            businessSelected } = this.props;
+            businessSelected,
+            invalidSelection
+        } = this.props;
         return (
             <div className='createAccountStep1'>
                 <Nav light={false} />
@@ -23,6 +25,9 @@ class Step1 extends Component {
                     <div onClick={selectBusiness} className='userCol' id={businessSelected && 'userTypeHighlighted'}>
                         <p>Business</p>
                     </div>
+                </div>
+                <div className='step1Invalid'>
+                    {invalidSelection && <p>You must select one above</p>}
                 </div>
                 <div className='createNextButton'>
                     <button onClick={next}>Next</button>

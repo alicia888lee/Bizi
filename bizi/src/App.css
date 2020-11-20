@@ -570,6 +570,11 @@ nav.dark #myAccount a{
   column-gap: 5vw;
 }
 
+.step1Invalid p {
+  font-style: italic;
+  color: red;
+}
+
 .userCol {
   border-style: solid;
   border-radius: 20px;
@@ -617,6 +622,17 @@ nav.dark #myAccount a{
   border: none;
   margin-bottom: 2em;
   background-color: #f1f5ff;
+}
+
+#invalidInput {
+  border-color: red;
+  border-style: solid;
+}
+
+.inputGroup p {
+  font-style: italic;
+  color: red;
+  margin-top: -1em;
 }
 
 .loginBody form{
