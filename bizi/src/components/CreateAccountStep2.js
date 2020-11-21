@@ -20,7 +20,7 @@ class Step2 extends Component {
             validName
         } = this.props;
         return (
-            <div className='createAccountStep1'>
+            <div>
                 <Nav light={false} />
                 <div className='createAccountHeader'>
                     <h1>Start Making Change!</h1>

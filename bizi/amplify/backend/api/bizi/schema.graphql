@@ -1,4 +1,5 @@
 type User @model @key(fields: ["userEmail"]) {
   userEmail: String!
   userType: String!
+  userPreferences: [String]!
 }

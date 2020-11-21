@@ -1,11 +1,9 @@
 import React, { Component } from 'react'
 import Step1 from './CreateAccountStep1'
 import Step2 from './CreateAccountStep2'
+import Step3 from './CreateAccountStep3'
 import { Auth, API } from 'aws-amplify'
 import * as mutations from '../graphql/mutations'
-import communityImg from '../images/community.png'
-import envImg from '../images/environment.png'
-import handImg from '../images/heart_hand.png'
 
 
 class CreateAccount extends Component {
@@ -22,11 +20,19 @@ class CreateAccount extends Component {
         this.setUserName = this.setUserName.bind(this)
         this.setConfirmPassword = this.setConfirmPassword.bind(this)
         this.doCreate = this.doCreate.bind(this)
+        this.goToAccountPage = this.goToAccountPage.bind(this)
+        this.setPrefSustainable = this.setPrefSustainable.bind(this)
+        this.setPrefEthical = this.setPrefEthical.bind(this)
+        this.setPrefDiversity = this.setPrefDiversity.bind(this)
+        this.setPrefShopping = this.setPrefShopping.bind(this)
+        this.setPrefFood = this.setPrefFood.bind(this)
+        this.setPrefServices = this.setPrefServices.bind(this)
 
         this.state = {
             firstStep: true,
             secondStep: false,
             thirdStep: false,
+            finishedWizard: false,
             typeCustomerSelected: false,
             typeBusinessSelected: false,
             invalidSelection: false,
@@ -41,7 +47,13 @@ class CreateAccount extends Component {
             passwordNumbers: true,
             passwordLowercase: true,
             validEmail: true,
-            validName: true
+            validName: true,
+            typeSustainableSelected: false,
+            typeEthicalSelected: false,
+            typeDiversitySelected: false,
+            typeShoppingSelected: false,
+            typeFoodSelected: false,
+            typeServicesSelected: false
         }
     }
 
@@ -155,13 +167,49 @@ class CreateAccount extends Component {
     }
 
     updateUserPreferences = async() => {
-        const { typeBusinessSelected, userEmail } = this.state;
+        const { 
+            typeBusinessSelected, 
+            userEmail,
+            typeSustainableSelected,
+            typeEthicalSelected,
+            typeDiversitySelected,
+            typeShoppingSelected,
+            typeFoodSelected,
+            typeServicesSelected
+        } = this.state;
+
+        const selectedBooleans = [
+            typeSustainableSelected, 
+            typeEthicalSelected,
+            typeDiversitySelected,
+            typeShoppingSelected,
+            typeFoodSelected,
+            typeServicesSelected
+        ];
+        const possibleUserPreferences = [
+            'Sustainability',
+            'Ethical Supply Chain',
+            'Diversity Initiatives',
+            'Shopping',
+            'Food',
+            'Services'
+        ];
 
         const userType = typeBusinessSelected ? "Business" : "Customer";
+        
+        // determine indices of preferences to push to db
+        const selectedPreferences = selectedBooleans.reduce(
+            (out, bool, index) => bool ? out.concat(index) : out, []
+        );
+
+        const userPreferences = selectedPreferences.map(
+            i => possibleUserPreferences[i]
+        );
 
         const userDetails = {
             userEmail: userEmail,
-            userType: userType
+            userType: userType,
+            userPreferences: userPreferences
         };
 
         try {
@@ -182,8 +230,17 @@ class CreateAccount extends Component {
             firstStep: false,
             secondStep: false,
             thirdStep: true
-        })
+        });
         this.updateUserPreferences();        
+    }
+
+    goToAccountPage = () => {
+        this.setState({
+            firstStep: false,
+            secondStep: false,
+            thirdStep: false,
+            finishedWizard: true
+        });
     }
 
     setUserCustomer = () => {
@@ -198,6 +255,71 @@ class CreateAccount extends Component {
             typeBusinessSelected: true,
             typeCustomerSelected: false
         })
+    }
+
+    setPrefSustainable = () => {
+        const { typeSustainableSelected } = this.state;
+        typeSustainableSelected ? 
+        this.setState({
+            typeSustainableSelected: false
+        }) :
+        this.setState({
+            typeSustainableSelected: true
+        });
+    }
+    
+    setPrefEthical = () => {
+        const { typeEthicalSelected } = this.state;
+        typeEthicalSelected ? 
+        this.setState({
+            typeEthicalSelected: false
+        }) :
+        this.setState({
+            typeEthicalSelected: true
+        });    }
+
+    setPrefDiversity = () => {
+        const { typeDiversitySelected } = this.state;
+        typeDiversitySelected ? 
+        this.setState({
+            typeDiversitySelected: false
+        }) :
+        this.setState({
+            typeDiversitySelected: true
+        });
+    }
+
+    setPrefShopping = () => {
+        const { typeShoppingSelected } = this.state;
+        typeShoppingSelected ? 
+        this.setState({
+            typeShoppingSelected: false
+        }) :
+        this.setState({
+            typeShoppingSelected: true
+        });
+    }
+
+    setPrefFood = () => {
+        const { typeFoodSelected } = this.state;
+        typeFoodSelected ? 
+        this.setState({
+            typeFoodSelected: false
+        }) :
+        this.setState({
+            typeFoodSelected: true
+        });
+    }
+
+    setPrefServices = () => {
+        const { typeServicesSelected } = this.state;
+        typeServicesSelected ? 
+        this.setState({
+            typeServicesSelected: false
+        }) :
+        this.setState({
+            typeServicesSelected: true
+        });
     }
 
     setUserEmail = (e) => {
@@ -289,9 +411,16 @@ class CreateAccount extends Component {
         const { 
             firstStep, 
             secondStep, 
-            thirdStep, 
+            thirdStep,
+            finishedWizard,
             typeBusinessSelected, 
             typeCustomerSelected,
+            typeSustainableSelected,
+            typeEthicalSelected,
+            typeDiversitySelected,
+            typeShoppingSelected,
+            typeFoodSelected,
+            typeServicesSelected,
             invalidSelection,
             passwordsMatch,
             passwordLengthGood,
@@ -314,7 +443,7 @@ class CreateAccount extends Component {
                 businessSelected = {typeBusinessSelected}
                 invalidSelection = {invalidSelection}
                 />}
-                
+
                 {secondStep && <Step2 
                     next = {() => {
                         this.doCreate();
@@ -332,11 +461,32 @@ class CreateAccount extends Component {
                     passwordNumbers = {passwordNumbers}
                     validEmail = {validEmail}
                     validName = {validName}
-                />
-                }
+                />}
+
+                {thirdStep && <Step3
+                    skip = {this.goToAccountPage}
+                    letsGo = {() => {
+                        this.updateUserPreferences();
+                        this.goToAccountPage();
+                    }}
+                    selectSustainable = {this.setPrefSustainable}
+                    selectEthical = {this.setPrefEthical}
+                    selectDiversity = {this.setPrefDiversity}
+                    selectFood = {this.setPrefFood}
+                    selectShopping = {this.setPrefShopping}
+                    selectServices = {this.setPrefServices}
+                    sustainableSelected = {typeSustainableSelected}
+                    ethicalSelected = {typeEthicalSelected}
+                    diversitySelected = {typeDiversitySelected}
+                    shoppingSelected = {typeShoppingSelected}
+                    foodSelected = {typeFoodSelected}
+                    servicesSelected = {typeServicesSelected}
+                />}
+
+                {finishedWizard && <div></div>}
             </div>
         )
     }
 }
 
-export default CreateAccount
+export default CreateAccount;

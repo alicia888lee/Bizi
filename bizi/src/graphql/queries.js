@@ -5,6 +5,7 @@ export const getUser = `query GetUser($userEmail: String!) {
   getUser(userEmail: $userEmail) {
     userEmail
     userType
+    userPreferences
   }
 }
 `;
@@ -25,6 +26,7 @@ export const listUsers = `query ListUsers(
     items {
       userEmail
       userType
+      userPreferences
     }
     nextToken
   }

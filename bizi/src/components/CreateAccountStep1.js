@@ -14,18 +14,18 @@ class Step1 extends Component {
             invalidSelection
         } = this.props;
         return (
-            <div className='createAccountStep1'>
+            <div>
                 <Nav light={false} />
                 <div className='createAccountHeader'>
                     <h1>Start Making Change!</h1>
                     <p><b>Are you a...</b></p>
                 </div>
                 <div className='userTypeGrid'>
-                    <div onClick={selectCustomer} className='userCol' id={customerSelected && 'userTypeHighlighted'}>
+                    <div onClick={selectCustomer} className='userCol' id={customerSelected && 'userTypePreferenceHighlighted'}>
                         <img src={cartImg} />
                         <p>Customer</p>
                     </div>
-                    <div onClick={selectBusiness} className='userCol' id={businessSelected && 'userTypeHighlighted'}>
+                    <div onClick={selectBusiness} className='userCol' id={businessSelected && 'userTypePreferenceHighlighted'}>
                         <img src={businessImg} />
                         <p>Business</p>
                     </div>
