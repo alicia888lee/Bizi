@@ -11,7 +11,7 @@ function ReadStories() {
     return (
       <div className='read-stories'>
         <div>
-          <h1>Read their Stories</h1>
+          <h1>Read Business Stories</h1>
         </div>
         <div className='bus-cols'>
           <div>

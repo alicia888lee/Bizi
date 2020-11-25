@@ -806,3 +806,32 @@ nav.dark #myAccount a{
   border-color: #3b5a97;
   border-width: 0.2em;
 }
+
+.blue {
+  color: #385FDC;
+}
+
+.whatsBizi {
+  display: flex;
+  align-items: center;
+}
+
+.whatsBizi div {
+  flex: 1.5;  
+  text-align: left;
+  padding: 1em;
+}
+
+.whatsBizi div h1 {
+  font-size: 3em;
+}
+
+.whatsBizi div p {
+  font-size: 1.7em;
+}
+
+#bigLogo {
+  width: 30%;
+  padding: 2em;
+  flex: 1;
+}
