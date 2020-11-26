@@ -5,6 +5,7 @@ import Step3 from './CreateAccountStep3'
 import { Auth, API } from 'aws-amplify'
 import * as mutations from '../graphql/mutations'
 
+// TODO fix error guidance in password to not reset all fields if part of password is entered
 
 class CreateAccount extends Component {
     constructor(props) {
