@@ -763,7 +763,7 @@ nav.dark #myAccount a{
 }
 .loginBtn{
   background-color: #385FDC;
-  color: white;
+  color: rgb(148, 139, 139);
   width: 25%;
   padding: 0.5em 1em;
   border-radius: 10px;
@@ -834,4 +834,101 @@ nav.dark #myAccount a{
   width: 30%;
   padding: 2em;
   flex: 1;
+}
+
+.contact {
+  display: flex;
+  align-items: center;
+  text-align: left;
+  padding: 0em 4em;
+}
+
+.contact div {
+  flex: 1;  
+}
+
+.contact div input {  
+  padding: 0.5em 1em;
+  border-radius: 15px;
+  border: none;
+  margin-bottom: 1em;  
+  background-color: #f1f5ff;
+  font-size: 1.25em;    
+}
+.contact div input::placeholder, .contactMsg::placeholder {
+  color: #a5b4e4;
+}
+
+.contact p {
+  font-size: 1.5em;
+  font-weight: 600;
+}
+.contactName {
+  width: 30%;  
+  margin-right: 1em;
+}
+.contactEmail {    
+  width: 54%;    
+}
+
+.contact span {
+  flex: 1;
+  display: flex;
+  justify-content: center;  
+}
+
+#contactImg {
+  width: 60%;     
+}
+
+.contactMsg {
+  display: block;
+  resize: none;
+  outline: none;
+  background-color: #f1f5ff;
+  border: none;
+  border-radius: 15px;
+  width: 100%;
+  -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+  -moz-box-sizing: border-box;    /* Firefox, other Gecko */
+  box-sizing: border-box;         /* Opera/IE 8+ */
+  padding: 1em;
+  font-size: 1.25em;
+}
+
+.contactBtn {
+  background-color: #385FDC;
+  color: white;
+  width: 35%;
+  padding: 0.5em 1em;
+  border-radius: 10px;
+  display: block;  
+  font-size: 1.1em;
+  margin-top: 2em;
+  margin-bottom: 1em;
+}
+
+.contact-icon {
+  font-size: 3em;
+  color: #385FDC;
+}
+
+.contact-icon:not(:first-child){
+  margin-left: 0.5em;
+}
+
+.contactFooter {
+  display: flex;
+  align-items: center;      
+}
+.contactFooter h2 {
+  font-size: 1.5em;
+  font-weight: 600;
+  color: #385FDC;
+}
+
+.contactHeader {
+  font-size: 3.5em;
+  color: #385FDC;
+  margin-bottom: 0;
 }

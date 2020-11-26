@@ -1,6 +1,7 @@
 import React from 'react';
 import Home from './components/Home'
 import Stories from './components/Stories'
+import Contact from './components/Contact'
 import Login from './components/Login'
 import CreateAccount from './components/CreateAccount'
 
@@ -19,7 +20,10 @@ function App() {
           </Route>
           <Route path="/stories">
             <Stories />
-          </Route>        
+          </Route>
+          <Route path="/contact">
+            <Contact />
+          </Route>      
           <Route path="/login">
             <Login />
           </Route>
