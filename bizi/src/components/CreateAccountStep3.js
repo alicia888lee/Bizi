@@ -8,8 +8,7 @@ import handImg from '../images/heart_hand.png'
 class Step3 extends Component {
     render() {
         const { 
-            skip,
-            letsGo,
+            finishSignUp,
             selectSustainable,
             selectEthical,
             selectDiversity,
@@ -59,8 +58,8 @@ class Step3 extends Component {
                 </div>
 
                 <div className='step3NextButtons'>
-                    <button id='skipStep3' onClick={skip}>Skip</button>
-                    <button id='letsGoStep3' onClick={letsGo}>Let's Go</button>
+                    <button id='skipStep3' onClick={finishSignUp}>Skip</button>
+                    <button id='letsGoStep3' onClick={finishSignUp}>Let's Go</button>
 
                 </div>
                 <div className="circles">

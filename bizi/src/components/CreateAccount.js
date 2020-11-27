@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
 import Step1 from './CreateAccountStep1'
 import Step2 from './CreateAccountStep2'
+import VerifyStep from './CreateAccountVerification'
 import Step3 from './CreateAccountStep3'
 import { Auth, API } from 'aws-amplify'
 import * as mutations from '../graphql/mutations'
 
-// TODO fix error guidance in password to not reset all fields if part of password is entered
 
 class CreateAccount extends Component {
     constructor(props) {
@@ -15,12 +15,12 @@ class CreateAccount extends Component {
         this.goToThirdStep = this.goToThirdStep.bind(this)
         this.setUserCustomer = this.setUserCustomer.bind(this)
         this.setUserBusiness = this.setUserBusiness.bind(this)
-        this.makeAccount = this.makeAccount.bind(this)
         this.setUserEmail = this.setUserEmail.bind(this)
         this.setUserPassword = this.setUserPassword.bind(this)
         this.setUserName = this.setUserName.bind(this)
         this.setConfirmPassword = this.setConfirmPassword.bind(this)
         this.doCreate = this.doCreate.bind(this)
+        this.setVerifyCode = this.setVerifyCode.bind(this)
         this.goToAccountPage = this.goToAccountPage.bind(this)
         this.setPrefSustainable = this.setPrefSustainable.bind(this)
         this.setPrefEthical = this.setPrefEthical.bind(this)
@@ -28,11 +28,13 @@ class CreateAccount extends Component {
         this.setPrefShopping = this.setPrefShopping.bind(this)
         this.setPrefFood = this.setPrefFood.bind(this)
         this.setPrefServices = this.setPrefServices.bind(this)
+        this.verifyEmail = this.verifyEmail.bind(this)
 
         this.state = {
             firstStep: true,
             secondStep: false,
             thirdStep: false,
+            verifyStep: false,
             finishedWizard: false,
             typeCustomerSelected: false,
             typeBusinessSelected: false,
@@ -41,6 +43,7 @@ class CreateAccount extends Component {
             userPassword: '',
             userName: '',
             confirmPassword: '',
+            verificationCode: '',
             passwordsMatch: true,
             passwordLengthGood: true,
             passwordUppercase: true,
@@ -49,6 +52,8 @@ class CreateAccount extends Component {
             passwordLowercase: true,
             validEmail: true,
             validName: true,
+            firstVerifyAttempt: true,
+            additionalVerifyAttempts: false,
             typeSustainableSelected: false,
             typeEthicalSelected: false,
             typeDiversitySelected: false,
@@ -58,23 +63,48 @@ class CreateAccount extends Component {
         }
     }
 
+    goToSecondStep = () => {
+        const { typeCustomerSelected, typeBusinessSelected } = this.state;
 
-    makeAccount = async() => {
-        const { userEmail, 
-            userPassword, 
-            userName, 
+        if (typeBusinessSelected || typeCustomerSelected) {
+            this.setState({
+                firstStep: false,
+                secondStep: true,
+                verifyStep: false,
+                thirdStep: false,
+            });
+        }
+        else {
+            this.setState({
+                invalidSelection: true
+            })
+        }
+    }
+
+    doCreate = async() => {
+        const {             
             passwordsMatch, 
             passwordLengthGood, 
             passwordUppercase,
             passwordSpecialChar,
             passwordNumbers,
             passwordLowercase,
+            userPassword,
             validEmail,
-            validName
+            validName,
+            userName,
+            userEmail,
+            confirmPassword
         } = this.state;
-        const username = userEmail;
-        const password = userPassword;
-        const name = userName;
+        
+        // this is needed for initial check if the user presses
+        // create without modifying the form
+        const noneValid = !(userPassword
+        || userName
+        || userEmail
+        || confirmPassword
+        );
+
         const credentialsValid = passwordsMatch 
         && passwordLowercase 
         && passwordUppercase 
@@ -82,12 +112,16 @@ class CreateAccount extends Component {
         && passwordNumbers
         && passwordLengthGood
         && validEmail
-        && validName
-        // this is needed for initial check if the user presses
-        // create without modifying the form
-        && userPassword.length > 0;
+        && validName;
 
-        if (credentialsValid) {
+        console.log(noneValid)
+        
+        // check both because initially all credentials are set to true
+        if (credentialsValid && !noneValid) {
+            // complete authorization
+            const username = userEmail;
+            const password = userPassword;
+            const name = userName;
             try {
                 const { user } = await Auth.signUp({
                     username,
@@ -102,58 +136,13 @@ class CreateAccount extends Component {
             catch (error) {
                 console.log('error signing up', error);
             }
-        }
-        else {
-            console.log('could not sign up');
-        }
-    }    
 
-    goToSecondStep = () => {
-        const { typeCustomerSelected, typeBusinessSelected, invalidSelection } = this.state;
-
-        if (typeBusinessSelected || typeCustomerSelected) {
-            this.setState({
-                firstStep: false,
-                secondStep: true,
-                thirdStep: false,
-            });
+            // go to third step
+            this.updateUserPreferences();
+            this.goToVerifyStep();
         }
-        else {
-            this.setState({
-                invalidSelection: true
-            })
-        }
-    }
 
-    doCreate = () => {
-        const {             
-            passwordsMatch, 
-            passwordLengthGood, 
-            passwordUppercase,
-            passwordSpecialChar,
-            passwordNumbers,
-            passwordLowercase,
-            userPassword,
-            validEmail,
-            validName
-        } = this.state;
-
-        const credentialsValid = passwordsMatch 
-        && passwordLowercase 
-        && passwordUppercase 
-        && passwordSpecialChar 
-        && passwordNumbers
-        && passwordLengthGood
-        && validEmail
-        && validName
-        // this is needed for initial check if the user presses
-        // create without modifying the form
-        && userPassword.length > 0;
-
-        if (credentialsValid) {
-            this.goToThirdStep();
-        }
-        else {
+        else if (noneValid) {
             this.setState({
                 passwordsMatch: false,
                 passwordLengthGood: false,
@@ -165,6 +154,51 @@ class CreateAccount extends Component {
                 validName: false
             });
         }
+    }
+
+    goToVerifyStep = (firstVerifyAttempt = true) => {
+        this.setState({
+            firstStep: false,
+            secondStep: false,
+            verifyStep: true,
+            thirdStep: false,
+            firstVerifyAttempt: firstVerifyAttempt
+        });
+    }
+
+    setVerifyCode = (e) => {
+        this.setState({
+            verificationCode: e.target.value
+        });
+    }
+
+    verifyEmail = async() => {
+        const { verificationCode, userEmail } = this.state;
+        const username = userEmail;
+        const code = verificationCode;
+        
+        try {
+            const verifyResult = await Auth.confirmSignUp(username, code);
+            console.log(verifyResult);
+            return verifyResult;
+        }
+        catch (error) {
+            console.log('error confirming sign up', error);
+        }
+        // finally {
+        //     this.setState({
+        //         verifySuccess: success
+        //     },
+        //     () => { console.log('verify state after update', this.state.verifySuccess); }
+        // );
+        // }
+
+    }
+
+    invalidateCode = () => {
+        this.setState({
+            verifySuccess: false
+        });
     }
 
     updateUserPreferences = async() => {
@@ -230,9 +264,9 @@ class CreateAccount extends Component {
         this.setState({
             firstStep: false,
             secondStep: false,
+            verifyStep: false,
             thirdStep: true
         });
-        this.updateUserPreferences();        
     }
 
     goToAccountPage = () => {
@@ -240,6 +274,7 @@ class CreateAccount extends Component {
             firstStep: false,
             secondStep: false,
             thirdStep: false,
+            verifyStep: false,
             finishedWizard: true
         });
     }
@@ -369,7 +404,7 @@ class CreateAccount extends Component {
         const validEmail = re.test(userEmail);
 
 
-        if (confirmPassword == userPassword) {
+        if (confirmPassword == userPassword && confirmPassword) {
             this.setState({
                 passwordsMatch: true
             });
@@ -382,7 +417,7 @@ class CreateAccount extends Component {
         }
 
         this.setState({
-            validName: userName.length > 0,
+            validName: userName,
             validEmail: validEmail,
             passwordLengthGood: lengthGood,
             passwordLowercase: lowercase,
@@ -411,7 +446,8 @@ class CreateAccount extends Component {
     render() {
         const { 
             firstStep, 
-            secondStep, 
+            secondStep,
+            verifyStep,
             thirdStep,
             finishedWizard,
             typeBusinessSelected, 
@@ -430,7 +466,8 @@ class CreateAccount extends Component {
             passwordSpecialChar,
             passwordNumbers,
             validEmail,
-            validName
+            validName,
+            firstVerifyAttempt
         } = this.state;
         
          return (
@@ -446,10 +483,7 @@ class CreateAccount extends Component {
                 />}
 
                 {secondStep && <Step2 
-                    next = {() => {
-                        this.doCreate();
-                        this.makeAccount();
-                    }} 
+                    next = {this.doCreate}
                     onNameChange = {this.setUserName}
                     onEmailChange = {this.setUserEmail}
                     onPasswordChange = {this.setUserPassword}
@@ -464,9 +498,22 @@ class CreateAccount extends Component {
                     validName = {validName}
                 />}
 
+                {verifyStep && <VerifyStep
+                    verify = {async() => {
+                        const verifyResult = await this.verifyEmail();
+                        console.log(verifyResult);
+                        verifyResult ? this.goToThirdStep() : this.goToVerifyStep(false)
+                    }}
+                    invalidCode = {!firstVerifyAttempt}
+                    onCodeInputChange = {this.setVerifyCode}
+                />}
+
                 {thirdStep && <Step3
-                    skip = {this.goToAccountPage}
-                    letsGo = {() => {
+                    skip = {() => {
+                        this.goToAccountPage();
+                        this.updateUserPreferences();
+                    }}
+                    finishSignUp = {() => {
                         this.updateUserPreferences();
                         this.goToAccountPage();
                     }}
