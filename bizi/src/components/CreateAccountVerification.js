@@ -7,7 +7,8 @@ class VerifyStep extends Component {
         const { 
             verify,
             invalidCode,
-            onCodeInputChange
+            onCodeInputChange,
+            errorMessage
         } = this.props;
         return (
             <div>
@@ -20,7 +21,7 @@ class VerifyStep extends Component {
                         <div className='inputGroup'>
                             <label for='email'>A verification code was sent to your email</label>
                             <input type='text' name='name' onInput={onCodeInputChange}/>
-                            {invalidCode && <p>Invalid code, please try again</p>}
+                            {invalidCode && <p>{errorMessage}</p>}
                         </div>
                     </form>
                 </div>

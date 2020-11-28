@@ -17,8 +17,13 @@ class Step2 extends Component {
             passwordSpecialChar,
             passwordNumbers,
             validEmail,
-            validName
+            validName,
+            duplicateEmail,
+            duplicateEmailMessage
         } = this.props;
+
+        console.log(duplicateEmail);
+        console.log(duplicateEmailMessage);
         return (
             <div>
                 <Nav light={false} />
@@ -35,8 +40,9 @@ class Step2 extends Component {
                         </div>
                         <div className='inputGroup'>
                             <label className='createUserLabel' for='email'>What's your e-mail?</label>
-                            <input id={!validEmail && 'invalidInput'} type='text' name='email' onBlur={onEmailChange}/>
+                            <input id={(!validEmail || duplicateEmail) && 'invalidInput'} type='text' name='email' onBlur={onEmailChange}/>
                             {!validEmail && <p>Must be a valid email address</p>}
+                            {duplicateEmail && <p>{duplicateEmailMessage}</p>}
 
                         </div>
                         <div className='inputGroup'>
@@ -59,9 +65,6 @@ class Step2 extends Component {
                         </div>
                     </form>
                 </div>
-
-
-
 
                 <div className='createNextButton'>
                     <button

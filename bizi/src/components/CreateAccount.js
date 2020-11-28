@@ -44,6 +44,9 @@ class CreateAccount extends Component {
             userName: '',
             confirmPassword: '',
             verificationCode: '',
+            duplicateEmail: false,
+            duplicateEmailMessage: '',
+            errorValidationMessage: '',
             passwordsMatch: true,
             passwordLengthGood: true,
             passwordUppercase: true,
@@ -63,7 +66,7 @@ class CreateAccount extends Component {
         }
     }
 
-    goToSecondStep = () => {
+    goToSecondStep = (duplicateEmail = false, duplicateEmailMessage = '') => {
         const { typeCustomerSelected, typeBusinessSelected } = this.state;
 
         if (typeBusinessSelected || typeCustomerSelected) {
@@ -79,6 +82,11 @@ class CreateAccount extends Component {
                 invalidSelection: true
             })
         }
+
+        this.setState({
+            duplicateEmail: duplicateEmail,
+            duplicateEmailMessage: duplicateEmailMessage
+        });
     }
 
     doCreate = async() => {
@@ -123,18 +131,17 @@ class CreateAccount extends Component {
             const password = userPassword;
             const name = userName;
             try {
-                const { user } = await Auth.signUp({
+                const user = await Auth.signUp({
                     username,
                     password,
                     attributes: {
                         name
                     }             
                 });
-                
-            console.log(user);
             }
             catch (error) {
                 console.log('error signing up', error);
+                return error.message;
             }
 
             // go to third step
@@ -156,13 +163,14 @@ class CreateAccount extends Component {
         }
     }
 
-    goToVerifyStep = (firstVerifyAttempt = true) => {
+    goToVerifyStep = (firstVerifyAttempt = true, errorMessage) => {
         this.setState({
             firstStep: false,
             secondStep: false,
             verifyStep: true,
             thirdStep: false,
-            firstVerifyAttempt: firstVerifyAttempt
+            firstVerifyAttempt: firstVerifyAttempt,
+            errorValidationMessage: errorMessage
         });
     }
 
@@ -184,21 +192,21 @@ class CreateAccount extends Component {
         }
         catch (error) {
             console.log('error confirming sign up', error);
+            console.log('error message', error.message);
+            return error.message;
         }
-        // finally {
-        //     this.setState({
-        //         verifySuccess: success
-        //     },
-        //     () => { console.log('verify state after update', this.state.verifySuccess); }
-        // );
-        // }
-
     }
 
-    invalidateCode = () => {
-        this.setState({
-            verifySuccess: false
-        });
+    autoSignIn = async() => {
+        const { userEmail, userPassword } = this.state
+        const username = userEmail;
+        const password = userPassword;
+
+        try {
+            const user = await Auth.signIn(username, password);
+        } catch (error) {
+            console.log('error signing in', error);
+        }
     }
 
     updateUserPreferences = async() => {
@@ -360,26 +368,27 @@ class CreateAccount extends Component {
 
     setUserEmail = (e) => {
         this.setState({
-            userEmail: e.target.value
-        })
+            userEmail: e.target.value,
+            duplicateEmail: false
+        });
     }
 
     setUserPassword = (e) => {
         this.setState({
             userPassword: e.target.value
-        })
+        });
     }
 
     setUserName = (e) => {
         this.setState({
             userName: e.target.value
-        })
+        });
     }
 
     setConfirmPassword = (e) => {
         this.setState({
             confirmPassword: e.target.value
-        })
+        });
     }
 
     validateInputs = () => {
@@ -467,14 +476,17 @@ class CreateAccount extends Component {
             passwordNumbers,
             validEmail,
             validName,
-            firstVerifyAttempt
+            firstVerifyAttempt,
+            errorValidationMessage,
+            duplicateEmail,
+            duplicateEmailMessage
         } = this.state;
         
          return (
             <div>
                 {firstStep && 
                 <Step1 
-                next = {this.goToSecondStep} 
+                next = {() => { this.goToSecondStep(); }} 
                 selectCustomer = {this.setUserCustomer}
                 selectBusiness = {this.setUserBusiness}
                 customerSelected = {typeCustomerSelected}
@@ -483,7 +495,10 @@ class CreateAccount extends Component {
                 />}
 
                 {secondStep && <Step2 
-                    next = {this.doCreate}
+                    next = {async() => {
+                        const createResult = await this.doCreate();
+                        createResult && this.goToSecondStep(true, createResult)
+                    }}
                     onNameChange = {this.setUserName}
                     onEmailChange = {this.setUserEmail}
                     onPasswordChange = {this.setUserPassword}
@@ -496,14 +511,18 @@ class CreateAccount extends Component {
                     passwordNumbers = {passwordNumbers}
                     validEmail = {validEmail}
                     validName = {validName}
+                    duplicateEmail = {duplicateEmail}
+                    duplicateEmailMessage = {duplicateEmailMessage}
                 />}
 
                 {verifyStep && <VerifyStep
                     verify = {async() => {
                         const verifyResult = await this.verifyEmail();
                         console.log(verifyResult);
-                        verifyResult ? this.goToThirdStep() : this.goToVerifyStep(false)
+                        verifyResult == 'SUCCESS' ? this.goToThirdStep() : this.goToVerifyStep(false, verifyResult)
+                        this.autoSignIn();
                     }}
+                    errorMessage = {errorValidationMessage}
                     invalidCode = {!firstVerifyAttempt}
                     onCodeInputChange = {this.setVerifyCode}
                 />}
