@@ -472,7 +472,7 @@ class CreateAccount extends Component {
         
          return (
             <div>
-                {firstStep && 
+                {/* {firstStep && 
                 <Step1 
                 next = {this.goToSecondStep} 
                 selectCustomer = {this.setUserCustomer}
@@ -480,7 +480,7 @@ class CreateAccount extends Component {
                 customerSelected = {typeCustomerSelected}
                 businessSelected = {typeBusinessSelected}
                 invalidSelection = {invalidSelection}
-                />}
+                />} */}
 
                 {secondStep && <Step2 
                     next = {this.doCreate}
@@ -508,7 +508,7 @@ class CreateAccount extends Component {
                     onCodeInputChange = {this.setVerifyCode}
                 />}
 
-                {thirdStep && <Step3
+                {firstStep && <Step3
                     skip = {() => {
                         this.goToAccountPage();
                         this.updateUserPreferences();

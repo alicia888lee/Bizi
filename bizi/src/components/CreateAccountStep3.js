@@ -32,18 +32,24 @@ class Step3 extends Component {
                 <div className='userPreferencesGrid'>
                     <div onClick={selectSustainable} className='prefCol' id={sustainableSelected && 'userTypePreferenceHighlighted'}>
                         <img src={envImg} />
-                        <p>Sustainability</p>
+                        <span>
+                            <p>Sustainability</p>
+                        </span>
                     </div>
                     <div onClick={selectEthical} className='prefCol' id={ethicalSelected && 'userTypePreferenceHighlighted'}>
                         <img src={handImg} />
-                        <p>Ethical Supply Chain</p>
+                        <span>
+                            <p>Ethical Supply Chain</p>
+                        </span>
                     </div>
                     <div onClick={selectDiversity} className='prefCol' id={diversitySelected && 'userTypePreferenceHighlighted'}>
                         <img src={communityImg} />
-                        <p>Diversity Initiatives</p>
+                        <span>
+                            <p>Diversity Initiatives</p>
+                        </span>
                     </div>
                     <div className='prefCol' id='invisibleColumn'>
-                        <div className='userPrefRows'>
+                        <div className='userPrefSubGrid'>
                             <div className='prefRow' onClick={selectShopping} id={shoppingSelected && 'userTypePreferenceHighlighted'}>
                                 <p>Shopping</p>
                             </div>
