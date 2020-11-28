@@ -22,8 +22,6 @@ class Step2 extends Component {
             duplicateEmailMessage
         } = this.props;
 
-        console.log(duplicateEmail);
-        console.log(duplicateEmailMessage);
         return (
             <div>
                 <Nav light={false} />
