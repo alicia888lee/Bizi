@@ -3,3 +3,12 @@ type User @model @key(fields: ["userEmail"]) {
   userType: String!
   userPreferences: [String]!
 }
+
+type Business @model @key(fields: ["businessName"]) {
+  businessName: String!
+  businessDescription: String!
+  policyList: [String]!
+  businessPhone: String!
+  businessURL: String!
+  deliveryURL: String!
+}

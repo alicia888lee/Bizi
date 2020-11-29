@@ -1,0 +1,21 @@
+** Add information in the following format:
+
+Business Name
+Short Description
+Covid Policy List
+Phone
+Website URL
+Grubhub/Ubereats
+Business Name
+...
+...
+
+**
+Do not skip lines between businesses
+
+Business1
+[a, b, c]
+y
+Business2
+a
+b

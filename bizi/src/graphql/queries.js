@@ -32,3 +32,40 @@ export const listUsers = `query ListUsers(
   }
 }
 `;
+export const getBusiness = `query GetBusiness($businessName: String!) {
+  getBusiness(businessName: $businessName) {
+    businessName
+    businessDescription
+    policyList
+    businessPhone
+    businessURL
+    deliveryURL
+  }
+}
+`;
+export const listBusinesss = `query ListBusinesss(
+  $businessName: String
+  $filter: ModelBusinessFilterInput
+  $limit: Int
+  $nextToken: String
+  $sortDirection: ModelSortDirection
+) {
+  listBusinesss(
+    businessName: $businessName
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+    sortDirection: $sortDirection
+  ) {
+    items {
+      businessName
+      businessDescription
+      policyList
+      businessPhone
+      businessURL
+      deliveryURL
+    }
+    nextToken
+  }
+}
+`;

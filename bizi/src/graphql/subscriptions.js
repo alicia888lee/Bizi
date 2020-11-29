@@ -25,3 +25,36 @@ export const onDeleteUser = `subscription OnDeleteUser {
   }
 }
 `;
+export const onCreateBusiness = `subscription OnCreateBusiness {
+  onCreateBusiness {
+    businessName
+    businessDescription
+    policyList
+    businessPhone
+    businessURL
+    deliveryURL
+  }
+}
+`;
+export const onUpdateBusiness = `subscription OnUpdateBusiness {
+  onUpdateBusiness {
+    businessName
+    businessDescription
+    policyList
+    businessPhone
+    businessURL
+    deliveryURL
+  }
+}
+`;
+export const onDeleteBusiness = `subscription OnDeleteBusiness {
+  onDeleteBusiness {
+    businessName
+    businessDescription
+    policyList
+    businessPhone
+    businessURL
+    deliveryURL
+  }
+}
+`;

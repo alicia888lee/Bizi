@@ -25,3 +25,36 @@ export const deleteUser = `mutation DeleteUser($input: DeleteUserInput!) {
   }
 }
 `;
+export const createBusiness = `mutation CreateBusiness($input: CreateBusinessInput!) {
+  createBusiness(input: $input) {
+    businessName
+    businessDescription
+    policyList
+    businessPhone
+    businessURL
+    deliveryURL
+  }
+}
+`;
+export const updateBusiness = `mutation UpdateBusiness($input: UpdateBusinessInput!) {
+  updateBusiness(input: $input) {
+    businessName
+    businessDescription
+    policyList
+    businessPhone
+    businessURL
+    deliveryURL
+  }
+}
+`;
+export const deleteBusiness = `mutation DeleteBusiness($input: DeleteBusinessInput!) {
+  deleteBusiness(input: $input) {
+    businessName
+    businessDescription
+    policyList
+    businessPhone
+    businessURL
+    deliveryURL
+  }
+}
+`;
