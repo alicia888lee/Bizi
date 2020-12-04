@@ -14,8 +14,14 @@ Business Name
 Do not skip lines between businesses
 
 Business1
-[a, b, c]
-y
+Food & Services
+[Masks, sanitation]
+888-123-4523
+bus1.com
+N/A
 Business2
-a
-b
+Clothing
+[Sanitation]
+674-323-7895
+N/A
+N/A
