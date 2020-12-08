@@ -1,0 +1,16 @@
+{
+    "Business1": {
+        "Description": "Food & Services",
+        "Policies": ["Masks", "Sanitation"],
+        "Phone Number": "888-123-4523",
+        "Website": "bus1.com",
+        "Delivery": "N/A"
+    },
+    "Business2": {
+        "Description": "Clothing",
+        "Policies": ["Sanitation"],
+        "Phone Number": "674-323-7895",
+        "Website": "bus2.com",
+        "Delivery": "N/A"
+    }
+}

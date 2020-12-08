@@ -1,6 +1,7 @@
 import React from 'react'
 import { AiOutlineFacebook, AiOutlineInstagram } from "react-icons/ai";
 import { FiTwitter } from "react-icons/fi";
+import { InternalDBTool } from '../internal/updateBusinessDB';
 
 function Footer() {
     return (
@@ -18,6 +19,7 @@ function Footer() {
         <div>
           <h1 className="contact-footer">hello@bizi.com | 1111 Campus Dr., Evanston, IL 60201</h1>
         </div>
+        {/* <InternalDBTool /> */}
       </div>
     )
 }

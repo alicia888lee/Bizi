@@ -1,48 +1,38 @@
 // Tool used to push custom business data to amplify
-
-import pkg from 'aws-amplify'
+import React from 'react'
+import { API } from 'aws-amplify'
 import * as mutations from '../graphql/mutations.js'
-import fs from 'fs'
+import data from '../internal/businessInfo.json';
 
-const { API } = pkg;
-
-const BUSINESS_ITEMS = 6
-
-var inputFile = 'src/internal/businessInfo.txt';
-// adjust starting line if needed
-
-var file_array = fs.readFileSync(inputFile, {'encoding': 'utf-8'})
-    .split('\r\n')
-    .slice(15);
-
-// make sure that indices are consistent with list
-
-let updateDB = async() => {
-    for (var business_ind = 0; business_ind < file_array.length; business_ind += BUSINESS_ITEMS) {
-        var business_obj = {
-            businessName: file_array[business_ind],
-            businessDescription: file_array[business_ind + 1],
-            policyList: file_array[business_ind + 2],
-            businessPhone: file_array[business_ind + 3],
-            businessURL: file_array[business_ind + 4],
-            deliveryURL: file_array[business_ind + 5]
+async function updateDB(data) {
+    for (var business in data) {
+        const business_obj = {
+            businessName: business,
+            businessDescription: data[business]['Description'],
+            policyList: data[business]['Policies'],
+            businessPhone: data[business]['Phone Number'],
+            businessURL: data[business]['Website'],
+            deliveryURL: data[business]['Delivery']
         };
 
         try {
             const newBusiness = await API.graphql({
                 query: mutations.createBusiness,
-                variables: {input: business_obj},
-                authMode: 'AWS_IAM'
+                variables: {input: business_obj}
             });
             console.log(newBusiness);
         }
         catch(error) {
             console.log(error);
         }
+        console.log(business_obj);
     }
 }
 
-updateDB();
-
-// console.log(process.cwd());
-// console.log(file_array);
+export function InternalDBTool(props) {
+    return (
+        <button onClick={() => updateDB(data)}>
+            Sync DB
+        </button>
+    );
+}
