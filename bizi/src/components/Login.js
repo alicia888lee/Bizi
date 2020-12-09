@@ -25,9 +25,19 @@ class Login extends Component {
         });
     }
 
-    doLogin = (e) => {
+    doLogin = async(e) => {
+        const { userEmail, userPassword } = this.state;
         console.log('logging in');
-        e.preventDefault()
+        e.preventDefault();
+        const username = userEmail;
+        const password = userPassword;
+        try {
+            const user = await Auth.signIn(username, password);
+        }
+        catch (error) {
+            console.log('error signing in', error);
+        }
+
     }
 
     render() {
