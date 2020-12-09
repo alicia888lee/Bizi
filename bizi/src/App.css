@@ -753,7 +753,7 @@ nav.dark #myAccount a{
   display: inline;
 }
 
-.loginBody form input, .socialLogin button  {
+.loginBody div input, .socialLogin button  {
   display: block;
   margin-right: auto;
   margin-left: auto;
@@ -776,6 +776,7 @@ nav.dark #myAccount a{
   font-size: 1.1em;
   margin-top: 2em;
   margin-bottom: 1em;
+  cursor: pointer;
 }
 .smallText {
   text-decoration: none;

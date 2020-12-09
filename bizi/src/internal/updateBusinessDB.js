@@ -1,4 +1,5 @@
 // Tool used to push custom business data to amplify
+// Only uncomment when doing this in Foother.js
 import React from 'react'
 import { API } from 'aws-amplify'
 import * as mutations from '../graphql/mutations.js'

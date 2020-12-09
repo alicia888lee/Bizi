@@ -41,7 +41,6 @@ class Step2 extends Component {
                             <input id={(!validEmail || duplicateEmail) && 'invalidInput'} type='text' name='email' onBlur={onEmailChange}/>
                             {!validEmail && <p>Must be a valid email address</p>}
                             {duplicateEmail && <p>{duplicateEmailMessage}</p>}
-
                         </div>
                         <div className='inputGroup'>
                             <label className='createUserLabel' for='password'>Password</label>
@@ -65,8 +64,7 @@ class Step2 extends Component {
                 </div>
 
                 <div className='createNextButton'>
-                    <button
-                    onClick = {next}>Create</button>
+                    <button onClick = {next}>Create</button>
                 </div>
                 <div className="circles">
                     <div className="circleCreateAcct"></div>
