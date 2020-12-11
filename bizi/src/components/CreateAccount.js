@@ -5,6 +5,7 @@ import VerifyStep from './CreateAccountVerification'
 import Step3 from './CreateAccountStep3'
 import { Auth, API } from 'aws-amplify'
 import * as mutations from '../graphql/mutations'
+import { withRouter } from 'react-router-dom'
 
 
 class CreateAccount extends Component {
@@ -21,7 +22,6 @@ class CreateAccount extends Component {
         this.setConfirmPassword = this.setConfirmPassword.bind(this)
         this.doCreate = this.doCreate.bind(this)
         this.setVerifyCode = this.setVerifyCode.bind(this)
-        this.goToAccountPage = this.goToAccountPage.bind(this)
         this.setPrefSustainable = this.setPrefSustainable.bind(this)
         this.setPrefEthical = this.setPrefEthical.bind(this)
         this.setPrefDiversity = this.setPrefDiversity.bind(this)
@@ -277,16 +277,6 @@ class CreateAccount extends Component {
         });
     }
 
-    goToAccountPage = () => {
-        this.setState({
-            firstStep: false,
-            secondStep: false,
-            thirdStep: false,
-            verifyStep: false,
-            finishedWizard: true
-        });
-    }
-
     setUserCustomer = () => {
         this.setState({
             typeCustomerSelected: true,
@@ -528,13 +518,9 @@ class CreateAccount extends Component {
                 />}
 
                 {thirdStep && <Step3
-                    skip = {() => {
-                        this.goToAccountPage();
-                        this.updateUserPreferences();
-                    }}
                     finishSignUp = {() => {
                         this.updateUserPreferences();
-                        this.goToAccountPage();
+                        this.props.history.push('/Account');
                     }}
                     selectSustainable = {this.setPrefSustainable}
                     selectEthical = {this.setPrefEthical}
@@ -550,10 +536,9 @@ class CreateAccount extends Component {
                     servicesSelected = {typeServicesSelected}
                 />}
 
-                {finishedWizard && <div></div>}
             </div>
         )
     }
 }
 
-export default CreateAccount;
+export default withRouter(CreateAccount);

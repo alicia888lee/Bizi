@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import Nav from './Nav'
-import { Link, useHistory, withRouter } from 'react-router-dom'
+import { Link, withRouter } from 'react-router-dom'
 import { Auth } from 'aws-amplify'
 
 class Login extends Component {
