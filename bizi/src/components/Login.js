@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import Nav from './Nav'
-import { Link } from 'react-router-dom'
+import { Link, useHistory, withRouter } from 'react-router-dom'
 import { Auth } from 'aws-amplify'
 
 class Login extends Component {
@@ -9,7 +9,8 @@ class Login extends Component {
 
         this.state = {
             userEmail: '',
-            userPassword: ''
+            userPassword: '',
+            errorMessage: ''
         }
     }
 
@@ -25,6 +26,12 @@ class Login extends Component {
         });
     }
 
+    setErrorMessage = (msg) => {
+        this.setState({
+            errorMessage: msg
+        });
+    }
+
     doLogin = async(e) => {
         const { userEmail, userPassword } = this.state;
         console.log('logging in');
@@ -33,14 +40,21 @@ class Login extends Component {
         const password = userPassword;
         try {
             const user = await Auth.signIn(username, password);
+            this.props.history.push('/Account');
         }
         catch (error) {
             console.log('error signing in', error);
+            // this.setState
+            return error.message;
         }
 
     }
 
     render() {
+        const {
+            errorMessage
+        } = this.state;
+
         return (
             <div className="login">
                 <Nav light={false} />
@@ -50,7 +64,13 @@ class Login extends Component {
                 </div>
 
                 <div className="loginBody">
-                    <form onSubmit={this.doLogin}>
+                    <form onSubmit={async(e) => {
+                        const error = await this.doLogin(e);
+                        console.log(error);
+                        if (error) {
+                            this.setErrorMessage(error);
+                        }
+                    }}>
                         <div className="inputGroup">                    
                             <label className="loginLabel" for="email">E-mail</label>
                             <input type="text" name="email" onInput={this.setUserEmail}/>
@@ -58,7 +78,8 @@ class Login extends Component {
                         
                         <div className="inputGroup">                    
                             <label className="loginLabel" for="password">Password</label>
-                            <input type="password" name="password" onInput={this.setUserPassword}/>            
+                            <input type="password" name="password" onInput={this.setUserPassword}/>
+                            <p>{errorMessage}</p>         
                         </div>        
 
                         <div className="checkboxGroup">
@@ -71,7 +92,7 @@ class Login extends Component {
                             <input className='loginBtn' type='submit' value='Log In'/>
                         </div>
 
-                        {/* <button className="loginBtn" onClick={this.doLogin}>Log In</button> */}
+                        {/* <button className="loginBtn" onClick={() => {this.doLogin();}}>Log In</button> */}
                         <a className="smallText" href="#">Forgot your password?</a>
                     </form>
                     <div className="socialLogin">
@@ -88,4 +109,4 @@ class Login extends Component {
     }
 }
 
-export default Login
+export default withRouter(Login);
