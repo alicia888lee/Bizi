@@ -941,8 +941,11 @@ nav.dark #myAccount a{
   margin-bottom: 0;
 }
 
+.accountHeader {
+  font-size: 3.5em;
+}
 .discounts-wrapper, .bookmark-wrapper {
-  padding: 0 4em;  
+  padding: 0 8em;  
 }
 .discounts {
   display: flex;  
@@ -1001,12 +1004,15 @@ nav.dark #myAccount a{
 .bookmarks {
   display: flex;
   justify-content: space-between;
-  padding-top: 1em;
+  padding: 1em 0;
 }
 .bookmarks div {
   background-color: #385FDC;
   color: white;
   padding: 1em;
   border-radius: 1em;  
-  width: 33.33%;  
+  width: 25%;
+}
+.bookmarkIcon {
+  width: 20%;
 }

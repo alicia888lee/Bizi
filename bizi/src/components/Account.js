@@ -1,18 +1,19 @@
 import React from "react"
 import Nav from './Nav'
 import Footer from './Footer'
-
 import { RiScissorsCutLine } from 'react-icons/ri'
 import { BsBookmarkPlus } from 'react-icons/bs'
 import QRCode from '../images/testQR.png';
 import discountImg from '../images/testDiscountImg.png';
-
+import environmentImg from '../images/environment.png';
+import heartImg from '../images/heart_hand.png';
+import communityImg from '../images/community.png';
 
 function Account() {
     return (
         <div className="account">
             <Nav />
-            <h1>Hey John! Welcome Back</h1>
+            <h1 className="accountHeader">Hey John! Welcome Back</h1>
             
             <div className="discounts-wrapper">                            
                 <h3><RiScissorsCutLine className="accountIcon"/>Your discounts</h3>
@@ -47,16 +48,57 @@ function Account() {
 
                 <div className="bookmarks">
                     <div>
-                        <h4>First Antiques</h4>
+                        <h1>First Antiques</h1>
+                        <img src={communityImg} className="bookmarkIcon"/>
+                        <img src={heartImg} className="bookmarkIcon"/>
                     </div>
 
                     <div>
-                        <h4>Sarah's Sprinkles</h4>
+                        <h1>Sarah's Sprinkles</h1>
+                        <img src={communityImg} className="bookmarkIcon"/>
+                        <img src={environmentImg} className="bookmarkIcon"/>
                     </div>
 
                     <div>
-                        <h4>Evermore</h4>
+                        <h1>Evermore</h1>
+                        <img src={heartImg} className="bookmarkIcon"/>
+                    </div>                    
+                </div>
+                <div className="bookmarks">
+                    <div>
+                        <h1>First Antiques</h1>
+                        <img src={communityImg} className="bookmarkIcon"/>
+                        <img src={heartImg} className="bookmarkIcon"/>
                     </div>
+
+                    <div>
+                        <h1>Sarah's Sprinkles</h1>
+                        <img src={communityImg} className="bookmarkIcon"/>
+                        <img src={environmentImg} className="bookmarkIcon"/>
+                    </div>
+
+                    <div>
+                        <h1>Evermore</h1>
+                        <img src={heartImg} className="bookmarkIcon"/>
+                    </div>                    
+                </div>
+                <div className="bookmarks">
+                    <div>
+                        <h1>First Antiques</h1>
+                        <img src={communityImg} className="bookmarkIcon"/>
+                        <img src={heartImg} className="bookmarkIcon"/>
+                    </div>
+
+                    <div>
+                        <h1>Sarah's Sprinkles</h1>
+                        <img src={communityImg} className="bookmarkIcon"/>
+                        <img src={environmentImg} className="bookmarkIcon"/>
+                    </div>
+
+                    <div>
+                        <h1>Evermore</h1>
+                        <img src={heartImg} className="bookmarkIcon"/>
+                    </div>                    
                 </div>
             </div>
 
