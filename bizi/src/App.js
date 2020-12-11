@@ -3,6 +3,7 @@ import Home from './components/Home'
 import Stories from './components/Stories'
 import Contact from './components/Contact'
 import Login from './components/Login'
+import Account from './components/Account'
 import CreateAccount from './components/CreateAccount'
 
 import { BrowserRouter as Router, Route, Switch} from "react-router-dom";
@@ -26,6 +27,9 @@ function App() {
           </Route>      
           <Route path="/login">
             <Login />
+          </Route>
+          <Route path="/account">
+            <Account />
           </Route>
           <Route path="/create">
             <CreateAccount />

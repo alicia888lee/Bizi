@@ -940,3 +940,73 @@ nav.dark #myAccount a{
   color: #385FDC;
   margin-bottom: 0;
 }
+
+.discounts-wrapper, .bookmark-wrapper {
+  padding: 0 4em;  
+}
+.discounts {
+  display: flex;  
+}
+
+.discount-info {
+  flex: 2;
+  border: 0.5em dashed #385FDC;  
+  border-radius: 3.5em;
+  margin-right: 3em;
+  padding: 2em;
+}
+
+.QR {
+  flex: 1;
+  border: 0.5em solid #385FDC;  
+  border-radius: 3.5em;  
+}
+.QR img {
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.account h3 {
+  color: #385FDC;
+  text-align: left;  
+  font-size: 1.5em;
+  display: flex;
+  align-items: center;  
+}
+
+.bookmark-selects {
+  display: flex;
+  justify-content: space-between;
+}
+
+.bookmark-selects select {
+  background-color: #385FDC;
+  color: white;
+  border: none;
+  font-size: 1em;
+  border-radius: 0.5em; 
+  text-align: center;
+  padding: 0.5em 0.7em;
+  width: 110px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;  
+  background: url("images/whiteArrowIcon.ico") #385FDC no-repeat 98.5% !important; /* !important used for overriding all other customisations */
+  background: url("images/whiteArrowIcon.ico") #385FDC no-repeat calc(100% - 10px) !important; /* Better placement regardless of input width */  
+}
+.accountIcon {
+  margin-right: 0.25em;
+}
+.bookmarks {
+  display: flex;
+  justify-content: space-between;
+  padding-top: 1em;
+}
+.bookmarks div {
+  background-color: #385FDC;
+  color: white;
+  padding: 1em;
+  border-radius: 1em;  
+  width: 33.33%;  
+}
