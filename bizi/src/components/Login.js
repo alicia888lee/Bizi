@@ -14,6 +14,16 @@ class Login extends Component {
         }
     }
 
+    getCurrentUser = async() => {
+        try {
+            const user = await Auth.currentAuthenticatedUser();
+            return user;
+        }
+        catch (error) {
+            console.log('error checking auth', error);
+        }
+    }
+
     setUserEmail = (e) => {
         this.setState({
             userEmail: e.target.value
@@ -40,20 +50,26 @@ class Login extends Component {
         const password = userPassword;
         try {
             const user = await Auth.signIn(username, password);
-            this.props.history.push('/Account');
+            this.props.history.push('/account');
         }
         catch (error) {
             console.log('error signing in', error);
-            // this.setState
-            return error.message;
+            let message = 'User does not exist'
+            return message;
         }
-
     }
+
+    async componentDidMount() {
+        const currentUser = await this.getCurrentUser();
+        currentUser && this.props.history.push('/account')
+    }
+
 
     render() {
         const {
             errorMessage
         } = this.state;
+
 
         return (
             <div className="login">

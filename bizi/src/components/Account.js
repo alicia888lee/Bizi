@@ -9,6 +9,7 @@ import environmentImg from '../images/environment.png';
 import heartImg from '../images/heart_hand.png';
 import communityImg from '../images/community.png';
 import { Auth } from 'aws-amplify'
+import { withRouter } from 'react-router-dom'
 
 class Account extends Component {
     constructor(props) {
@@ -30,14 +31,25 @@ class Account extends Component {
     }
 
     setUserState = (name) => {
+        const firstName = name.split(' ')[0];
         this.setState({
-            currentUser: name
+            currentUser: firstName
         });
+    }
+
+    signOut = async() => {
+        try {
+            await Auth.signOut();
+        }
+        catch (error) {
+            console.log('error signing out', error);
+        }
+        window.location.reload();
     }
 
     async componentDidMount() {
         const currentUser = await this.getCurrentUser();
-        currentUser && this.setUserState(currentUser?.attributes?.name);
+        currentUser ? this.setUserState(currentUser?.attributes?.name) : this.props.history.push('/login');
     }
 
     render() {
@@ -47,6 +59,11 @@ class Account extends Component {
             <div className="account">
                 <Nav />
                 <h1 className="accountHeader">Hey {currentUser}! Welcome Back</h1>
+
+                <button onClick={() => {
+                    this.signOut();
+                    this.props.history.push('/login');
+                }}>Sign Out</button>
                 
                 <div className="discounts-wrapper">                            
                     <h3><RiScissorsCutLine className="accountIcon"/>Your discounts</h3>
@@ -141,4 +158,4 @@ class Account extends Component {
     }
 }
 
-export default Account;
+export default withRouter(Account);

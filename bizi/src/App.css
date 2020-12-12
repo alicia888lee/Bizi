@@ -978,6 +978,16 @@ nav.dark #myAccount a{
   align-items: center;  
 }
 
+.account button {
+  width: 180px;
+  height: 40px;
+  color: white;
+  outline: none;
+  background-color: #385FDC;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
 .bookmark-selects {
   display: flex;
   justify-content: space-between;
