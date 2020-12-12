@@ -48,7 +48,7 @@ class Nav extends Component {
               <Link to='/'><img class="logo" src={light ? LightLogo : DarkLogo} /></Link>
               <ul>                  
                 <li id='myAccount'>
-                  <Link to="/login" activeClassName="active">
+                  <Link to={!userAuthenticated ? "/login" : "/account"} activeClassName="active">
                     {userAuthenticated ? 'My Account' : 'Log In'}
                   </Link>
                 </li>

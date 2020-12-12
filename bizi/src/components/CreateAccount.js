@@ -520,7 +520,7 @@ class CreateAccount extends Component {
                 {thirdStep && <Step3
                     finishSignUp = {() => {
                         this.updateUserPreferences();
-                        this.props.history.push('/Account');
+                        this.props.history.push('/account');
                     }}
                     selectSustainable = {this.setPrefSustainable}
                     selectEthical = {this.setPrefEthical}
