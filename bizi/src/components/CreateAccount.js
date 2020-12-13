@@ -448,7 +448,6 @@ class CreateAccount extends Component {
             secondStep,
             verifyStep,
             thirdStep,
-            finishedWizard,
             typeBusinessSelected, 
             typeCustomerSelected,
             typeSustainableSelected,
@@ -503,6 +502,7 @@ class CreateAccount extends Component {
                     validName = {validName}
                     duplicateEmail = {duplicateEmail}
                     duplicateEmailMessage = {duplicateEmailMessage}
+                    typeCustomer = {typeCustomerSelected}
                 />}
 
                 {verifyStep && <VerifyStep

@@ -19,14 +19,15 @@ class Step2 extends Component {
             validEmail,
             validName,
             duplicateEmail,
-            duplicateEmailMessage
+            duplicateEmailMessage,
+            typeCustomer
         } = this.props;
 
         return (
             <div>
                 <Nav light={false} />
                 <div className='createAccountHeader'>
-                    <h1>Start Making Change!</h1>
+                    <h1>{typeCustomer ? "Start Making Change!" : "Register Your Business"}</h1>
                 </div>
                 <div className='loginBody'>
                     <form>
