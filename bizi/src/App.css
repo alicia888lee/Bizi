@@ -312,7 +312,7 @@ nav.dark #myAccount a{
   text-align: center;
   padding: 30px;
   width: 60%;
-  flex: 1.33;
+  flex: 1;
   /* height: 900px; */
 }
 .pin {
@@ -334,10 +334,9 @@ nav.dark #myAccount a{
   font-size: 2em;
 }
 
-.description-text {
-  width: 40%;
+.description-text {  
   padding: 10px 20px;
-  flex: 1;
+  flex: 1.1;
 }
   
 .description-text button{
@@ -988,12 +987,12 @@ nav.dark #myAccount a{
   cursor: pointer;
 }
 
-.bookmark-selects {
+.bookmark-selects, .search-selects {
   display: flex;
   justify-content: space-between;
 }
 
-.bookmark-selects select {
+.bookmark-selects select, .search-selects select {
   background-color: #385FDC;
   color: white;
   border: none;
@@ -1025,4 +1024,118 @@ nav.dark #myAccount a{
 }
 .bookmarkIcon {
   width: 20%;
+}
+
+.SearchItem {
+  background-color: #f1f5ff;
+  padding: 1em;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.SearchItemHeader {
+  display: flex;
+  align-items: center;  
+  
+}
+
+.searchEnvironment {
+  width: 11%;  
+}
+.searchHeart {
+  width: 9%;
+}
+
+.OpenNow {
+  border: 0.2em solid #56dd48;  
+  color: #83cb7b;
+  font-weight: bold;
+  width: 110px;
+  border-radius: 0.75em;
+  text-align: center;    
+  margin-right: 0.75em;
+}
+
+.OpenNow p, .price p {
+  margin: 0.25em 0;
+  font-size: 0.9em;
+}
+
+.price {
+  border: 0.2em solid #385FDC;  
+  color: #385FDC;
+  font-weight: bold;
+  width: 30px;
+  border-radius: 0.75em;
+  text-align: center;  
+}
+.SearchItemTags {
+  display: flex;
+}
+
+.SearchItemImg {
+  width: 30%;
+}
+.SearchItemsList .SearchItem:nth-child(even){
+  background-color: white;
+}
+.search-selects select {
+  margin-bottom: 2em;
+}
+.searchHeader {
+  color: #385FDC;
+  font-size: 3.5em;
+}
+
+.search #searchbar2 {  
+ margin: 0;
+ text-align: center;
+ background-color: #f1f5ff;
+}
+#searchbar2::placeholder{
+  color: #a5b4e4;  
+}
+
+.recs {
+  background-color: #385FDC;
+  padding: 1.5em 4em;  
+}
+.recs h1 {
+  color: white;
+  text-align: left;
+}
+
+.recItems {
+  display: flex;
+  justify-content: space-between;
+}
+.recItem img {
+  width: 15%;
+  margin: 0 0.25em;    
+}
+
+.recImgs {
+  display: block;
+}
+
+.recItems .recItem {
+  padding: 1em;
+  border-radius: 1em;  
+  width: 20%;  
+  height: 30vh;
+  text-align: center;
+  background-image: url("images/pexels-ksenia-chernaya-3965557.jpg");
+  background-position: center; 
+  background-repeat: no-repeat;
+  background-size: cover;    
+  display: flex;
+  justify-content: center;
+  flex-direction: column; 
+  margin-bottom: 2.5em;
+}
+
+.recItems div h1 {
+  text-align: center;
+  margin-bottom: 0.25em;  
 }
