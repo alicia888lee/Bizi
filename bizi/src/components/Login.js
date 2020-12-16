@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import Nav from './Nav'
 import { Link, withRouter } from 'react-router-dom'
 import { Auth } from 'aws-amplify'
+import Loader from 'react-loader-spinner'
 
 class Login extends Component {
     constructor(props) {
@@ -10,8 +11,9 @@ class Login extends Component {
         this.state = {
             userEmail: '',
             userPassword: '',
-            errorMessage: ''
-        }
+            errorMessage: '',
+            loggingIn: false
+        };
     }
 
     getCurrentUser = async() => {
@@ -48,13 +50,19 @@ class Login extends Component {
         e.preventDefault();
         const username = userEmail;
         const password = userPassword;
+        this.setState({
+            loggingIn: true
+        });
         try {
             const user = await Auth.signIn(username, password);
             this.props.history.push('/account');
         }
         catch (error) {
             console.log('error signing in', error);
-            let message = 'User does not exist'
+            let message = 'User does not exist.';
+            this.setState({
+                loggingIn: false
+            });
             return message;
         }
     }
@@ -67,7 +75,8 @@ class Login extends Component {
 
     render() {
         const {
-            errorMessage
+            errorMessage,
+            loggingIn
         } = this.state;
 
 
@@ -100,13 +109,19 @@ class Login extends Component {
 
                         <div className="checkboxGroup">
                             <label for="rememberMe">Remember Me</label>
-                            <input type="checkbox" name="rememberMe"/>                        
-                            
+                            <input type="checkbox" name="rememberMe"/>                            
                         </div>
 
                         <div className='inputGroup'>
                             <input className='loginBtn' type='submit' value='Log In'/>
                         </div>
+                        {
+                            loggingIn && <Loader
+                                type="TailSpin"
+                                color="#385FDC"
+                                height={40}
+                            />
+                        }
 
                         {/* <button className="loginBtn" onClick={() => {this.doLogin();}}>Log In</button> */}
                         <a className="smallText" href="#">Forgot your password?</a>
