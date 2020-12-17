@@ -1045,8 +1045,10 @@ nav.dark #myAccount a{
 
 .SearchItemHeader {
   display: flex;
-  align-items: center;  
-  
+  align-items: center;    
+}
+.SearchItemHeader h2 {
+  color: black;
 }
 
 .searchEnvironment {
