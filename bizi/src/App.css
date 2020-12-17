@@ -282,6 +282,14 @@ nav #myAccount {
   background-color: #385FDC;
 }
 
+nav #myAccountSelect {
+  color: white;
+  background-color: #385FDC;
+  font-size: 1.2em;
+  cursor: pointer;
+  border: none;
+}
+
 nav.dark #myAccount a{
   color: white;
 }

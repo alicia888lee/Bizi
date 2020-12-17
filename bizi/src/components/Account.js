@@ -37,16 +37,6 @@ class Account extends Component {
         });
     }
 
-    signOut = async() => {
-        try {
-            await Auth.signOut();
-        }
-        catch (error) {
-            console.log('error signing out', error);
-        }
-        window.location.reload();
-    }
-
     async componentDidMount() {
         const currentUser = await this.getCurrentUser();
         currentUser ? this.setUserState(currentUser?.attributes?.name) : this.props.history.push('/login');
@@ -58,12 +48,7 @@ class Account extends Component {
         return (
             <div className="account">
                 <Nav />
-                <h1 className="accountHeader">Hey {currentUser}! Welcome Back</h1>
-
-                <button onClick={() => {
-                    this.signOut();
-                    this.props.history.push('/login');
-                }}>Sign Out</button>
+                <h1 className="accountHeader">Hey {currentUser}! Welcome Back!</h1>
                 
                 <div className="discounts-wrapper">                            
                     <h3><RiScissorsCutLine className="accountIcon"/>Your discounts</h3>

@@ -1,15 +1,17 @@
 import React, { Component } from 'react';
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import LightLogo from '../images/lightLogo.jpg';
 import DarkLogo from '../images/darkLogo.jpg';
 import { Auth } from 'aws-amplify'
+import AccountDropDown from './AccountDropDown'
 
 class Nav extends Component {
     constructor(props) {
       super(props)
 
       this.state = {
-        userAuthenticated: false
+        userAuthenticated: false,
+        selection: ''
       }
     }
     // check if user is signed in
@@ -36,45 +38,53 @@ class Nav extends Component {
       verifyAuth && this.updateUserState(true);
     }
 
+    signOut = async() => {
+      try {
+          await Auth.signOut();
+      }
+      catch (error) {
+          console.log('error signing out', error);
+      }
+      // window.location.reload();
+      this.props.history.push('/login');
+    }
+
+    selectAccountOption = (e) => {
+      e.target.value == 'My Account' ?
+        this.props.history.push('/account') :
+        this.signOut();
+    }
+
     render() {
         const {
             light
         } = this.props;
 
-        const { userAuthenticated } = this.state;
+        const { userAuthenticated, selection } = this.state;
 
         return (
             <nav className={!light && 'dark'}>
               <Link to='/'><img class="logo" src={light ? LightLogo : DarkLogo} /></Link>
               <ul>                  
                 <li id='myAccount'>
-                  <Link to={!userAuthenticated ? "/login" : "/account"} activeClassName="active">
-                    {userAuthenticated ? 'My Account' : 'Log In'}
-                  </Link>
+                  {
+                    userAuthenticated ? 
+                    <select id='myAccountSelect' onChange={this.selectAccountOption}>
+                      <option disabled selected style={{display: 'none'}}>My Account</option>
+                      <option>My Account</option>
+                      <option>Sign Out</option>
+                    </select> :
+                    <Link to='/login' activeClassName="active">Log In</Link>
+                  }
                 </li>
                 <li><Link to="/contact" activeClassName="active">Contact</Link></li>
                 <li><Link to="/stories">Stories</Link></li>
                 {/* <li><Link to="/discover" activeClassName="active">Discover</Link></li> */}
-                <li><Link to="/search" activeClassName="active">Search</Link></li>                                
+                <li><Link to="/search" activeClassName="active">Search</Link></li>
               </ul>
             </nav>          
       )
-  // {
-  //   !props.light &&
-  //     <nav class="dark">
-  //         <Link to='/'><img class="logo" src={DarkLogo} /></Link>
-  //         <ul>                  
-  //           <li id='myAccount'><Link to="/login">{userIsLoggedIn ? 'My Account' : 'Log In'}</Link></li>
-  //           <li><Link to="/contact">Contact</Link></li>
-  //           <li className={window.location.pathname.startsWith('/stories') && 'active'}>
-  //             <Link to="/stories">Stories</Link>
-  //           </li>
-  //           {/* <li><Link to="/discover">Discover</Link></li> */}
-  //           <li><Link to="/search">Search</Link></li>                                
-  //         </ul>
-  //     </nav>          
-  // }
     }
 }
 
-export default Nav;
+export default withRouter(Nav);
