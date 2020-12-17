@@ -3,7 +3,6 @@ import { Link, withRouter } from "react-router-dom";
 import LightLogo from '../images/lightLogo.jpg';
 import DarkLogo from '../images/darkLogo.jpg';
 import { Auth } from 'aws-amplify'
-import AccountDropDown from './AccountDropDown'
 
 class Nav extends Component {
     constructor(props) {
@@ -45,7 +44,6 @@ class Nav extends Component {
       catch (error) {
           console.log('error signing out', error);
       }
-      // window.location.reload();
       this.props.history.push('/login');
     }
 
