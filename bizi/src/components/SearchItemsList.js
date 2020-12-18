@@ -14,7 +14,6 @@ class SearchItemsList extends Component {
 
     render() {
         const { searchList } = this.props;
-        console.log(searchList);
 
         return (
             <div>

@@ -23,12 +23,13 @@ class Search extends React.Component {
           businesses: [],
           filteredBusinesses: [],
           searchList: [],
-          search: ""
+          search: "",
+          loading: false
         }
       }
       searchChange(e){
         const { businesses } = this.state;
-        var filtered = businesses.filter((item) => item?.businessName?.includes(e.target.value));
+        var filtered = businesses.filter((item) => item?.businessName?.toLowerCase().includes(e.target.value.toLowerCase()));
         this.setState({
           filteredBusinesses: filtered,
           search: e.target.value
@@ -37,6 +38,9 @@ class Search extends React.Component {
       }
 
       getBusinessData = async() => {
+        this.setState({
+          loading: true
+        });
         try {
             var businessQuery = await API.graphql({
                 query: queries.listBusinesss
@@ -75,7 +79,8 @@ class Search extends React.Component {
       );
       
       this.setState({
-          searchList: searchList
+          searchList: searchList,
+          loading: false
       });
     }
 
@@ -93,7 +98,7 @@ class Search extends React.Component {
     }
 
     render(){
-      const { searchList } = this.state;
+      const { searchList, loading, businesses } = this.state;
 
       return (
           <div className="search">
@@ -103,10 +108,10 @@ class Search extends React.Component {
               
               <Switch>
                 <Route exact path="/search">
-                  <SearchItems searchList={searchList} />       
+                  <SearchItems searchList={searchList} loading={loading} />       
                 </Route>
                 <Route path={`/search/:businessId`}>               
-                  <BusinessItem />    
+                  <BusinessItem businesses={businesses}/>    
                 </Route>
               </Switch>                
 

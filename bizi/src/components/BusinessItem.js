@@ -10,7 +10,18 @@ import { RiArrowGoBackFill } from "react-icons/ri";
 import { Link } from "react-router-dom";
 import testImg from '../images/pexels-maria-gloss-4197693.jpg';
 
-function BusinessItem(){
+function getBusinessFromURL(url, businesses) {
+  var name = url.split('/')[2];
+  name = name.replace('%20', ' ');
+  var business = businesses.filter((item) => item?.businessName == name)[0];
+  return business;
+}
+
+function BusinessItem(props){
+    const{ businesses } = props;
+    var url = window.location.pathname;
+    var business = getBusinessFromURL(url, businesses);
+    
     return (       
         <>            
             <div className="description">
@@ -31,20 +42,22 @@ function BusinessItem(){
                     </div>   
                 </div>
                 </div>
-                <BusinessInfo />        
+                <BusinessInfo business={business}/>        
             </div>            
         <AddReview/>   
         </>
     )
 }
 
-function BusinessInfo() {
+function BusinessInfo(props) {
+    const { business } = props;
+
     return(
         <div className="description-text">
             <div className="textbox">
                 <div className="business-header">
                     <Link to="/search"><RiArrowGoBackFill className="back-icon" /></Link>
-                    <h2>First Antique</h2>       
+                    <h2>{business?.businessName}</h2>       
                     <div className="a-box">                        
                         <BiBadgeCheck/>
                         <h4>A</h4> 

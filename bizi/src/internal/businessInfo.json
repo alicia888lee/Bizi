@@ -1,16 +1,30 @@
 {
-    "Business1": {
+    "Trader Joe's": {
         "Description": "Food & Services",
         "Policies": ["Masks", "Sanitation"],
         "Phone Number": "888-123-4523",
-        "Website": "bus1.com",
+        "Website": "tjs.com",
         "Delivery": "N/A"
     },
-    "Business2": {
-        "Description": "Clothing",
+    "Jewel": {
+        "Description": "Food & Services",
         "Policies": ["Sanitation"],
         "Phone Number": "674-323-7895",
-        "Website": "bus2.com",
+        "Website": "jewel.com",
+        "Delivery": "N/A"
+    },
+    "Starbuck's": {
+        "Description": "Food & Services",
+        "Policies": ["Sanitation"],
+        "Phone Number": "674-323-7895",
+        "Website": "starbucks.com",
+        "Delivery": "N/A"
+    },
+    "Bat 17": {
+        "Description": "Food & Services",
+        "Policies": ["Sanitation"],
+        "Phone Number": "674-323-7895",
+        "Website": "bat17.com",
         "Delivery": "N/A"
     }
 }

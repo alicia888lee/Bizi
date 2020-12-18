@@ -1004,6 +1004,7 @@ nav.dark #myAccount a{
   text-align: center;
   padding: 0.5em 0.7em;
   width: 110px;
+  cursor: pointer;
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;  
