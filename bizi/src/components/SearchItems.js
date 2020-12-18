@@ -6,7 +6,7 @@ function SearchItems(){
     return(
       <div className="description">
         <div className="map">
-          <Map />
+          <Map height={100}/>
         </div>
   
         <div className="description-text">          

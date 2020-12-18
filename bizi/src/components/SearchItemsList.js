@@ -38,7 +38,7 @@ function SearchItemsList() {
                     </div>
                     <img className="SearchItemImg" src = {testImg} />
                 </Link>
-                <div className="SearchItem">
+                <Link to ="/search/test1" className="SearchItem">
                     <div className="SerachItemWrapper">
                         <div className="SearchItemHeader">
                             <h2>First Antique</h2>
@@ -52,8 +52,8 @@ function SearchItemsList() {
                         </div>
                     </div>
                     <img className="SearchItemImg" src = {testImg} />
-                </div>
-                <div className="SearchItem">
+                </Link>
+                <Link to ="/search/test2" className="SearchItem">
                     <div className="SerachItemWrapper">
                         <div className="SearchItemHeader">
                             <h2>First Antique</h2>
@@ -67,8 +67,8 @@ function SearchItemsList() {
                         </div>
                     </div>
                     <img className="SearchItemImg" src = {testImg} />
-                </div>
-                <div className="SearchItem">
+                </Link>
+                <Link to ="/search/test3" className="SearchItem">
                     <div className="SerachItemWrapper">
                         <div className="SearchItemHeader">
                             <h2>First Antique</h2>
@@ -81,7 +81,7 @@ function SearchItemsList() {
                         </div>
                     </div>
                     <img className="SearchItemImg" src = {testImg} />
-                </div>
+                </Link>
             </div>
         </div>
     )

@@ -304,7 +304,7 @@ nav.dark #myAccount a{
 .description {
   display: flex;  
   text-align: left;
-  padding: 2.5em;
+  padding: 2.5em 2.5em 0 2.5em;
 }
 
 .description p{
@@ -318,10 +318,8 @@ nav.dark #myAccount a{
 
 .map {
   text-align: center;
-  padding: 30px;
-  width: 60%;
-  flex: 1;
-  /* height: 900px; */
+  padding: 30px;  
+  flex: 1;  
 }
 .pin {
   position: absolute;
@@ -374,7 +372,7 @@ nav.dark #myAccount a{
   padding: 0 7px;
 }
 
-.right, .description-text a, .name, .thumbsUp {
+.right, .name, .thumbsUp {
   color: #263EE7;  
   text-decoration: none;
 }
@@ -387,16 +385,12 @@ nav.dark #myAccount a{
   font-size: 1.9em;
   flex: 1;
 }
-.icon-text p{
+.icon-text p {
   flex: 9;  
 }
-
-
-.question, .action {
-  color: #dee6f9;
-  text-align: center;
+.icon-text ul {
+  flex: 3.5;
 }
-
 .review1{
   background-color: #dee6f9;
   padding: 10px 20px;
@@ -770,7 +764,7 @@ nav.dark #myAccount a{
   flex: 1;
   border-left: thick solid #385FDC;
 }
-.loginBtn{
+.loginBtn, .reviewBtn{
   background-color: #385FDC;
   /* color: rgb(148, 139, 139); */
   color: white;
@@ -896,7 +890,7 @@ nav.dark #myAccount a{
   width: 60%;     
 }
 
-.contactMsg {
+.contactMsg, .reviewText {
   display: block;
   resize: none;
   outline: none;
@@ -1149,4 +1143,115 @@ nav.dark #myAccount a{
 .recItems div h1 {
   text-align: center;
   margin-bottom: 0.25em;  
+}
+
+.business-header {
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+}
+.business-header * {
+  display: inline;
+}
+.back-icon {
+  color: #385FDC;
+  font-size: 2.5em;
+}
+.a-box {
+  background-color: #83cb7b;
+  color: white;  
+  display: flex;
+  width: 100px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 2.5em;
+  font-size: 1.75em;
+  height: 45px;
+  margin-left: 0.75em;
+}
+.a-box h4 {
+  margin-left: 0.15em;
+}
+.business-header h2, .question {
+  margin-left: 0.5em;
+}
+.question, .action {
+  color: #dee6f9;  
+}
+.question, .business-header-icons {
+  font-size: 2.25em;
+}
+.business-header-icons {
+  color: #385FDC;
+  font-weight: bold;  
+}
+.description-text a {
+  color: #385FDC;
+  font-weight: bold;
+  text-decoration: none;
+}
+.business-gallery {
+  height: 50%;
+}
+.business-photo {  
+  white-space: nowrap;    
+}
+.business-row {
+  display: flex;
+}
+.business-row img {
+  flex: 1;
+  object-fit: cover;
+  width: 150px;
+  height: 150px;
+  margin: 0.5em 0.5em;
+}
+.add-review-header {
+  display: flex;
+  align-items: center;
+  margin-top: 0;
+}
+.review-icon {
+  margin-right: 0.4em;
+}
+.review-wrapper {
+  display: flex;
+  align-items: center;
+  padding: 1em;  
+}
+.review-upload {  
+  background-color: #dee6f9;
+  color: #385FDC;
+  width: 175px;
+  height: 175px; 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column; 
+  margin-right: 2em;         
+}
+.reviewText {
+  background-color: #dee6f9;
+  color: #385FDC;  
+  padding: 2em 3em;
+}
+.reviewText::placeholder {
+  color: #385FDC;
+}
+.review-upload h3 {
+  margin: 0;
+}
+.review-add-icon {
+  font-size: 5em;
+}
+.review-description {
+  flex: 2;
+}
+.reviewBtn {
+  margin: 2em 0;
+  width: 15%;
+}
+.add-review-wrapper {
+  padding-left: 5em;
+  padding-right: 2.5em;
 }
