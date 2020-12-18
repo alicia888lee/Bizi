@@ -294,12 +294,12 @@ nav.dark #myAccount a{
   color: white;
 }
 
-.active {
+/* .active {
   width: 80px;
   padding-top: 29px;
   border-top: 6px solid;
   border-top-color: #385FDC;
-}
+} */
 
 .description {
   display: flex;  

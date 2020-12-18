@@ -10,7 +10,6 @@ class Nav extends Component {
 
       this.state = {
         userAuthenticated: false,
-        selection: ''
       }
     }
     // check if user is signed in
@@ -58,7 +57,7 @@ class Nav extends Component {
             light
         } = this.props;
 
-        const { userAuthenticated, selection } = this.state;
+        const { userAuthenticated } = this.state;
 
         return (
             <nav className={!light && 'dark'}>
@@ -72,13 +71,13 @@ class Nav extends Component {
                       <option>My Account</option>
                       <option>Sign Out</option>
                     </select> :
-                    <Link to='/login' activeClassName="active">Log In</Link>
+                    <Link to='/login'>Log In</Link>
                   }
                 </li>
-                <li><Link to="/contact" activeClassName="active">Contact</Link></li>
+                <li><Link to="/contact">Contact</Link></li>
                 <li><Link to="/stories">Stories</Link></li>
                 {/* <li><Link to="/discover" activeClassName="active">Discover</Link></li> */}
-                <li><Link to="/search" activeClassName="active">Search</Link></li>
+                <li><Link to="/search">Search</Link></li>
               </ul>
             </nav>          
       )

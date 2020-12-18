@@ -2,7 +2,8 @@ import React from 'react'
 import Map from './Map'
 import SearchItemsList from './SearchItemsList'
 
-function SearchItems(){
+function SearchItems(props){
+  console.log(props.searchList);
     return(
       <div className="description">
         <div className="map">
@@ -10,7 +11,7 @@ function SearchItems(){
         </div>
   
         <div className="description-text">          
-          <SearchItemsList />                                                          
+          <SearchItemsList searchList={props.searchList}/>                                                          
         </div>      
       </div>
     )
