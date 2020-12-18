@@ -14,10 +14,11 @@ const LocationPin = ({ text }) => (
     </div>
   )
   
-class Map extends Component {
+class Map extends Component {  
    render() {
+     let heightNum = `${this.props.height}%`
     return (      
-      <div style={{ height: '100%', width: '100%' }}>
+      <div style={{ height: heightNum, width: '100%' }}>
         <GoogleMapReact
           bootstrapURLKeys={{ key: 'AIzaSyCMZlXIU9MJpfovWRwU6LvyFGtH1X3ljpY' }}
           defaultCenter={location}
