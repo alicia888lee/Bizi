@@ -5,6 +5,7 @@ import sustain from '../images/environment.png'
 import ethical from '../images/heart_hand.png'
 import diversity from '../images/community.png'
 import { Link } from 'react-router-dom'
+
 class Header extends React.Component {
 
     constructor(props){
@@ -37,7 +38,10 @@ class Header extends React.Component {
               <h3>Diversity Initiatives</h3>
             </Link>
           </div>          
-          <input type="text" id="searchbar" placeholder="&#xF002; Search businesses near you" value={this.state.search} onChange={this.searchChange}/>
+          <fieldset>
+            <input type="text" id="searchbar" placeholder="Search businesses near you" value={this.state.search} onChange={this.searchChange}/>
+            <button type="submit">lets go!</button>
+          </fieldset>      
         </div>
       </div>
     );}

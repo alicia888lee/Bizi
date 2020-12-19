@@ -225,18 +225,36 @@
   margin-top: 0;
   font-size: 0.75em;
 }
-.input-group {  
-}
-#searchbar {
+fieldset {
+  margin-top: 2em;
   font-family: 'FontAwesome', 'Poppins';  
   font-size: 1.25em;  
-  height: 35px;
-  width: 60%;
-  text-align: center;
-  border-radius: 50px;  
-  padding: 0.25em 0.5em;
-  margin-top: 2em;  
+  padding: 1em;
+  border: none; 
+  border-radius: 1em;
+}
+fieldset button, fieldset input {  
+  font-size: inherit;
+  padding: 0.5em 1em;
+  -moz-box-sizing: content-box;
+  -webkit-box-sizing: content-box;
+  box-sizing: content-box;
   border: none;
+  text-align: center;
+}
+fieldset button {
+  background-color: #385FDC;  
+  color: white;  
+  border-radius: 0 5em 5em 0;
+  flex: 0 0 auto;
+}
+#searchbar {    
+  width: 700px;   
+  border-radius: 5em 0 0 5em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  flex: 1 0 8em;
 }
 #searchbar::placeholder{
   color: #a5b4e4;
