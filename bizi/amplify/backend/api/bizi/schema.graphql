@@ -11,4 +11,5 @@ type Business @model @key(fields: ["businessName"]) {
   businessPhone: String!
   businessURL: String!
   deliveryURL: String!
+  address: String!
 }

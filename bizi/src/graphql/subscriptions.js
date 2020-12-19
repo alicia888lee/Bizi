@@ -33,6 +33,7 @@ export const onCreateBusiness = `subscription OnCreateBusiness {
     businessPhone
     businessURL
     deliveryURL
+    address
   }
 }
 `;
@@ -44,6 +45,7 @@ export const onUpdateBusiness = `subscription OnUpdateBusiness {
     businessPhone
     businessURL
     deliveryURL
+    address
   }
 }
 `;
@@ -55,6 +57,7 @@ export const onDeleteBusiness = `subscription OnDeleteBusiness {
     businessPhone
     businessURL
     deliveryURL
+    address
   }
 }
 `;

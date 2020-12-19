@@ -13,7 +13,8 @@ async function updateDB(data) {
             policyList: data[business]['Policies'],
             businessPhone: data[business]['Phone Number'],
             businessURL: data[business]['Website'],
-            deliveryURL: data[business]['Delivery']
+            deliveryURL: data[business]['Delivery'],
+            address: data[business]['Address']
         };
 
         try {

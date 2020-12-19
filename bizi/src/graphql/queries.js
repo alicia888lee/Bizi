@@ -40,6 +40,7 @@ export const getBusiness = `query GetBusiness($businessName: String!) {
     businessPhone
     businessURL
     deliveryURL
+    address
   }
 }
 `;
@@ -64,6 +65,7 @@ export const listBusinesss = `query ListBusinesss(
       businessPhone
       businessURL
       deliveryURL
+      address
     }
     nextToken
   }

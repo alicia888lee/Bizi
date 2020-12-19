@@ -4,27 +4,31 @@
         "Policies": ["Masks", "Sanitation"],
         "Phone Number": "888-123-4523",
         "Website": "tjs.com",
-        "Delivery": "N/A"
+        "Delivery": "N/A",
+        "Address": "1211 Chicago Ave, Evanston, IL 60202"
     },
     "Jewel": {
         "Description": "Food & Services",
         "Policies": ["Sanitation"],
         "Phone Number": "674-323-7895",
         "Website": "jewel.com",
-        "Delivery": "N/A"
+        "Delivery": "N/A",
+        "Address": "1128 Chicago Ave, Evanston, IL 60202"
     },
     "Starbuck's": {
         "Description": "Food & Services",
         "Policies": ["Sanitation"],
         "Phone Number": "674-323-7895",
         "Website": "starbucks.com",
-        "Delivery": "N/A"
+        "Delivery": "N/A",
+        "Address" : "1734 Sherman Ave, Evanston, IL 60201"
     },
     "Bat 17": {
         "Description": "Food & Services",
         "Policies": ["Sanitation"],
         "Phone Number": "674-323-7895",
         "Website": "bat17.com",
-        "Delivery": "N/A"
+        "Delivery": "N/A",
+        "Address": "1709 Benson Ave, Evanston, IL 60201"
     }
 }

@@ -108,7 +108,7 @@ class Search extends React.Component {
               
               <Switch>
                 <Route exact path="/search">
-                  <SearchItems searchList={searchList} loading={loading} />       
+                  <SearchItems searchList={searchList} loading={loading} businesses={businesses} />       
                 </Route>
                 <Route path={`/search/:businessId`}>               
                   <BusinessItem businesses={businesses}/>    
