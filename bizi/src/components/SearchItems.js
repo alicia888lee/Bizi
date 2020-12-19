@@ -5,8 +5,8 @@ import Loader from 'react-loader-spinner'
 
 function SearchItems(props){
   const { searchList, loading, businesses } = props;
-  console.log(props.searchList);
-    return(
+
+  return(
       <>
         {searchList.length > 0 &&
           <div className="description">

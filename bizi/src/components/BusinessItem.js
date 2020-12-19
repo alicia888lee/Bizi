@@ -7,8 +7,9 @@ import { AiOutlineQuestionCircle, AiOutlineEye } from "react-icons/ai";
 import { FiThumbsUp } from "react-icons/fi";
 import { GiHealthNormal } from "react-icons/gi";
 import { RiArrowGoBackFill } from "react-icons/ri";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import testImg from '../images/pexels-maria-gloss-4197693.jpg';
+import { Component } from "react";
 
 function getBusinessFromURL(url, businesses) {
   var name = url.split('/')[2];
@@ -17,36 +18,49 @@ function getBusinessFromURL(url, businesses) {
   return business;
 }
 
-function BusinessItem(props){
-    const{ businesses } = props;
-    var url = window.location.pathname;
-    var business = getBusinessFromURL(url, businesses);
+class BusinessItem extends Component {
+    constructor(props) {
+      super(props)
+    }
     
-    return (       
-        <>            
-            <div className="description">
-                <div className="map">
-                <Map height={50}/>
-                <div className="business-gallery">
-                    <div className="business-row">
-                        <img src={testImg} className="business-photo"/>
-                        <img src={testImg} className="business-photo"/>
-                        <img src={testImg} className="business-photo"/>
-                        <img src={testImg} className="business-photo"/>
-                    </div>           
-                    <div className="business-row">
-                        <img src={testImg} className="business-photo"/>
-                        <img src={testImg} className="business-photo"/>
-                        <img src={testImg} className="business-photo"/>
-                        <img src={testImg} className="business-photo"/>
-                    </div>   
-                </div>
-                </div>
-                <BusinessInfo business={business}/>        
-            </div>            
-        <AddReview/>   
-        </>
-    )
+    componentDidMount() {
+      const { businesses } = this.props;
+      if (businesses.length == 0) {
+        this.props.history.push('/search');
+      }
+    }
+
+    render() {
+      const { businesses } = this.props;
+      var url = window.location.pathname;
+      var business = getBusinessFromURL(url, businesses);
+
+      return (       
+          <>            
+              <div className="description">
+                  <div className="map">
+                  <Map height={50} businesses={[business]}/>
+                  <div className="business-gallery">
+                      <div className="business-row">
+                          <img src={testImg} className="business-photo"/>
+                          <img src={testImg} className="business-photo"/>
+                          <img src={testImg} className="business-photo"/>
+                          <img src={testImg} className="business-photo"/>
+                      </div>           
+                      <div className="business-row">
+                          <img src={testImg} className="business-photo"/>
+                          <img src={testImg} className="business-photo"/>
+                          <img src={testImg} className="business-photo"/>
+                          <img src={testImg} className="business-photo"/>
+                      </div>   
+                  </div>
+                  </div>
+                  <BusinessInfo business={business}/>        
+              </div>            
+          <AddReview/>   
+          </>
+      )
+  }
 }
 
 function BusinessInfo(props) {
@@ -118,4 +132,4 @@ function BusinessInfo(props) {
     )
 }
 
-export default BusinessItem
+export default withRouter(BusinessItem);

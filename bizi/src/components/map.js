@@ -33,7 +33,6 @@ class Map extends Component {
 
   generateLocationPins = async() => {
     const { businesses } = this.props;
-
     var locationPins = await Promise.all(businesses.map(async(business) => {
         var coords = await addressToCoordinate(business?.address);
         var lat = coords?.lat;
@@ -48,7 +47,7 @@ class Map extends Component {
         );
       })
     );
-
+    
     this.setState({
       locationPins: locationPins
     });
@@ -56,7 +55,6 @@ class Map extends Component {
 
   generateCenter = () => {
     const { locationPins } = this.state;
-
     var lats = locationPins.map(loc => loc?.props?.lat);
     var lngs = locationPins.map(loc => loc?.props?.lng);
     var avgLat = lats.reduce(
@@ -85,7 +83,6 @@ class Map extends Component {
     const { locationPins, center } = this.state;
     let heightNum = `${height}%`
 
-    console.log(locationPins);
     return (      
       <div style={{ height: heightNum, width: '100%' }}>
         <GoogleMapReact
