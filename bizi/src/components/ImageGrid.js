@@ -9,12 +9,33 @@ function ImageGrid(){
       <div className='imageContainer'>
         <div className="gridElement">
           <img className="gridImg" src={busImg1} />
+          <div className="gridImgDescription">
+            <h2>Meet John</h2>
+            <h3>Owner of Juicery</h3>
+            <div className="imgTextWrapper">
+              <p>Lorem Ipsum Stuff</p>
+            </div>
+          </div>
         </div>
         <div className="gridElement">
           <img className="gridImg" src={busImg2} />
+          <div className="gridImgDescription">
+            <h2>Meet John</h2>
+            <h3>Owner of Juicery</h3>
+            <div className="imgTextWrapper">
+              <p>Lorem Ipsum Stuff</p>
+            </div>
+          </div>          
         </div>
         <div className="gridElement">
           <img className="gridImg" src={busImg3} />
+          <div className="gridImgDescription">
+            <h2>Meet John</h2>
+            <h3>Owner of Juicery</h3>
+            <div className="imgTextWrapper">
+              <p>Lorem Ipsum Stuff</p>
+            </div>
+          </div>
         </div>
         <div className="gridElement">
           <img className="gridImg" src={blankImg} id='blank1' />
