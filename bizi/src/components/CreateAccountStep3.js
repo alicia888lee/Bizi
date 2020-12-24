@@ -20,15 +20,32 @@ class Step3 extends Component {
             diversitySelected,
             shoppingSelected,
             foodSelected,
-            servicesSelected
+            servicesSelected,
+            typeCustomer,
+            validBusinessName,
+            onNameChange,
+            validBusinessDescription,
+            onDescriptionChange,
+            validPolicies,
+            onPolicyChange,
+            validPhone,
+            onPhoneChange,
+            validUrl,
+            onURLChange,
+            validDelivery,
+            onDeliveryChange,
+            validAddress,
+            onAddressChange,
+            register
         } = this.props;
         return (
             <div>
                 <Nav light={false} />
                 <div className='createAccountHeader'>
-                    <h1>Adjust Your Preferences!</h1>
-                    <p><b>What are you interested in?</b></p>
+                    <h1>{typeCustomer ? 'Adjust Your Preferences!' : 'Register Your Business'}</h1>
+                    <p><b>{typeCustomer && 'What are you interested in?'}</b></p>
                 </div>
+                {typeCustomer ?
                 <div className='userPreferencesGrid'>
                     <div onClick={selectSustainable} className='prefCol' id={sustainableSelected && 'userTypePreferenceHighlighted'}>
                         <img src={envImg} />
@@ -61,13 +78,57 @@ class Step3 extends Component {
                             </div>
                         </div>
                     </div>
+                </div> :
+                <div className='loginBody'>
+                    <form>
+                        <div className='inputGroup'>
+                            <label for='name'>Business Name</label>
+                            <input id={!validBusinessName && 'invalidInput'} type='text' name='name' onBlur={onNameChange}/>
+                            {!validBusinessName && <p>Cannot be blank</p>}
+                        </div>
+                        <div className='inputGroup'>
+                            <label for='description'>Business Description</label>
+                            <input id={!validBusinessDescription && 'invalidInput'} type='text' name='description' onBlur={onDescriptionChange}/>
+                            {!validBusinessDescription && <p>Cannot be blank</p>}
+                        </div>
+                        <div className='inputGroup'>
+                            <label for='policies'>Business Policies (separated by a comma; if none, enter N/A)</label>
+                            <input id={!validPolicies && 'invalidInput'} type='text' name='policies' onBlur={onPolicyChange}/>
+                            {!validPolicies && <p>Cannot be blank</p>}
+                        </div>
+                        <div className='inputGroup'>
+                            <label for='phone'>Business Phone</label>
+                            <input id={!validPhone && 'invalidInput'} type='text' name='phone' onBlur={onPhoneChange}/>
+                            {!validPhone && <p>Cannot be blank</p>}
+                        </div>
+                        <div className='inputGroup'>
+                            <label for='url'>Business URL</label>
+                            <input id={!validUrl && 'invalidInput'} type='text' name='url' onBlur={onURLChange}/>
+                            {!validUrl && <p>Cannot be blank</p>}
+                        </div>
+                        <div className='inputGroup'>
+                            <label for='delivery'>URL of Grubhub, Doordash, etc (if none, enter N/A)</label>
+                            <input id={!validDelivery && 'invalidInput'} type='text' name='delivery' onBlur={onDeliveryChange}/>
+                            {!validPhone && <p>Cannot be blank</p>}
+                        </div>
+                        <div className='inputGroup'>
+                            <label for='address'>Business Address</label>
+                            <input id={!validAddress && 'invalidInput'} type='text' name='address' onBlur={onAddressChange}/>
+                            {!validAddress && <p>Cannot be blank</p>}
+                        </div>
+                    </form>
                 </div>
-
+                }
+                {typeCustomer ? 
                 <div className='step3NextButtons'>
                     <button id='skipStep3' onClick={finishSignUp}>Skip</button>
                     <button id='letsGoStep3' onClick={finishSignUp}>Let's Go</button>
-
+                </div> :
+                <div className='step3NextButtons'>
+                    <button id='skipStep3' onClick={finishSignUp}>Skip</button>
+                    <button id='register' onClick={register}>Register</button>
                 </div>
+                }
                 <div className="circles">
                     <div className="circleCreateAcct"></div>
                     <div className="circleCreateAcct"></div>

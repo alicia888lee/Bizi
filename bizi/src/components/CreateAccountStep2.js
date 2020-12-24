@@ -27,7 +27,7 @@ class Step2 extends Component {
             <div>
                 <Nav light={false} />
                 <div className='createAccountHeader'>
-                    <h1>{typeCustomer ? "Start Making Change!" : "Register Your Business"}</h1>
+                    <h1>{typeCustomer ? "Start Making Change!" : "Set Up Your Administrative Account"}</h1>
                 </div>
                 <div className='loginBody'>
                     <form>

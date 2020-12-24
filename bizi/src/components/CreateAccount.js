@@ -2,10 +2,10 @@ import React, { Component } from 'react'
 import Step1 from './CreateAccountStep1'
 import Step2 from './CreateAccountStep2'
 import VerifyStep from './CreateAccountVerification'
-import Step3 from './CreateAccountStep3'
 import { Auth, API } from 'aws-amplify'
 import * as mutations from '../graphql/mutations'
 import { withRouter } from 'react-router-dom'
+import Step3 from './CreateAccountStep3'
 
 
 class CreateAccount extends Component {
@@ -62,7 +62,21 @@ class CreateAccount extends Component {
             typeDiversitySelected: false,
             typeShoppingSelected: false,
             typeFoodSelected: false,
-            typeServicesSelected: false
+            typeServicesSelected: false,
+            businessName: '',
+            businessDescription: '',
+            policyList: [],
+            phone: '',
+            url: '',
+            deliveryURL: '',
+            address: '',
+            validBusinessName: true,
+            validBusinessDescription: true,
+            validPolicies: true,
+            validPhone: true,
+            validUrl: true,
+            validDelivery: true,
+            validAddress: true
         }
     }
 
@@ -161,6 +175,80 @@ class CreateAccount extends Component {
                 validName: false
             });
         }
+    }
+
+    registerBusiness = async() => {
+        const {
+            businessName,
+            businessDescription,
+            policyList,
+            phone,
+            url,
+            deliveryURL,
+            address,
+            validBusinessName,
+            validBusinessDescription,
+            validPolicies,
+            validPhone,
+            validUrl,
+            validDelivery,
+            validAddress,
+            userEmail
+        } = this.state;
+
+        const noneValid = !(businessName
+            || businessDescription
+            || policyList.length > 0
+            || phone
+            || url
+            || deliveryURL
+            || address
+        );
+
+        const inputsValid = validBusinessName
+            && validBusinessDescription
+            && validPolicies
+            && validPhone
+            && validUrl
+            && validDelivery
+            && validAddress;
+
+        if (inputsValid && !noneValid) {
+            const businessInfo = {
+                businessName: businessName,
+                businessDescription: businessDescription,
+                policyList: policyList,
+                businessPhone: phone,
+                businessURL: url,
+                deliveryURL: deliveryURL,
+                address: address,
+                userEmail: userEmail
+            };
+            try {
+                const newBusiness = await API.graphql({
+                    query: mutations.createBusiness,
+                    variables: {input: businessInfo}
+                });
+                console.log(newBusiness);
+            }
+            catch(error) {
+                console.log(error);
+            }
+            this.props.history.push('/account');
+        }
+
+        else if (noneValid) {
+            this.setState({
+                validBusinessName: false,
+                validBusinessDescription: false,
+                validPolicies: false,
+                validPhone: false,
+                validUrl: false,
+                validDelivery: false,
+                validAddress: false
+            });
+        }
+
     }
 
     goToVerifyStep = (firstVerifyAttempt = true, errorMessage) => {
@@ -356,6 +444,52 @@ class CreateAccount extends Component {
         });
     }
 
+    setBusinessName = (e) => {
+        this.setState({
+            businessName: e.target.value
+        });
+    }
+
+    setBusinessDescription = (e) => {
+        this.setState({
+            businessDescription: e.target.value
+        });
+    }
+
+    setPolicies = (e) => {
+        var policies = [];
+        e.target.value.length > 0 ? 
+            policies = e.target.value.split(/,\s*/) :
+            policies = [];
+        this.setState({
+            policyList: policies
+        });
+    }
+
+    setPhone = (e) => {
+        this.setState({
+            phone: e.target.value
+        });
+    }
+
+    setUrl = (e) => {
+        this.setState({
+            url: e.target.value
+        });
+    }
+
+    setDelivery = (e) => {
+        this.setState({
+            deliveryURL: e.target.value
+        });
+    }
+
+    setAddress = (e) => {
+        this.setState({
+            address: e.target.value
+        });
+    }
+
     setUserEmail = (e) => {
         this.setState({
             userEmail: e.target.value,
@@ -381,8 +515,13 @@ class CreateAccount extends Component {
         });
     }
 
-    validateInputs = () => {
-        const { userPassword, confirmPassword, userEmail, userName } = this.state;
+    validateStep2Inputs = () => {
+        const { 
+            userPassword, 
+            confirmPassword, 
+            userEmail, 
+            userName,
+        } = this.state;
         
         // check for at least 1 uppercase letter
         let re = new RegExp('[A-Z]');
@@ -422,24 +561,71 @@ class CreateAccount extends Component {
             passwordLowercase: lowercase,
             passwordUppercase: uppercase,
             passwordSpecialChar: specialCharacter,
-            passwordNumbers: number
+            passwordNumbers: number,
         });
-        
+    }
+
+    validateStep3Inputs = () => {
+        const {
+            businessName,
+            businessDescription,
+            policyList,
+            phone,
+            url,
+            deliveryURL,
+            address
+        } = this.state;
+
+        this.setState({
+            validBusinessName: businessName,
+            validBusinessDescription: businessDescription,
+            validPolicies: policyList.length > 0,
+            validUrl: url,
+            validPhone: phone,
+            validDelivery: deliveryURL,
+            validAddress: address
+        })
     }
 
     componentDidUpdate(prevProps, prevState) {
-        const { userPassword, confirmPassword, userEmail, userName } = this.state;
+        const { 
+            userPassword, 
+            confirmPassword, 
+            userEmail, 
+            userName,
+            businessName,
+            businessDescription,
+            policyList,
+            phone,
+            url,
+            deliveryURL,
+            address
+        } = this.state;
         
-        let eventUpdateCondition = (
+        let step2UpdateCondition = (
             userPassword !== prevState.userPassword 
             || confirmPassword !== prevState.confirmPassword
             || userEmail !== prevState.userEmail
             || userName !== prevState.userName
             );
 
-        if (eventUpdateCondition) {
-            this.validateInputs();
+        let step3UpdateCondition = (
+            businessName !== prevState.businessName
+            || businessDescription !== prevState.businessDescription
+            || policyList !== prevState.policyList
+            || phone !== prevState.phone
+            || url !== prevState.url
+            || deliveryURL !== prevState.deliveryURL
+            || address !== prevState.address
+        )
+
+        if (step2UpdateCondition) {
+            this.validateStep2Inputs();
         }
+        else if (step3UpdateCondition) {
+            this.validateStep3Inputs();
+        }
+
     }
 
     render() {
@@ -468,10 +654,17 @@ class CreateAccount extends Component {
             firstVerifyAttempt,
             errorValidationMessage,
             duplicateEmail,
-            duplicateEmailMessage
+            duplicateEmailMessage,
+            validBusinessName,
+            validBusinessDescription,
+            validPolicies,
+            validPhone,
+            validUrl,
+            validDelivery,
+            validAddress
         } = this.state;
-        
-         return (
+
+        return (
             <div>
                 {firstStep && 
                 <Step1 
@@ -522,6 +715,24 @@ class CreateAccount extends Component {
                         this.updateUserPreferences();
                         this.props.history.push('/account');
                     }}
+                    register = {() => {
+                        this.registerBusiness();
+                    }}
+                    validBusinessName = {validBusinessName}
+                    validBusinessDescription = {validBusinessDescription}
+                    validPolicies = {validPolicies}
+                    validPhone = {validPhone}
+                    validUrl = {validUrl}
+                    validDelivery = {validDelivery}
+                    validAddress = {validAddress}
+                    onNameChange = {this.setBusinessName}
+                    onDescriptionChange = {this.setBusinessDescription}
+                    onPolicyChange = {this.setPolicies}
+                    onPhoneChange = {this.setPhone}
+                    onURLChange = {this.setUrl}
+                    onDeliveryChange = {this.setDelivery}
+                    onAddressChange = {this.setAddress}
+                    typeCustomer = {typeCustomerSelected}
                     selectSustainable = {this.setPrefSustainable}
                     selectEthical = {this.setPrefEthical}
                     selectDiversity = {this.setPrefDiversity}

@@ -32,8 +32,8 @@ export const listUsers = `query ListUsers(
   }
 }
 `;
-export const getBusiness = `query GetBusiness($businessName: String!) {
-  getBusiness(businessName: $businessName) {
+export const getBusiness = `query GetBusiness($id: ID!) {
+  getBusiness(id: $id) {
     businessName
     businessDescription
     policyList
@@ -41,23 +41,16 @@ export const getBusiness = `query GetBusiness($businessName: String!) {
     businessURL
     deliveryURL
     address
+    userEmail
   }
 }
 `;
 export const listBusinesss = `query ListBusinesss(
-  $businessName: String
   $filter: ModelBusinessFilterInput
   $limit: Int
   $nextToken: String
-  $sortDirection: ModelSortDirection
 ) {
-  listBusinesss(
-    businessName: $businessName
-    filter: $filter
-    limit: $limit
-    nextToken: $nextToken
-    sortDirection: $sortDirection
-  ) {
+  listBusinesss(filter: $filter, limit: $limit, nextToken: $nextToken) {
     items {
       businessName
       businessDescription
@@ -66,6 +59,7 @@ export const listBusinesss = `query ListBusinesss(
       businessURL
       deliveryURL
       address
+      userEmail
     }
     nextToken
   }

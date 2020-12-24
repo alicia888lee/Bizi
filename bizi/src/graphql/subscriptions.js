@@ -34,6 +34,7 @@ export const onCreateBusiness = `subscription OnCreateBusiness {
     businessURL
     deliveryURL
     address
+    userEmail
   }
 }
 `;
@@ -46,6 +47,7 @@ export const onUpdateBusiness = `subscription OnUpdateBusiness {
     businessURL
     deliveryURL
     address
+    userEmail
   }
 }
 `;
@@ -58,6 +60,7 @@ export const onDeleteBusiness = `subscription OnDeleteBusiness {
     businessURL
     deliveryURL
     address
+    userEmail
   }
 }
 `;

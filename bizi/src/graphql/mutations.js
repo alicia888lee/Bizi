@@ -34,6 +34,7 @@ export const createBusiness = `mutation CreateBusiness($input: CreateBusinessInp
     businessURL
     deliveryURL
     address
+    userEmail
   }
 }
 `;
@@ -46,6 +47,7 @@ export const updateBusiness = `mutation UpdateBusiness($input: UpdateBusinessInp
     businessURL
     deliveryURL
     address
+    userEmail
   }
 }
 `;
@@ -58,6 +60,7 @@ export const deleteBusiness = `mutation DeleteBusiness($input: DeleteBusinessInp
     businessURL
     deliveryURL
     address
+    userEmail
   }
 }
 `;

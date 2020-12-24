@@ -4,7 +4,7 @@ type User @model @key(fields: ["userEmail"]) {
   userPreferences: [String]!
 }
 
-type Business @model @key(fields: ["businessName"]) {
+type Business @model {
   businessName: String!
   businessDescription: String!
   policyList: [String]!
@@ -12,4 +12,5 @@ type Business @model @key(fields: ["businessName"]) {
   businessURL: String!
   deliveryURL: String!
   address: String!
+  userEmail: String
 }
