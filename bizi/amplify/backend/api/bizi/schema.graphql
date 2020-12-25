@@ -5,12 +5,17 @@ type User @model @key(fields: ["userEmail"]) {
 }
 
 type Business @model {
+  id: ID!
   businessName: String!
   businessDescription: String!
+  initiatives: [String]!
   policyList: [String]!
   businessPhone: String!
   businessURL: String!
   deliveryURL: String!
   address: String!
   userEmail: String
+  lat: Float
+  lng: Float
+  approved: Boolean!
 }

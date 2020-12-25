@@ -27,40 +27,55 @@ export const onDeleteUser = `subscription OnDeleteUser {
 `;
 export const onCreateBusiness = `subscription OnCreateBusiness {
   onCreateBusiness {
+    id
     businessName
     businessDescription
+    initiatives
     policyList
     businessPhone
     businessURL
     deliveryURL
     address
     userEmail
+    lat
+    lng
+    approved
   }
 }
 `;
 export const onUpdateBusiness = `subscription OnUpdateBusiness {
   onUpdateBusiness {
+    id
     businessName
     businessDescription
+    initiatives
     policyList
     businessPhone
     businessURL
     deliveryURL
     address
     userEmail
+    lat
+    lng
+    approved
   }
 }
 `;
 export const onDeleteBusiness = `subscription OnDeleteBusiness {
   onDeleteBusiness {
+    id
     businessName
     businessDescription
+    initiatives
     policyList
     businessPhone
     businessURL
     deliveryURL
     address
     userEmail
+    lat
+    lng
+    approved
   }
 }
 `;

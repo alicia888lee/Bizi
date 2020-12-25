@@ -26,13 +26,12 @@ class Step3 extends Component {
             onNameChange,
             validBusinessDescription,
             onDescriptionChange,
-            validPolicies,
+            validInitiatives,
+            onInitiativesChange,
             onPolicyChange,
             validPhone,
             onPhoneChange,
-            validUrl,
             onURLChange,
-            validDelivery,
             onDeliveryChange,
             validAddress,
             onAddressChange,
@@ -92,24 +91,26 @@ class Step3 extends Component {
                             {!validBusinessDescription && <p>Cannot be blank</p>}
                         </div>
                         <div className='inputGroup'>
-                            <label for='policies'>Business Policies (separated by a comma; if none, enter N/A)</label>
-                            <input id={!validPolicies && 'invalidInput'} type='text' name='policies' onBlur={onPolicyChange}/>
-                            {!validPolicies && <p>Cannot be blank</p>}
+                            <label for='initiatives'>Initiatives<br/>(Choose from: Sustainability, Ethical Supply Chain, Diversity, Food, Shopping, Services<br />separated by a comma; if none, leave blank)</label>
+                            <input id={!validInitiatives && 'invalidInput'} type='text' name='initiatives' onBlur={onInitiativesChange}/>
+                            {!validInitiatives && <p>Must be from the options listed above</p>}
+                        </div>
+                        <div className='inputGroup'>
+                            <label for='policies'>Business Policies<br/>(separated by a comma; if none, leave blank)</label>
+                            <input type='text' name='policies' onBlur={onPolicyChange}/>
                         </div>
                         <div className='inputGroup'>
                             <label for='phone'>Business Phone</label>
-                            <input id={!validPhone && 'invalidInput'} type='text' name='phone' onBlur={onPhoneChange}/>
-                            {!validPhone && <p>Cannot be blank</p>}
+                            <input className='phoneInput' id={!validPhone && 'invalidInput'} type='text' name='phone' onBlur={onPhoneChange} placeholder='(xxx) xxx-xxxx'/>
+                            {!validPhone && <p>Cannot be blank and must be in (xxx) xxx-xxxx format</p>}
                         </div>
                         <div className='inputGroup'>
-                            <label for='url'>Business URL</label>
-                            <input id={!validUrl && 'invalidInput'} type='text' name='url' onBlur={onURLChange}/>
-                            {!validUrl && <p>Cannot be blank</p>}
+                            <label for='url'>Business URL<br/>(if none, leave blank)</label>
+                            <input type='text' name='url' onBlur={onURLChange}/>
                         </div>
                         <div className='inputGroup'>
-                            <label for='delivery'>URL of Grubhub, Doordash, etc (if none, enter N/A)</label>
-                            <input id={!validDelivery && 'invalidInput'} type='text' name='delivery' onBlur={onDeliveryChange}/>
-                            {!validPhone && <p>Cannot be blank</p>}
+                            <label for='delivery'>URL of Grubhub, Doordash, etc<br/>(if none, leave blank)</label>
+                            <input type='text' name='delivery' onBlur={onDeliveryChange}/>
                         </div>
                         <div className='inputGroup'>
                             <label for='address'>Business Address</label>

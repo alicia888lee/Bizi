@@ -60,8 +60,9 @@ class Search extends React.Component {
     generateSearchList = () => {
       const { filteredBusinesses } = this.state;
 
-      var searchList = filteredBusinesses.map((item) => 
-          <Link to={`/search/${item?.businessName}`} className='SearchItem'>
+      var searchList = filteredBusinesses.map((item, index) => 
+        item.approved &&
+          <Link to={`/search/${item?.businessName}`} className='SearchItem' key={index}>
               <div className='SearchItemWrapper'>
                   <div className='SearchItemHeader'>
                       <h2>{item?.businessName}</h2>

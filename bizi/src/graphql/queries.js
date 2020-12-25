@@ -34,14 +34,19 @@ export const listUsers = `query ListUsers(
 `;
 export const getBusiness = `query GetBusiness($id: ID!) {
   getBusiness(id: $id) {
+    id
     businessName
     businessDescription
+    initiatives
     policyList
     businessPhone
     businessURL
     deliveryURL
     address
     userEmail
+    lat
+    lng
+    approved
   }
 }
 `;
@@ -52,14 +57,19 @@ export const listBusinesss = `query ListBusinesss(
 ) {
   listBusinesss(filter: $filter, limit: $limit, nextToken: $nextToken) {
     items {
+      id
       businessName
       businessDescription
+      initiatives
       policyList
       businessPhone
       businessURL
       deliveryURL
       address
       userEmail
+      lat
+      lng
+      approved
     }
     nextToken
   }

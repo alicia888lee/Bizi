@@ -10,11 +10,13 @@ async function updateDB(data) {
         const business_obj = {
             businessName: business,
             businessDescription: data[business]['Description'],
+            initiatives: data[business]['Initiatives'],
             policyList: data[business]['Policies'],
             businessPhone: data[business]['Phone Number'],
             businessURL: data[business]['Website'],
             deliveryURL: data[business]['Delivery'],
-            address: data[business]['Address']
+            address: data[business]['Address'],
+            approved: data[business]['Approved']
         };
 
         try {

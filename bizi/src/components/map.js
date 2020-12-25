@@ -2,11 +2,13 @@ import React, { Component } from 'react';
 import { FiMapPin } from "react-icons/fi";
 import GoogleMapReact from 'google-map-react';
 import Geocode from 'react-geocode';
+import { API } from 'aws-amplify';
+import * as mutations from '../graphql/mutations';
 
-const addressToCoordinate = async(address) => {
+const addressToCoordinate = async(business) => {
   const apiKey = 'AIzaSyCN1PXw74R2eqXAG8ounDYCIexsXXSpKK4';
   try {
-    const response = await Geocode.fromAddress(address, apiKey);
+    const response = await Geocode.fromAddress(business?.address, apiKey);
     return response.results[0].geometry.location;
   } 
   catch (error) {
@@ -33,13 +35,39 @@ class Map extends Component {
 
   generateLocationPins = async() => {
     const { businesses } = this.props;
-    var locationPins = await Promise.all(businesses.map(async(business) => {
-        var coords = await addressToCoordinate(business?.address);
-        var lat = coords?.lat;
-        var lng = coords?.lng;
+    var locationPins = await Promise.all(businesses.map(async(business, index) => {
+        var lat = null;
+        var lng = null;
+        var coords = null;
+
+        if (business?.lat && business?.lng) {
+          lat = business?.lat;
+          lng = business?.lng;
+        }
+        else {
+          coords = await addressToCoordinate(business);
+          lat = coords?.lat;
+          lng = coords?.lng;
+          var updatedBusiness = {
+            ...business,
+            lat: coords?.lat,
+            lng: coords?.lng
+          };
+          try {
+              var update = await API.graphql({
+              query: mutations.updateBusiness,
+              variables: {input: updatedBusiness}
+            });
+            console.log(update)
+          }
+          catch(error) {
+            console.log(error);
+          }
+        }
         var text = business?.businessName;
         return (
           <LocationPin
+            key={index}
             lat={lat}
             lng={lng}
             text={text}
@@ -47,7 +75,6 @@ class Map extends Component {
         );
       })
     );
-    
     this.setState({
       locationPins: locationPins
     });

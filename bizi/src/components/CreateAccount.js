@@ -65,6 +65,7 @@ class CreateAccount extends Component {
             typeServicesSelected: false,
             businessName: '',
             businessDescription: '',
+            initiatives: [],
             policyList: [],
             phone: '',
             url: '',
@@ -72,7 +73,7 @@ class CreateAccount extends Component {
             address: '',
             validBusinessName: true,
             validBusinessDescription: true,
-            validPolicies: true,
+            validInitiatives: true,
             validPhone: true,
             validUrl: true,
             validDelivery: true,
@@ -181,6 +182,7 @@ class CreateAccount extends Component {
         const {
             businessName,
             businessDescription,
+            initiatives,
             policyList,
             phone,
             url,
@@ -188,41 +190,34 @@ class CreateAccount extends Component {
             address,
             validBusinessName,
             validBusinessDescription,
-            validPolicies,
             validPhone,
-            validUrl,
-            validDelivery,
             validAddress,
             userEmail
         } = this.state;
 
         const noneValid = !(businessName
             || businessDescription
-            || policyList.length > 0
             || phone
-            || url
-            || deliveryURL
             || address
         );
 
         const inputsValid = validBusinessName
             && validBusinessDescription
-            && validPolicies
             && validPhone
-            && validUrl
-            && validDelivery
             && validAddress;
 
         if (inputsValid && !noneValid) {
             const businessInfo = {
                 businessName: businessName,
                 businessDescription: businessDescription,
+                initiatives: initiatives,
                 policyList: policyList,
                 businessPhone: phone,
                 businessURL: url,
                 deliveryURL: deliveryURL,
                 address: address,
-                userEmail: userEmail
+                userEmail: userEmail,
+                approved: false
             };
             try {
                 const newBusiness = await API.graphql({
@@ -241,10 +236,7 @@ class CreateAccount extends Component {
             this.setState({
                 validBusinessName: false,
                 validBusinessDescription: false,
-                validPolicies: false,
                 validPhone: false,
-                validUrl: false,
-                validDelivery: false,
                 validAddress: false
             });
         }
@@ -456,6 +448,16 @@ class CreateAccount extends Component {
         });
     }
 
+    setInitiatives = (e) => {
+        var initiatives = [];
+        e.target.value.length > 0 ?
+            initiatives = e.target.value.split(/,\s*/) :
+            initiatives = [];
+        this.setState({
+            initiatives: initiatives
+        });
+    }
+
     setPolicies = (e) => {
         var policies = [];
         e.target.value.length > 0 ? 
@@ -569,20 +571,32 @@ class CreateAccount extends Component {
         const {
             businessName,
             businessDescription,
-            policyList,
+            initiatives,
             phone,
-            url,
-            deliveryURL,
             address
         } = this.state;
 
-        this.setState({
+        let re = new RegExp(/^\([0-9]{3}\)\s[0-9]{3}-[0-9]{4}$/);
+        var validPhoneFormat = re.test(phone);
+
+        var possibleInitiatives = [
+            'Sustainability',
+            'Ethical Supply Chain',
+            'Diversity',
+            'Food',
+            'Shopping',
+            'Services',
+        ];
+
+        var validInitiatives = initiatives.length > 0 ?
+            initiatives.every((item) => possibleInitiatives.includes(item)) :
+            true;
+
+        this.setState({ 
             validBusinessName: businessName,
             validBusinessDescription: businessDescription,
-            validPolicies: policyList.length > 0,
-            validUrl: url,
-            validPhone: phone,
-            validDelivery: deliveryURL,
+            validInitiatives: validInitiatives,
+            validPhone: phone && validPhoneFormat,
             validAddress: address
         })
     }
@@ -595,6 +609,7 @@ class CreateAccount extends Component {
             userName,
             businessName,
             businessDescription,
+            initiatives,
             policyList,
             phone,
             url,
@@ -612,6 +627,7 @@ class CreateAccount extends Component {
         let step3UpdateCondition = (
             businessName !== prevState.businessName
             || businessDescription !== prevState.businessDescription
+            || initiatives !== prevState.initiatives
             || policyList !== prevState.policyList
             || phone !== prevState.phone
             || url !== prevState.url
@@ -657,10 +673,8 @@ class CreateAccount extends Component {
             duplicateEmailMessage,
             validBusinessName,
             validBusinessDescription,
-            validPolicies,
+            validInitiatives,
             validPhone,
-            validUrl,
-            validDelivery,
             validAddress
         } = this.state;
 
@@ -720,13 +734,12 @@ class CreateAccount extends Component {
                     }}
                     validBusinessName = {validBusinessName}
                     validBusinessDescription = {validBusinessDescription}
-                    validPolicies = {validPolicies}
+                    validInitiatives = {validInitiatives}
                     validPhone = {validPhone}
-                    validUrl = {validUrl}
-                    validDelivery = {validDelivery}
                     validAddress = {validAddress}
                     onNameChange = {this.setBusinessName}
                     onDescriptionChange = {this.setBusinessDescription}
+                    onInitiativesChange = {this.setInitiatives}
                     onPolicyChange = {this.setPolicies}
                     onPhoneChange = {this.setPhone}
                     onURLChange = {this.setUrl}

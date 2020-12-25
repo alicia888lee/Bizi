@@ -27,40 +27,55 @@ export const deleteUser = `mutation DeleteUser($input: DeleteUserInput!) {
 `;
 export const createBusiness = `mutation CreateBusiness($input: CreateBusinessInput!) {
   createBusiness(input: $input) {
+    id
     businessName
     businessDescription
+    initiatives
     policyList
     businessPhone
     businessURL
     deliveryURL
     address
     userEmail
+    lat
+    lng
+    approved
   }
 }
 `;
 export const updateBusiness = `mutation UpdateBusiness($input: UpdateBusinessInput!) {
   updateBusiness(input: $input) {
+    id
     businessName
     businessDescription
+    initiatives
     policyList
     businessPhone
     businessURL
     deliveryURL
     address
     userEmail
+    lat
+    lng
+    approved
   }
 }
 `;
 export const deleteBusiness = `mutation DeleteBusiness($input: DeleteBusinessInput!) {
   deleteBusiness(input: $input) {
+    id
     businessName
     businessDescription
+    initiatives
     policyList
     businessPhone
     businessURL
     deliveryURL
     address
     userEmail
+    lat
+    lng
+    approved
   }
 }
 `;

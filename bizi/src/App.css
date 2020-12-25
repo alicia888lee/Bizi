@@ -804,6 +804,14 @@ nav.dark #myAccount a{
   margin-top: -1em;
 }
 
+.phoneInput {
+  font-family: "FontAwesome", 'Poppins', sans-serif;
+}
+
+.phoneInput::placeholder {
+  color: #a5b4e4;
+}
+
 .loginBody form{
   flex: 1;      
   justify-content: center;
