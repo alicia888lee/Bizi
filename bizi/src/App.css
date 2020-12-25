@@ -617,11 +617,11 @@ nav.dark #myAccount a{
   margin-top: 50px;
 }
 
-.verifyEmailButton {
+.verifyEmailButton, .updatePasswordButton {
   margin-top: 50px;
 }
 
-.verifyEmailButton button {
+.verifyEmailButton button, .updatePasswordButton button {
   width: 180px;
   height: 40px;
   color: white;

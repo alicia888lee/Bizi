@@ -25,13 +25,9 @@ class VerifyStep extends Component {
                         </div>
                     </form>
                 </div>
-
-
-
-
+                
                 <div className='verifyEmailButton'>
-                    <button
-                    onClick = {verify}>Verify</button>
+                    <button onClick = {verify}>Verify</button>
                 </div>
                 <div className="circles">
                     <div className="circleCreateAcct"></div>

@@ -682,12 +682,12 @@ class CreateAccount extends Component {
             <div>
                 {firstStep && 
                 <Step1 
-                next = {() => { this.goToSecondStep(); }} 
-                selectCustomer = {this.setUserCustomer}
-                selectBusiness = {this.setUserBusiness}
-                customerSelected = {typeCustomerSelected}
-                businessSelected = {typeBusinessSelected}
-                invalidSelection = {invalidSelection}
+                    next = {() => { this.goToSecondStep(); }} 
+                    selectCustomer = {this.setUserCustomer}
+                    selectBusiness = {this.setUserBusiness}
+                    customerSelected = {typeCustomerSelected}
+                    businessSelected = {typeBusinessSelected}
+                    invalidSelection = {invalidSelection}
                 />}
 
                 {secondStep && <Step2 

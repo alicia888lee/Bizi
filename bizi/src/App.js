@@ -6,6 +6,7 @@ import Login from './components/Login'
 import Account from './components/Account'
 import CreateAccount from './components/CreateAccount'
 import Search from './components/Search'
+import ForgotPassword from './components/ForgotPassword'
 
 import { BrowserRouter as Router, Route, Switch} from "react-router-dom";
 import './App.css';
@@ -37,6 +38,9 @@ function App() {
           </Route>
           <Route path="/search">
             <Search />
+          </Route>
+          <Route path="/forgot-password">
+            <ForgotPassword />
           </Route>
         </Switch>       
       </Router>

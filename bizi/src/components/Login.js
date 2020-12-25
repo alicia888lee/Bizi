@@ -124,7 +124,7 @@ class Login extends Component {
                         }
 
                         {/* <button className="loginBtn" onClick={() => {this.doLogin();}}>Log In</button> */}
-                        <a className="smallText" href="#">Forgot your password?</a>
+                        <Link className="smallText" to="forgot-password">Forgot your password?</Link>
                     </form>
                     <div className="socialLogin">
                         <button className="facebook">Log in with Facebook</button>
