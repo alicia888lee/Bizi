@@ -4,9 +4,10 @@ import GoogleMapReact from 'google-map-react';
 import Geocode from 'react-geocode';
 import { API } from 'aws-amplify';
 import * as mutations from '../graphql/mutations';
+import { geocodeAPIKey, mapAPIKey } from '../internal/keys';
 
 const addressToCoordinate = async(business) => {
-  const apiKey = 'AIzaSyCN1PXw74R2eqXAG8ounDYCIexsXXSpKK4';
+  const apiKey = geocodeAPIKey;
   try {
     const response = await Geocode.fromAddress(business?.address, apiKey);
     return response.results[0].geometry.location;
@@ -108,12 +109,12 @@ class Map extends Component {
   render() {
     const { height } = this.props;
     const { locationPins, center } = this.state;
-    let heightNum = `${height}%`
+    let heightNum = `${height}%`;
 
     return (      
       <div style={{ height: heightNum, width: '100%' }}>
         <GoogleMapReact
-          bootstrapURLKeys={{ key: 'AIzaSyCMZlXIU9MJpfovWRwU6LvyFGtH1X3ljpY' }}
+          bootstrapURLKeys={{ key: mapAPIKey }}
           center={center}
           defaultZoom={14}
         >
