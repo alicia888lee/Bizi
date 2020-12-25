@@ -1123,6 +1123,9 @@ nav.dark #myAccount a{
 .searchHeart {
   width: 9%;
 }
+.searchCommunity {
+  width: 8%;
+}
 
 .OpenNow {
   border: 0.2em solid #56dd48;  

@@ -1,18 +1,18 @@
 {
     "Trader Joe's": {
         "Description": "Food & Services",
-        "Initiatives": [],
-        "Policies": ["Masks", "Sanitation"],
+        "Initiatives": ["Sustainability", "Ethical Supply Chain"],
+        "Policies": [],
         "Phone Number": "(888) 123-4523",
-        "Website": "tjs.com",
+        "Website": "",
         "Delivery": "",
         "Address": "1211 Chicago Ave, Evanston, IL 60202",
         "Approved": true
     },
     "Jewel": {
         "Description": "Food & Services",
-        "Initiatives": [],
-        "Policies": ["Sanitation"],
+        "Initiatives": ["Sustainability", "Diversity"],
+        "Policies": ["Sanitation", "Limited Capacity", "Masks required"],
         "Phone Number": "(888) 123-4523",
         "Website": "jewel.com",
         "Delivery": "",
@@ -21,8 +21,8 @@
     },
     "Starbuck's": {
         "Description": "Food & Services",
-        "Initiatives": [],
-        "Policies": ["Sanitation"],
+        "Initiatives": ["Diversity", "Sustainability", "Ethical Supply Chain"],
+        "Policies": ["Sanitation", "Masks", "1/2 Capacity", "Outdoor seating", "Social distancing"],
         "Phone Number": "(888) 123-4523",
         "Website": "starbucks.com",
         "Delivery": "",
@@ -31,8 +31,8 @@
     },
     "Bat 17": {
         "Description": "Food & Services",
-        "Initiatives": [],
-        "Policies": ["Sanitation"],
+        "Initiatives": ["Ethical Supply Chain"],
+        "Policies": ["Sanitation", "Outdoor seating", "Masks required"],
         "Phone Number": "(888) 123-4523",
         "Website": "bat17.com",
         "Delivery": "",

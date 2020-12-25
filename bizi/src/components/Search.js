@@ -60,14 +60,33 @@ class Search extends React.Component {
     generateSearchList = () => {
       const { filteredBusinesses } = this.state;
 
+      var iconDict = {
+        'Sustainability': {
+          id: 'searchEnvironment',
+          img: environmentImg
+        },
+        'Ethical Supply Chain': {
+          id: 'searchHeart',
+          img: heartImg
+        },
+        'Diversity': {
+          id: 'searchCommunity',
+          img: communityImg
+        }
+      };
+
       var searchList = filteredBusinesses.map((item, index) => 
         item.approved &&
-          <Link to={`/search/${item?.businessName}`} className='SearchItem' key={index}>
+          <Link to={`/search/${item?.id}`} className='SearchItem' key={index}>
               <div className='SearchItemWrapper'>
                   <div className='SearchItemHeader'>
                       <h2>{item?.businessName}</h2>
-                      <img className='searchHeart' src={heartImg} />
+                      {/* <img className='searchHeart' src={heartImg} />
                       <img className='searchEnvironment' src={environmentImg} />
+                      <img className='searchCommunity' src={communityImg} /> */}
+                      {item?.initiatives.map((init) => 
+                        <img className={iconDict[init]['id']} src={iconDict[init]['img']} />
+                      )}
                   </div>
 
                   <div className='SearchItemTags'>
