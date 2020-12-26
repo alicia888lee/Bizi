@@ -792,7 +792,7 @@ class CreateAccount extends Component {
                     invalidSelection = {invalidSelection}
                 />}
 
-                {/* {secondStep && <Step2 
+                {secondStep && <Step2 
                     next = {async() => {
                         const createResult = await this.doCreate();
                         createResult && this.goToSecondStep(true, createResult)
@@ -812,7 +812,7 @@ class CreateAccount extends Component {
                     duplicateEmail = {duplicateEmail}
                     duplicateEmailMessage = {duplicateEmailMessage}
                     typeCustomer = {typeCustomerSelected}
-                />} */}
+                />}
 
                 {verifyStep && <VerifyStep
                     verify = {async() => {
@@ -826,7 +826,7 @@ class CreateAccount extends Component {
                     onCodeInputChange = {this.setVerifyCode}
                 />}
 
-                {secondStep && <Step3
+                {thirdStep && <Step3
                     finishSignUp = {() => {
                         this.updateUserPreferences();
                         this.props.history.push('/account');

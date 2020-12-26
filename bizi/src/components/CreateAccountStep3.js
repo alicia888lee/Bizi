@@ -256,7 +256,10 @@ class Step3 extends Component {
                     <br />
                     {<p>Hours of Operation</p>}
                     <div className='scheduleGrid'>
-                        {this.createSchedule()}
+                        {() => {
+                            var schedule = this.createSchedule();
+                            return schedule;
+                        }}
                     </div>
                 </>
                 }
