@@ -16,6 +16,7 @@ async function updateDB(data) {
             businessURL: data[business]['Website'],
             deliveryURL: data[business]['Delivery'],
             address: data[business]['Address'],
+            priceRange: data[business]['Price Range'],
             approved: data[business]['Approved']
         };
 

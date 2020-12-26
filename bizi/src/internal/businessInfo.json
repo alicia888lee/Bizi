@@ -7,26 +7,29 @@
         "Website": "",
         "Delivery": "",
         "Address": "1211 Chicago Ave, Evanston, IL 60202",
+        "Price Range": 1,
         "Approved": true
     },
     "Jewel": {
         "Description": "Food & Services",
-        "Initiatives": ["Sustainability", "Diversity"],
+        "Initiatives": ["Sustainability", "Diversity Initiatives"],
         "Policies": ["Sanitation", "Limited Capacity", "Masks required"],
         "Phone Number": "(888) 123-4523",
         "Website": "jewel.com",
         "Delivery": "",
         "Address": "1128 Chicago Ave, Evanston, IL 60202",
+        "Price Range": 1,
         "Approved": true
     },
     "Starbuck's": {
         "Description": "Food & Services",
-        "Initiatives": ["Diversity", "Sustainability", "Ethical Supply Chain"],
+        "Initiatives": ["Diversity Initiatives", "Sustainability", "Ethical Supply Chain"],
         "Policies": ["Sanitation", "Masks", "1/2 Capacity", "Outdoor seating", "Social distancing"],
         "Phone Number": "(888) 123-4523",
         "Website": "starbucks.com",
         "Delivery": "",
         "Address" : "1734 Sherman Ave, Evanston, IL 60201",
+        "Price Range": 2,
         "Approved": true
     },
     "Bat 17": {
@@ -37,6 +40,7 @@
         "Website": "bat17.com",
         "Delivery": "",
         "Address": "1709 Benson Ave, Evanston, IL 60201",
+        "Price Range": 2,
         "Approved": true
     }
 }

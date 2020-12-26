@@ -63,9 +63,13 @@ class CreateAccount extends Component {
             typeShoppingSelected: false,
             typeFoodSelected: false,
             typeServicesSelected: false,
+            price1Selected: false,
+            price2Selected: false,
+            price3Selected: false,
+            price4Selected: false,
+            validPrice: true,
             businessName: '',
             businessDescription: '',
-            initiatives: [],
             policyList: [],
             phone: '',
             url: '',
@@ -73,7 +77,6 @@ class CreateAccount extends Component {
             address: '',
             validBusinessName: true,
             validBusinessDescription: true,
-            validInitiatives: true,
             validPhone: true,
             validUrl: true,
             validDelivery: true,
@@ -182,7 +185,12 @@ class CreateAccount extends Component {
         const {
             businessName,
             businessDescription,
-            initiatives,
+            typeSustainableSelected,
+            typeEthicalSelected,
+            typeDiversitySelected,
+            typeShoppingSelected,
+            typeFoodSelected,
+            typeServicesSelected,
             policyList,
             phone,
             url,
@@ -192,31 +200,85 @@ class CreateAccount extends Component {
             validBusinessDescription,
             validPhone,
             validAddress,
-            userEmail
+            userEmail,
+            price1Selected,
+            price2Selected,
+            price3Selected,
+            price4Selected
         } = this.state;
 
         const noneValid = !(businessName
             || businessDescription
             || phone
             || address
+            || price1Selected
+            || price2Selected
+            || price3Selected
+            || price4Selected
         );
 
         const inputsValid = validBusinessName
             && validBusinessDescription
             && validPhone
-            && validAddress;
+            && validAddress
+            && (price1Selected
+                || price2Selected
+                || price3Selected
+                || price4Selected);
+
+        const selectedInitiativeBooleans = [
+            typeSustainableSelected,
+            typeEthicalSelected,
+            typeDiversitySelected,
+            typeShoppingSelected,
+            typeFoodSelected,
+            typeServicesSelected
+        ];
+
+        const possibleBusinessInitiatives = [
+            'Sustainability',
+            'Ethical Supply Chain',
+            'Diversity Initiatives',
+            'Shopping',
+            'Food',
+            'Services'
+        ];
+
+        const selectedInitiatives = selectedInitiativeBooleans
+            .map((bool, index) => bool ? index : null)
+            .filter(index => index !== null);
+
+        const businessInitiatives = selectedInitiatives.map(
+            i => possibleBusinessInitiatives[i]
+        );
+
+        const selectedPriceBooleans = [
+            price1Selected,
+            price2Selected,
+            price3Selected,
+            price4Selected
+        ];
+
+        const possiblePrices = [1, 2, 3, 4];
+
+        const selectedPrices = selectedPriceBooleans
+            .map((bool, index) => bool ? index : null)
+            .filter(index => index !== null);
+
+        const priceRange = selectedPrices.map(i => possiblePrices[i])[0];
 
         if (inputsValid && !noneValid) {
             const businessInfo = {
                 businessName: businessName,
                 businessDescription: businessDescription,
-                initiatives: initiatives,
+                initiatives: businessInitiatives,
                 policyList: policyList,
                 businessPhone: phone,
                 businessURL: url,
                 deliveryURL: deliveryURL,
                 address: address,
                 userEmail: userEmail,
+                priceRange: priceRange,
                 approved: false
             };
             try {
@@ -237,7 +299,8 @@ class CreateAccount extends Component {
                 validBusinessName: false,
                 validBusinessDescription: false,
                 validPhone: false,
-                validAddress: false
+                validAddress: false,
+                validPrice: false
             });
         }
 
@@ -301,14 +364,15 @@ class CreateAccount extends Component {
             typeServicesSelected
         } = this.state;
 
-        const selectedBooleans = [
-            typeSustainableSelected, 
+        const selectedPreferencesBooleans = [
+            typeSustainableSelected,
             typeEthicalSelected,
             typeDiversitySelected,
             typeShoppingSelected,
             typeFoodSelected,
             typeServicesSelected
         ];
+
         const possibleUserPreferences = [
             'Sustainability',
             'Ethical Supply Chain',
@@ -318,16 +382,15 @@ class CreateAccount extends Component {
             'Services'
         ];
 
-        const userType = typeBusinessSelected ? "Business" : "Customer";
-        
-        // determine indices of preferences to push to db
-        const selectedPreferences = selectedBooleans.reduce(
-            (out, bool, index) => bool ? out.concat(index) : out, []
-        );
+        const selectedPreferences = selectedPreferencesBooleans
+            .map((bool, index) => bool ? index : null)
+            .filter(index => index !== null);
 
         const userPreferences = selectedPreferences.map(
             i => possibleUserPreferences[i]
         );
+
+        const userType = typeBusinessSelected ? "Business" : "Customer";
 
         const userDetails = {
             userEmail: userEmail,
@@ -433,6 +496,42 @@ class CreateAccount extends Component {
         }) :
         this.setState({
             typeServicesSelected: true
+        });
+    }
+
+    setPrice1 = () => {
+        this.setState({
+            price1Selected: true,
+            price2Selected: false,
+            price3Selected: false,
+            price4Selected: false
+        });
+    }
+
+    setPrice2 = () => {
+        this.setState({
+            price1Selected: false,
+            price2Selected: true,
+            price3Selected: false,
+            price4Selected: false
+        });
+    }
+
+    setPrice3 = () => {
+        this.setState({
+            price1Selected: false,
+            price2Selected: false,
+            price3Selected: true,
+            price4Selected: false
+        });
+    }
+
+    setPrice4 = () => {
+        this.setState({
+            price1Selected: false,
+            price2Selected: false,
+            price3Selected: false,
+            price4Selected: true
         });
     }
 
@@ -571,33 +670,23 @@ class CreateAccount extends Component {
         const {
             businessName,
             businessDescription,
-            initiatives,
             phone,
-            address
+            address,
+            price1Selected,
+            price2Selected,
+            price3Selected,
+            price4Selected
         } = this.state;
 
         let re = new RegExp(/^\([0-9]{3}\)\s[0-9]{3}-[0-9]{4}$/);
         var validPhoneFormat = re.test(phone);
 
-        var possibleInitiatives = [
-            'Sustainability',
-            'Ethical Supply Chain',
-            'Diversity',
-            'Food',
-            'Shopping',
-            'Services',
-        ];
-
-        var validInitiatives = initiatives.length > 0 ?
-            initiatives.every((item) => possibleInitiatives.includes(item)) :
-            true;
-
         this.setState({ 
             validBusinessName: businessName,
             validBusinessDescription: businessDescription,
-            validInitiatives: validInitiatives,
             validPhone: phone && validPhoneFormat,
-            validAddress: address
+            validAddress: address,
+            validPrice: price1Selected || price2Selected || price3Selected || price4Selected
         })
     }
 
@@ -614,7 +703,11 @@ class CreateAccount extends Component {
             phone,
             url,
             deliveryURL,
-            address
+            address,
+            price1Selected,
+            price2Selected,
+            price3Selected,
+            price4Selected
         } = this.state;
         
         let step2UpdateCondition = (
@@ -633,6 +726,10 @@ class CreateAccount extends Component {
             || url !== prevState.url
             || deliveryURL !== prevState.deliveryURL
             || address !== prevState.address
+            || price1Selected !== prevState.price1Selected
+            || price2Selected !== prevState.price2Selected
+            || price3Selected !== prevState.price3Selected
+            || price4Selected !== prevState.price4Selected
         )
 
         if (step2UpdateCondition) {
@@ -675,9 +772,14 @@ class CreateAccount extends Component {
             validBusinessDescription,
             validInitiatives,
             validPhone,
-            validAddress
+            validAddress,
+            price1Selected,
+            price2Selected,
+            price3Selected,
+            price4Selected,
+            validPrice
         } = this.state;
-
+        console.log(price1Selected);
         return (
             <div>
                 {firstStep && 
@@ -690,7 +792,7 @@ class CreateAccount extends Component {
                     invalidSelection = {invalidSelection}
                 />}
 
-                {secondStep && <Step2 
+                {/* {secondStep && <Step2 
                     next = {async() => {
                         const createResult = await this.doCreate();
                         createResult && this.goToSecondStep(true, createResult)
@@ -710,7 +812,7 @@ class CreateAccount extends Component {
                     duplicateEmail = {duplicateEmail}
                     duplicateEmailMessage = {duplicateEmailMessage}
                     typeCustomer = {typeCustomerSelected}
-                />}
+                />} */}
 
                 {verifyStep && <VerifyStep
                     verify = {async() => {
@@ -724,7 +826,7 @@ class CreateAccount extends Component {
                     onCodeInputChange = {this.setVerifyCode}
                 />}
 
-                {thirdStep && <Step3
+                {secondStep && <Step3
                     finishSignUp = {() => {
                         this.updateUserPreferences();
                         this.props.history.push('/account');
@@ -758,6 +860,15 @@ class CreateAccount extends Component {
                     shoppingSelected = {typeShoppingSelected}
                     foodSelected = {typeFoodSelected}
                     servicesSelected = {typeServicesSelected}
+                    selectPrice1 = {this.setPrice1}
+                    selectPrice2 = {this.setPrice2}
+                    selectPrice3 = {this.setPrice3}
+                    selectPrice4 = {this.setPrice4}
+                    price1Selected = {price1Selected}
+                    price2Selected = {price2Selected}
+                    price3Selected = {price3Selected}
+                    price4Selected = {price4Selected}
+                    validPrice = {validPrice}
                 />}
 
             </div>

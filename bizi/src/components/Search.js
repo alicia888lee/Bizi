@@ -69,7 +69,7 @@ class Search extends React.Component {
           id: 'searchHeart',
           img: heartImg
         },
-        'Diversity': {
+        'Diversity Initiatives': {
           id: 'searchCommunity',
           img: communityImg
         }
@@ -81,17 +81,14 @@ class Search extends React.Component {
               <div className='SearchItemWrapper'>
                   <div className='SearchItemHeader'>
                       <h2>{item?.businessName}</h2>
-                      {/* <img className='searchHeart' src={heartImg} />
-                      <img className='searchEnvironment' src={environmentImg} />
-                      <img className='searchCommunity' src={communityImg} /> */}
                       {item?.initiatives.map((init) => 
-                        <img className={iconDict[init]['id']} src={iconDict[init]['img']} />
+                        <img className={iconDict[init]?.id} src={iconDict[init]?.img} />
                       )}
                   </div>
 
                   <div className='SearchItemTags'>
                       <OpenTag />
-                      <PriceTag />
+                      <PriceTag price={item?.priceRange}/>
                   </div>
               </div>
               <img className='SearchItemImg' src={testImg} />

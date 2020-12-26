@@ -684,6 +684,15 @@ nav.dark #myAccount a{
   column-gap: 4.5vw;
 }
 
+.businessInitiativesGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  margin: 0 auto;
+  width: 50vw;
+  column-gap: 4.5vw;
+  margin-bottom: 2vw;
+}
+
 .prefCol {
   border-style: solid;
   text-align: center;
@@ -725,10 +734,39 @@ nav.dark #myAccount a{
   height: 10vw;
 }
 
+.businessInitiativesGrid .prefCol img {
+  width: 5vw;
+  height: 5vw;
+}
+
 .userPreferencesGrid p {
   font-size: 1.25em;
   color: #385FDC;
   font-weight: 600;
+}
+
+.businessInitiativesGrid p {
+  font-size: 1em;
+  color: #385FDC;
+  font-weight: 600;
+}
+
+.priceChoiceGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  margin: 0 auto;
+  width: 40vw;
+  column-gap: 4.5vw;
+}
+
+.scheduleGrid {
+  display: grid;
+  grid-template-rows: repeat(7, 1fr);
+}
+
+.dayHours {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
 }
 
 .userCol img {
@@ -802,6 +840,12 @@ nav.dark #myAccount a{
   font-style: italic;
   color: #385FDC;
   margin-top: -1em;
+}
+
+#priceInvalid {
+  font-style: italic;
+  color: #385FDC;
+  margin-top: 1em;
 }
 
 .phoneInput {
@@ -1143,13 +1187,18 @@ nav.dark #myAccount a{
 }
 
 .price {
+  display: inline-block;
   border: 0.2em solid #385FDC;  
   color: #385FDC;
   font-weight: bold;
-  width: 30px;
   border-radius: 0.75em;
   text-align: center;  
 }
+
+#highlighted {
+  background-color: #dee6f9;
+}
+
 .SearchItemTags {
   display: flex;
 }

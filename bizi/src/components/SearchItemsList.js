@@ -47,10 +47,10 @@ export function OpenTag() {
     )
 }
 
-export function PriceTag() {
+export function PriceTag({price, id, selectPrice}) {
     return (
-        <div className="price">
-            <p>$</p>
+        <div className="price" id={id} onClick={selectPrice}>
+            <p>{Array(price + 1).join('$')}</p>
         </div>
     )
 }

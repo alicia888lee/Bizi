@@ -46,6 +46,7 @@ export const getBusiness = `query GetBusiness($id: ID!) {
     userEmail
     lat
     lng
+    priceRange
     approved
   }
 }
@@ -69,6 +70,7 @@ export const listBusinesss = `query ListBusinesss(
       userEmail
       lat
       lng
+      priceRange
       approved
     }
     nextToken

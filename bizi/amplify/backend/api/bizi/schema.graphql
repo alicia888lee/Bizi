@@ -17,5 +17,6 @@ type Business @model {
   userEmail: String
   lat: Float
   lng: Float
+  priceRange: Int!
   approved: Boolean!
 }

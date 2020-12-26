@@ -39,6 +39,7 @@ export const onCreateBusiness = `subscription OnCreateBusiness {
     userEmail
     lat
     lng
+    priceRange
     approved
   }
 }
@@ -57,6 +58,7 @@ export const onUpdateBusiness = `subscription OnUpdateBusiness {
     userEmail
     lat
     lng
+    priceRange
     approved
   }
 }
@@ -75,6 +77,7 @@ export const onDeleteBusiness = `subscription OnDeleteBusiness {
     userEmail
     lat
     lng
+    priceRange
     approved
   }
 }
