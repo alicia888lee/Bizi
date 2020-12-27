@@ -40,6 +40,7 @@ export const createBusiness = `mutation CreateBusiness($input: CreateBusinessInp
     lat
     lng
     priceRange
+    schedule
     approved
   }
 }
@@ -59,6 +60,7 @@ export const updateBusiness = `mutation UpdateBusiness($input: UpdateBusinessInp
     lat
     lng
     priceRange
+    schedule
     approved
   }
 }
@@ -78,6 +80,7 @@ export const deleteBusiness = `mutation DeleteBusiness($input: DeleteBusinessInp
     lat
     lng
     priceRange
+    schedule
     approved
   }
 }

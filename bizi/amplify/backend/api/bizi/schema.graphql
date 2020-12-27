@@ -18,5 +18,6 @@ type Business @model {
   lat: Float
   lng: Float
   priceRange: Int!
+  schedule: [[Float!]!]!
   approved: Boolean!
 }

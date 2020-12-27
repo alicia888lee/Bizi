@@ -80,7 +80,19 @@ class CreateAccount extends Component {
             validPhone: true,
             validUrl: true,
             validDelivery: true,
-            validAddress: true
+            validAddress: true,
+            schedule: {},
+            validSchedule: true,
+            disableSchedule: {
+                'Monday': false,
+                'Tuesday': false,
+                'Wednesday': false,
+                'Thursday': false,
+                'Friday': false,
+                'Saturday': false,
+                'Sunday': false,
+            },
+            previousSchedule: {}
         }
     }
 
@@ -204,7 +216,10 @@ class CreateAccount extends Component {
             price1Selected,
             price2Selected,
             price3Selected,
-            price4Selected
+            price4Selected,
+            validPrice,
+            schedule,
+            validSchedule
         } = this.state;
 
         const noneValid = !(businessName
@@ -215,16 +230,17 @@ class CreateAccount extends Component {
             || price2Selected
             || price3Selected
             || price4Selected
+            || Object.keys(schedule).length > 0
         );
+
+        console.log(noneValid);
 
         const inputsValid = validBusinessName
             && validBusinessDescription
             && validPhone
             && validAddress
-            && (price1Selected
-                || price2Selected
-                || price3Selected
-                || price4Selected);
+            && validPrice
+            && validSchedule;
 
         const selectedInitiativeBooleans = [
             typeSustainableSelected,
@@ -267,6 +283,15 @@ class CreateAccount extends Component {
 
         const priceRange = selectedPrices.map(i => possiblePrices[i])[0];
 
+        const scheduleArr = [];
+        // schedule in db will be of form [
+            // [open, close], [open, close], ... [open, close]
+        // ]
+        for (var key in schedule) {
+            var day = [schedule[key]?.open, schedule[key]?.close]
+            scheduleArr.push(day)
+        }
+
         if (inputsValid && !noneValid) {
             const businessInfo = {
                 businessName: businessName,
@@ -279,6 +304,7 @@ class CreateAccount extends Component {
                 address: address,
                 userEmail: userEmail,
                 priceRange: priceRange,
+                schedule: scheduleArr,
                 approved: false
             };
             try {
@@ -300,7 +326,8 @@ class CreateAccount extends Component {
                 validBusinessDescription: false,
                 validPhone: false,
                 validAddress: false,
-                validPrice: false
+                validPrice: false,
+                validSchedule: false
             });
         }
 
@@ -535,6 +562,69 @@ class CreateAccount extends Component {
         });
     }
 
+    setSchedule = (day, open, close) => {
+        const { schedule } = this.state;
+        if (open) {
+            var openPM = open.split(' ')[1] == 'PM' ? 1 : 0;
+            var hourOpen = Number(open.split(':')[0]);
+            var minuteOpen = Number(open.split(':')[1].split(' ')[0]);
+            var timeOpen = hourOpen + (minuteOpen / 60) + (12 * openPM);
+        }
+        if (close) {
+            var closePM = close.split(' ')[1] == 'PM' ? 1 : 0;
+            var hourClose = Number(close.split(':')[0]);
+            var minuteClose = Number(close.split(':')[1].split(' ')[0]);
+            var timeClose = hourClose + (minuteClose / 60) + (12 * closePM);
+        }
+        var updatedSchedule = {};
+        for (var key in schedule) {
+            updatedSchedule[key] = schedule[key];
+        }
+        updatedSchedule[day] = {
+            open: open ? timeOpen : schedule[day]?.open,
+            close: close ? timeClose : schedule[day]?.close
+        };
+        this.setState({
+            schedule: updatedSchedule,
+            previousSchedule: schedule
+        });
+    }
+
+    disableDay = (day) => {
+        const { disableSchedule, schedule, previousSchedule } = this.state;
+        var updatedDisableSchedule = {};
+        for (var key in disableSchedule) {
+            updatedDisableSchedule[key] = disableSchedule[key];
+        }
+        var currState = disableSchedule[day];
+        updatedDisableSchedule[day] = !currState;
+
+        // set hours of operation to -1
+        var updatedSchedule = {};
+        for (var key in schedule) {
+            updatedSchedule[key] = schedule[key];
+        }
+        if (!currState) {
+            updatedSchedule[day] = {
+                open: -1,
+                close: -1
+            };
+        }
+        else {
+            var prevOpen = previousSchedule[day]?.open;
+            var prevClose = previousSchedule[day]?.close;
+            updatedSchedule[day] = {
+                open: prevOpen,
+                close: prevClose
+            };
+        }
+        this.setState({
+            disableSchedule: updatedDisableSchedule,
+            schedule: updatedSchedule,
+            previousSchedule: schedule
+        });
+    }
+
     setBusinessName = (e) => {
         this.setState({
             businessName: e.target.value
@@ -675,19 +765,29 @@ class CreateAccount extends Component {
             price1Selected,
             price2Selected,
             price3Selected,
-            price4Selected
+            price4Selected,
+            schedule
         } = this.state;
 
         let re = new RegExp(/^\([0-9]{3}\)\s[0-9]{3}-[0-9]{4}$/);
         var validPhoneFormat = re.test(phone);
+        var scheduleDefined = true;
+        for (var key in schedule) {
+            if (!schedule[key]?.open || !schedule[key]?.close) {
+                scheduleDefined = false;
+                break;
+            }
+        }
+        var completeSchedule = Object.keys(schedule).length == 7;
 
         this.setState({ 
             validBusinessName: businessName,
             validBusinessDescription: businessDescription,
             validPhone: phone && validPhoneFormat,
             validAddress: address,
-            validPrice: price1Selected || price2Selected || price3Selected || price4Selected
-        })
+            validPrice: price1Selected || price2Selected || price3Selected || price4Selected,
+            validSchedule: scheduleDefined && completeSchedule
+        });
     }
 
     componentDidUpdate(prevProps, prevState) {
@@ -707,7 +807,8 @@ class CreateAccount extends Component {
             price1Selected,
             price2Selected,
             price3Selected,
-            price4Selected
+            price4Selected,
+            schedule
         } = this.state;
         
         let step2UpdateCondition = (
@@ -730,6 +831,7 @@ class CreateAccount extends Component {
             || price2Selected !== prevState.price2Selected
             || price3Selected !== prevState.price3Selected
             || price4Selected !== prevState.price4Selected
+            || schedule !== prevState.schedule
         )
 
         if (step2UpdateCondition) {
@@ -777,9 +879,11 @@ class CreateAccount extends Component {
             price2Selected,
             price3Selected,
             price4Selected,
-            validPrice
+            validPrice,
+            validSchedule,
+            disableSchedule
         } = this.state;
-        console.log(price1Selected);
+
         return (
             <div>
                 {firstStep && 
@@ -869,6 +973,10 @@ class CreateAccount extends Component {
                     price3Selected = {price3Selected}
                     price4Selected = {price4Selected}
                     validPrice = {validPrice}
+                    setSchedule = {this.setSchedule}
+                    disableDay = {this.disableDay}
+                    disabled = {disableSchedule}
+                    validSchedule = {validSchedule}
                 />}
 
             </div>

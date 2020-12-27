@@ -11,7 +11,7 @@ class Step3 extends Component {
         super(props)
     }
 
-    createSchedule = () => {
+    createSchedule = (setSchedule, disableDay, disabled) => {
         var days = [
             'Monday',
             'Tuesday',
@@ -26,54 +26,114 @@ class Step3 extends Component {
             <div className='dayHours'>
                 <div><p>{day}</p></div>
                 <div className='search-selects'>
-                    <select>
+                    <select onChange={(e) => setSchedule(day, e.target.value, null)} disabled={disabled[day]}>
                         <option selected disabled style={{display: 'none'}}>Open</option>
-                        <option>1</option>
-                        <option>2</option>
-                        <option>3</option>
-                        <option>4</option>
-                        <option>5</option>
-                        <option>6</option>
-                        <option>7</option>
-                        <option>8</option>
-                        <option>9</option>
-                        <option>10</option>
-                        <option>11</option>
-                        <option>12</option>
+                        <option>12:00 AM</option>
+                        <option>12:30 AM</option>
+                        <option>1:00 AM</option>
+                        <option>1:30 AM</option>
+                        <option>2:00 AM</option>
+                        <option>2:30 AM</option>
+                        <option>3:00 AM</option>
+                        <option>3:30 AM</option>
+                        <option>4:00 AM</option>
+                        <option>4:30 AM</option>
+                        <option>5:00 AM</option>
+                        <option>5:30 AM</option>
+                        <option>6:00 AM</option>
+                        <option>6:30 AM</option>
+                        <option>7:00 AM</option>
+                        <option>7:30 AM</option>
+                        <option>8:00 AM</option>
+                        <option>8:30 AM</option>
+                        <option>9:00 AM</option>
+                        <option>9:30 AM</option>
+                        <option>10:00 AM</option>
+                        <option>10:30 AM</option>
+                        <option>11:00 AM</option>
+                        <option>11:30 AM</option>
+                        <option>12:00 PM</option>
+                        <option>12:30 PM</option>
+                        <option>1:00 PM</option>
+                        <option>1:30 PM</option>
+                        <option>2:00 PM</option>
+                        <option>2:30 PM</option>
+                        <option>3:00 PM</option>
+                        <option>3:30 PM</option>
+                        <option>4:00 PM</option>
+                        <option>4:30 PM</option>
+                        <option>5:00 PM</option>
+                        <option>5:30 PM</option>
+                        <option>6:00 PM</option>
+                        <option>6:30 PM</option>
+                        <option>7:00 PM</option>
+                        <option>7:30 PM</option>
+                        <option>8:00 PM</option>
+                        <option>8:30 PM</option>
+                        <option>9:00 PM</option>
+                        <option>9:30 PM</option>
+                        <option>10:00 PM</option>
+                        <option>10:30 PM</option>
+                        <option>11:00 PM</option>
+                        <option>11:30 PM</option>
                     </select>
                 </div>
                 <div className='search-selects'>
-                    <select>
-                        <option selected>AM</option>
-                        <option>PM</option>
-                    </select>
-                </div>
-                <div className='search-selects'>
-                    <select>
+                    <select onChange={(e) => setSchedule(day, null, e.target.value)} disabled={disabled[day]}>
                         <option selected disabled style={{display: 'none'}}>Close</option>
-                        <option>1</option>
-                        <option>2</option>
-                        <option>3</option>
-                        <option>4</option>
-                        <option>5</option>
-                        <option>6</option>
-                        <option>7</option>
-                        <option>8</option>
-                        <option>9</option>
-                        <option>10</option>
-                        <option>11</option>
-                        <option>12</option>
-                    </select>
-                </div>
-                <div className='search-selects'>
-                    <select>
-                        <option selected>AM</option>
-                        <option>PM</option>
+                        <option>12:00 AM</option>
+                        <option>12:30 AM</option>
+                        <option>1:00 AM</option>
+                        <option>1:30 AM</option>
+                        <option>2:00 AM</option>
+                        <option>2:30 AM</option>
+                        <option>3:00 AM</option>
+                        <option>3:30 AM</option>
+                        <option>4:00 AM</option>
+                        <option>4:30 AM</option>
+                        <option>5:00 AM</option>
+                        <option>5:30 AM</option>
+                        <option>6:00 AM</option>
+                        <option>6:30 AM</option>
+                        <option>7:00 AM</option>
+                        <option>7:30 AM</option>
+                        <option>8:00 AM</option>
+                        <option>8:30 AM</option>
+                        <option>9:00 AM</option>
+                        <option>9:30 AM</option>
+                        <option>10:00 AM</option>
+                        <option>10:30 AM</option>
+                        <option>11:00 AM</option>
+                        <option>11:30 AM</option>
+                        <option>12:00 PM</option>
+                        <option>12:30 PM</option>
+                        <option>1:00 PM</option>
+                        <option>1:30 PM</option>
+                        <option>2:00 PM</option>
+                        <option>2:30 PM</option>
+                        <option>3:00 PM</option>
+                        <option>3:30 PM</option>
+                        <option>4:00 PM</option>
+                        <option>4:30 PM</option>
+                        <option>5:00 PM</option>
+                        <option>5:30 PM</option>
+                        <option>6:00 PM</option>
+                        <option>6:30 PM</option>
+                        <option>7:00 PM</option>
+                        <option>7:30 PM</option>
+                        <option>8:00 PM</option>
+                        <option>8:30 PM</option>
+                        <option>9:00 PM</option>
+                        <option>9:30 PM</option>
+                        <option>10:00 PM</option>
+                        <option>10:30 PM</option>
+                        <option>11:00 PM</option>
+                        <option>11:30 PM</option>
                     </select>
                 </div>
                 <div className='checkboxGroup'>
                     <label>Closed Today</label>
-                    <input type='checkbox'/>
+                    <input type='checkbox' onChange={() => disableDay(day)}/>
                 </div>
             </div>
         );
@@ -117,7 +177,11 @@ class Step3 extends Component {
             price2Selected,
             price3Selected,
             price4Selected,
-            validPrice
+            validPrice,
+            setSchedule,
+            disableDay,
+            disabled,
+            validSchedule
         } = this.props;
 
         return (
@@ -256,11 +320,9 @@ class Step3 extends Component {
                     <br />
                     {<p>Hours of Operation</p>}
                     <div className='scheduleGrid'>
-                        {() => {
-                            var schedule = this.createSchedule();
-                            return schedule;
-                        }}
+                        {this.createSchedule(setSchedule, disableDay, disabled)}
                     </div>
+                    {!validSchedule && <p id='scheduleInvalid'>Must complete entire schedule</p>}
                 </>
                 }
                 {typeCustomer ? 
@@ -268,10 +330,15 @@ class Step3 extends Component {
                     <button id='skipStep3' onClick={finishSignUp}>Skip</button>
                     <button id='letsGoStep3' onClick={finishSignUp}>Let's Go</button>
                 </div> :
-                <div className='step3NextButtons'>
-                    <button id='skipStep3' onClick={finishSignUp}>Skip</button>
-                    <button id='register' onClick={register}>Register</button>
-                </div>
+                <>
+                    <div className='step3NextButtons'>
+                        <button id='skipStep3' onClick={finishSignUp}>Skip</button>
+                        <button id='register' onClick={register}>Register</button>
+                    </div>
+                    {<p id='regDisclaimer'>Your registration will be reviewed within 24-48 hours. 
+                        You will then receive an email notifying you whether your business
+                        was approved.</p>}
+                </>
                 }
                 <div className="circles">
                     <div className="circleCreateAcct"></div>

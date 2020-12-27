@@ -40,6 +40,7 @@ export const onCreateBusiness = `subscription OnCreateBusiness {
     lat
     lng
     priceRange
+    schedule
     approved
   }
 }
@@ -59,6 +60,7 @@ export const onUpdateBusiness = `subscription OnUpdateBusiness {
     lat
     lng
     priceRange
+    schedule
     approved
   }
 }
@@ -78,6 +80,7 @@ export const onDeleteBusiness = `subscription OnDeleteBusiness {
     lat
     lng
     priceRange
+    schedule
     approved
   }
 }

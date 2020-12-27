@@ -12,7 +12,7 @@ import environmentImg from '../images/environment.png';
 import heartImg from '../images/heart_hand.png';
 import communityImg from '../images/community.png';
 import testImg from '../images/pexels-mariana-kurnyk-1775043.jpg';
-import { OpenTag, PriceTag } from './SearchItemsList'
+import { OpenTag, ClosedTag, PriceTag } from './SearchItemsList'
 
 class Search extends React.Component {
     constructor(props) {
@@ -57,6 +57,19 @@ class Search extends React.Component {
         }
     }
 
+    isOpen = (schedule, tz='America/Chicago') => {
+      var currDateTime = new Date(new Date().toLocaleString('en-US', { timeZone: tz }));
+      var currHour = currDateTime.getHours();
+      var currMin = currDateTime.getMinutes();
+      var currDay = currDateTime.getDay();
+      var currTime = currHour + (currMin / 60);
+      var busHours = schedule[(currDay + 6) % 7];
+      if (currTime >= busHours[0] && currTime <= busHours[1]) {
+        return true;
+      }
+      return false;
+    }
+
     generateSearchList = () => {
       const { filteredBusinesses } = this.state;
 
@@ -87,7 +100,7 @@ class Search extends React.Component {
                   </div>
 
                   <div className='SearchItemTags'>
-                      <OpenTag />
+                      {this.isOpen(item?.schedule) ? <OpenTag /> : <ClosedTag />}
                       <PriceTag price={item?.priceRange}/>
                   </div>
               </div>

@@ -766,7 +766,7 @@ nav.dark #myAccount a{
 
 .dayHours {
   display: grid;
-  grid-template-columns: repeat(6, 1fr);
+  grid-template-columns: repeat(4, 1fr);
 }
 
 .userCol img {
@@ -842,10 +842,14 @@ nav.dark #myAccount a{
   margin-top: -1em;
 }
 
-#priceInvalid {
+#priceInvalid, #scheduleInvalid {
   font-style: italic;
   color: #385FDC;
   margin-top: 1em;
+}
+
+#regDisclaimer {
+  font-size: 14px;
 }
 
 .phoneInput {
@@ -1181,9 +1185,19 @@ nav.dark #myAccount a{
   margin-right: 0.75em;
 }
 
-.OpenNow p, .price p {
+.OpenNow p, .price p, .ClosedNow p {
   margin: 0.25em 0;
   font-size: 0.9em;
+}
+
+.ClosedNow {
+  border: 0.2em solid #e21448;  
+  color: #d6476b;
+  font-weight: bold;
+  width: 110px;
+  border-radius: 0.75em;
+  text-align: center;    
+  margin-right: 0.75em;
 }
 
 .price {

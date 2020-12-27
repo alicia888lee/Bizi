@@ -47,6 +47,14 @@ export function OpenTag() {
     )
 }
 
+export function ClosedTag() {
+    return(
+        <div className='ClosedNow'>
+            <p>Closed Now</p>
+        </div>
+    )
+}
+
 export function PriceTag({price, id, selectPrice}) {
     return (
         <div className="price" id={id} onClick={selectPrice}>

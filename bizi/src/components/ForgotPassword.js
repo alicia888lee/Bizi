@@ -88,9 +88,10 @@ class ForgotPassword extends Component {
         });
     }
 
-    sendCode = async() => {
+    sendCode = async(e) => {
         const { userEmail } = this.state;
         const username = userEmail;
+        e.preventDefault();
         try {
             await Auth.forgotPassword(username);
             return 'SENT';
@@ -243,8 +244,8 @@ class ForgotPassword extends Component {
                 {step1 && 
                 <Step1 
                     onEmailChange={this.setEmail}
-                    sendCode={async() => {
-                        const sentCode = await this.sendCode();
+                    sendCode={async(e) => {
+                        const sentCode = await this.sendCode(e);
                         console.log(sentCode);
                         sentCode == 'SENT' ? this.proceed() : this.resetStep1(sentCode)
                     }}
