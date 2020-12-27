@@ -36,9 +36,7 @@ function App() {
           <Route path="/create">
             <CreateAccount />
           </Route>
-          <Route path="/search">
-            <Search />
-          </Route>
+          <Route path="/search" component={Search} />
           <Route path="/forgot-password">
             <ForgotPassword />
           </Route>

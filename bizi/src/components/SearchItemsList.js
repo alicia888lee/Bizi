@@ -13,22 +13,30 @@ class SearchItemsList extends Component {
     }
 
     render() {
-        const { searchList } = this.props;
+        const { searchList, doFilter, filter, sort, doSort } = this.props;
 
         return (
             <div>
-                <div className="search-selects">
-                    <select>
-                        <option value="">Filter</option>  
-                        <option value="parrot">Parrot</option>
-                        <option value="spider">Spider</option>
-                        <option value="goldfish">Goldfish</option>
+                <div className="search-selects" id='filter-selects'>
+                    <select onChange={(e) => doFilter(e)}>
+                        <option selected={filter == 'Filter'}>Filter</option>  
+                        <option selected={filter == 'Open Now'}>Open Now</option>
+                        <option selected={filter == 'Sustainable'}>Sustainable</option>
+                        <option selected={filter == 'Supply Chain'}>Supply Chain</option>
+
+                        <option selected={filter == 'Diversity Focused'}>Diversity Focused</option>
+                        <option selected={filter == 'Shopping'}>Shopping</option>
+                        <option selected={filter == 'Food'}>Food</option>
+                        <option selected={filter == 'Services'}>Services</option>
+                        <option selected={filter == '$'}>$</option>
+                        <option selected={filter == '$$'}>$$</option>
+                        <option selected={filter == '$$$'}>$$$</option>
+                        <option selected={filter == '$$$$'}>$$$$</option>
                     </select>
-                    <select>
-                        <option value="">Sort By</option>  
-                        <option value="parrot">Parrot</option>
-                        <option value="spider">Spider</option>
-                        <option value="goldfish">Goldfish</option>
+                    <select onChange={(e) => doSort(e)}>
+                        <option selected disabled style={{display: 'none'}}>Sort By</option>  
+                        <option selected={sort == 'Lowest Price'}>Lowest Price</option>
+                        <option selected={sort == 'Highest Price'}>Highest Price</option>
                     </select>
                 </div>
                 <div className="SearchItemsList">

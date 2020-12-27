@@ -25,22 +25,22 @@ class Header extends React.Component {
         <div className="header-content">
           <img src={LightLogo} className="headerLogo" />        
           <div className="header-tags">
-            <Link to="/search" className="header-tag">
+            <Link to={{pathname: "/search", state: {initialFilter: 'Sustainable'}}} className="header-tag">
               <img src={sustain} />
               <h3>Sustainability</h3>
             </Link>
-            <Link to="/search" className="header-tag">
+            <Link to={{pathname: "/search", state: {initialFilter: 'Supply Chain'}}} className="header-tag">
               <img src={ethical} /> 
               <h3>Ethical Supply Chain</h3>
             </Link>
-            <Link to="/search" className="header-tag">
+            <Link to={{pathname: "/search", state: {initialFilter: 'Diversity Focused'}}} className="header-tag">
               <img src={diversity} />
               <h3>Diversity Initiatives</h3>
             </Link>
           </div>          
           <fieldset>
             <input type="text" id="searchbar" placeholder="Search businesses near you" value={this.state.search} onChange={this.searchChange}/>
-            <button type="submit">lets go!</button>
+            <button type="submit">let's go!</button>
           </fieldset>      
         </div>
       </div>

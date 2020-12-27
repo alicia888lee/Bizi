@@ -1226,6 +1226,11 @@ nav.dark #myAccount a{
 .search-selects select {
   margin-bottom: 2em;
 }
+
+#filter-selects select {
+  width: 20vw;
+}
+
 .searchHeader {
   color: #385FDC;
   font-size: 3.5em;

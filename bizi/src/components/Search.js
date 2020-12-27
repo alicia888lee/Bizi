@@ -1,5 +1,5 @@
 import React from "react"
-import { Route, Switch, Link } from "react-router-dom";
+import { Route, Switch, Link, useLocation } from "react-router-dom";
 import Nav from './Nav'
 import Recommendation from './Recommendation'
 import SearchItems from './SearchItems'
@@ -24,6 +24,8 @@ class Search extends React.Component {
           filteredBusinesses: [],
           searchList: [],
           search: "",
+          filter: this.props.location?.state?.initialFilter,
+          sort: '',
           loading: false
         }
       }
@@ -35,6 +37,115 @@ class Search extends React.Component {
           search: e.target.value
         });
         console.log(filtered);
+      }
+
+      filterChange(e, initialFilter='Filter') {
+        const { businesses } = this.state;
+        var filterTypes = {
+          'Sustainable': {
+            category: 'initiatives',
+            value: 'Sustainability'
+          },
+          'Supply Chain': {
+            category: 'initiatives',
+            value: 'Ethical Supply Chain'
+          },
+          'Diversity Focused': {
+            category: 'initiatives',
+            value: 'Diversity Initiatives'
+          },
+          'Shopping': {
+            category: 'initiatives',
+            value: 'Shopping'
+          },
+          'Food': {
+            category: 'initiatives',
+            value: 'Food'
+          },
+          'Services': {
+            category: 'initiatives',
+            value: 'Services'
+          },
+          '$': {
+            category: 'priceRange',
+            value: 1
+          },
+          '$$': {
+            category: 'priceRange',
+            value: 2
+          },
+          '$$$': {
+            category: 'priceRange',
+            value: 3
+          },
+          '$$$$': {
+            category: 'priceRange',
+            value: 4
+          },
+          'Open Now': {
+            category: 'schedule'
+          }
+        };
+
+        var filtered = businesses.filter((item) => {
+          if (initialFilter == 'Filter') {
+            return true;
+          }
+          return item?.initiatives?.includes(filterTypes[initialFilter]?.value);
+        });
+        console.log(this.state.filter);
+        console.log(initialFilter);
+        this.setState({
+          filteredBusinesses: filtered,
+          filter: initialFilter
+        });
+    
+        if (e) {
+          filtered = businesses.filter((item) => {
+            if (filterTypes[e.target.value]?.category == 'initiatives') {
+              return item?.initiatives?.includes(filterTypes[e.target.value]?.value);
+            }
+            if (filterTypes[e.target.value]?.category == 'priceRange') {
+              return item?.priceRange == filterTypes[e.target.value]?.value;
+            }
+            if (filterTypes[e.target.value]?.category == 'schedule') {
+              return this.isOpen(item?.schedule);
+            }
+            if (e.target.value == 'Filter') {
+              return true;
+            }
+          });
+        
+          this.setState({
+            filteredBusinesses: filtered,
+            filter: e.target.value
+          });
+        }
+      }
+
+      compareLower = (a, b) => (
+        a?.priceRange < b?.priceRange ? -1 : 1
+      )
+
+      compareHigher = (a, b) => (
+        a?.priceRange > b?.priceRange ? -1 : 1
+      )
+      
+      sortChange = (e) => {
+        const { filteredBusinesses } = this.state;
+        var sorted = undefined;
+        if (e.target.value == 'Lowest Price') {
+          sorted = filteredBusinesses.sort(this.compareLower);
+        }
+        else if (e.target.value == 'Highest Price') {
+          sorted = filteredBusinesses.sort(this.compareHigher)
+        }
+        console.log(sorted);
+
+        this.setState({
+          filteredBusinesses: sorted,
+          sort: e.target.value
+        });
       }
 
       getBusinessData = async() => {
@@ -94,8 +205,8 @@ class Search extends React.Component {
               <div className='SearchItemWrapper'>
                   <div className='SearchItemHeader'>
                       <h2>{item?.businessName}</h2>
-                      {item?.initiatives.map((init) => 
-                        <img className={iconDict[init]?.id} src={iconDict[init]?.img} />
+                      {item?.initiatives.map((init, index) => 
+                        <img className={iconDict[init]?.id} src={iconDict[init]?.img} key={index} />
                       )}
                   </div>
 
@@ -115,21 +226,30 @@ class Search extends React.Component {
     }
 
     async componentDidMount() {
+      const { location } = this.props;
+      console.log(location?.state?.initialFilter);
+      console.log(this.state.filter);
+      var initialFilter = location?.state?.initialFilter;
       await this.getBusinessData();
+      this.filterChange(null, initialFilter);
       this.generateSearchList();
     }
 
     componentDidUpdate(prevProps, prevState) {
-      const { search } = this.state;
+      const { search, filter, sort } = this.state;
+      var updateCondition = (prevState.search !== search
+        || prevState.filter !== filter
+        || prevState.sort !== sort
+      );
 
-      if (prevState.search !== search) {
+      if (updateCondition) {
         this.generateSearchList();
       }
     }
 
     render(){
-      const { searchList, loading, businesses } = this.state;
-
+      const { searchList, loading, filteredBusinesses, filter, sort } = this.state;
+      
       return (
           <div className="search">
               <Nav />
@@ -138,10 +258,18 @@ class Search extends React.Component {
               
               <Switch>
                 <Route exact path="/search">
-                  <SearchItems searchList={searchList} loading={loading} businesses={businesses} />       
+                  <SearchItems 
+                    searchList={searchList} 
+                    loading={loading} 
+                    filteredBusinesses={filteredBusinesses} 
+                    doFilter={(e) => this.filterChange(e)} 
+                    filter={filter} 
+                    sort={sort}
+                    doSort={(e) => this.sortChange(e)}
+                  />       
                 </Route>
                 <Route path={`/search/:businessId`}>               
-                  <BusinessItem businesses={businesses}/>    
+                  <BusinessItem filteredBusinesses={filteredBusinesses}/>    
                 </Route>
               </Switch>                
 

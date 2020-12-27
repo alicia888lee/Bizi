@@ -24,22 +24,22 @@ class BusinessItem extends Component {
     }
     
     componentDidMount() {
-      const { businesses } = this.props;
-      if (businesses.length == 0) {
+      const { filteredBusinesses } = this.props;
+      if (filteredBusinesses.length == 0) {
         this.props.history.push('/search');
       }
     }
 
     render() {
-      const { businesses } = this.props;
+      const { filteredBusinesses } = this.props;
       var url = window.location.pathname;
-      var business = getBusinessFromURL(url, businesses);
+      var business = getBusinessFromURL(url, filteredBusinesses);
 
       return (       
           <>            
               <div className="description">
                   <div className="map">
-                  <Map height={50} businesses={[business]}/>
+                  <Map height={50} filteredBusinesses={[business]}/>
                   <div className="business-gallery">
                       <div className="business-row">
                           <img src={testImg} className="business-photo"/>

@@ -35,8 +35,13 @@ class Map extends Component {
   }
 
   generateLocationPins = async() => {
-    const { businesses } = this.props;
-    var locationPins = await Promise.all(businesses.map(async(business, index) => {
+    const { filteredBusinesses } = this.props;
+    console.log(filteredBusinesses);
+    var locationPins = await Promise.all(filteredBusinesses.map(async(business, index) => {
+        if (filteredBusinesses.length == 0) {
+          return null;
+        }  
+
         var lat = null;
         var lng = null;
         var coords = null;
@@ -83,6 +88,12 @@ class Map extends Component {
 
   generateCenter = () => {
     const { locationPins } = this.state;
+    const { filteredBusinesses } = this.props;
+    console.log(filteredBusinesses);
+    if (filteredBusinesses.length == 0) {
+      return null;
+    }
+
     var lats = locationPins.map(loc => loc?.props?.lat);
     var lngs = locationPins.map(loc => loc?.props?.lng);
     var avgLat = lats.reduce(
@@ -102,15 +113,23 @@ class Map extends Component {
   }
 
   async componentDidMount() {
-    await this.generateLocationPins();
+    await this.generateLocationPins(); 
     this.generateCenter();
+  }
+
+  async componentDidUpdate(prevProps) {
+    const { filteredBusinesses } = this.props;
+    if (prevProps.filteredBusinesses !== filteredBusinesses) {
+      await this.generateLocationPins();
+      this.generateCenter();
+    }
   }
 
   render() {
     const { height } = this.props;
     const { locationPins, center } = this.state;
     let heightNum = `${height}%`;
-
+    
     return (      
       <div style={{ height: heightNum, width: '100%' }}>
         <GoogleMapReact
