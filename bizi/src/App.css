@@ -1407,3 +1407,9 @@ nav.dark #myAccount a{
   text-decoration: none;
   color: #385FDC;
 }
+input[type="file"] {
+  display: none;
+}
+.reviewImg {
+  width: 50%;
+}

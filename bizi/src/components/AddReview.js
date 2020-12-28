@@ -8,7 +8,27 @@ class AddReview extends React.Component {
         super(props)  
         this.state = {
             userAuthenticated: false,
+            file: "",
+            text: ""
         }
+        this.handleUpload = this.handleUpload.bind(this);
+        this.handleChange = this.handleChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
+    }
+
+    handleUpload(e) {
+        this.setState({
+            file: e.target.files[0]
+        })        
+    }
+
+    handleChange(e) {
+        this.setState({text: e.target.value});
+    }    
+
+    handleSubmit(e) {
+        console.log("submitting file :O")
+        e.preventDefault();
     }
     
     // check if user is signed in
@@ -34,23 +54,25 @@ class AddReview extends React.Component {
     }
 
     render(){
-        const { userAuthenticated } = this.state;
+        const { userAuthenticated, file } = this.state;
 
         if(userAuthenticated){
             return( 
-                <div className="add-review-wrapper">            
+                <form className="add-review-wrapper" onSubmit={this.handleSubmit}>            
                     <h2 className="add-review-header"><IoMdText className="review-icon"/> Leave a Review</h2>
                     <div className="review-wrapper">
-                        <div className="review-upload">
-                            <h3>Upload Photo</h3>
-                            <IoIosAdd className="review-add-icon" />
-                        </div>
+                        <label for="reviewUpload" className="review-upload">
+                            <h3>Upload Photo</h3>                            
+                            {file ? <ImgThumb image={file} /> : <IoIosAdd className="review-add-icon" /> }
+                        </label>
+                        <input id="reviewUpload" type="file" onChange={this.handleUpload}/>
                         <div className="review-description">
-                            <textarea rows="4" className="reviewText" placeholder="Write a review..."/>
+                            <textarea value={this.state.text} onChange={this.handleChange} 
+                                rows="4" className="reviewText" placeholder="Write a review..."/>
                         </div>
                     </div>
-                    <button className="reviewBtn">Post</button>
-                </div>
+                    <button type="submit" className="reviewBtn">Post</button>
+                </form>
             )
         }
         return(            
@@ -58,5 +80,9 @@ class AddReview extends React.Component {
         )
     }
 }
+
+const ImgThumb = ({ image }) => {
+    return <img src={URL.createObjectURL(image)} alt={image.name} className="reviewImg" />;
+};
 
 export default AddReview
