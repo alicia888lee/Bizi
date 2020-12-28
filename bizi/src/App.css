@@ -1398,3 +1398,10 @@ nav.dark #myAccount a{
   padding-left: 5em;
   padding-right: 2.5em;
 }
+.reviewLogin {
+  margin: 2em 0;
+}
+.reviewLogin a {
+  text-decoration: none;
+  color: #385FDC;
+}
