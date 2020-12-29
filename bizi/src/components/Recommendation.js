@@ -44,7 +44,7 @@ class Recommendation extends React.Component {
         };
 
         console.log(recommendationBusinesses);
-
+        
         var recommendationList = recommendationBusinesses.map((item, index) => 
             <div 
                 className='recItem' 
@@ -53,7 +53,7 @@ class Recommendation extends React.Component {
                 <h1>{item?.businessName}</h1>
                 <div className='recImgs'>
                     {item?.initiatives.map((init, index) => 
-                        <img src={iconDict[init]?.img} key={index} />
+                        Object.keys(iconDict).includes(init) && <img src={iconDict[init]?.img} key={index} />
                     )}
                 </div>
             </div>

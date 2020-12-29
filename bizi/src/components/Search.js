@@ -207,7 +207,7 @@ class Search extends React.Component {
                     <div className='SearchItemHeader'>
                         <h2>{item?.businessName}</h2>
                         {item?.initiatives.map((init, index) => 
-                          <img className={iconDict[init]?.id} src={iconDict[init]?.img} key={index} />
+                          Object.keys(iconDict).includes(init) && <img className={iconDict[init]?.id} src={iconDict[init]?.img} key={index} />
                         )}
                     </div>
 
