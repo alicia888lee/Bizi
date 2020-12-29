@@ -234,28 +234,6 @@ class Search extends React.Component {
         await this.getBusinessData();
         this.filterChange(null, initialFilter);
         this.generateSearchList();
-        // var user = await API.graphql({
-        //   query: queries.getUser,
-        //   variables: {userEmail: 'maximetokman@gmail.com'}
-        // });
-        // console.log(user);
-        // var userPrefs = user?.data?.getUser?.userPreferences;
-        // const { businesses } = this.state;
-        // console.log(businesses);
-        // var busAttributes = [];
-        // for (var index in businesses) {
-        //   var business = [businesses[index]?.id];
-        //   business = business.concat(businesses[index]?.initiatives);
-        //   busAttributes.push(JSON.stringify(business));
-        // }
-        // console.log(userPrefs);
-        // console.log(busAttributes);
-        
-        // var recommendation = await API.graphql({
-        //   query: mutations.recommend,
-        //   variables: {preferences: [], attributes: busAttributes}
-        // });
-        // console.log(recommendation);
       }
 
       componentDidUpdate(prevProps, prevState) {
@@ -271,7 +249,7 @@ class Search extends React.Component {
       }
 
       render(){
-        const { searchList, loading, filteredBusinesses, filter, sort } = this.state;
+        const { searchList, loading, businesses, filteredBusinesses, filter, sort } = this.state;
         
         return (
             <div className="search">
@@ -292,7 +270,7 @@ class Search extends React.Component {
                     />       
                   </Route>
                   <Route path={`/search/:businessId`}>               
-                    <BusinessItem filteredBusinesses={filteredBusinesses}/>    
+                    <BusinessItem businesses={businesses}/>    
                   </Route>
                 </Switch>                
 

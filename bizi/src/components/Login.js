@@ -69,7 +69,7 @@ class Login extends Component {
 
     async componentDidMount() {
         const currentUser = await this.getCurrentUser();
-        currentUser && this.props.history.push('/account')
+        currentUser && this.props.history.push('/account');
     }
 
 

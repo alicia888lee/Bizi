@@ -31,7 +31,7 @@ function SearchItems(props){
             </div>
     
             <div className="description-text">          
-              <SearchItemsList searchList={searchList} doFilter={doFilter} filter={filter} />                                                          
+              <SearchItemsList searchList={searchList} doFilter={doFilter} filter={filter} doSort={doSort} sort={sort} />                                                          
             </div>      
           </div>
         </>

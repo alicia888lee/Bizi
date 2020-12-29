@@ -32,7 +32,7 @@ class AddReview extends React.Component {
         e.preventDefault();
         const { file } = this.state
         try {
-            this.setState({loading: true})                                    
+            this.setState({loading: true})
             await Storage.put(file.name, file, {              
               contentType: 'image/jpg'
             });

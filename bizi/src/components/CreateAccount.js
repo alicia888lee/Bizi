@@ -790,6 +790,16 @@ class CreateAccount extends Component {
         });
     }
 
+    getCurrentUser = async() => {
+        try {
+            const user = await Auth.currentAuthenticatedUser();
+            return user;
+        }
+        catch (error) {
+            console.log('error checking auth', error);
+        }
+    }
+
     componentDidUpdate(prevProps, prevState) {
         const { 
             userPassword, 
@@ -840,7 +850,11 @@ class CreateAccount extends Component {
         else if (step3UpdateCondition) {
             this.validateStep3Inputs();
         }
+    }
 
+    async componentDidMount() {
+        const currentUser = await this.getCurrentUser();
+        currentUser && this.props.history.push('/account');
     }
 
     render() {

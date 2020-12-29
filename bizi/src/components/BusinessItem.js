@@ -24,16 +24,16 @@ class BusinessItem extends Component {
     }
     
     componentDidMount() {
-      const { filteredBusinesses } = this.props;
-      if (filteredBusinesses.length == 0) {
+      const { businesses } = this.props;
+      if (businesses.length == 0) {
         this.props.history.push('/search');
       }
     }
 
     render() {
-      const { filteredBusinesses } = this.props;
+      const { businesses } = this.props;
       var url = window.location.pathname;
-      var business = getBusinessFromURL(url, filteredBusinesses);
+      var business = getBusinessFromURL(url, businesses);
 
       return (       
           <>            
