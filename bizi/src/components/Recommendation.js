@@ -79,6 +79,7 @@ class Recommendation extends React.Component {
         catch (error) {
             console.log(error);
         }
+        businesses = businesses.filter((item) => item.approved);
         this.setState({
             businesses: businesses
         });
