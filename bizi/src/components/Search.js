@@ -1,5 +1,5 @@
 import React from "react"
-import { Route, Switch, Link, useLocation } from "react-router-dom";
+import { Route, Switch, Link } from "react-router-dom";
 import Nav from './Nav'
 import Recommendation from './Recommendation'
 import SearchItems from './SearchItems'
@@ -7,6 +7,7 @@ import BusinessItem from './BusinessItem'
 import ReadStories from './ReadStories'
 import Footer from './Footer'
 import * as queries from '../graphql/queries'
+import * as mutations from '../graphql/mutations'
 import { API } from 'aws-amplify'
 import environmentImg from '../images/environment.png';
 import heartImg from '../images/heart_hand.png';
@@ -166,119 +167,141 @@ class Search extends React.Component {
         catch (error) {
             console.log(error);
         }
-    }
-
-    isOpen = (schedule, tz='America/Chicago') => {
-      var currDateTime = new Date(new Date().toLocaleString('en-US', { timeZone: tz }));
-      var currHour = currDateTime.getHours();
-      var currMin = currDateTime.getMinutes();
-      var currDay = currDateTime.getDay();
-      var currTime = currHour + (currMin / 60);
-      var busHours = schedule[(currDay + 6) % 7];
-      if (currTime >= busHours[0] && currTime <= busHours[1]) {
-        return true;
       }
-      return false;
-    }
 
-    generateSearchList = () => {
-      const { filteredBusinesses } = this.state;
-
-      var iconDict = {
-        'Sustainability': {
-          id: 'searchEnvironment',
-          img: environmentImg
-        },
-        'Ethical Supply Chain': {
-          id: 'searchHeart',
-          img: heartImg
-        },
-        'Diversity Initiatives': {
-          id: 'searchCommunity',
-          img: communityImg
+      isOpen = (schedule, tz='America/Chicago') => {
+        var currDateTime = new Date(new Date().toLocaleString('en-US', { timeZone: tz }));
+        var currHour = currDateTime.getHours();
+        var currMin = currDateTime.getMinutes();
+        var currDay = currDateTime.getDay();
+        var currTime = currHour + (currMin / 60);
+        var busHours = schedule[(currDay + 6) % 7];
+        if (currTime >= busHours[0] && currTime <= busHours[1]) {
+          return true;
         }
-      };
-
-      var searchList = filteredBusinesses.map((item, index) => 
-        item.approved &&
-          <Link to={`/search/${item?.id}`} className='SearchItem' key={index}>
-              <div className='SearchItemWrapper'>
-                  <div className='SearchItemHeader'>
-                      <h2>{item?.businessName}</h2>
-                      {item?.initiatives.map((init, index) => 
-                        <img className={iconDict[init]?.id} src={iconDict[init]?.img} key={index} />
-                      )}
-                  </div>
-
-                  <div className='SearchItemTags'>
-                      {this.isOpen(item?.schedule) ? <OpenTag /> : <ClosedTag />}
-                      <PriceTag price={item?.priceRange}/>
-                  </div>
-              </div>
-              <img className='SearchItemImg' src={testImg} />
-          </Link>
-      );
-      
-      this.setState({
-          searchList: searchList,
-          loading: false
-      });
-    }
-
-    async componentDidMount() {
-      const { location } = this.props;
-      console.log(location?.state?.initialFilter);
-      console.log(this.state.filter);
-      var initialFilter = location?.state?.initialFilter;
-      await this.getBusinessData();
-      this.filterChange(null, initialFilter);
-      this.generateSearchList();
-    }
-
-    componentDidUpdate(prevProps, prevState) {
-      const { search, filter, sort } = this.state;
-      var updateCondition = (prevState.search !== search
-        || prevState.filter !== filter
-        || prevState.sort !== sort
-      );
-
-      if (updateCondition) {
-        this.generateSearchList();
+        return false;
       }
-    }
 
-    render(){
-      const { searchList, loading, filteredBusinesses, filter, sort } = this.state;
-      
-      return (
-          <div className="search">
-              <Nav />
-              <h1 className="searchHeader">Find Local Businesses</h1>
-              <input type="text" id="searchbar2" placeholder="&#xF002; Search businesses near you" value={this.state.search} onChange={this.searchChange}/>                
-              
-              <Switch>
-                <Route exact path="/search">
-                  <SearchItems 
-                    searchList={searchList} 
-                    loading={loading} 
-                    filteredBusinesses={filteredBusinesses} 
-                    doFilter={(e) => this.filterChange(e)} 
-                    filter={filter} 
-                    sort={sort}
-                    doSort={(e) => this.sortChange(e)}
-                  />       
-                </Route>
-                <Route path={`/search/:businessId`}>               
-                  <BusinessItem filteredBusinesses={filteredBusinesses}/>    
-                </Route>
-              </Switch>                
+      generateSearchList = () => {
+        const { filteredBusinesses } = this.state;
 
-              <Recommendation />
-              <ReadStories />
-              <Footer />
-          </div>
-      )
-    }
+        var iconDict = {
+          'Sustainability': {
+            id: 'searchEnvironment',
+            img: environmentImg
+          },
+          'Ethical Supply Chain': {
+            id: 'searchHeart',
+            img: heartImg
+          },
+          'Diversity Initiatives': {
+            id: 'searchCommunity',
+            img: communityImg
+          }
+        };
+
+        var searchList = filteredBusinesses.map((item, index) => 
+          item.approved &&
+            <Link to={`/search/${item?.id}`} className='SearchItem' key={index}>
+                <div className='SearchItemWrapper'>
+                    <div className='SearchItemHeader'>
+                        <h2>{item?.businessName}</h2>
+                        {item?.initiatives.map((init, index) => 
+                          <img className={iconDict[init]?.id} src={iconDict[init]?.img} key={index} />
+                        )}
+                    </div>
+
+                    <div className='SearchItemTags'>
+                        {this.isOpen(item?.schedule) ? <OpenTag /> : <ClosedTag />}
+                        <PriceTag price={item?.priceRange}/>
+                    </div>
+                </div>
+                <img className='SearchItemImg' src={testImg} />
+            </Link>
+        );
+        
+        this.setState({
+            searchList: searchList,
+            loading: false
+        });
+      }
+
+      async componentDidMount() {
+        const { location } = this.props;
+        console.log(location?.state?.initialFilter);
+        console.log(this.state.filter);
+        var initialFilter = location?.state?.initialFilter;
+        await this.getBusinessData();
+        this.filterChange(null, initialFilter);
+        this.generateSearchList();
+        // var user = await API.graphql({
+        //   query: queries.getUser,
+        //   variables: {userEmail: 'maximetokman@gmail.com'}
+        // });
+        // console.log(user);
+        // var userPrefs = user?.data?.getUser?.userPreferences;
+        // const { businesses } = this.state;
+        // console.log(businesses);
+        // var busAttributes = [];
+        // for (var index in businesses) {
+        //   var business = [businesses[index]?.id];
+        //   business = business.concat(businesses[index]?.initiatives);
+        //   busAttributes.push(JSON.stringify(business));
+        // }
+        // console.log(userPrefs);
+        // console.log(busAttributes);
+        
+        // var recommendation = await API.graphql({
+        //   query: mutations.recommend,
+        //   variables: {preferences: [], attributes: busAttributes}
+        // });
+        // console.log(recommendation);
+      }
+
+      componentDidUpdate(prevProps, prevState) {
+        const { search, filter, sort } = this.state;
+        var updateCondition = (prevState.search !== search
+          || prevState.filter !== filter
+          || prevState.sort !== sort
+        );
+
+        if (updateCondition) {
+          this.generateSearchList();
+        }
+      }
+
+      render(){
+        const { searchList, loading, filteredBusinesses, filter, sort } = this.state;
+        
+        return (
+            <div className="search">
+                <Nav />
+                <h1 className="searchHeader">Find Local Businesses</h1>
+                <input type="text" id="searchbar2" placeholder="&#xF002; Search businesses near you" value={this.state.search} onChange={this.searchChange}/>                
+                
+                <Switch>
+                  <Route exact path="/search">
+                    <SearchItems 
+                      searchList={searchList} 
+                      loading={loading} 
+                      filteredBusinesses={filteredBusinesses} 
+                      doFilter={(e) => this.filterChange(e)} 
+                      filter={filter} 
+                      sort={sort}
+                      doSort={(e) => this.sortChange(e)}
+                    />       
+                  </Route>
+                  <Route path={`/search/:businessId`}>               
+                    <BusinessItem filteredBusinesses={filteredBusinesses}/>    
+                  </Route>
+                </Switch>                
+
+                <Recommendation />
+                <ReadStories />
+                <Footer />
+            </div>
+        )
+      }
 
 }
 

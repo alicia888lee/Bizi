@@ -1,6 +1,10 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
+export const recommend = `mutation Recommend($preferences: [String!], $attributes: [String!]) {
+  recommend(preferences: $preferences, attributes: $attributes)
+}
+`;
 export const createUser = `mutation CreateUser($input: CreateUserInput!) {
   createUser(input: $input) {
     userEmail
