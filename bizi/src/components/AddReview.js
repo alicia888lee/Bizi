@@ -1,7 +1,7 @@
 import React from 'react'
 import { IoMdText, IoIosAdd } from "react-icons/io";
 import { Link } from "react-router-dom"
-import { Auth } from 'aws-amplify'
+import { Auth, Storage } from 'aws-amplify'
 
 class AddReview extends React.Component {
     constructor(props) {
@@ -9,7 +9,8 @@ class AddReview extends React.Component {
         this.state = {
             userAuthenticated: false,
             file: "",
-            text: ""
+            text: "",
+            loading: false
         }
         this.handleUpload = this.handleUpload.bind(this);
         this.handleChange = this.handleChange.bind(this);
@@ -26,9 +27,24 @@ class AddReview extends React.Component {
         this.setState({text: e.target.value});
     }    
 
-    handleSubmit(e) {
+    async handleSubmit(e) {
         console.log("submitting file :O")
         e.preventDefault();
+        const { file } = this.state
+        try {
+            this.setState({loading: true})                                    
+            await Storage.put(file.name, file, {              
+              contentType: 'image/jpg'
+            });
+            
+            const url = await Storage.get(file.name, { level: 'public' })
+            console.log("Ya yeet")
+            console.log("URL: " + url)            
+            this.setState({loading: false})
+        } catch (err) {
+            console.log(err);
+        }
+        
     }
     
     // check if user is signed in

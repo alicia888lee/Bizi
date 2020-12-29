@@ -21,3 +21,7 @@ type Business @model {
   schedule: [[Float!]!]!
   approved: Boolean!
 }
+
+type Mutation {
+  recommend(preferences: [String!], attributes: [String!]): [String] @function(name: "recommendFunction-${env}")
+}
