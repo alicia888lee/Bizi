@@ -49,7 +49,9 @@ class Recommendation extends React.Component {
             <div 
                 className='recItem' 
                 style={{backgroundImage: `url(${businessImg})`}}
-                onClick={() => this.props.history.push(`/search/${item?.id}`)}>
+                onClick={() => this.props.history.push(`/search/${item?.id}`)}
+                key={index}
+                >
                 <h1>{item?.businessName}</h1>
                 <div className='recImgs'>
                     {item?.initiatives.map((init, index) => 

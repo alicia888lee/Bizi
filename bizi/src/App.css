@@ -1137,8 +1137,9 @@ nav.dark #myAccount a{
 }
 .bookmarks {
   display: flex;
-  justify-content: space-between;
+  /* justify-content: space-between; */
   padding: 1em 0;
+  justify-content: space-evenly;
 }
 .bookmarks div {
   background-color: #385FDC;
@@ -1146,6 +1147,7 @@ nav.dark #myAccount a{
   padding: 1em;
   border-radius: 1em;  
   width: 25%;
+  cursor: pointer;
 }
 .bookmarkIcon {
   width: 20%;

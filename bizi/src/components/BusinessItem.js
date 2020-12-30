@@ -14,31 +14,49 @@ import { API, Auth } from 'aws-amplify'
 import * as queries from '../graphql/queries';
 import * as mutations from '../graphql/mutations';
 
-function getBusinessFromURL(url, businesses) {
-  var id = url.split('/')[2];
-  // name = name.replace('%20', ' ');
-  var business = businesses.filter((item) => item?.id == id)[0];
-  return business;
-}
+
 
 class BusinessItem extends Component {
     constructor(props) {
       super(props)
+
+      this.state = {
+        business: null
+      }
+    }
+
+    getBusinessFromURL = () => {
+      const { businesses, location } = this.props;
+      var url = window.location.pathname;
+      var listBusinesses = businesses.length > 0 ? businesses : location?.state?.businesses;
+      console.log(listBusinesses);
+      var id = url.split('/')[2];
+      // name = name.replace('%20', ' ');
+      var business = listBusinesses.filter((item) => item?.id == id)[0];
+      return business;
     }
     
     componentDidMount() {
-      const { businesses } = this.props;
-      if (businesses.length == 0) {
+      const { businesses, location } = this.props;
+
+      console.log(location);
+      console.log(businesses);
+
+      if (businesses.length == 0 && (!location?.state || location?.state?.businesses?.length == 0)) {
         this.props.history.push('/search');
+      }
+      else {
+        console.log(location?.state);
+        var business = this.getBusinessFromURL();
+        this.setState({
+          business: business
+        });
       }
     }
 
     render() {
-      const { businesses } = this.props;
-      var url = window.location.pathname;
-      var business = getBusinessFromURL(url, businesses);
-
-      return (       
+      const { business } = this.state;
+      return (
           <>            
               <div className="description">
                   <div className="map">
@@ -73,7 +91,8 @@ class BusinessInfo extends React.Component {
       this.state = {
         policyList: [],
         bookmarked: false,
-        currUser: null
+        currUser: null,
+        currUserAPI: null
       }
     }
 
@@ -112,9 +131,10 @@ class BusinessInfo extends React.Component {
       }
     }
 
-    bookmarkBusiness = async() => {
-      // get user's current bookmarks
-      const { currUser,  } = this.state;
+    checkBookmarkStatus = async() => {
+      const { currUser } = this.state;
+      const { business } = this.props;
+      // check if business should be bookmarked or not
       try {
         var userEmail = currUser?.attributes?.email;
         var user = await API.graphql({
@@ -125,14 +145,66 @@ class BusinessInfo extends React.Component {
       catch (error) {
         console.log(error);
       }
-      var userBookmarks = user?.bookmarks;
+      var currUserAPI = user?.data?.getUser;
+      var currBookmarks = currUserAPI?.bookmarks;
+      
+      if (currUserAPI?.bookmarks) {
+        this.setState({
+          bookmarked: currBookmarks.includes(business?.id),
+        });
+      }
+      this.setState({
+        currUserAPI: currUserAPI
+      });
+    }
 
+    setBookmark = async() => {
+      // get user's current bookmarks
+      const { currUser, currUserAPI, bookmarked } = this.state;
+      const { business } = this.props;
+
+      var currBookmarks = currUserAPI.bookmarks;
+      if (!bookmarked) {
+        if (currBookmarks) {
+          currBookmarks.push(business?.id);
+        }
+        else {
+          currBookmarks = [business?.id];
+        }
+        this.setState({
+          bookmarked: true
+        });
+      }
+      else {
+        var indexToRemove = currBookmarks.indexOf(business?.id);
+        currBookmarks.splice(indexToRemove, 1);
+        this.setState({
+          bookmarked: false
+        });
+      }
+      // update user with new bookmarks
+      var updateUserObj = {
+        ...currUserAPI,
+        bookmarks: currBookmarks
+      }
+      
+      try {
+        await API.graphql({
+          query: mutations.updateUser,
+          variables: {input: updateUserObj}
+        });
+      }
+      catch (error) {
+        console.log(error);
+      }
+      
     }
 
     async componentDidMount() {
       const verifyAuth = await this.checkAuth();
       verifyAuth && this.updateAuth(verifyAuth);
       this.generatePolicyList();
+      this.checkBookmarkStatus();
     }
 
     render() {
@@ -152,8 +224,8 @@ class BusinessInfo extends React.Component {
                       <AiOutlineQuestionCircle className="question"/>                                                                                                                                                                         
                   </div>
                   <h3 className="business-header-icons">
-                      {currUser && !bookmarked && <BsBookmarkPlus className="icon" />}
-                      {currUser && bookmarked && <BsBookmarkFill className='icon' />}
+                      {currUser && !bookmarked && <BsBookmarkPlus className="icon" onClick={this.setBookmark}/>}
+                      {currUser && bookmarked && <BsBookmarkFill className='icon' onClick={this.setBookmark} />}
                       <BsDownload className="icon "/>            
                   </h3>
               </div>

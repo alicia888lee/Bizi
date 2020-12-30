@@ -8,15 +8,21 @@ import discountImg from '../images/testDiscountImg.png';
 import environmentImg from '../images/environment.png';
 import heartImg from '../images/heart_hand.png';
 import communityImg from '../images/community.png';
-import { Auth } from 'aws-amplify'
+import { API, Auth } from 'aws-amplify'
 import { withRouter } from 'react-router-dom'
+import * as queries from '../graphql/queries';
+import Loader from 'react-loader-spinner';
 
 class Account extends Component {
     constructor(props) {
         super(props)
 
         this.state = {
-            currentUser: ''
+            currentUser: '',
+            bookmarks: [],
+            businesses: [],
+            bookmarksList: [],
+            bookmarksLoading: false
         }
     }
 
@@ -37,13 +43,111 @@ class Account extends Component {
         });
     }
 
+    getBusinesses = async() => {
+        try {
+            var businessQuery = await API.graphql({
+                query: queries.listBusinesss
+            });
+            var businesses = businessQuery?.data?.listBusinesss?.items;
+        }
+        catch (error) {
+            console.log(error);
+        }
+
+        this.setState({
+            businesses: businesses
+        });
+    }
+
+    getUserBookmarks = async(currUser) => {
+        try {
+            console.log(currUser);
+            var user = await API.graphql({
+                query: queries.getUser,
+                variables: {userEmail: currUser?.attributes?.email}
+            });
+            this.setState({
+                bookmarks: user?.data?.getUser?.bookmarks
+            });
+        }
+        catch (error) {
+            console.log(error);
+        }
+    }
+
+    generateBookmarkTiles = () => {
+        const { bookmarks, businesses } = this.state;
+        var bookmarkBusinesses = bookmarks.map((id) => 
+            businesses.filter((item) => item?.id == id)[0]
+        );
+
+        var iconDict = {
+            'Sustainability': {
+              id: 'searchEnvironment',
+              img: environmentImg
+            },
+            'Ethical Supply Chain': {
+              id: 'searchHeart',
+              img: heartImg
+            },
+            'Diversity Initiatives': {
+              id: 'searchCommunity',
+              img: communityImg
+            }
+        };
+
+        var rows = [];
+        if (bookmarks.length > 0) {
+            rows = bookmarkBusinesses.map((item, index) => 
+                <div onClick={() => 
+                    this.props.history.push({pathname: `search/${item?.id}`, state: {businesses: businesses}})}>
+                    <h1>{item?.businessName}</h1>
+                    {item?.initiatives.map((init, index) => 
+                        Object.keys(iconDict).includes(init) && <img src={iconDict[init]?.img} className='bookmarkIcon' key={index} />
+                    )}
+                </div>
+            );
+        }
+        console.log(rows);
+
+        var bookmarksList = [];
+        for (var counter = 0; counter < rows.length; counter+=3) {
+            var currRow = [];
+            for (var i = 0; i < 3; i++) {
+                console.log(rows[counter + i]);
+                currRow.push(rows[counter + i]);
+            }
+            bookmarksList.push(
+                <div className='bookmarks'>
+                    {currRow}
+                </div>
+            );
+        }
+
+        this.setState({
+            bookmarksList: bookmarksList,
+            bookmarksLoading: false
+        });
+    }
+
     async componentDidMount() {
+        this.setState({
+            bookmarksLoading: true
+        });
         const currentUser = await this.getCurrentUser();
-        currentUser ? this.setUserState(currentUser?.attributes?.name) : this.props.history.push('/login');
+        if (currentUser) {
+            this.setUserState(currentUser?.attributes?.name);
+            await this.getUserBookmarks(currentUser);
+            await this.getBusinesses();
+            this.generateBookmarkTiles();
+        }
+        else {
+          this.props.history.push('/login');
+        }
     }
 
     render() {
-        const { currentUser } = this.state;
+        const { currentUser, bookmarksList, bookmarksLoading } = this.state;
 
         return (
             <div className="account">
@@ -80,61 +184,7 @@ class Account extends Component {
                             <option value="goldfish">Goldfish</option>
                         </select>
                     </div>
-
-                    <div className="bookmarks">
-                        <div>
-                            <h1>First Antiques</h1>
-                            <img src={communityImg} className="bookmarkIcon"/>
-                            <img src={heartImg} className="bookmarkIcon"/>
-                        </div>
-
-                        <div>
-                            <h1>Sarah's Sprinkles</h1>
-                            <img src={communityImg} className="bookmarkIcon"/>
-                            <img src={environmentImg} className="bookmarkIcon"/>
-                        </div>
-
-                        <div>
-                            <h1>Evermore</h1>
-                            <img src={heartImg} className="bookmarkIcon"/>
-                        </div>                    
-                    </div>
-                    <div className="bookmarks">
-                        <div>
-                            <h1>First Antiques</h1>
-                            <img src={communityImg} className="bookmarkIcon"/>
-                            <img src={heartImg} className="bookmarkIcon"/>
-                        </div>
-
-                        <div>
-                            <h1>Sarah's Sprinkles</h1>
-                            <img src={communityImg} className="bookmarkIcon"/>
-                            <img src={environmentImg} className="bookmarkIcon"/>
-                        </div>
-
-                        <div>
-                            <h1>Evermore</h1>
-                            <img src={heartImg} className="bookmarkIcon"/>
-                        </div>                    
-                    </div>
-                    <div className="bookmarks">
-                        <div>
-                            <h1>First Antiques</h1>
-                            <img src={communityImg} className="bookmarkIcon"/>
-                            <img src={heartImg} className="bookmarkIcon"/>
-                        </div>
-
-                        <div>
-                            <h1>Sarah's Sprinkles</h1>
-                            <img src={communityImg} className="bookmarkIcon"/>
-                            <img src={environmentImg} className="bookmarkIcon"/>
-                        </div>
-
-                        <div>
-                            <h1>Evermore</h1>
-                            <img src={heartImg} className="bookmarkIcon"/>
-                        </div>                    
-                    </div>
+                    {bookmarksLoading ? <Loader type='TailSpin' color='#385FDC' height={40} /> : bookmarksList}
                 </div>
 
                 <Footer />
