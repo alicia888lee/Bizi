@@ -247,6 +247,7 @@ fieldset button {
   color: white;  
   border-radius: 0 5em 5em 0;
   flex: 0 0 auto;
+  cursor: pointer;
 }
 #searchbar {    
   width: 700px;   
@@ -396,6 +397,7 @@ nav.dark #myAccount a{
 }
 .icon{
   padding: 0 7px;
+  cursor: pointer;
 }
 
 .right, .name, .thumbsUp {

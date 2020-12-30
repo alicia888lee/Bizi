@@ -4,7 +4,7 @@ import LightLogo from '../images/lightLogo.jpg'
 import sustain from '../images/environment.png'
 import ethical from '../images/heart_hand.png'
 import diversity from '../images/community.png'
-import { Link } from 'react-router-dom'
+import { Link, withRouter } from 'react-router-dom'
 
 class Header extends React.Component {
 
@@ -19,6 +19,7 @@ class Header extends React.Component {
     }
   
     render (){
+      const { search } = this.state;
       return (
       <div id="header">
         <Nav light={true} />
@@ -40,11 +41,11 @@ class Header extends React.Component {
           </div>          
           <fieldset>
             <input type="text" id="searchbar" placeholder="Search businesses near you" value={this.state.search} onChange={this.searchChange}/>
-            <button type="submit">let's go!</button>
+            <button type="submit" onClick={() => this.props.history.push({pathname: '/search', state: {initialSearch: search}})}>let's go!</button>
           </fieldset>      
         </div>
       </div>
     );}
   }
 
-export default Header;
+export default withRouter(Header);

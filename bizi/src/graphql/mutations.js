@@ -10,6 +10,7 @@ export const createUser = `mutation CreateUser($input: CreateUserInput!) {
     userEmail
     userType
     userPreferences
+    bookmarks
   }
 }
 `;
@@ -18,6 +19,7 @@ export const updateUser = `mutation UpdateUser($input: UpdateUserInput!) {
     userEmail
     userType
     userPreferences
+    bookmarks
   }
 }
 `;
@@ -26,6 +28,7 @@ export const deleteUser = `mutation DeleteUser($input: DeleteUserInput!) {
     userEmail
     userType
     userPreferences
+    bookmarks
   }
 }
 `;

@@ -1,7 +1,7 @@
 import React from "react"
 import Map from './Map'
 import AddReview from './AddReview'
-import { BsBookmarkPlus, BsDownload } from "react-icons/bs";
+import { BsBookmarkPlus, BsDownload, BsBookmarkFill } from "react-icons/bs";
 import { BiBadgeCheck, BiCalendarPlus, BiPhone } from "react-icons/bi";
 import { AiOutlineQuestionCircle, AiOutlineEye } from "react-icons/ai";
 import { FiThumbsUp } from "react-icons/fi";
@@ -10,6 +10,9 @@ import { RiArrowGoBackFill } from "react-icons/ri";
 import { Link, withRouter } from "react-router-dom";
 import testImg from '../images/pexels-maria-gloss-4197693.jpg';
 import { Component } from "react";
+import { API, Auth } from 'aws-amplify'
+import * as queries from '../graphql/queries';
+import * as mutations from '../graphql/mutations';
 
 function getBusinessFromURL(url, businesses) {
   var id = url.split('/')[2];
@@ -68,8 +71,16 @@ class BusinessInfo extends React.Component {
       super(props);
 
       this.state = {
-        policyList: []
+        policyList: [],
+        bookmarked: false,
+        currUser: null
       }
+    }
+
+    updateAuth = (user) => {
+      this.setState({
+        currUser: user
+      });
     }
 
     generatePolicyList = () => {
@@ -90,15 +101,43 @@ class BusinessInfo extends React.Component {
         });
       }
     }
-    
 
-    componentDidMount() {
+    checkAuth = async() => {
+      try {
+        const currUser = await Auth.currentAuthenticatedUser();
+        return currUser;
+      }
+      catch (error) {
+        console.log(error);
+      }
+    }
+
+    bookmarkBusiness = async() => {
+      // get user's current bookmarks
+      const { currUser,  } = this.state;
+      try {
+        var userEmail = currUser?.attributes?.email;
+        var user = await API.graphql({
+          query: queries.getUser,
+          variables: {userEmail: userEmail}
+        });
+      }
+      catch (error) {
+        console.log(error);
+      }
+      var userBookmarks = user?.bookmarks;
+
+    }
+
+    async componentDidMount() {
+      const verifyAuth = await this.checkAuth();
+      verifyAuth && this.updateAuth(verifyAuth);
       this.generatePolicyList();
     }
 
     render() {
       const { business } = this.props;
-      const { policyList } = this.state;
+      const { policyList, currUser, bookmarked } = this.state;
 
       return (
           <div className="description-text">
@@ -113,7 +152,8 @@ class BusinessInfo extends React.Component {
                       <AiOutlineQuestionCircle className="question"/>                                                                                                                                                                         
                   </div>
                   <h3 className="business-header-icons">
-                      <BsBookmarkPlus className="icon "/>
+                      {currUser && !bookmarked && <BsBookmarkPlus className="icon" />}
+                      {currUser && bookmarked && <BsBookmarkFill className='icon' />}
                       <BsDownload className="icon "/>            
                   </h3>
               </div>

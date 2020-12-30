@@ -30,14 +30,29 @@ class Search extends React.Component {
           loading: false
         }
       }
-      searchChange(e){
+      searchChange(e, initialSearch='') {
         const { businesses } = this.state;
-        var filtered = businesses.filter((item) => item?.businessName?.toLowerCase().includes(e.target.value.toLowerCase()));
-        this.setState({
-          filteredBusinesses: filtered,
-          search: e.target.value
-        });
-        console.log(filtered);
+        
+        if (initialSearch) {
+          var filtered = businesses.filter((item) => {
+            if (initialSearch == '') {
+              return true;
+            }
+            return item?.businessName?.toLowerCase().includes(initialSearch.toLowerCase());
+          });
+          this.setState({
+            filteredBusinesses: filtered,
+            search: initialSearch
+          });
+        }
+
+        if (e) {
+          filtered = businesses.filter((item) => item?.businessName?.toLowerCase().includes(e.target.value.toLowerCase()));
+          this.setState({
+            filteredBusinesses: filtered,
+            search: e.target.value
+          });
+        }
       }
 
       filterChange(e, initialFilter='Filter') {
@@ -100,6 +115,7 @@ class Search extends React.Component {
           filteredBusinesses: filtered,
           filter: initialFilter
         });
+        console.log(filtered);
     
         if (e) {
           filtered = businesses.filter((item) => {
@@ -231,8 +247,10 @@ class Search extends React.Component {
         console.log(location?.state?.initialFilter);
         console.log(this.state.filter);
         var initialFilter = location?.state?.initialFilter;
+        var initialSearch = location?.state?.initialSearch;
         await this.getBusinessData();
         this.filterChange(null, initialFilter);
+        this.searchChange(null, initialSearch);
         this.generateSearchList();
       }
 
@@ -249,13 +267,14 @@ class Search extends React.Component {
       }
 
       render(){
+        const { location } = this.props;
         const { searchList, loading, businesses, filteredBusinesses, filter, sort } = this.state;
         
         return (
             <div className="search">
                 <Nav />
                 <h1 className="searchHeader">Find Local Businesses</h1>
-                <input type="text" id="searchbar2" placeholder="&#xF002; Search businesses near you" value={this.state.search} onChange={this.searchChange}/>                
+                {location?.pathname == '/search' && <input type="text" id="searchbar2" placeholder="&#xF002; Search businesses near you" value={this.state.search} onChange={this.searchChange}/>}    
                 
                 <Switch>
                   <Route exact path="/search">

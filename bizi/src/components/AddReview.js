@@ -92,7 +92,7 @@ class AddReview extends React.Component {
             )
         }
         return(            
-            <h2 className="reviewLogin"><Link to="/login">Login</Link> to your account leave a review!</h2>        
+            <h2 className="reviewLogin"><Link to="/login">Login</Link> to your account to leave a review!</h2>        
         )
     }
 }

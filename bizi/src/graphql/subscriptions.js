@@ -6,6 +6,7 @@ export const onCreateUser = `subscription OnCreateUser {
     userEmail
     userType
     userPreferences
+    bookmarks
   }
 }
 `;
@@ -14,6 +15,7 @@ export const onUpdateUser = `subscription OnUpdateUser {
     userEmail
     userType
     userPreferences
+    bookmarks
   }
 }
 `;
@@ -22,6 +24,7 @@ export const onDeleteUser = `subscription OnDeleteUser {
     userEmail
     userType
     userPreferences
+    bookmarks
   }
 }
 `;
