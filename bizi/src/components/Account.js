@@ -77,7 +77,7 @@ class Account extends Component {
 
     generateBookmarkTiles = () => {
         const { bookmarks, businesses } = this.state;
-        var bookmarkBusinesses = bookmarks.map((id) => 
+        var bookmarkBusinesses = bookmarks?.map((id) => 
             businesses.filter((item) => item?.id == id)[0]
         );
 
@@ -97,7 +97,7 @@ class Account extends Component {
         };
 
         var rows = [];
-        if (bookmarks.length > 0) {
+        if (bookmarks?.length > 0) {
             rows = bookmarkBusinesses.map((item, index) => 
                 <div onClick={() => 
                     this.props.history.push({pathname: `search/${item?.id}`, state: {businesses: businesses}})}>
