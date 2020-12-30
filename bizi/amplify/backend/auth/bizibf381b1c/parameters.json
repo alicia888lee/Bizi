@@ -1,6 +1,6 @@
 {
     "identityPoolName": "bizibf381b1c_identitypool_bf381b1c",
-    "allowUnauthenticatedIdentities": false,
+    "allowUnauthenticatedIdentities": true,
     "resourceNameTruncated": "bizibf381b1c",
     "userPoolName": "bizibf381b1c_userpool_bf381b1c",
     "autoVerifiedAttributes": [

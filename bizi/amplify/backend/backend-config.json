@@ -32,7 +32,7 @@
     }
   },
   "storage": {
-    "userReviewImgs": {
+    "biziReviewImgs": {
       "service": "S3",
       "providerPlugin": "awscloudformation"
     }
