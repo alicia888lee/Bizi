@@ -218,7 +218,7 @@ class Search extends React.Component {
 
         var searchList = filteredBusinesses.map((item, index) => 
           item.approved &&
-            <Link to={`/search/${item?.id}`} className='SearchItem' key={index}>
+            <Link to={{pathname: `/search/${item?.id}`, state: {business: item}}} className='SearchItem' key={index}>
                 <div className='SearchItemWrapper'>
                     <div className='SearchItemHeader'>
                         <h2>{item?.businessName}</h2>
@@ -288,9 +288,7 @@ class Search extends React.Component {
                       doSort={(e) => this.sortChange(e)}
                     />       
                   </Route>
-                  <Route path={`/search/:businessId`}>               
-                    <BusinessItem businesses={businesses}/>    
-                  </Route>
+                  <Route path={`/search/:businessId`} component={BusinessItem} />               
                 </Switch>                
 
                 <Recommendation />

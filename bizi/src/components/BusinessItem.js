@@ -21,36 +21,18 @@ class BusinessItem extends Component {
       super(props)
 
       this.state = {
-        business: null
+        business: this.props.location?.state?.business
       }
-    }
-
-    getBusinessFromURL = () => {
-      const { businesses, location } = this.props;
-      var url = window.location.pathname;
-      var listBusinesses = businesses.length > 0 ? businesses : location?.state?.businesses;
-      console.log(listBusinesses);
-      var id = url.split('/')[2];
-      // name = name.replace('%20', ' ');
-      var business = listBusinesses.filter((item) => item?.id == id)[0];
-      return business;
     }
     
     componentDidMount() {
-      const { businesses, location } = this.props;
+      const { business } = this.state;
 
-      console.log(location);
-      console.log(businesses);
+      // console.log(location?.state?.business);
+      console.log(business);
 
-      if (businesses.length == 0 && (!location?.state || location?.state?.businesses?.length == 0)) {
+      if (!business) {
         this.props.history.push('/search');
-      }
-      else {
-        console.log(location?.state);
-        var business = this.getBusinessFromURL();
-        this.setState({
-          business: business
-        });
       }
     }
 

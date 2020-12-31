@@ -4,8 +4,10 @@ import Step2 from './CreateAccountStep2'
 import VerifyStep from './CreateAccountVerification'
 import { Auth, API } from 'aws-amplify'
 import * as mutations from '../graphql/mutations'
+import * as queries from '../graphql/queries'
 import { withRouter } from 'react-router-dom'
 import Step3 from './CreateAccountStep3'
+import Loader from 'react-loader-spinner'
 
 
 class CreateAccount extends Component {
@@ -31,6 +33,8 @@ class CreateAccount extends Component {
         this.verifyEmail = this.verifyEmail.bind(this)
 
         this.state = {
+            smLogin: false,
+            smRedirecting: true,
             firstStep: true,
             secondStep: false,
             thirdStep: false,
@@ -97,15 +101,26 @@ class CreateAccount extends Component {
     }
 
     goToSecondStep = (duplicateEmail = false, duplicateEmailMessage = '') => {
-        const { typeCustomerSelected, typeBusinessSelected } = this.state;
-
+        const { typeCustomerSelected, typeBusinessSelected, smLogin } = this.state;
+        console.log(smLogin);
         if (typeBusinessSelected || typeCustomerSelected) {
-            this.setState({
-                firstStep: false,
-                secondStep: true,
-                verifyStep: false,
-                thirdStep: false,
-            });
+            if (smLogin) {
+                this.setState({
+                    firstStep: false,
+                    secondStep: false,
+                    verifyStep: false,
+                    thirdStep: true,
+                });
+                this.updateUserPreferences();
+            }
+            else {
+                this.setState({
+                    firstStep: false,
+                    secondStep: true,
+                    verifyStep: false,
+                    thirdStep: false,
+                });
+            }
         }
         else {
             this.setState({
@@ -160,6 +175,20 @@ class CreateAccount extends Component {
             const username = userEmail;
             const password = userPassword;
             const name = userName;
+
+            // check if user already exists in db
+            try {
+                var userExists = await API.graphql({
+                    query: queries.getUser,
+                    variables: {userEmail: username}
+                });
+            }
+            catch (error) {
+                console.log(error);
+            }
+            if (userExists) {
+                return 'An account with this email already exists.';
+            }
             try {
                 const user = await Auth.signUp({
                     username,
@@ -171,7 +200,6 @@ class CreateAccount extends Component {
             }
             catch (error) {
                 console.log('error signing up', error);
-                return error.message;
             }
 
             // go to third step
@@ -852,9 +880,39 @@ class CreateAccount extends Component {
         }
     }
 
+    userRegistered = async(user) => {
+        var email = user?.attributes?.email;
+
+        try {
+            var registered = await API.graphql({
+                query: queries.getUser,
+                variables: {userEmail: email}
+            });
+            return registered?.data?.getUser;
+        }
+        catch (error) {
+            console.log(error);
+        }
+
+    }
+
     async componentDidMount() {
         const currentUser = await this.getCurrentUser();
-        currentUser && this.props.history.push('/account');
+        var userRegistered = await this.userRegistered(currentUser);
+        this.setState({
+            smRedirecting: false
+        });
+        if (currentUser) {
+            if (userRegistered) {
+                this.props.history.push('/account');
+            }
+            else {
+                this.setState({
+                    smLogin: true,
+                    userEmail: currentUser?.attributes?.email
+                });
+            }
+        }
     }
 
     render() {
@@ -895,105 +953,110 @@ class CreateAccount extends Component {
             price4Selected,
             validPrice,
             validSchedule,
-            disableSchedule
+            disableSchedule,
+            smRedirecting
         } = this.state;
 
         return (
-            <div>
-                {firstStep && 
-                <Step1 
-                    next = {() => { this.goToSecondStep(); }} 
-                    selectCustomer = {this.setUserCustomer}
-                    selectBusiness = {this.setUserBusiness}
-                    customerSelected = {typeCustomerSelected}
-                    businessSelected = {typeBusinessSelected}
-                    invalidSelection = {invalidSelection}
-                />}
+            <>
+                {smRedirecting ? <Loader type='TailSpin' color='#385FDC' height={40}/> : 
+                <div>
+                    {firstStep && 
+                    <Step1 
+                        next = {() => { this.goToSecondStep(); }} 
+                        selectCustomer = {this.setUserCustomer}
+                        selectBusiness = {this.setUserBusiness}
+                        customerSelected = {typeCustomerSelected}
+                        businessSelected = {typeBusinessSelected}
+                        invalidSelection = {invalidSelection}
+                    />}
 
-                {secondStep && <Step2 
-                    next = {async() => {
-                        const createResult = await this.doCreate();
-                        createResult && this.goToSecondStep(true, createResult)
-                    }}
-                    onNameChange = {this.setUserName}
-                    onEmailChange = {this.setUserEmail}
-                    onPasswordChange = {this.setUserPassword}
-                    onConfirmPasswordChange = {this.setConfirmPassword}
-                    passwordsMatch = {passwordsMatch}
-                    passwordLengthGood = {passwordLengthGood}
-                    passwordUppercase = {passwordUppercase}
-                    passwordLowercase = {passwordLowercase}
-                    passwordSpecialChar = {passwordSpecialChar}
-                    passwordNumbers = {passwordNumbers}
-                    validEmail = {validEmail}
-                    validName = {validName}
-                    duplicateEmail = {duplicateEmail}
-                    duplicateEmailMessage = {duplicateEmailMessage}
-                    typeCustomer = {typeCustomerSelected}
-                />}
+                    {secondStep && <Step2 
+                        next = {async() => {
+                            const createResult = await this.doCreate();
+                            createResult && this.goToSecondStep(true, createResult)
+                        }}
+                        onNameChange = {this.setUserName}
+                        onEmailChange = {this.setUserEmail}
+                        onPasswordChange = {this.setUserPassword}
+                        onConfirmPasswordChange = {this.setConfirmPassword}
+                        passwordsMatch = {passwordsMatch}
+                        passwordLengthGood = {passwordLengthGood}
+                        passwordUppercase = {passwordUppercase}
+                        passwordLowercase = {passwordLowercase}
+                        passwordSpecialChar = {passwordSpecialChar}
+                        passwordNumbers = {passwordNumbers}
+                        validEmail = {validEmail}
+                        validName = {validName}
+                        duplicateEmail = {duplicateEmail}
+                        duplicateEmailMessage = {duplicateEmailMessage}
+                        typeCustomer = {typeCustomerSelected}
+                    />}
 
-                {verifyStep && <VerifyStep
-                    verify = {async() => {
-                        const verifyResult = await this.verifyEmail();
-                        console.log(verifyResult);
-                        verifyResult == 'SUCCESS' ? this.goToThirdStep() : this.goToVerifyStep(false, verifyResult)
-                        this.autoSignIn();
-                    }}
-                    errorMessage = {errorValidationMessage}
-                    invalidCode = {!firstVerifyAttempt}
-                    onCodeInputChange = {this.setVerifyCode}
-                />}
+                    {verifyStep && <VerifyStep
+                        verify = {async() => {
+                            const verifyResult = await this.verifyEmail();
+                            console.log(verifyResult);
+                            verifyResult == 'SUCCESS' ? this.goToThirdStep() : this.goToVerifyStep(false, verifyResult)
+                            this.autoSignIn();
+                        }}
+                        errorMessage = {errorValidationMessage}
+                        invalidCode = {!firstVerifyAttempt}
+                        onCodeInputChange = {this.setVerifyCode}
+                    />}
 
-                {thirdStep && <Step3
-                    finishSignUp = {() => {
-                        this.updateUserPreferences();
-                        this.props.history.push('/account');
-                    }}
-                    register = {() => {
-                        this.registerBusiness();
-                    }}
-                    validBusinessName = {validBusinessName}
-                    validBusinessDescription = {validBusinessDescription}
-                    validInitiatives = {validInitiatives}
-                    validPhone = {validPhone}
-                    validAddress = {validAddress}
-                    onNameChange = {this.setBusinessName}
-                    onDescriptionChange = {this.setBusinessDescription}
-                    onInitiativesChange = {this.setInitiatives}
-                    onPolicyChange = {this.setPolicies}
-                    onPhoneChange = {this.setPhone}
-                    onURLChange = {this.setUrl}
-                    onDeliveryChange = {this.setDelivery}
-                    onAddressChange = {this.setAddress}
-                    typeCustomer = {typeCustomerSelected}
-                    selectSustainable = {this.setPrefSustainable}
-                    selectEthical = {this.setPrefEthical}
-                    selectDiversity = {this.setPrefDiversity}
-                    selectFood = {this.setPrefFood}
-                    selectShopping = {this.setPrefShopping}
-                    selectServices = {this.setPrefServices}
-                    sustainableSelected = {typeSustainableSelected}
-                    ethicalSelected = {typeEthicalSelected}
-                    diversitySelected = {typeDiversitySelected}
-                    shoppingSelected = {typeShoppingSelected}
-                    foodSelected = {typeFoodSelected}
-                    servicesSelected = {typeServicesSelected}
-                    selectPrice1 = {this.setPrice1}
-                    selectPrice2 = {this.setPrice2}
-                    selectPrice3 = {this.setPrice3}
-                    selectPrice4 = {this.setPrice4}
-                    price1Selected = {price1Selected}
-                    price2Selected = {price2Selected}
-                    price3Selected = {price3Selected}
-                    price4Selected = {price4Selected}
-                    validPrice = {validPrice}
-                    setSchedule = {this.setSchedule}
-                    disableDay = {this.disableDay}
-                    disabled = {disableSchedule}
-                    validSchedule = {validSchedule}
-                />}
-
-            </div>
+                    {thirdStep && <Step3
+                        finishSignUp = {() => {
+                            this.updateUserPreferences();
+                            this.props.history.push('/account');
+                        }}
+                        register = {() => {
+                            this.registerBusiness();
+                        }}
+                        validBusinessName = {validBusinessName}
+                        validBusinessDescription = {validBusinessDescription}
+                        validInitiatives = {validInitiatives}
+                        validPhone = {validPhone}
+                        validAddress = {validAddress}
+                        onNameChange = {this.setBusinessName}
+                        onDescriptionChange = {this.setBusinessDescription}
+                        onInitiativesChange = {this.setInitiatives}
+                        onPolicyChange = {this.setPolicies}
+                        onPhoneChange = {this.setPhone}
+                        onURLChange = {this.setUrl}
+                        onDeliveryChange = {this.setDelivery}
+                        onAddressChange = {this.setAddress}
+                        typeCustomer = {typeCustomerSelected}
+                        selectSustainable = {this.setPrefSustainable}
+                        selectEthical = {this.setPrefEthical}
+                        selectDiversity = {this.setPrefDiversity}
+                        selectFood = {this.setPrefFood}
+                        selectShopping = {this.setPrefShopping}
+                        selectServices = {this.setPrefServices}
+                        sustainableSelected = {typeSustainableSelected}
+                        ethicalSelected = {typeEthicalSelected}
+                        diversitySelected = {typeDiversitySelected}
+                        shoppingSelected = {typeShoppingSelected}
+                        foodSelected = {typeFoodSelected}
+                        servicesSelected = {typeServicesSelected}
+                        selectPrice1 = {this.setPrice1}
+                        selectPrice2 = {this.setPrice2}
+                        selectPrice3 = {this.setPrice3}
+                        selectPrice4 = {this.setPrice4}
+                        price1Selected = {price1Selected}
+                        price2Selected = {price2Selected}
+                        price3Selected = {price3Selected}
+                        price4Selected = {price4Selected}
+                        validPrice = {validPrice}
+                        setSchedule = {this.setSchedule}
+                        disableDay = {this.disableDay}
+                        disabled = {disableSchedule}
+                        validSchedule = {validSchedule}
+                    />}
+                
+                </div>
+                }
+            </>
         )
     }
 }

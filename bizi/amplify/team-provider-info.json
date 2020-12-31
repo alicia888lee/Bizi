@@ -13,7 +13,9 @@
         },
         "categories": {
             "auth": {
-                "bizibf381b1c": {}
+                "bizibf381b1c": {
+                    "hostedUIProviderCreds": "[{\"ProviderName\":\"Facebook\",\"client_id\":\"145793723804080\",\"client_secret\":\"8e6103017d8d4bc9c30137ffefab622c\"}]"
+                }
             }
         }
     }

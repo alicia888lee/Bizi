@@ -40,7 +40,8 @@ class Map extends Component {
     var locationPins = await Promise.all(filteredBusinesses.map(async(business, index) => {
         if (filteredBusinesses.length == 0) {
           return null;
-        }  
+        }
+        console.log(business);
 
         var lat = null;
         var lng = null;
@@ -51,6 +52,7 @@ class Map extends Component {
           lng = business?.lng;
         }
         else {
+          console.log('invoking address to coordinate');
           coords = await addressToCoordinate(business);
           lat = coords?.lat;
           lng = coords?.lng;

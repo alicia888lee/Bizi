@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import Nav from './Nav'
 import { Link, withRouter } from 'react-router-dom'
-import { Auth } from 'aws-amplify'
+import { Auth, Hub } from 'aws-amplify'
 import Loader from 'react-loader-spinner'
 
 class Login extends Component {
@@ -42,6 +42,17 @@ class Login extends Component {
         this.setState({
             errorMessage: msg
         });
+    }
+
+    doFacebookLogin = async() => {
+        try {
+            const user = await Auth.federatedSignIn({
+                provider: 'Facebook'
+            })
+        }
+        catch (error) {
+            console.log(error);
+        }
     }
 
     doLogin = async(e) => {
@@ -127,7 +138,7 @@ class Login extends Component {
                         <Link className="smallText" to="forgot-password">Forgot your password?</Link>
                     </form>
                     <div className="socialLogin">
-                        <button className="facebook">Log in with Facebook</button>
+                        <button className="facebook" onClick={async() => this.doFacebookLogin()}>Log in with Facebook</button>
                         <button className="google">Log in with Google</button>
                     </div>
                     

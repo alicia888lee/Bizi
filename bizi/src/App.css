@@ -879,8 +879,12 @@ nav.dark #myAccount a{
   display: block;
   margin-right: auto;
   margin-left: auto;
-
 }
+
+.socialLogin button {
+  cursor: pointer;
+}
+
 .socialLogin{
   flex: 1;
   border-left: thick solid #385FDC;

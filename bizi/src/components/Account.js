@@ -8,7 +8,7 @@ import discountImg from '../images/testDiscountImg.png';
 import environmentImg from '../images/environment.png';
 import heartImg from '../images/heart_hand.png';
 import communityImg from '../images/community.png';
-import { API, Auth } from 'aws-amplify'
+import { API, Auth, Hub } from 'aws-amplify'
 import { withRouter } from 'react-router-dom'
 import * as queries from '../graphql/queries';
 import Loader from 'react-loader-spinner';
@@ -29,6 +29,7 @@ class Account extends Component {
     getCurrentUser = async() => {
         try {
             const user = await Auth.currentAuthenticatedUser();
+            console.log(user);
             return user;
         }
         catch (error) {
@@ -100,7 +101,7 @@ class Account extends Component {
         if (bookmarks?.length > 0) {
             rows = bookmarkBusinesses.map((item, index) => 
                 <div onClick={() => 
-                    this.props.history.push({pathname: `search/${item?.id}`, state: {businesses: businesses}})}>
+                    this.props.history.push({pathname: `search/${item?.id}`, state: {business: item}})}>
                     <h1>{item?.businessName}</h1>
                     {item?.initiatives.map((init, index) => 
                         Object.keys(iconDict).includes(init) && <img src={iconDict[init]?.img} className='bookmarkIcon' key={index} />
@@ -135,6 +136,7 @@ class Account extends Component {
             bookmarksLoading: true
         });
         const currentUser = await this.getCurrentUser();
+        console.log(currentUser);
         if (currentUser) {
             this.setUserState(currentUser?.attributes?.name);
             await this.getUserBookmarks(currentUser);

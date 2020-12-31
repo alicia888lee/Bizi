@@ -1,40 +1,40 @@
 {
-  "api": {
-    "bizi": {
-      "service": "AppSync",
-      "providerPlugin": "awscloudformation",
-      "output": {
-        "authConfig": {
-          "additionalAuthenticationProviders": [],
-          "defaultAuthentication": {
-            "authenticationType": "API_KEY",
-            "apiKeyConfig": {
-              "description": "bizi dev api key",
-              "apiKeyExpirationDays": 7
+    "api": {
+        "bizi": {
+            "service": "AppSync",
+            "providerPlugin": "awscloudformation",
+            "output": {
+                "authConfig": {
+                    "additionalAuthenticationProviders": [],
+                    "defaultAuthentication": {
+                        "authenticationType": "API_KEY",
+                        "apiKeyConfig": {
+                            "description": "bizi dev api key",
+                            "apiKeyExpirationDays": 7
+                        }
+                    }
+                }
             }
-          }
         }
-      }
+    },
+    "auth": {
+        "bizibf381b1c": {
+            "service": "Cognito",
+            "providerPlugin": "awscloudformation",
+            "dependsOn": []
+        }
+    },
+    "function": {
+        "recommenderFunction": {
+            "service": "Lambda",
+            "providerPlugin": "awscloudformation",
+            "build": true
+        }
+    },
+    "storage": {
+        "biziReviewImgs": {
+            "service": "S3",
+            "providerPlugin": "awscloudformation"
+        }
     }
-  },
-  "auth": {
-    "bizibf381b1c": {
-      "service": "Cognito",
-      "providerPlugin": "awscloudformation",
-      "dependsOn": []
-    }
-  },
-  "function": {
-    "recommenderFunction": {
-      "service": "Lambda",
-      "providerPlugin": "awscloudformation",
-      "build": true
-    }
-  },
-  "storage": {
-    "biziReviewImgs": {
-      "service": "S3",
-      "providerPlugin": "awscloudformation"
-    }
-  }
 }
