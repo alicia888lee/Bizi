@@ -51,10 +51,11 @@
     "userPoolGroupList": [],
     "dependsOn": [],
     "hostedUI": true,
-    "hostedUIDomainName": "bizi6eae665c-6eae665c",
+    "hostedUIDomainName": "bizi4f289803-4f289803",
     "authProvidersUserPool": [
-        "Facebook"
+        "Facebook",
+        "Google"
     ],
-    "hostedUIProviderMeta": "[{\"ProviderName\":\"Facebook\",\"authorize_scopes\":\"email,public_profile\",\"AttributeMapping\":{\"email\":\"email\",\"username\":\"id\"}}]",
+    "hostedUIProviderMeta": "[{\"ProviderName\":\"Facebook\",\"authorize_scopes\":\"email,public_profile\",\"AttributeMapping\":{\"email\":\"email\",\"username\":\"id\"}},{\"ProviderName\":\"Google\",\"authorize_scopes\":\"openid email profile\",\"AttributeMapping\":{\"email\":\"email\",\"username\":\"sub\"}}]",
     "oAuthMetadata": "{\"AllowedOAuthFlows\":[\"code\"],\"AllowedOAuthScopes\":[\"phone\",\"email\",\"openid\",\"profile\",\"aws.cognito.signin.user.admin\"],\"CallbackURLs\":[\"http://localhost:3000/create/\",\"https://bizi.co/create/\"],\"LogoutURLs\":[\"http://localhost:3000/login/\",\"https://bizi.co/login/\"]}"
 }

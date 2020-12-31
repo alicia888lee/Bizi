@@ -14,7 +14,7 @@
         "categories": {
             "auth": {
                 "bizibf381b1c": {
-                    "hostedUIProviderCreds": "[{\"ProviderName\":\"Facebook\",\"client_id\":\"145793723804080\",\"client_secret\":\"8e6103017d8d4bc9c30137ffefab622c\"}]"
+                    "hostedUIProviderCreds": "[{\"ProviderName\":\"Facebook\",\"client_id\":\"145793723804080\",\"client_secret\":\"8e6103017d8d4bc9c30137ffefab622c\"},{\"ProviderName\":\"Google\",\"client_id\":\"1011656666652-c3he8f4g49vtoluostmtd9mdmk0nhh0a.apps.googleusercontent.com\",\"client_secret\":\"8qCCNQewAptal0cVnI1UbJ2T\"}]"
                 }
             }
         }

@@ -48,7 +48,18 @@ class Login extends Component {
         try {
             const user = await Auth.federatedSignIn({
                 provider: 'Facebook'
-            })
+            });
+        }
+        catch (error) {
+            console.log(error);
+        }
+    }
+
+    doGoogleLogin = async() => {
+        try {
+            const user = await Auth.federatedSignIn({
+                provider: 'Google'
+            });
         }
         catch (error) {
             console.log(error);
@@ -138,8 +149,8 @@ class Login extends Component {
                         <Link className="smallText" to="forgot-password">Forgot your password?</Link>
                     </form>
                     <div className="socialLogin">
-                        <button className="facebook" onClick={async() => this.doFacebookLogin()}>Log in with Facebook</button>
-                        <button className="google">Log in with Google</button>
+                        <button className="facebook" onClick={this.doFacebookLogin}>Log in with Facebook</button>
+                        <button className="google" onClick={this.doGoogleLogin}>Log in with Google</button>
                     </div>
                     
                 </div>

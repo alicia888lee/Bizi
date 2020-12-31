@@ -36,8 +36,18 @@ class BusinessItem extends Component {
       }
     }
 
+    componentDidUpdate(prevProps) {
+      const { location } = this.props;
+      if (prevProps?.location?.state?.business !== location?.state?.business) {
+        this.setState({
+          business: location?.state?.business
+        });
+      }
+    }
+
     render() {
       const { business } = this.state;
+      console.log('rendering business item', business);
       return (
           <>            
               <div className="description">
@@ -129,7 +139,7 @@ class BusinessInfo extends React.Component {
       }
       var currUserAPI = user?.data?.getUser;
       var currBookmarks = currUserAPI?.bookmarks;
-      
+      console.log(currUserAPI);
       if (currUserAPI?.bookmarks) {
         this.setState({
           bookmarked: currBookmarks.includes(business?.id),
@@ -189,10 +199,17 @@ class BusinessInfo extends React.Component {
       this.checkBookmarkStatus();
     }
 
+    componentDidUpdate(prevProps) {
+      const { business } = this.props;
+      if (prevProps?.business !== business) {
+        this.generatePolicyList();
+        this.checkBookmarkStatus();
+      }
+    }
+
     render() {
       const { business } = this.props;
       const { policyList, currUser, bookmarked } = this.state;
-
       return (
           <div className="description-text">
               <div className="textbox">
