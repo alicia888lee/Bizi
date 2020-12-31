@@ -22,7 +22,11 @@ class Account extends Component {
             bookmarks: [],
             businesses: [],
             bookmarksList: [],
-            bookmarksLoading: false
+            bookmarksLoading: false,
+            filteredBookmarks: [],
+            filteredBusinesses: [],
+            filter: 'Filter',
+            sort: ''
         }
     }
 
@@ -56,7 +60,8 @@ class Account extends Component {
         }
 
         this.setState({
-            businesses: businesses
+            businesses: businesses,
+            filteredBusinesses: businesses
         });
     }
 
@@ -68,7 +73,8 @@ class Account extends Component {
                 variables: {userEmail: currUser?.attributes?.email}
             });
             this.setState({
-                bookmarks: user?.data?.getUser?.bookmarks
+                bookmarks: user?.data?.getUser?.bookmarks,
+                filteredBookmarks: user?.data?.getUser?.bookmarks
             });
         }
         catch (error) {
@@ -77,10 +83,12 @@ class Account extends Component {
     }
 
     generateBookmarkTiles = () => {
-        const { bookmarks, businesses } = this.state;
-        var bookmarkBusinesses = bookmarks?.map((id) => 
-            businesses.filter((item) => item?.id == id)[0]
+        const { filteredBookmarks, filteredBusinesses } = this.state;
+        var bookmarkBusinesses = filteredBookmarks?.map((id) => 
+            filteredBusinesses.filter((item) => item?.id == id)[0]
         );
+
+        console.log(bookmarkBusinesses);
 
         var iconDict = {
             'Sustainability': {
@@ -98,10 +106,12 @@ class Account extends Component {
         };
 
         var rows = [];
-        if (bookmarks?.length > 0) {
+        if (filteredBookmarks?.length > 0) {
             rows = bookmarkBusinesses.map((item, index) => 
-                <div onClick={() => 
-                    this.props.history.push({pathname: `search/${item?.id}`, state: {business: item}})}>
+                <div
+                    key={index}
+                    onClick={() => 
+                        this.props.history.push({pathname: `search/${item?.id}`, state: {business: item}})}>
                     <h1>{item?.businessName}</h1>
                     {item?.initiatives.map((init, index) => 
                         Object.keys(iconDict).includes(init) && <img src={iconDict[init]?.img} className='bookmarkIcon' key={index} />
@@ -131,6 +141,128 @@ class Account extends Component {
         });
     }
 
+    isOpen = (schedule, tz='America/Chicago') => {
+        var currDateTime = new Date(new Date().toLocaleString('en-US', { timeZone: tz }));
+        var currHour = currDateTime.getHours();
+        var currMin = currDateTime.getMinutes();
+        var currDay = currDateTime.getDay();
+        var currTime = currHour + (currMin / 60);
+        var busHours = schedule[(currDay + 6) % 7];
+        if (currTime >= busHours[0] && currTime <= busHours[1]) {
+          return true;
+        }
+        return false;
+      }
+
+    doFilter = (e) => {
+        const { businesses, bookmarks, filteredBookmarks } = this.state;
+        var filterTypes = {
+            'Sustainable': {
+            category: 'initiatives',
+            value: 'Sustainability'
+            },
+            'Supply Chain': {
+            category: 'initiatives',
+            value: 'Ethical Supply Chain'
+            },
+            'Diversity Focused': {
+            category: 'initiatives',
+            value: 'Diversity Initiatives'
+            },
+            'Shopping': {
+            category: 'initiatives',
+            value: 'Shopping'
+            },
+            'Food': {
+            category: 'initiatives',
+            value: 'Food'
+            },
+            'Services': {
+            category: 'initiatives',
+            value: 'Services'
+            },
+            '$': {
+            category: 'priceRange',
+            value: 1
+            },
+            '$$': {
+            category: 'priceRange',
+            value: 2
+            },
+            '$$$': {
+            category: 'priceRange',
+            value: 3
+            },
+            '$$$$': {
+            category: 'priceRange',
+            value: 4
+            },
+            'Open Now': {
+            category: 'schedule'
+            }
+        };
+
+        var filteredBusinesses = businesses.filter((item) => {
+            if (filterTypes[e.target.value]?.category == 'initiatives') {
+                return item?.initiatives?.includes(filterTypes[e.target.value]?.value);
+            }
+            if (filterTypes[e.target.value]?.category == 'priceRange') {
+                return item?.priceRange == filterTypes[e.target.value]?.value;
+            }
+            if (filterTypes[e.target.value]?.category == 'schedule') {
+                return this.isOpen(item?.schedule);
+            }
+            if (e.target.value == 'Filter') {
+                return true;
+            }
+        });
+
+        var filteredBusinessIDs = filteredBusinesses.map((item) => 
+            item?.id
+        );
+        var filteredBookmarksUpdated = filteredBusinessIDs.filter((id) => 
+            bookmarks.includes(id)
+        );
+
+        this.setState({
+        filteredBusinesses: filteredBusinesses,
+        filteredBookmarks: filteredBookmarksUpdated,
+        filter: e.target.value
+        });
+    }
+
+    compareLower = (a, b) => (
+        a?.priceRange - b?.priceRange
+    )
+
+    compareHigher = (a, b) => (
+        b?.priceRange - a?.priceRange
+    )
+
+    doSort = (e) => {
+        const { filteredBookmarks, filteredBusinesses } = this.state;
+        if (e.target.value == 'Lowest Price') {
+            var sorted = filteredBusinesses.sort(this.compareLower);
+        }
+        else if (e.target.value == 'Highest Price') {
+            var sorted = filteredBusinesses.sort(this.compareHigher);
+        }
+
+        var sortedBusinessIDs = sorted.map((item) => 
+            item?.id
+        );
+
+        var sortedBookmarks = sortedBusinessIDs.filter((id) => 
+            filteredBookmarks.includes(id)
+        );
+
+        this.setState({
+            filteredBusinesses: sorted,
+            filteredBookmarks: sortedBookmarks,
+            sort: e.target.value
+        })
+    }
+
     async componentDidMount() {
         this.setState({
             bookmarksLoading: true
@@ -148,8 +280,20 @@ class Account extends Component {
         }
     }
 
+    componentDidUpdate(prevProps, prevState) {
+        const { filter, sort } = this.state;
+        var updateCondition = (
+            prevState.filter !== filter
+            || prevState.sort !== sort
+        );
+
+        if (updateCondition) {
+            this.generateBookmarkTiles();
+        }
+    }
+
     render() {
-        const { currentUser, bookmarksList, bookmarksLoading } = this.state;
+        const { currentUser, bookmarksList, bookmarksLoading, filter, sort } = this.state;
 
         return (
             <div className="account">
@@ -173,17 +317,24 @@ class Account extends Component {
                     <h3><BsBookmarkPlus className="accountIcon"/> Your bookmarks</h3>
 
                     <div className="bookmark-selects">
-                        <select>
-                            <option value="">Filter</option>  
-                            <option value="parrot">Parrot</option>
-                            <option value="spider">Spider</option>
-                            <option value="goldfish">Goldfish</option>
+                        <select onChange={this.doFilter}>
+                            <option selected={filter == 'Filter'}>Filter</option>  
+                            <option selected={filter == 'Open Now'}>Open Now</option>
+                            <option selected={filter == 'Sustainable'}>Sustainable</option>
+                            <option selected={filter == 'Supply Chain'}>Supply Chain</option>
+                            <option selected={filter == 'Diversity Focused'}>Diversity Focused</option>
+                            <option selected={filter == 'Shopping'}>Shopping</option>
+                            <option selected={filter == 'Food'}>Food</option>
+                            <option selected={filter == 'Services'}>Services</option>
+                            <option selected={filter == '$'}>$</option>
+                            <option selected={filter == '$$'}>$$</option>
+                            <option selected={filter == '$$$'}>$$$</option>
+                            <option selected={filter == '$$$$'}>$$$$</option>
                         </select>
-                        <select>
-                            <option value="">Sort By</option>  
-                            <option value="parrot">Parrot</option>
-                            <option value="spider">Spider</option>
-                            <option value="goldfish">Goldfish</option>
+                        <select onChange={this.doSort}>
+                            <option selected disabled style={{display: 'none'}}>Sort By</option>  
+                            <option selected={sort == 'Lowest Price'}>Lowest Price</option>
+                            <option selected={sort == 'Highest Price'}>Highest Price</option>
                         </select>
                     </div>
                     {bookmarksLoading ? <Loader type='TailSpin' color='#385FDC' height={40} /> : bookmarksList}

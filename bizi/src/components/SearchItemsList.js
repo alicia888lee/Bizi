@@ -23,7 +23,6 @@ class SearchItemsList extends Component {
                         <option selected={filter == 'Open Now'}>Open Now</option>
                         <option selected={filter == 'Sustainable'}>Sustainable</option>
                         <option selected={filter == 'Supply Chain'}>Supply Chain</option>
-
                         <option selected={filter == 'Diversity Focused'}>Diversity Focused</option>
                         <option selected={filter == 'Shopping'}>Shopping</option>
                         <option selected={filter == 'Food'}>Food</option>
