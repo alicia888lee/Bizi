@@ -186,7 +186,7 @@ class CreateAccount extends Component {
             catch (error) {
                 console.log(error);
             }
-            if (userExists) {
+            if (userExists?.data?.getUser) {
                 return 'An account with this email already exists.';
             }
             try {
@@ -343,6 +343,23 @@ class CreateAccount extends Component {
                 console.log(newBusiness);
             }
             catch(error) {
+                console.log(error);
+            }
+            // send email notification to business email regarding new business awaiting approval
+            try {
+                var notification = await API.graphql({
+                    query: mutations.sendEmail,
+                    variables: {
+                        recipientEmail: 'thebiziteam@gmail.com', 
+                        subject: 'New Business Registration',
+                        body: `The following business is ready to be approved:\n
+                            Business Name: ${businessName}\n
+                            User: ${userEmail}\n\n
+                            You can view the business at https://console.aws.amazon.com/dynamodbv2/home?region=us-east-1#table?name=Business-s5bh2iwoz5f4zg7qgdfpfqgzi4-dev&initialTableGroup=%23all`
+                }});
+                console.log(notification);
+            }
+            catch (error) {
                 console.log(error);
             }
             this.props.history.push('/account');

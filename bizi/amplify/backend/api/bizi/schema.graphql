@@ -25,4 +25,5 @@ type Business @model {
 
 type Mutation {
   recommend(preferences: [String!], attributes: [String!]): [String] @function(name: "recommendFunction-${env}")
+  sendEmail(recipientEmail: String, subject: String, body: String): String @function(name: "emailFunction-${env}")
 }

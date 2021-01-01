@@ -5,6 +5,10 @@ export const recommend = `mutation Recommend($preferences: [String!], $attribute
   recommend(preferences: $preferences, attributes: $attributes)
 }
 `;
+export const sendEmail = `mutation SendEmail($recipientEmail: String, $subject: String, $body: String) {
+  sendEmail(recipientEmail: $recipientEmail, subject: $subject, body: $body)
+}
+`;
 export const createUser = `mutation CreateUser($input: CreateUserInput!) {
   createUser(input: $input) {
     userEmail
