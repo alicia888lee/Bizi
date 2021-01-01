@@ -610,6 +610,10 @@ nav.dark #myAccount a{
   font-size: 4em;
 }
 
+.contactMsgSent h2 {
+  font-size: 2em;
+}
+
 .createAccountHeader p {
   text-align: left;
   margin-left: 21vw;
@@ -842,6 +846,17 @@ nav.dark #myAccount a{
   font-style: italic;
   color: #385FDC;
   margin-top: -1em;
+}
+
+.contact form p {
+  font-size: 1em;
+  color: #385FDC;
+  font-style: italic;
+  margin-top: -1em;
+}
+
+#contactMsgInvalid {
+  margin: 0;
 }
 
 #priceInvalid, #scheduleInvalid {
