@@ -134,14 +134,11 @@ class Contact extends React.Component {
                             <p>Say hi!</p>
                             <form>
                                 <div className="contactInputs">
-                                    <input className="contactName" type="text" name="username" placeholder="Your Name" onChange={this.setName}/>
-                                    {!validName && <p>Cannot be blank</p>}
-                                    <input className="contactEmail" type="text" name="email" placeholder="Your E-mail" onChange={this.setEmail}/>
-                                    {!validEmail && <p>Invalid email</p>}
+                                    <input className="contactName" id={!validName && 'invalidInput'} type="text" name="username" placeholder="Your Name" onChange={this.setName}/>
+                                    <input className="contactEmail" id={!validEmail && 'invalidInput'} type="text" name="email" placeholder="Your E-mail" onChange={this.setEmail}/>
                                 </div>
 
-                                <textarea rows="4" className="contactMsg" placeholder="Your Message" onChange={this.setMessage}></textarea>
-                                {!validMessage && <p id='contactMsgInvalid'>Cannot be blank</p>}
+                                <textarea rows="4" className="contactMsg" id={!validMessage && 'invalidInput'} placeholder="Your Message" onChange={this.setMessage}></textarea>
                                 <button className="contactBtn" onClick={this.sendEmail}>Send</button>
                                 {sending && <Loader type='TailSpin' color='#385FDC' height={40} />}
                             </form>

@@ -848,17 +848,6 @@ nav.dark #myAccount a{
   margin-top: -1em;
 }
 
-.contact form p {
-  font-size: 1em;
-  color: #385FDC;
-  font-style: italic;
-  margin-top: -1em;
-}
-
-#contactMsgInvalid {
-  margin: 0;
-}
-
 #priceInvalid, #scheduleInvalid {
   font-style: italic;
   color: #385FDC;
@@ -1017,7 +1006,7 @@ nav.dark #myAccount a{
   margin-right: 1em;
 }
 .contactEmail {    
-  width: 54%;    
+  width: 50%;    
 }
 
 .contact span {
