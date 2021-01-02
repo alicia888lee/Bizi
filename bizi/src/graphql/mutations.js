@@ -46,12 +46,14 @@ export const createBusiness = `mutation CreateBusiness($input: CreateBusinessInp
     businessPhone
     businessURL
     deliveryURL
+    reservationURL
     address
     userEmail
     lat
     lng
     priceRange
     schedule
+    businessPhoto
     approved
   }
 }
@@ -66,12 +68,14 @@ export const updateBusiness = `mutation UpdateBusiness($input: UpdateBusinessInp
     businessPhone
     businessURL
     deliveryURL
+    reservationURL
     address
     userEmail
     lat
     lng
     priceRange
     schedule
+    businessPhoto
     approved
   }
 }
@@ -86,12 +90,14 @@ export const deleteBusiness = `mutation DeleteBusiness($input: DeleteBusinessInp
     businessPhone
     businessURL
     deliveryURL
+    reservationURL
     address
     userEmail
     lat
     lng
     priceRange
     schedule
+    businessPhoto
     approved
   }
 }

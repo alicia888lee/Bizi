@@ -44,12 +44,14 @@ export const getBusiness = `query GetBusiness($id: ID!) {
     businessPhone
     businessURL
     deliveryURL
+    reservationURL
     address
     userEmail
     lat
     lng
     priceRange
     schedule
+    businessPhoto
     approved
   }
 }
@@ -69,12 +71,14 @@ export const listBusinesss = `query ListBusinesss(
       businessPhone
       businessURL
       deliveryURL
+      reservationURL
       address
       userEmail
       lat
       lng
       priceRange
       schedule
+      businessPhoto
       approved
     }
     nextToken

@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import Step1 from './CreateAccountStep1'
 import Step2 from './CreateAccountStep2'
 import VerifyStep from './CreateAccountVerification'
-import { Auth, API } from 'aws-amplify'
+import { Auth, API, Storage } from 'aws-amplify'
 import * as mutations from '../graphql/mutations'
 import * as queries from '../graphql/queries'
 import { withRouter } from 'react-router-dom'
@@ -31,6 +31,7 @@ class CreateAccount extends Component {
         this.setPrefFood = this.setPrefFood.bind(this)
         this.setPrefServices = this.setPrefServices.bind(this)
         this.verifyEmail = this.verifyEmail.bind(this)
+
 
         this.state = {
             smLogin: false,
@@ -78,14 +79,22 @@ class CreateAccount extends Component {
             phone: '',
             url: '',
             deliveryURL: '',
-            address: '',
+            reservationURL: '',
+            street: '',
+            city: '',
+            state: '',
+            zip: '',
             validBusinessName: true,
             validBusinessDescription: true,
             validPhone: true,
             validUrl: true,
             validDelivery: true,
-            validAddress: true,
+            validStreet: true,
+            validCity: true,
+            validState: true,
+            validZip: true,
             schedule: {},
+            file: '',
             validSchedule: true,
             disableSchedule: {
                 'Monday': false,
@@ -235,11 +244,18 @@ class CreateAccount extends Component {
             phone,
             url,
             deliveryURL,
-            address,
+            reservationURL,
+            street,
+            city,
+            state,
+            zip,
             validBusinessName,
             validBusinessDescription,
             validPhone,
-            validAddress,
+            validStreet,
+            validCity,
+            validState,
+            validZip,
             userEmail,
             price1Selected,
             price2Selected,
@@ -247,13 +263,17 @@ class CreateAccount extends Component {
             price4Selected,
             validPrice,
             schedule,
-            validSchedule
+            validSchedule,
+            file,
         } = this.state;
 
         const noneValid = !(businessName
             || businessDescription
             || phone
-            || address
+            || street
+            || city
+            || state
+            || zip
             || price1Selected
             || price2Selected
             || price3Selected
@@ -266,7 +286,10 @@ class CreateAccount extends Component {
         const inputsValid = validBusinessName
             && validBusinessDescription
             && validPhone
-            && validAddress
+            && validStreet
+            && validCity
+            && validState
+            && validZip
             && validPrice
             && validSchedule;
 
@@ -320,6 +343,27 @@ class CreateAccount extends Component {
             scheduleArr.push(day)
         }
 
+        // upload photo to s3 and get url
+        try {
+            await Storage.put(file.name, file, {
+                contentType: 'image/jpg'
+            });
+
+            var photoURL = await Storage.get(file.name, { level: 'public' });
+            console.log(photoURL);
+        }
+        catch (err) {
+            console.log(err);
+        }
+
+        var address = street + 
+            ', ' +
+            city +
+            ', ' +
+            state +
+            ' ' + 
+            zip;
+
         if (inputsValid && !noneValid) {
             const businessInfo = {
                 businessName: businessName,
@@ -329,11 +373,13 @@ class CreateAccount extends Component {
                 businessPhone: phone,
                 businessURL: url,
                 deliveryURL: deliveryURL,
+                reservationURL: reservationURL,
                 address: address,
                 userEmail: userEmail,
                 priceRange: priceRange,
                 schedule: scheduleArr,
-                approved: false
+                businessPhoto: photoURL,
+                approved: false,
             };
             try {
                 const newBusiness = await API.graphql({
@@ -370,7 +416,10 @@ class CreateAccount extends Component {
                 validBusinessName: false,
                 validBusinessDescription: false,
                 validPhone: false,
-                validAddress: false,
+                validStreet: false,
+                validCity: false,
+                validState: false,
+                validZip: false,
                 validPrice: false,
                 validSchedule: false
             });
@@ -720,9 +769,39 @@ class CreateAccount extends Component {
         });
     }
 
-    setAddress = (e) => {
+    setReservation = (e) => {
         this.setState({
-            address: e.target.value
+            reservationURL: e.target.value
+        });
+    }
+
+    handleUpload = (e) => {
+        this.setState({
+            file: e.target.files[0]
+        });
+    }
+
+    setStreet = (e) => {
+        this.setState({
+            street: e.target.value
+        });
+    }
+
+    setCity = (e) => {
+        this.setState({
+            city: e.target.value
+        });
+    }
+
+    setLocState = (e) => {
+        this.setState({
+            state: e.target.value
+        });
+    }
+
+    setZip = (e) => {
+        this.setState({
+            zip: e.target.value
         });
     }
 
@@ -806,7 +885,10 @@ class CreateAccount extends Component {
             businessName,
             businessDescription,
             phone,
-            address,
+            street,
+            city,
+            state,
+            zip,
             price1Selected,
             price2Selected,
             price3Selected,
@@ -829,7 +911,10 @@ class CreateAccount extends Component {
             validBusinessName: businessName,
             validBusinessDescription: businessDescription,
             validPhone: phone && validPhoneFormat,
-            validAddress: address,
+            validStreet: street,
+            validCity: city,
+            validState: state,
+            validZip: zip,
             validPrice: price1Selected || price2Selected || price3Selected || price4Selected,
             validSchedule: scheduleDefined && completeSchedule
         });
@@ -858,12 +943,17 @@ class CreateAccount extends Component {
             phone,
             url,
             deliveryURL,
-            address,
+            reservationURL,
+            street,
+            city,
+            state,
+            zip,
             price1Selected,
             price2Selected,
             price3Selected,
             price4Selected,
-            schedule
+            schedule,
+            file
         } = this.state;
         
         let step2UpdateCondition = (
@@ -881,12 +971,17 @@ class CreateAccount extends Component {
             || phone !== prevState.phone
             || url !== prevState.url
             || deliveryURL !== prevState.deliveryURL
-            || address !== prevState.address
+            || reservationURL !== prevState.reservationURL
+            || street !== prevState.street
+            || city !== prevState.city
+            || state !== prevState.state
+            || zip !== prevState.zip
             || price1Selected !== prevState.price1Selected
             || price2Selected !== prevState.price2Selected
             || price3Selected !== prevState.price3Selected
             || price4Selected !== prevState.price4Selected
             || schedule !== prevState.schedule
+            || file !== prevState.file
         )
 
         if (step2UpdateCondition) {
@@ -963,7 +1058,10 @@ class CreateAccount extends Component {
             validBusinessDescription,
             validInitiatives,
             validPhone,
-            validAddress,
+            validStreet,
+            validCity,
+            validState,
+            validZip,
             price1Selected,
             price2Selected,
             price3Selected,
@@ -971,7 +1069,8 @@ class CreateAccount extends Component {
             validPrice,
             validSchedule,
             disableSchedule,
-            smRedirecting
+            smRedirecting,
+            file
         } = this.state;
 
         return (
@@ -1034,7 +1133,10 @@ class CreateAccount extends Component {
                         validBusinessDescription = {validBusinessDescription}
                         validInitiatives = {validInitiatives}
                         validPhone = {validPhone}
-                        validAddress = {validAddress}
+                        validStreet = {validStreet}
+                        validCity = {validCity}
+                        validState = {validState}
+                        validZip = {validZip}
                         onNameChange = {this.setBusinessName}
                         onDescriptionChange = {this.setBusinessDescription}
                         onInitiativesChange = {this.setInitiatives}
@@ -1042,7 +1144,11 @@ class CreateAccount extends Component {
                         onPhoneChange = {this.setPhone}
                         onURLChange = {this.setUrl}
                         onDeliveryChange = {this.setDelivery}
-                        onAddressChange = {this.setAddress}
+                        onReservationChange = {this.setReservation}
+                        onStreetChange = {this.setStreet}
+                        onCityChange = {this.setCity}
+                        onStateChange = {this.setLocState}
+                        onZipChange = {this.setZip}
                         typeCustomer = {typeCustomerSelected}
                         selectSustainable = {this.setPrefSustainable}
                         selectEthical = {this.setPrefEthical}
@@ -1069,6 +1175,8 @@ class CreateAccount extends Component {
                         disableDay = {this.disableDay}
                         disabled = {disableSchedule}
                         validSchedule = {validSchedule}
+                        handleUpload = {this.handleUpload}
+                        imgFile = {file}
                     />}
                 
                 </div>

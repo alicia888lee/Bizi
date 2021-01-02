@@ -15,9 +15,11 @@ async function updateDB(data) {
             businessPhone: data[business]['Phone Number'],
             businessURL: data[business]['Website'],
             deliveryURL: data[business]['Delivery'],
+            reservationURL: data[business]['Reservations'],
             address: data[business]['Address'],
             priceRange: data[business]['Price Range'],
             schedule: data[business]['Schedule'],
+            businessPhoto: data[business]['Business Photo'],
             approved: data[business]['Approved']
         };
 

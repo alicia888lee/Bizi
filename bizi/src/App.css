@@ -1387,6 +1387,18 @@ nav.dark #myAccount a{
   flex-direction: column; 
   margin-right: 2em;         
 }
+
+.register-upload {
+  background-color: #dee6f9;
+  color: #385FDC;
+  width: 175px;
+  height: 175px; 
+  display: inline-block;
+  justify-content: center;
+  align-items: center;
+  margin-top: 2em;
+}
+
 .reviewText {
   background-color: #dee6f9;
   color: #385FDC;  
@@ -1398,7 +1410,7 @@ nav.dark #myAccount a{
 .review-upload h3 {
   margin: 0;
 }
-.review-add-icon {
+.review-add-icon, .register-photo-add-icon {
   font-size: 5em;
 }
 .review-description {

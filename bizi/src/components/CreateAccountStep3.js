@@ -1,10 +1,15 @@
 import React, { Component } from 'react'
 import Nav from './Nav'
+import { IoMdText, IoIosAdd } from "react-icons/io";
 import communityImg from '../images/community.png'
 import envImg from '../images/environment.png'
 import handImg from '../images/heart_hand.png'
 import { PriceTag } from './SearchItemsList'
 
+
+const ImgThumb = ({ image }) => {
+    return <img src={URL.createObjectURL(image)} alt={image.name} className="reviewImg" />;
+};
 
 class Step3 extends Component {
     constructor(props) {
@@ -166,8 +171,15 @@ class Step3 extends Component {
             onPhoneChange,
             onURLChange,
             onDeliveryChange,
-            validAddress,
-            onAddressChange,
+            onReservationChange,
+            validStreet,
+            validCity,
+            validState,
+            validZip,
+            onStreetChange,
+            onCityChange,
+            onStateChange,
+            onZipChange,
             register,
             selectPrice1,
             selectPrice2,
@@ -181,7 +193,9 @@ class Step3 extends Component {
             setSchedule,
             disableDay,
             disabled,
-            validSchedule
+            validSchedule,
+            handleUpload,
+            imgFile
         } = this.props;
 
         return (
@@ -256,9 +270,28 @@ class Step3 extends Component {
                                 <input type='text' name='delivery' onBlur={onDeliveryChange}/>
                             </div>
                             <div className='inputGroup'>
-                                <label for='address'>Business Address</label>
-                                <input id={!validAddress && 'invalidInput'} type='text' name='address' onBlur={onAddressChange}/>
-                                {!validAddress && <p>Cannot be blank</p>}
+                                <label for='reservation'>Link to Make Reservations<br/>(if none, leave blank)</label>
+                                <input type='text' name='reservation' onBlur={onReservationChange}/>
+                            </div>
+                            <div className='inputGroup'>
+                                <label for='address'>Street</label>
+                                <input id={!validStreet && 'invalidInput'} type='text' name='street' onBlur={onStreetChange}/>
+                                {!validStreet && <p>Cannot be blank</p>}
+                            </div>
+                            <div className='inputGroup'>
+                                <label for='address'>City</label>
+                                <input id={!validCity && 'invalidInput'} type='text' name='city' onBlur={onCityChange}/>
+                                {!validCity && <p>Cannot be blank</p>}
+                            </div>
+                            <div className='inputGroup'>
+                                <label for='address'>State</label>
+                                <input id={!validState && 'invalidInput'} type='text' name='state' onBlur={onStateChange}/>
+                                {!validState && <p>Cannot be blank</p>}
+                            </div>
+                            <div className='inputGroup'>
+                                <label for='address'>Zip Code</label>
+                                <input id={!validZip && 'invalidInput'} type='text' name='zip' onBlur={onZipChange}/>
+                                {!validZip && <p>Cannot be blank</p>}
                             </div>
                         </form>
                     </div>
@@ -318,11 +351,18 @@ class Step3 extends Component {
                     </div>
                     {!validPrice && <p id='priceInvalid'>Must choose one</p>}
                     <br />
-                    {<p>Hours of Operation</p>}
+                    {<p>Hours of Operation (All times in central time)</p>}
                     <div className='scheduleGrid'>
                         {this.createSchedule(setSchedule, disableDay, disabled)}
                     </div>
                     {!validSchedule && <p id='scheduleInvalid'>Must complete entire schedule</p>}
+                    <div className='inputGroup'>
+                        <label for="registerUpload" className="register-upload">
+                            <h3>Upload Photo (optional)</h3>                            
+                            {imgFile ? <ImgThumb image={imgFile} /> : <IoIosAdd className="register-photo-add-icon" /> }
+                        </label>
+                        <input id='registerUpload' type="file" onChange={handleUpload}/>
+                    </div>
                 </>
                 }
                 {typeCustomer ? 

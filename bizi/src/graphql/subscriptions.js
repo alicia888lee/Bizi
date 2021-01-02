@@ -38,12 +38,14 @@ export const onCreateBusiness = `subscription OnCreateBusiness {
     businessPhone
     businessURL
     deliveryURL
+    reservationURL
     address
     userEmail
     lat
     lng
     priceRange
     schedule
+    businessPhoto
     approved
   }
 }
@@ -58,12 +60,14 @@ export const onUpdateBusiness = `subscription OnUpdateBusiness {
     businessPhone
     businessURL
     deliveryURL
+    reservationURL
     address
     userEmail
     lat
     lng
     priceRange
     schedule
+    businessPhoto
     approved
   }
 }
@@ -78,12 +82,14 @@ export const onDeleteBusiness = `subscription OnDeleteBusiness {
     businessPhone
     businessURL
     deliveryURL
+    reservationURL
     address
     userEmail
     lat
     lng
     priceRange
     schedule
+    businessPhoto
     approved
   }
 }

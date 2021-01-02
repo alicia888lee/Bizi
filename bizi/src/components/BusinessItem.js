@@ -127,6 +127,7 @@ class BusinessInfo extends React.Component {
       const { currUser } = this.state;
       const { business } = this.props;
       // check if business should be bookmarked or not
+      console.log(currUser);
       try {
         var userEmail = currUser?.attributes?.email;
         var user = await API.graphql({
@@ -237,12 +238,13 @@ class BusinessInfo extends React.Component {
               {policyList}  
             </div>
             }
-    
+
+            {business.reservationURL &&
             <div className="icon-text">
               <BiCalendarPlus className="action"/> 
-              <p><a href="#">Make a reservation</a></p>
+              <p><a href={`//${business?.reservationURL}`} target='_blank'>Make  reservation</a></p>
             </div>
-
+            }
             <div className="icon-text">
               <BiPhone className="action"/> 
               <p>{business?.businessPhone}</p>

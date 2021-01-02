@@ -232,7 +232,7 @@ class Search extends React.Component {
                         <PriceTag price={item?.priceRange}/>
                     </div>
                 </div>
-                <img className='SearchItemImg' src={testImg} />
+                <img className='SearchItemImg' src={item?.businessPhoto ? item?.businessPhoto : testImg} />
             </Link>
         );
         
