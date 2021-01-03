@@ -239,7 +239,7 @@ class BusinessInfo extends React.Component {
             </div>
             }
 
-            {business.reservationURL &&
+            {business?.reservationURL &&
             <div className="icon-text">
               <BiCalendarPlus className="action"/> 
               <p><a href={`//${business?.reservationURL}`} target='_blank'>Make  reservation</a></p>

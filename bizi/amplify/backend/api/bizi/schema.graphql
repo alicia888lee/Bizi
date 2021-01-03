@@ -21,7 +21,7 @@ type Business @model {
   lng: Float
   priceRange: Int!
   schedule: [[Float!]!]!
-  businessPhoto: String!
+  imgPath: String!
   approved: Boolean!
 }
 

@@ -53,7 +53,7 @@ export const createBusiness = `mutation CreateBusiness($input: CreateBusinessInp
     lng
     priceRange
     schedule
-    businessPhoto
+    imgPath
     approved
   }
 }
@@ -75,7 +75,7 @@ export const updateBusiness = `mutation UpdateBusiness($input: UpdateBusinessInp
     lng
     priceRange
     schedule
-    businessPhoto
+    imgPath
     approved
   }
 }
@@ -97,7 +97,7 @@ export const deleteBusiness = `mutation DeleteBusiness($input: DeleteBusinessInp
     lng
     priceRange
     schedule
-    businessPhoto
+    imgPath
     approved
   }
 }

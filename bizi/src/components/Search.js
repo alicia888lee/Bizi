@@ -8,7 +8,7 @@ import ReadStories from './ReadStories'
 import Footer from './Footer'
 import * as queries from '../graphql/queries'
 import * as mutations from '../graphql/mutations'
-import { API } from 'aws-amplify'
+import { API, Storage } from 'aws-amplify'
 import environmentImg from '../images/environment.png';
 import heartImg from '../images/heart_hand.png';
 import communityImg from '../images/community.png';
@@ -27,7 +27,7 @@ class Search extends React.Component {
           search: "",
           filter: this.props.location?.state?.initialFilter,
           sort: '',
-          loading: false
+          loading: false,
         }
       }
       searchChange(e, initialSearch='') {
@@ -198,9 +198,9 @@ class Search extends React.Component {
         return false;
       }
 
-      generateSearchList = () => {
+      generateSearchList = async() => {
         const { filteredBusinesses } = this.state;
-
+        
         var iconDict = {
           'Sustainability': {
             id: 'searchEnvironment',
@@ -216,7 +216,15 @@ class Search extends React.Component {
           }
         };
 
-        var searchList = filteredBusinesses.map((item, index) => 
+        // update img urls for all businesses
+        try {
+          var newURLs = await Promise.all(filteredBusinesses.map(async(item) => await Storage.get(item?.imgPath, { level: 'public' })));
+        }
+        catch (error){
+          console.log(error);
+        }
+  
+        var searchList = filteredBusinesses.map((item, index) =>
           item.approved &&
             <Link to={{pathname: `/search/${item?.id}`, state: {business: item}}} className='SearchItem' key={index}>
                 <div className='SearchItemWrapper'>
@@ -232,7 +240,7 @@ class Search extends React.Component {
                         <PriceTag price={item?.priceRange}/>
                     </div>
                 </div>
-                <img className='SearchItemImg' src={item?.businessPhoto ? item?.businessPhoto : testImg} />
+                <img className='SearchItemImg' src={item?.imgPath ? newURLs[index] : testImg} />
             </Link>
         );
         
@@ -269,7 +277,7 @@ class Search extends React.Component {
       render(){
         const { location } = this.props;
         const { searchList, loading, businesses, filteredBusinesses, filter, sort } = this.state;
-        
+        console.log(businesses);
         return (
             <div className="search">
                 <Nav />

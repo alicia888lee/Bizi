@@ -5,6 +5,7 @@ import communityImg from '../images/community.png'
 import envImg from '../images/environment.png'
 import handImg from '../images/heart_hand.png'
 import { PriceTag } from './SearchItemsList'
+import Loader from 'react-loader-spinner'
 
 
 const ImgThumb = ({ image }) => {
@@ -195,7 +196,8 @@ class Step3 extends Component {
             disabled,
             validSchedule,
             handleUpload,
-            imgFile
+            imgFile,
+            registering
         } = this.props;
 
         return (
@@ -375,6 +377,7 @@ class Step3 extends Component {
                         <button id='skipStep3' onClick={finishSignUp}>Skip</button>
                         <button id='register' onClick={register}>Register</button>
                     </div>
+                    {registering && <Loader type='TailSpin' color='#385FDC' height={40} />}
                     {<p id='regDisclaimer'>Your registration will be reviewed within 24-48 hours. 
                         You will then receive an email notifying you whether your business
                         was approved.</p>}

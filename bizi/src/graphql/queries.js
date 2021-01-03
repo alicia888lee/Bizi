@@ -51,7 +51,7 @@ export const getBusiness = `query GetBusiness($id: ID!) {
     lng
     priceRange
     schedule
-    businessPhoto
+    imgPath
     approved
   }
 }
@@ -78,7 +78,7 @@ export const listBusinesss = `query ListBusinesss(
       lng
       priceRange
       schedule
-      businessPhoto
+      imgPath
       approved
     }
     nextToken

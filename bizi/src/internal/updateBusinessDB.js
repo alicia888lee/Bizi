@@ -19,7 +19,7 @@ async function updateDB(data) {
             address: data[business]['Address'],
             priceRange: data[business]['Price Range'],
             schedule: data[business]['Schedule'],
-            businessPhoto: data[business]['Business Photo'],
+            imgPath: data[business]['Business Photo'],
             approved: data[business]['Approved']
         };
 

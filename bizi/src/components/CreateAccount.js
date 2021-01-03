@@ -36,6 +36,7 @@ class CreateAccount extends Component {
         this.state = {
             smLogin: false,
             smRedirecting: true,
+            registering: false,
             firstStep: true,
             secondStep: false,
             thirdStep: false,
@@ -267,6 +268,10 @@ class CreateAccount extends Component {
             file,
         } = this.state;
 
+        this.setState({
+            registering: true
+        });
+
         const noneValid = !(businessName
             || businessDescription
             || phone
@@ -348,9 +353,6 @@ class CreateAccount extends Component {
             await Storage.put(file.name, file, {
                 contentType: 'image/jpg'
             });
-
-            var photoURL = await Storage.get(file.name, { level: 'public' });
-            console.log(photoURL);
         }
         catch (err) {
             console.log(err);
@@ -378,7 +380,7 @@ class CreateAccount extends Component {
                 userEmail: userEmail,
                 priceRange: priceRange,
                 schedule: scheduleArr,
-                businessPhoto: photoURL,
+                imgPath: file.name,
                 approved: false,
             };
             try {
@@ -424,7 +426,9 @@ class CreateAccount extends Component {
                 validSchedule: false
             });
         }
-
+        this.setState({
+            registering: false
+        });
     }
 
     goToVerifyStep = (firstVerifyAttempt = true, errorMessage) => {
@@ -1023,6 +1027,7 @@ class CreateAccount extends Component {
                     smLogin: true,
                     userEmail: currentUser?.attributes?.email
                 });
+                this.updateUserPreferences();
             }
         }
     }
@@ -1070,7 +1075,8 @@ class CreateAccount extends Component {
             validSchedule,
             disableSchedule,
             smRedirecting,
-            file
+            file,
+            registering
         } = this.state;
 
         return (
@@ -1129,6 +1135,7 @@ class CreateAccount extends Component {
                         register = {() => {
                             this.registerBusiness();
                         }}
+                        registering = {registering}
                         validBusinessName = {validBusinessName}
                         validBusinessDescription = {validBusinessDescription}
                         validInitiatives = {validInitiatives}

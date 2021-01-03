@@ -45,7 +45,7 @@ export const onCreateBusiness = `subscription OnCreateBusiness {
     lng
     priceRange
     schedule
-    businessPhoto
+    imgPath
     approved
   }
 }
@@ -67,7 +67,7 @@ export const onUpdateBusiness = `subscription OnUpdateBusiness {
     lng
     priceRange
     schedule
-    businessPhoto
+    imgPath
     approved
   }
 }
@@ -89,7 +89,7 @@ export const onDeleteBusiness = `subscription OnDeleteBusiness {
     lng
     priceRange
     schedule
-    businessPhoto
+    imgPath
     approved
   }
 }
