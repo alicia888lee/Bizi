@@ -221,10 +221,10 @@ class Search extends React.Component {
           var newURLs = await Promise.all(filteredBusinesses.map(async(item) => {
             if (item?.imgPath) {
               return await Storage.get(item?.imgPath, 
-                { credentials: {
-                  accessKeyId: '',
-                  secretAccessKey: ''
-                } },
+                // { credentials: {
+                //   accessKeyId: '',
+                //   secretAccessKey: ''
+                // } },
                 { level: 'public' }
               );
             }
