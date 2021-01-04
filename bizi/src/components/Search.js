@@ -218,19 +218,23 @@ class Search extends React.Component {
 
         // update img urls for all businesses
         try {
-          var newURLs = await Promise.all(filteredBusinesses.map(async(item) => 
-            await Storage.get(item?.imgPath, 
-              // { credentials: {
-                // accessKeyId: '',
-                // secretAccessKey: ''
-              // } }, 
-              { level: 'public' })));
-        }
+          var newURLs = await Promise.all(filteredBusinesses.map(async(item) => {
+            if (item?.imgPath) {
+              return await Storage.get(item?.imgPath, 
+                { credentials: {
+                  accessKeyId: 'AKIAXYJB7UIRXW44SY7G',
+                  secretAccessKey: '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'
+                } },
+                { level: 'public' }
+              );
+            }
+            return null;
+        }))}
         catch (error){
           console.log(error);
         }
 
-        console.log(newURLs);
+        // console.log(newURLs);
   
         var searchList = filteredBusinesses.map((item, index) =>
           item.approved &&
@@ -248,7 +252,7 @@ class Search extends React.Component {
                         <PriceTag price={item?.priceRange}/>
                     </div>
                 </div>
-                <img className='SearchItemImg' src={item?.imgPath ? newURLs[index] : testImg} />
+                <img className='SearchItemImg' src={newURLs[index] ? newURLs[index] : testImg} />
             </Link>
         );
         
