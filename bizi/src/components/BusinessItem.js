@@ -70,7 +70,7 @@ class BusinessItem extends Component {
                   </div>
                   <BusinessInfo business={business}/>        
               </div>            
-          <AddReview/>   
+              <AddReview/>   
           </>
       )
   }

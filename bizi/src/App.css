@@ -332,6 +332,7 @@ nav.dark #myAccount a{
   display: flex;  
   text-align: left;
   padding: 2.5em 2.5em 0 2.5em;
+  margin-bottom: 80px;
 }
 
 .description p{

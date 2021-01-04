@@ -218,11 +218,19 @@ class Search extends React.Component {
 
         // update img urls for all businesses
         try {
-          var newURLs = await Promise.all(filteredBusinesses.map(async(item) => await Storage.get(item?.imgPath, { level: 'public' })));
+          var newURLs = await Promise.all(filteredBusinesses.map(async(item) => 
+            await Storage.get(item?.imgPath, 
+              // { credentials: {
+                // accessKeyId: '',
+                // secretAccessKey: ''
+              // } }, 
+              { level: 'public' })));
         }
         catch (error){
           console.log(error);
         }
+
+        console.log(newURLs);
   
         var searchList = filteredBusinesses.map((item, index) =>
           item.approved &&
