@@ -222,8 +222,8 @@ class Search extends React.Component {
             if (item?.imgPath) {
               return await Storage.get(item?.imgPath, 
                 { credentials: {
-                  accessKeyId: 'AKIAXYJB7UIRXW44SY7G',
-                  secretAccessKey: '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'
+                  accessKeyId: '',
+                  secretAccessKey: ''
                 } },
                 { level: 'public' }
               );
