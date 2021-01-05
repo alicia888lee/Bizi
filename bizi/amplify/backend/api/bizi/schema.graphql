@@ -29,3 +29,10 @@ type Mutation {
   recommend(preferences: [String!], attributes: [String!]): [String] @function(name: "recommendFunction-${env}")
   sendEmail(recipientEmail: String, subject: String, body: String): String @function(name: "emailFunction-${env}")
 }
+
+type Credentials @model {
+  geocodeAPIKey: String
+  mapAPIKey: String
+  accessKey: String
+  secretKey: String
+}

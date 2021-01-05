@@ -3,8 +3,9 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-import Amplify, { Auth } from 'aws-amplify';
+import Amplify, { API } from 'aws-amplify';
 import awsExports from "./aws-exports";
+import * as queries from './graphql/queries';
 
 const isLocalhost = Boolean(
   window.location.hostname === "localhost" ||
@@ -36,6 +37,21 @@ const updatedAwsExports = {
 }
 
 Amplify.configure(updatedAwsExports);
+
+const getCredentials = async() => {
+  try {
+    var creds = await API.graphql({
+      query: queries.getCredentials,
+      variables: {id: 1}
+    });
+    return creds;
+  }
+  catch (error) {
+    console.log(error);
+  }
+}
+
+export const credentialsPromise = getCredentials();
 
 ReactDOM.render(
   <React.StrictMode>

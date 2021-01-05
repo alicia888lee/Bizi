@@ -7,7 +7,6 @@ import Account from './components/Account'
 import CreateAccount from './components/CreateAccount'
 import Search from './components/Search'
 import ForgotPassword from './components/ForgotPassword'
-
 import { BrowserRouter as Router, Route, Switch} from "react-router-dom";
 import './App.css';
 import ScrollToTop from './components/ScrollToTop.js';

@@ -8,6 +8,7 @@ import ReadStories from './ReadStories'
 import Footer from './Footer'
 import * as queries from '../graphql/queries'
 import * as mutations from '../graphql/mutations'
+import { credentialsPromise } from '../index'
 import { API, Storage } from 'aws-amplify'
 import environmentImg from '../images/environment.png';
 import heartImg from '../images/heart_hand.png';
@@ -173,7 +174,7 @@ class Search extends React.Component {
             var businessQuery = await API.graphql({
                 query: queries.listBusinesss
             });
-            var listBusinesses = businessQuery?.data?.listBusinesss?.items;
+            var listBusinesses = businessQuery?.data?.listBusinesss?.items?.filter(item => item.approved);
             console.log(listBusinesses);
             this.setState({
                 businesses: listBusinesses,
@@ -200,7 +201,10 @@ class Search extends React.Component {
 
       generateSearchList = async() => {
         const { filteredBusinesses } = this.state;
-        
+        var promise = await credentialsPromise;
+        var accessKey = promise?.data?.getCredentials?.accessKey;
+        var secretKey = promise?.data?.getCredentials?.secretKey;
+
         var iconDict = {
           'Sustainability': {
             id: 'searchEnvironment',
@@ -221,10 +225,10 @@ class Search extends React.Component {
           var newURLs = await Promise.all(filteredBusinesses.map(async(item) => {
             if (item?.imgPath) {
               return await Storage.get(item?.imgPath, 
-                // { credentials: {
-                //   accessKeyId: '',
-                //   secretAccessKey: ''
-                // } },
+                { credentials: {
+                  accessKeyId: accessKey,
+                  secretAccessKey: secretKey
+                } },
                 { level: 'public' }
               );
             }

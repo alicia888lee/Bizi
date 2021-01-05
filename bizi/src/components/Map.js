@@ -4,10 +4,13 @@ import GoogleMapReact from 'google-map-react';
 import Geocode from 'react-geocode';
 import { API } from 'aws-amplify';
 import * as mutations from '../graphql/mutations';
-import { geocodeAPIKey, mapAPIKey } from '../internal/keys';
+import { credentialsPromise } from '../index';
+import Loader from 'react-loader-spinner';
 
 const addressToCoordinate = async(business) => {
-  const apiKey = geocodeAPIKey;
+  var promise = await credentialsPromise;
+  var apiKey = promise?.data?.getCredentials?.geocodeAPIKey;
+  console.log(apiKey);
   try {
     const response = await Geocode.fromAddress(business?.address, apiKey);
     return response.results[0].geometry.location;
@@ -30,7 +33,8 @@ class Map extends Component {
 
     this.state = {
       locationPins: [],
-      center: {}
+      center: {},
+      mapAPIKey: null
     }
   }
 
@@ -38,9 +42,10 @@ class Map extends Component {
     const { filteredBusinesses } = this.props;
     console.log(filteredBusinesses);
     var locationPins = await Promise.all(filteredBusinesses.map(async(business, index) => {
-        if (filteredBusinesses.length == 0) {
-          return null;
-        }
+        // if (filteredBusinesses.length == 0) {
+        //   return null;
+        // }
+
         console.log(business);
 
         var lat = null;
@@ -115,6 +120,7 @@ class Map extends Component {
   }
 
   async componentDidMount() {
+    await this.getMapKey();
     await this.generateLocationPins(); 
     this.generateCenter();
   }
@@ -127,22 +133,32 @@ class Map extends Component {
     }
   }
 
+  getMapKey = async() => {
+    var promise = await credentialsPromise;
+    var mapAPIKey = promise?.data?.getCredentials?.mapAPIKey;
+    console.log(mapAPIKey);
+    this.setState({
+      mapAPIKey: mapAPIKey
+    });
+  }
+
   render() {
     const { height } = this.props;
-    const { locationPins, center } = this.state;
+    const { locationPins, center, mapAPIKey } = this.state;
     let heightNum = `${height}%`;
-    
-    return (      
-      <div style={{ height: heightNum, width: '100%' }}>
-        <GoogleMapReact
-          bootstrapURLKeys={{ key: mapAPIKey }}
-          center={center}
-          defaultZoom={14}
-        >
-          {locationPins}
-        </GoogleMapReact>
-      </div>
-    );
+    if (mapAPIKey) {
+      return (      
+        <div style={{ height: heightNum, width: '100%' }}>
+          <GoogleMapReact
+            bootstrapURLKeys={{ key: mapAPIKey }}
+            center={center}
+            defaultZoom={14}
+          >
+            {locationPins}
+          </GoogleMapReact>
+        </div>
+    );}
+    return <Loader type='TailSpin' color='#385FDC' height={40} />
   }
 }
  

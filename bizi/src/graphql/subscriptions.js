@@ -94,3 +94,30 @@ export const onDeleteBusiness = `subscription OnDeleteBusiness {
   }
 }
 `;
+export const onCreateCredentials = `subscription OnCreateCredentials {
+  onCreateCredentials {
+    geocodeAPIKey
+    mapAPIKey
+    accessKey
+    secretKey
+  }
+}
+`;
+export const onUpdateCredentials = `subscription OnUpdateCredentials {
+  onUpdateCredentials {
+    geocodeAPIKey
+    mapAPIKey
+    accessKey
+    secretKey
+  }
+}
+`;
+export const onDeleteCredentials = `subscription OnDeleteCredentials {
+  onDeleteCredentials {
+    geocodeAPIKey
+    mapAPIKey
+    accessKey
+    secretKey
+  }
+}
+`;

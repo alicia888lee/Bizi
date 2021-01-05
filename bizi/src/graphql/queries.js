@@ -85,3 +85,28 @@ export const listBusinesss = `query ListBusinesss(
   }
 }
 `;
+export const getCredentials = `query GetCredentials($id: ID!) {
+  getCredentials(id: $id) {
+    geocodeAPIKey
+    mapAPIKey
+    accessKey
+    secretKey
+  }
+}
+`;
+export const listCredentialss = `query ListCredentialss(
+  $filter: ModelCredentialsFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listCredentialss(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      geocodeAPIKey
+      mapAPIKey
+      accessKey
+      secretKey
+    }
+    nextToken
+  }
+}
+`;

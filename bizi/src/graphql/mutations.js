@@ -102,3 +102,30 @@ export const deleteBusiness = `mutation DeleteBusiness($input: DeleteBusinessInp
   }
 }
 `;
+export const createCredentials = `mutation CreateCredentials($input: CreateCredentialsInput!) {
+  createCredentials(input: $input) {
+    geocodeAPIKey
+    mapAPIKey
+    accessKey
+    secretKey
+  }
+}
+`;
+export const updateCredentials = `mutation UpdateCredentials($input: UpdateCredentialsInput!) {
+  updateCredentials(input: $input) {
+    geocodeAPIKey
+    mapAPIKey
+    accessKey
+    secretKey
+  }
+}
+`;
+export const deleteCredentials = `mutation DeleteCredentials($input: DeleteCredentialsInput!) {
+  deleteCredentials(input: $input) {
+    geocodeAPIKey
+    mapAPIKey
+    accessKey
+    secretKey
+  }
+}
+`;
