@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import Loader from 'react-loader-spinner';
 import Nav from './Nav'
 
 class ForgotPasswordStep2 extends Component {
@@ -17,7 +18,8 @@ class ForgotPasswordStep2 extends Component {
             passwordSpecialChar,
             passwordNumbers,
             updateError,
-            updateErrorMessage
+            updateErrorMessage,
+            loading
         } = this.props;
         return (
             <div>
@@ -59,6 +61,7 @@ class ForgotPasswordStep2 extends Component {
                 <div className='updatePasswordButton'>
                     <button onClick = {updatePassword}>Update Password</button>
                 </div>
+                {loading && <Loader type='TailSpin' color='#385FDC' height={40} />}
                 <div className='termsAgreement'>
                     <a className="smallText" href="#">Terms of Agreement</a>   
                 </div>

@@ -106,8 +106,43 @@ class CreateAccount extends Component {
                 'Saturday': false,
                 'Sunday': false,
             },
-            previousSchedule: {}
+            previousSchedule: {},
+            discounts: [],
+            validDiscounts: true
         }
+    }
+
+    setDiscounts = (e, index, tupleIndex) => {
+        const { discounts } = this.state;
+        var newDiscounts = discounts.slice();
+        console.log(newDiscounts);
+        console.log(index);
+        console.log(tupleIndex);
+        newDiscounts[index][tupleIndex] = e.target.value;
+        this.setState({
+            discounts: newDiscounts
+        });
+    }
+
+    addDiscount = () => {
+        const { discounts } = this.state;
+        console.log(discounts);
+        discounts.push([]);
+        var newDiscounts = discounts.slice();
+        console.log(newDiscounts);
+        this.setState({
+            discounts: newDiscounts
+        });
+        console.log(discounts);
+    }
+
+    deleteDiscount = () => {
+        const { discounts } = this.state;
+        discounts.pop();
+        var newDiscounts = discounts.slice();
+        this.setState({
+            discounts: newDiscounts
+        });
     }
 
     goToSecondStep = (duplicateEmail = false, duplicateEmailMessage = '') => {
@@ -348,16 +383,6 @@ class CreateAccount extends Component {
             scheduleArr.push(day)
         }
 
-        // upload photo to s3 and get url
-        try {
-            await Storage.put(file.name, file, {
-                contentType: 'image/jpg'
-            });
-        }
-        catch (err) {
-            console.log(err);
-        }
-
         var address = street + 
             ', ' +
             city +
@@ -392,6 +417,16 @@ class CreateAccount extends Component {
             }
             catch(error) {
                 console.log(error);
+            }
+
+            // upload photo to s3
+            try {
+                await Storage.put(file.name, file, {
+                    contentType: 'image/jpg'
+                });
+            }
+            catch (err) {
+                console.log(err);
             }
             // send email notification to business email regarding new business awaiting approval
             try {
@@ -897,7 +932,8 @@ class CreateAccount extends Component {
             price2Selected,
             price3Selected,
             price4Selected,
-            schedule
+            schedule,
+            discounts
         } = this.state;
 
         let re = new RegExp(/^\([0-9]{3}\)\s[0-9]{3}-[0-9]{4}$/);
@@ -911,6 +947,16 @@ class CreateAccount extends Component {
         }
         var completeSchedule = Object.keys(schedule).length == 7;
 
+
+        re = new RegExp(/^[0-9]+$/)
+        var validDiscountValues = discounts.every((tuple) => {
+                return re.test(tuple[0]) 
+                && re.test(tuple[1])
+                && Number(tuple[0]) >= 0
+                && Number(tuple[0]) <= 100
+        });
+        var completeDiscounts = discounts.every((tuple) => tuple.length == 2);
+        console.log(validDiscountValues);
         this.setState({ 
             validBusinessName: businessName,
             validBusinessDescription: businessDescription,
@@ -920,7 +966,8 @@ class CreateAccount extends Component {
             validState: state,
             validZip: zip,
             validPrice: price1Selected || price2Selected || price3Selected || price4Selected,
-            validSchedule: scheduleDefined && completeSchedule
+            validSchedule: scheduleDefined && completeSchedule,
+            validDiscounts: completeDiscounts && validDiscountValues
         });
     }
 
@@ -942,7 +989,6 @@ class CreateAccount extends Component {
             userName,
             businessName,
             businessDescription,
-            initiatives,
             policyList,
             phone,
             url,
@@ -957,8 +1003,14 @@ class CreateAccount extends Component {
             price3Selected,
             price4Selected,
             schedule,
-            file
+            file,
+            discounts
         } = this.state;
+        console.log(prevState.schedule);
+        console.log(schedule);
+        console.log(prevState.discounts);
+        console.log(discounts);
+        
         
         let step2UpdateCondition = (
             userPassword !== prevState.userPassword 
@@ -970,7 +1022,6 @@ class CreateAccount extends Component {
         let step3UpdateCondition = (
             businessName !== prevState.businessName
             || businessDescription !== prevState.businessDescription
-            || initiatives !== prevState.initiatives
             || policyList !== prevState.policyList
             || phone !== prevState.phone
             || url !== prevState.url
@@ -986,6 +1037,7 @@ class CreateAccount extends Component {
             || price4Selected !== prevState.price4Selected
             || schedule !== prevState.schedule
             || file !== prevState.file
+            || discounts !== prevState.discounts
         )
 
         if (step2UpdateCondition) {
@@ -1076,9 +1128,11 @@ class CreateAccount extends Component {
             disableSchedule,
             smRedirecting,
             file,
-            registering
+            registering,
+            validDiscounts,
+            discounts
         } = this.state;
-
+        console.log(discounts);
         return (
             <>
                 {smRedirecting ? <Loader type='TailSpin' color='#385FDC' height={40}/> : 
@@ -1184,6 +1238,10 @@ class CreateAccount extends Component {
                         validSchedule = {validSchedule}
                         handleUpload = {this.handleUpload}
                         imgFile = {file}
+                        validDiscounts = {validDiscounts}
+                        setDiscounts = {this.setDiscounts}
+                        addDiscount = {this.addDiscount}
+                        deleteDiscount = {this.deleteDiscount}
                     />}
                 
                 </div>

@@ -15,6 +15,11 @@ const ImgThumb = ({ image }) => {
 class Step3 extends Component {
     constructor(props) {
         super(props)
+
+        this.state = {
+            numDiscounts: 0,
+            validInputs: []
+        }
     }
 
     createSchedule = (setSchedule, disableDay, disabled) => {
@@ -147,6 +152,78 @@ class Step3 extends Component {
         return schedule;
     }
 
+    validateInputs = (e, index, tupleIndex) => {
+        const { validInputs } = this.state;
+        var updatedValids = validInputs.slice();
+        var re = new RegExp(/^[0-9]+$/);
+        var value = e.target.value;
+        if (
+            re.test(value)
+            && Number(value) >= 0
+            && Number(value) <= 100
+        ) {
+            updatedValids[index][tupleIndex] = true;
+        }
+        else {
+            updatedValids[index][tupleIndex] = false;
+        }
+        this.setState({
+            validInputs: updatedValids
+        });
+    }
+
+    generateDiscountForm = () => {
+        const { setDiscounts } = this.props;
+        const { numDiscounts, validInputs } = this.state;
+        var form = [];
+        var indexRange = Array.from(Array(numDiscounts).keys());
+        form = indexRange.map((index) => 
+                <div className='discountGrid'>
+                    <div className='inputGroup'>
+                        <label for='discount-percent'>Percent Discount</label>
+                        <input id={!validInputs[index][0] && 'invalidInput'} placeholder='0-100' type='text' name='discount-percent' onChange={
+                            (e) => {
+                                setDiscounts(e, index, 0);
+                                this.validateInputs(e, index, 0);
+                                }}/>
+                    </div>
+                    <div className='inputGroup'>
+                        <label for='discount-quantity'>Quantity</label>
+                        <input id={!validInputs[index][1] && 'invalidInput'} type='text' name='discount-quantity' onChange={
+                            (e) => {
+                                setDiscounts(e, index, 1);
+                                this.validateInputs(e, index, 1);
+                                }}/>
+                    </div>
+                </div>
+        );
+        return form;
+    }
+
+    updateDiscountRows = (operation, e) => {
+        e.preventDefault();
+        const { numDiscounts, validInputs } = this.state;
+        var newNum = numDiscounts;
+        validInputs.push([]);
+        var newValids = validInputs.slice();
+        if (operation == 'add') {
+            newNum++;
+        }
+        else {
+            if (numDiscounts == 0) {
+                newNum = 0;
+            }
+            else {
+                newNum--;
+            }
+        }
+
+        this.setState({
+            numDiscounts: newNum,
+            validInputs: newValids
+        });
+    }
+
     render() {
         const { 
             finishSignUp,
@@ -197,7 +274,10 @@ class Step3 extends Component {
             validSchedule,
             handleUpload,
             imgFile,
-            registering
+            registering,
+            validDiscounts,
+            addDiscount,
+            deleteDiscount
         } = this.props;
 
         return (
@@ -352,6 +432,26 @@ class Step3 extends Component {
                             id={price4Selected && 'highlighted'} />
                     </div>
                     {!validPrice && <p id='priceInvalid'>Must choose one</p>}
+                    <br />
+                    {<p>Discounts<br/>(if your business would like to distribute coupons)</p>}
+                    <div className='loginBody'>
+                        <form>
+                            {this.generateDiscountForm()}
+                            <button id='deleteDiscount' onClick={(e) => {
+                                this.updateDiscountRows(null, e);
+                                deleteDiscount();
+                            }}>
+                                Delete Discount
+                            </button>
+                            <button id='addDiscount' onClick={(e) => {
+                                this.updateDiscountRows('add', e);
+                                addDiscount();
+                            }}>
+                                Add Discount
+                            </button>
+                            {!validDiscounts && <p id='discountsInvalid'>All fields must be complete</p>}
+                        </form>
+                    </div>
                     <br />
                     {<p>Hours of Operation (All times in central time)</p>}
                     <div className='scheduleGrid'>

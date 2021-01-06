@@ -30,7 +30,8 @@ class ForgotPassword extends Component {
             passwordUppercase: true,
             passwordSpecialChar: true,
             passwordNumbers: true,
-            passwordLowercase: true
+            passwordLowercase: true,
+            updatingPassword: false
         }
     }
 
@@ -115,7 +116,9 @@ class ForgotPassword extends Component {
             passwordNumbers,
             passwordLowercase
         } = this.state;
-
+        this.setState({
+            updatingPassword: true
+        });
         const noneValid = !(confirmEmail
         || code
         || userPassword
@@ -155,6 +158,9 @@ class ForgotPassword extends Component {
                 validCode: false
             });
         }
+        this.setState({
+            updatingPassword: false
+        });
     }
 
     validateStep1Inputs = () => {
@@ -236,7 +242,8 @@ class ForgotPassword extends Component {
             passwordSpecialChar,
             passwordNumbers,
             updateError,
-            updateErrorMessage
+            updateErrorMessage,
+            updatingPassword
         } = this.state;
 
         return (
@@ -271,6 +278,7 @@ class ForgotPassword extends Component {
                     passwordNumbers={passwordNumbers}
                     updateError={updateError}
                     updateErrorMessage={updateErrorMessage}
+                    loading = {updatingPassword}
                 />}
                 {step3 &&
                 <Step3

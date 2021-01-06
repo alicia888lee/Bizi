@@ -643,6 +643,27 @@ nav.dark #myAccount a{
   margin-top: 50px;
 }
 
+#addDiscount {
+  width: 180px;
+  height: 40px;
+  color: white;
+  outline: none;
+  background-color: #385FDC;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+#deleteDiscount {
+  width: 180px;
+  height: 40px;
+  color: #385FDC;
+  font-weight: 600;
+  border-style: none;
+  outline: none;
+  background-color: white;
+  cursor: pointer;
+}
+
 .step3NextButtons #letsGoStep3, #register {
   width: 180px;
   height: 40px;
@@ -849,7 +870,7 @@ nav.dark #myAccount a{
   margin-top: -1em;
 }
 
-#priceInvalid, #scheduleInvalid {
+#priceInvalid, #scheduleInvalid, #discountsInvalid {
   font-style: italic;
   color: #385FDC;
   margin-top: 1em;
@@ -884,6 +905,11 @@ nav.dark #myAccount a{
   display: block;
   margin-right: auto;
   margin-left: auto;
+}
+
+.discountGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
 }
 
 .socialLogin button {
