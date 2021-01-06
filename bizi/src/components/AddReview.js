@@ -1,19 +1,21 @@
 import React from 'react'
 import { IoMdText, IoIosAdd } from "react-icons/io";
 import { Link } from "react-router-dom"
-import { Auth, Storage } from 'aws-amplify'
+import { Auth, Storage, API } from 'aws-amplify'
+import * as mutations from '../graphql/mutations'
 import Loader from 'react-loader-spinner'
 
 class AddReview extends React.Component {
     constructor(props) {
         super(props)  
         this.state = {
+            user: "",
             userAuthenticated: false,
             file: "",
             text: "",
             loading: false,
             success: false,
-            error: ""            
+            error: ""       
         }        
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -32,22 +34,41 @@ class AddReview extends React.Component {
             this.setState({loading: true})
             await Storage.put(file.name, file, {              
               contentType: 'image/jpg'
-            });
+            });            
             
-            const url = await Storage.get(file.name, { level: 'public' })            
-            console.log(url)            
+            let currReviews = this.props.business.reviews ? this.props.business?.reviews : []            
+            let review = {                
+                user: this.state.user,
+                imgPath: file.name,
+                text: this.state.text,
+                rating: 1
+            }                           
+
+            currReviews.push(review)
+            let updatedBusiness = {...this.props.business, reviews: currReviews}
+            try {
+                await API.graphql({
+                    query: mutations.updateBusiness,
+                    variables: {input: updatedBusiness}
+                });
+            }
+            catch (error) {                
+                this.setState({error: error})
+            }
+            //TODO: add user review object maybe?
+
             this.setState({loading: false,
                             success: true})            
         } catch (err) {
             this.setState({error: err})            
-        }
-        
+        }        
     }
     
     // check if user is signed in
     checkAuth = async() => {
         try {
-            const currentUser = await Auth.currentAuthenticatedUser();
+            const currentUser = await Auth.currentAuthenticatedUser();            
+            this.setState({user: currentUser?.attributes?.email})
             return currentUser;
         }
         catch (e){            
@@ -63,7 +84,7 @@ class AddReview extends React.Component {
   
     async componentDidMount() {
         const verifyAuth = await this.checkAuth();                
-        verifyAuth && this.updateUserState(true);
+        verifyAuth && this.updateUserState(true);        
     }
 
     render(){
