@@ -25,14 +25,30 @@ class BusinessItem extends Component {
       }
     }
     
-    componentDidMount() {
+    async componentDidMount() {
       const { business } = this.state;
-
       // console.log(location?.state?.business);
-      console.log(business);
-
+      // if url accessed directly, check database for business based on id
       if (!business) {
-        this.props.history.push('/search');
+        var urlID = window.location.pathname.split('/')[2];
+        try {
+          var businessQuery = await API.graphql({
+            query: queries.listBusinesss
+          });
+          var listBusinesses = businessQuery?.data?.listBusinesss?.items?.filter(item => item.approved);
+          var retrieved = listBusinesses.filter((item) => item.id == urlID)[0];
+          if (retrieved) {
+            this.setState({
+              business: retrieved
+            });
+          }
+          else {
+            this.props.history.push('/search');
+          }
+        }
+        catch (error) {
+          console.log(error);
+        }
       }
     }
 

@@ -11,6 +11,7 @@ const addressToCoordinate = async(business) => {
   var promise = await credentialsPromise;
   var apiKey = promise?.data?.getCredentials?.geocodeAPIKey;
   console.log(apiKey);
+  console.log(business);
   try {
     const response = await Geocode.fromAddress(business?.address, apiKey);
     return response.results[0].geometry.location;
@@ -56,7 +57,7 @@ class Map extends Component {
           lat = business?.lat;
           lng = business?.lng;
         }
-        else {
+        else if (business) {
           console.log('invoking address to coordinate');
           coords = await addressToCoordinate(business);
           lat = coords?.lat;
