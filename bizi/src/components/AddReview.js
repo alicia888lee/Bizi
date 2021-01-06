@@ -2,6 +2,7 @@ import React from 'react'
 import { IoMdText, IoIosAdd } from "react-icons/io";
 import { Link } from "react-router-dom"
 import { Auth, Storage } from 'aws-amplify'
+import Loader from 'react-loader-spinner'
 
 class AddReview extends React.Component {
     constructor(props) {
@@ -10,25 +11,21 @@ class AddReview extends React.Component {
             userAuthenticated: false,
             file: "",
             text: "",
-            loading: false
-        }
-        this.handleUpload = this.handleUpload.bind(this);
+            loading: false,
+            success: false,
+            error: ""            
+        }        
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
-
-    handleUpload(e) {
-        this.setState({
-            file: e.target.files[0]
-        })        
-    }
-
+  
     handleChange(e) {
-        this.setState({text: e.target.value});
+        const name = e.target.type === 'file' ? 'file' : 'text';
+        const val = e.target.type === 'file' ? e.target.files[0] : e.target.value;                
+        this.setState({[name]: val});        
     }    
 
-    async handleSubmit(e) {
-        console.log("submitting file :O")
+    async handleSubmit(e) {        
         e.preventDefault();
         const { file } = this.state
         try {
@@ -37,12 +34,12 @@ class AddReview extends React.Component {
               contentType: 'image/jpg'
             });
             
-            const url = await Storage.get(file.name, { level: 'public' })
-            console.log("Ya yeet")
-            console.log("URL: " + url)            
-            this.setState({loading: false})
+            const url = await Storage.get(file.name, { level: 'public' })            
+            console.log(url)            
+            this.setState({loading: false,
+                            success: true})            
         } catch (err) {
-            console.log(err);
+            this.setState({error: err})            
         }
         
     }
@@ -53,8 +50,8 @@ class AddReview extends React.Component {
             const currentUser = await Auth.currentAuthenticatedUser();
             return currentUser;
         }
-        catch (e){
-          console.log('error checking authentication', e);
+        catch (e){            
+            this.setState({error: e})            
         }        
     }
   
@@ -70,10 +67,13 @@ class AddReview extends React.Component {
     }
 
     render(){
-        const { userAuthenticated, file } = this.state;
+        const { userAuthenticated, file, loading, success, error } = this.state;
 
         if(userAuthenticated){
-            return( 
+            return success ?  
+                <div className="review-success">
+                    <h2>Review was successfully added!</h2>                    
+                </div> :
                 <form className="add-review-wrapper" onSubmit={this.handleSubmit}>            
                     <h2 className="add-review-header"><IoMdText className="review-icon"/> Leave a Review</h2>
                     <div className="review-wrapper">
@@ -81,15 +81,19 @@ class AddReview extends React.Component {
                             <h3>Upload Photo</h3>                            
                             {file ? <ImgThumb image={file} /> : <IoIosAdd className="review-add-icon" /> }
                         </label>
-                        <input id="reviewUpload" type="file" onChange={this.handleUpload}/>
+                        <input id="reviewUpload" type="file" onChange={this.handleChange}/>
                         <div className="review-description">
                             <textarea value={this.state.text} onChange={this.handleChange} 
                                 rows="4" className="reviewText" placeholder="Write a review..."/>
                         </div>
                     </div>
                     <button type="submit" className="reviewBtn">Post</button>
-                </form>
-            )
+                    {loading &&  <Loader
+                        type="TailSpin"
+                        color="#385FDC"
+                        height={40} /> }     
+                    {error && <div><h2>Error: {this.state.error}</h2></div>}              
+                </form>                                       
         }
         return(            
             <h2 className="reviewLogin"><Link to="/login">Login</Link> to your account to leave a review!</h2>        

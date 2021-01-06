@@ -1464,3 +1464,10 @@ input[type="file"] {
 .reviewImg {
   width: 50%;
 }
+.review-success {
+  background-color: #56dd48;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;  
+}
