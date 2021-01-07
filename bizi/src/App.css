@@ -643,7 +643,7 @@ nav.dark #myAccount a{
   margin-top: 50px;
 }
 
-#addDiscount {
+#addDiscount, #useCoupon {
   width: 180px;
   height: 40px;
   color: white;
@@ -1106,7 +1106,12 @@ nav.dark #myAccount a{
   padding: 0 8em;  
 }
 .discounts {
-  display: flex;  
+  display: flex;
+  align-content: center;
+}
+
+.coupon {
+  margin: 0 auto;
 }
 
 .discount-info {

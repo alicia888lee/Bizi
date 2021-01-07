@@ -9,6 +9,7 @@ export const getUser = `query GetUser($userEmail: String!) {
     bookmarks
     coupons {
       businessID
+      discountIndex
       used
       timeUsed
     }
@@ -36,6 +37,7 @@ export const listUsers = `query ListUsers(
       bookmarks
       coupons {
         businessID
+        discountIndex
         used
         timeUsed
       }

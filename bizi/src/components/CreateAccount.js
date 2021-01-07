@@ -301,6 +301,8 @@ class CreateAccount extends Component {
             schedule,
             validSchedule,
             file,
+            discounts,
+            validDiscounts
         } = this.state;
 
         this.setState({
@@ -331,7 +333,8 @@ class CreateAccount extends Component {
             && validState
             && validZip
             && validPrice
-            && validSchedule;
+            && validSchedule
+            && validDiscounts;
 
         const selectedInitiativeBooleans = [
             typeSustainableSelected,
@@ -383,6 +386,10 @@ class CreateAccount extends Component {
             scheduleArr.push(day)
         }
 
+        // discounts form is 
+        // [[% discount, quantity available]]
+
+
         var address = street + 
             ', ' +
             city +
@@ -406,6 +413,7 @@ class CreateAccount extends Component {
                 priceRange: priceRange,
                 schedule: scheduleArr,
                 imgPath: file.name,
+                discounts: discounts,
                 approved: false,
             };
             try {

@@ -8,9 +8,11 @@ import discountImg from '../images/testDiscountImg.png';
 import environmentImg from '../images/environment.png';
 import heartImg from '../images/heart_hand.png';
 import communityImg from '../images/community.png';
-import { API, Auth, Hub } from 'aws-amplify'
+import { API, Auth, Storage } from 'aws-amplify'
 import { withRouter } from 'react-router-dom'
 import * as queries from '../graphql/queries';
+import * as mutations from '../graphql/mutations';
+import { credentialsPromise } from '../index';
 import Loader from 'react-loader-spinner';
 
 class Account extends Component {
@@ -26,7 +28,9 @@ class Account extends Component {
             filteredBookmarks: [],
             filteredBusinesses: [],
             filter: 'Filter',
-            sort: ''
+            sort: '',
+            discount: null,
+            couponLoading: false
         }
     }
 
@@ -62,6 +66,116 @@ class Account extends Component {
         this.setState({
             businesses: businesses,
             filteredBusinesses: businesses
+        });
+    }
+
+    generateNewDiscount = async(currUser) => {
+        const { businesses } = this.state;
+        console.log(businesses);
+        // check if user already has a coupon
+        try {
+            var user = await API.graphql({
+                query: queries.getUser,
+                variables: {userEmail: currUser?.attributes?.email}
+            });
+        }
+        catch (error) {
+            console.log(error);
+        }
+        user = user?.data?.getUser;
+        var promise = await credentialsPromise;
+        var accessKey = promise?.data?.getCredentials?.accessKey;
+        var secretKey = promise?.data?.getCredentials?.secretKey;
+        if (!user?.coupons || user?.coupons?.[user?.coupons?.length - 1]?.used) {
+            // filter businesses that have available coupons
+            var available = businesses.filter((item) => (
+                item.discounts?.filter((discount) => discount[1] > 0).length > 0
+            ));
+            console.log(available);
+            var discountBusinessIndex = Math.floor(Math.random() * available.length);
+            var discountBusiness = available[discountBusinessIndex];
+            var discountIndex = Math.floor(Math.random() * discountBusiness?.discounts?.length);
+            var discount = discountBusiness?.discounts?.[discountIndex];
+            // add coupon to user's coupons
+            var newCoupon = {
+                businessID: discountBusiness?.id,
+                discountIndex: discountIndex,
+                used: false
+            };
+            
+            if (!user?.coupons) {
+                var newCouponsList = [newCoupon];
+            }
+            else {
+                var currCoupons = user?.coupons.slice();
+                newCouponsList = currCoupons.push(newCoupon);
+            }
+            var updatedUser = {
+                ...user,
+                coupons: newCouponsList
+            };
+            try {
+                await API.graphql({
+                    query: mutations.updateUser,
+                    variables: {input: updatedUser}
+                });
+            }
+            catch (error) {
+                console.log(error);
+            }
+            // update quantity in business
+            var updatedDiscounts = discountBusiness?.discounts;
+            var newQt = updatedDiscounts?.[discountIndex]?.[1] - 1;
+            updatedDiscounts[discountIndex].splice(1, 1, newQt);
+            console.log(updatedDiscounts);
+            var updatedBusiness = {
+                ...discountBusiness,
+                discounts: updatedDiscounts
+            };
+            try {
+                await API.graphql({
+                    query: mutations.updateBusiness,
+                    variables: {input: updatedBusiness}
+                });
+            }
+            catch (error) {
+                console.log(error);
+            }
+        }
+        else {
+            discountBusiness = businesses.filter((item) => item.id == user?.coupons?.[user?.coupons?.length - 1]?.businessID)[0];
+            discountIndex = user?.coupons?.[user?.coupons?.length - 1]?.discountIndex;
+            discount = discountBusiness?.discounts?.[discountIndex];
+        }
+        
+        // get image
+        var url = null;
+        try {
+            if (discountBusiness?.imgPath) {
+                url = await Storage.get(discountBusiness?.imgPath,
+                    { credentials: {
+                        accessKeyId: accessKey,
+                        secretAccessKey: secretKey
+                    } },
+                    { level: 'public' }
+                );
+            }
+        }
+        catch (error) {
+            console.log(error);
+        }
+        console.log(user);
+        console.log(discountIndex);
+        var discountDiv = (
+            <div className="discount-info">
+                {url ? <img src={url} style={{maxWidth: '200px', height: 'auto'}} /> : <h1>{discountBusiness?.businessName}</h1>}
+                <h2>{discount?.[0]}% off your next purchase at {discountBusiness?.businessName}!</h2>
+                <button id='useCoupon'>Click to use</button>
+            </div>
+        );
+        this.setState({
+            discount: discountDiv,
+            couponLoading: false
         });
     }
 
@@ -265,7 +379,8 @@ class Account extends Component {
 
     async componentDidMount() {
         this.setState({
-            bookmarksLoading: true
+            bookmarksLoading: true,
+            couponLoading: true
         });
         const currentUser = await this.getCurrentUser();
         console.log(currentUser);
@@ -274,6 +389,7 @@ class Account extends Component {
             await this.getUserBookmarks(currentUser);
             await this.getBusinesses();
             this.generateBookmarkTiles();
+            this.generateNewDiscount(currentUser);
         }
         else {
           this.props.history.push('/login');
@@ -293,7 +409,7 @@ class Account extends Component {
     }
 
     render() {
-        const { currentUser, bookmarksList, bookmarksLoading, filter, sort } = this.state;
+        const { currentUser, bookmarksList, bookmarksLoading, filter, sort, discount, couponLoading } = this.state;
 
         return (
             <div className="account">
@@ -301,15 +417,12 @@ class Account extends Component {
                 <h1 className="accountHeader">Hey {currentUser}! Welcome Back!</h1>
                 
                 <div className="discounts-wrapper">                            
-                    <h3><RiScissorsCutLine className="accountIcon"/>Your discounts</h3>
+                    <h3><RiScissorsCutLine className="accountIcon"/>Your new discount</h3>
                     <div className="discounts">
-                        <div className="discount-info">
-                            <img src={discountImg} />
-                            <h2>10% off your next purchase!</h2>
-                        </div>
-                        <div className="QR">
+                        <div className='coupon'>{couponLoading ? <Loader type='TailSpin' color='#385FDC' height={40} /> : discount}</div>
+                        {/* <div className="QR">
                             <img src={QRCode} />
-                        </div>
+                        </div> */}
                     </div>
                 </div>
 

@@ -7,6 +7,12 @@ export const onCreateUser = `subscription OnCreateUser {
     userType
     userPreferences
     bookmarks
+    coupons {
+      businessID
+      discountIndex
+      used
+      timeUsed
+    }
   }
 }
 `;
@@ -16,6 +22,12 @@ export const onUpdateUser = `subscription OnUpdateUser {
     userType
     userPreferences
     bookmarks
+    coupons {
+      businessID
+      discountIndex
+      used
+      timeUsed
+    }
   }
 }
 `;
@@ -25,6 +37,12 @@ export const onDeleteUser = `subscription OnDeleteUser {
     userType
     userPreferences
     bookmarks
+    coupons {
+      businessID
+      discountIndex
+      used
+      timeUsed
+    }
   }
 }
 `;
@@ -46,6 +64,13 @@ export const onCreateBusiness = `subscription OnCreateBusiness {
     priceRange
     schedule
     imgPath
+    discounts
+    reviews {
+      user
+      imgPath
+      rating
+      text
+    }
     approved
   }
 }
@@ -68,6 +93,13 @@ export const onUpdateBusiness = `subscription OnUpdateBusiness {
     priceRange
     schedule
     imgPath
+    discounts
+    reviews {
+      user
+      imgPath
+      rating
+      text
+    }
     approved
   }
 }
@@ -90,6 +122,13 @@ export const onDeleteBusiness = `subscription OnDeleteBusiness {
     priceRange
     schedule
     imgPath
+    discounts
+    reviews {
+      user
+      imgPath
+      rating
+      text
+    }
     approved
   }
 }

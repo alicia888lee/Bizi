@@ -15,6 +15,12 @@ export const createUser = `mutation CreateUser($input: CreateUserInput!) {
     userType
     userPreferences
     bookmarks
+    coupons {
+      businessID
+      discountIndex
+      used
+      timeUsed
+    }
   }
 }
 `;
@@ -24,6 +30,12 @@ export const updateUser = `mutation UpdateUser($input: UpdateUserInput!) {
     userType
     userPreferences
     bookmarks
+    coupons {
+      businessID
+      discountIndex
+      used
+      timeUsed
+    }
   }
 }
 `;
@@ -33,6 +45,12 @@ export const deleteUser = `mutation DeleteUser($input: DeleteUserInput!) {
     userType
     userPreferences
     bookmarks
+    coupons {
+      businessID
+      discountIndex
+      used
+      timeUsed
+    }
   }
 }
 `;
@@ -54,6 +72,13 @@ export const createBusiness = `mutation CreateBusiness($input: CreateBusinessInp
     priceRange
     schedule
     imgPath
+    discounts
+    reviews {
+      user
+      imgPath
+      rating
+      text
+    }
     approved
   }
 }
@@ -76,6 +101,13 @@ export const updateBusiness = `mutation UpdateBusiness($input: UpdateBusinessInp
     priceRange
     schedule
     imgPath
+    discounts
+    reviews {
+      user
+      imgPath
+      rating
+      text
+    }
     approved
   }
 }
@@ -98,6 +130,13 @@ export const deleteBusiness = `mutation DeleteBusiness($input: DeleteBusinessInp
     priceRange
     schedule
     imgPath
+    discounts
+    reviews {
+      user
+      imgPath
+      rating
+      text
+    }
     approved
   }
 }

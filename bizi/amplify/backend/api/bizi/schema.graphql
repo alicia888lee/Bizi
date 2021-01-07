@@ -2,8 +2,15 @@ type User @model @key(fields: ["userEmail"]) {
   userEmail: String!
   userType: String
   userPreferences: [String]
-  bookmarks: [String]  
-  reviews: [[Review]!]  
+  bookmarks: [String]
+  coupons: [Coupon]
+}
+
+type Coupon {
+  businessID: String!
+  discountIndex: Int!
+  used: Boolean!
+  timeUsed: Float
 }
 
 type Business @model {
@@ -24,12 +31,11 @@ type Business @model {
   schedule: [[Float!]!]
   imgPath: String
   discounts: [[Int!]!]
-  reviews: [[Review]!]
+  reviews: [Review!]
   approved: Boolean!
 }
 
 type Review {
-  id: ID!
   user: String!
   imgPath: String
   rating: Int!
