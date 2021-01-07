@@ -62,8 +62,7 @@ class BusinessInfo extends React.Component {
                     </div>                      
                 </div>
             )        
-            this.setState({reviews: reviewList})        
-            console.log(reviews)
+            this.setState({reviews: reviewList})                    
         }
     }
 

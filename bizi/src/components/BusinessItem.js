@@ -23,12 +23,12 @@ class BusinessItem extends Component {
         const reviews = this.state?.business?.reviews;
         const reviewImgs = reviews.map((review) =>           
             <AmplifyS3Image imgKey={review.imgPath} className="business-photo" /> );
-        
+                                    
         let rows = []
         let cols = []
         for (let i = 0; i < 8; i++) {
           cols.push(reviewImgs[i]);
-          if(i % 4 === 0){
+          if((i + 1) % 4 === 0){
             rows.push(<div className="business-row">
               {cols}
             </div>)
