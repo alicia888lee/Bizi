@@ -16,9 +16,10 @@ class BusinessInfo extends React.Component {
 
       this.state = {
         policyList: [],
+        reviews: [],
         bookmarked: false,
         currUser: null,
-        currUserAPI: null
+        currUserAPI: null        
       }
     }
 
@@ -48,9 +49,20 @@ class BusinessInfo extends React.Component {
     }
 
     generateReviews = () => {
-        const { business } = this.props;
-        console.log('ya yeet')
-        console.log(business)
+        if(this.props.business.reviews){
+            const reviews = this.props?.business?.reviews;
+            const reviewList = reviews.map(review =>
+                <div className="review-item">                              
+                    <FiThumbsUp className="thumbsUp"/>
+                    <div>
+                    <p className="name">{review.user}</p>
+                    <p>{review.text}</p>
+                    </div>                      
+                </div>
+            )        
+            this.setState({reviews: reviewList})        
+            console.log(reviews)
+        }
     }
 
     checkAuth = async() => {
@@ -152,7 +164,7 @@ class BusinessInfo extends React.Component {
 
     render() {
       const { business } = this.props;
-      const { policyList, currUser, bookmarked } = this.state;
+      const { policyList, reviews, currUser, bookmarked } = this.state;      
       return (
           <div className="description-text">
               <div className="textbox">
@@ -201,16 +213,11 @@ class BusinessInfo extends React.Component {
             <div className="reviews">
               <div className="textbox">
                 <h3>Reviews</h3>
-                {business?.businessURL && <p><a href={`//${business?.businessURL}`} target='_blank'>See more</a></p>}
+                {business?.businessURL && this.state.reviews.length > 0 && <p><a href={`//${business?.businessURL}`} target='_blank'>See more</a></p>}
               </div>
-    
-              <div className="review1">
-                <FiThumbsUp className="thumbsUp"/>
-                <div>
-                  <p className="name">Jason</p>
-                  <p>Donna porta hendreit ex, et sagittis magna.</p>
-                </div>                      
-              </div>
+              
+              { this.state.reviews.length === 0 ? 
+                <div>This business has no reviews. Be the first!</div> : reviews }
             </div>
           </div>                      
         )

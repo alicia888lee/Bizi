@@ -68,7 +68,7 @@ class AddReview extends React.Component {
     checkAuth = async() => {
         try {
             const currentUser = await Auth.currentAuthenticatedUser();            
-            this.setState({user: currentUser?.attributes?.email})
+            this.setState({user: currentUser?.attributes?.name})
             return currentUser;
         }
         catch (e){            

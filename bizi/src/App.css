@@ -420,17 +420,17 @@ nav.dark #myAccount a{
 .icon-text ul {
   flex: 3.5;
 }
-.review1{
+.review-item{
   background-color: #dee6f9;
   padding: 10px 20px;
   border-radius: 30px;
   display: flex;
   align-items: center;
 }
-.review1 .thumbsUp {
+.review-item .thumbsUp {
   flex: 1;
 }
-.review1 div{
+.review-item div{
   flex: 9;
 }
 .story-header {
