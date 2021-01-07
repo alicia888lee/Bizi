@@ -401,7 +401,7 @@ nav.dark #myAccount a{
   cursor: pointer;
 }
 
-.right, .name, .thumbsUp {
+.right, .name, .thumbs {
   color: #263EE7;  
   text-decoration: none;
 }
@@ -427,7 +427,7 @@ nav.dark #myAccount a{
   display: flex;
   align-items: center;
 }
-.review-item .thumbsUp {
+.review-item .thumbs {
   flex: 1;
 }
 .review-item div{
@@ -1383,17 +1383,14 @@ nav.dark #myAccount a{
   height: 50%;
 }
 .business-photo {  
-  white-space: nowrap;    
+  white-space: nowrap;      
+  object-fit: cover;
+  --width: 150px;
+  --height: 150px;
+  margin: 0.5em 0.5em;
 }
 .business-row {
-  display: flex;
-}
-.business-row img {
-  flex: 1;
-  object-fit: cover;
-  width: 150px;
-  height: 150px;
-  margin: 0.5em 0.5em;
+  display: flex;  
 }
 .add-review-header {
   display: flex;

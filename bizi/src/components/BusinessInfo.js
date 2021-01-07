@@ -2,7 +2,7 @@ import React from "react"
 import { BsBookmarkPlus, BsDownload, BsBookmarkFill } from "react-icons/bs";
 import { BiBadgeCheck, BiCalendarPlus, BiPhone } from "react-icons/bi";
 import { AiOutlineQuestionCircle, AiOutlineEye } from "react-icons/ai";
-import { FiThumbsUp } from "react-icons/fi";
+import { FiThumbsUp, FiThumbsDown } from "react-icons/fi";
 import { GiHealthNormal } from "react-icons/gi";
 import { RiArrowGoBackFill } from "react-icons/ri";
 import { Link } from "react-router-dom";
@@ -53,10 +53,12 @@ class BusinessInfo extends React.Component {
             const reviews = this.props?.business?.reviews;
             const reviewList = reviews.map(review =>
                 <div className="review-item">                              
-                    <FiThumbsUp className="thumbsUp"/>
+                    {review.rating > 0 ? 
+                      <FiThumbsUp className="thumbs"/> : 
+                      <FiThumbsDown className="thumbs"/> }
                     <div>
-                    <p className="name">{review.user}</p>
-                    <p>{review.text}</p>
+                      <p className="name">{review.user}</p>
+                      <p>{review.text}</p>
                     </div>                      
                 </div>
             )        

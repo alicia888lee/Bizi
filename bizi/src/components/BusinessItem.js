@@ -3,21 +3,44 @@ import Map from './Map'
 import AddReview from './AddReview'
 import BusinessInfo from './BusinessInfo'
 import { withRouter } from "react-router-dom";
-import testImg from '../images/pexels-maria-gloss-4197693.jpg';
 import { Component } from "react";
 import { API } from 'aws-amplify'
 import * as queries from '../graphql/queries';
+import {AmplifyS3Image} from "@aws-amplify/ui-react";
 
 class BusinessItem extends Component {
     constructor(props) {
       super(props)
 
       this.state = {
-        business: this.props.location?.state?.business
+        business: this.props.location?.state?.business,
+        reviewImgs: []
       }
     }
+
+    generateReviewImgs = async() => {      
+      if(this.state?.business?.reviews){
+        const reviews = this.state?.business?.reviews;
+        const reviewImgs = reviews.map((review) =>           
+            <AmplifyS3Image imgKey={review.imgPath} className="business-photo" /> );
+        
+        let rows = []
+        let cols = []
+        for (let i = 0; i < 8; i++) {
+          cols.push(reviewImgs[i]);
+          if(i % 4 === 0){
+            rows.push(<div className="business-row">
+              {cols}
+            </div>)
+            cols = []
+          }
+        }
+        this.setState({reviewImgs: rows})        
+      }
+    }    
     
     async componentDidMount() {
+      this.generateReviewImgs();
       const { business } = this.state;
       // console.log(location?.state?.business);
       // if url accessed directly, check database for business based on id
@@ -42,7 +65,7 @@ class BusinessItem extends Component {
           console.log(error);
         }
       }
-    }
+    }    
 
     componentDidUpdate(prevProps) {
       const { location } = this.props;
@@ -54,27 +77,16 @@ class BusinessItem extends Component {
     }
 
     render() {
-      const { business } = this.state;
+      const { business, reviewImgs } = this.state;
       console.log('rendering business item', business);
       return (
           <>            
               <div className="description">
                   <div className="map">
-                  <Map height={50} filteredBusinesses={[business]}/>
-                  <div className="business-gallery">
-                      <div className="business-row">
-                          <img src={testImg} className="business-photo"/>
-                          <img src={testImg} className="business-photo"/>
-                          <img src={testImg} className="business-photo"/>
-                          <img src={testImg} className="business-photo"/>
-                      </div>           
-                      <div className="business-row">
-                          <img src={testImg} className="business-photo"/>
-                          <img src={testImg} className="business-photo"/>
-                          <img src={testImg} className="business-photo"/>
-                          <img src={testImg} className="business-photo"/>
-                      </div>   
-                  </div>
+                    <Map height={50} filteredBusinesses={[business]}/>
+                    <div className="business-gallery">
+                        {reviewImgs.length > 0 ? reviewImgs : <div>This business has no images.</div>}                      
+                    </div>
                   </div>
                   <BusinessInfo business={business}/>        
               </div>            

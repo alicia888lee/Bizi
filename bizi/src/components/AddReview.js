@@ -4,6 +4,8 @@ import { Link } from "react-router-dom"
 import { Auth, Storage, API } from 'aws-amplify'
 import * as mutations from '../graphql/mutations'
 import Loader from 'react-loader-spinner'
+import {AmplifyS3Image} from "@aws-amplify/ui-react";
+
 
 class AddReview extends React.Component {
     constructor(props) {
