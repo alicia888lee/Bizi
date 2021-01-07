@@ -7,6 +7,11 @@ export const getUser = `query GetUser($userEmail: String!) {
     userType
     userPreferences
     bookmarks
+    coupons {
+      businessID
+      used
+      timeUsed
+    }
   }
 }
 `;
@@ -29,6 +34,11 @@ export const listUsers = `query ListUsers(
       userType
       userPreferences
       bookmarks
+      coupons {
+        businessID
+        used
+        timeUsed
+      }
     }
     nextToken
   }
@@ -52,6 +62,13 @@ export const getBusiness = `query GetBusiness($id: ID!) {
     priceRange
     schedule
     imgPath
+    discounts
+    reviews {
+      user
+      imgPath
+      rating
+      text
+    }
     approved
   }
 }
@@ -79,6 +96,13 @@ export const listBusinesss = `query ListBusinesss(
       priceRange
       schedule
       imgPath
+      discounts
+      reviews {
+        user
+        imgPath
+        rating
+        text
+      }
       approved
     }
     nextToken
