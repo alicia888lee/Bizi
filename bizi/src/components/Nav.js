@@ -64,7 +64,7 @@ class Nav extends Component {
                     <div className="dropdown">
                       <Link className="account-nav" to='/account'>My Account <RiArrowDropDownLine className="account-icon"/></Link>
                       <div className="dropdown-content">
-                        <a href="" onClick={this.signOut}>Sign out</a>
+                        <a style={{cursor: 'pointer'}} onClick={this.signOut}>Sign out</a>
                       </div>
                     </div> :
                     <li className="login-nav"><Link to='/login'>Log In</Link></li> }                

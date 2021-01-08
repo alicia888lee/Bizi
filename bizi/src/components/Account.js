@@ -21,6 +21,7 @@ class Account extends Component {
 
         this.state = {
             currentUser: '',
+            currAuthUser: '',
             bookmarks: [],
             businesses: [],
             bookmarksList: [],
@@ -30,7 +31,9 @@ class Account extends Component {
             filter: 'Filter',
             sort: '',
             discount: null,
-            couponLoading: false
+            couponLoading: false,
+            couponUsed: false,
+            useCouponLoading: false
         }
     }
 
@@ -45,10 +48,12 @@ class Account extends Component {
         }
     }
 
-    setUserState = (name) => {
+    setUserState = (user) => {
+        var name = user?.attributes?.name;
         const firstName = name.split(' ')[0];
         this.setState({
-            currentUser: firstName
+            currentUser: firstName,
+            currAuthUser: user
         });
     }
 
@@ -72,7 +77,7 @@ class Account extends Component {
     checkTimeSinceUse = (timeUsed) => {
         var currTime = new Date(Date.now()).getTime();
         var diff = (currTime - timeUsed) / 1000;
-        var weeksPassed = Math.ceil(diff / (60 * 60 * 24 * 7));
+        var weeksPassed = diff / (60 * 60 * 24 * 7);
         return weeksPassed > 1 ? true : false;
     }
 
@@ -118,15 +123,15 @@ class Account extends Component {
                 };
                 
                 if (!user?.coupons) {
-                    var newCouponsList = [newCoupon];
+                    var currCoupons = [newCoupon];
                 }
                 else {
-                    var currCoupons = user?.coupons.slice();
-                    newCouponsList = currCoupons.push(newCoupon);
+                    currCoupons = user?.coupons.slice();
+                    currCoupons.push(newCoupon);
                 }
                 var updatedUser = {
                     ...user,
-                    coupons: newCouponsList
+                    coupons: currCoupons
                 };
                 try {
                     await API.graphql({
@@ -186,28 +191,52 @@ class Account extends Component {
             <div className="discount-info">
                 {url ? <img src={url} style={{maxWidth: '200px', height: 'auto'}} /> : <h1>{discountBusiness?.businessName}</h1>}
                 <h2>{discount?.[0]}% off your next purchase at {discountBusiness?.businessName}!</h2>
-                <button id='useCoupon'>Click to use</button>
+                <button id='useCoupon' onClick={() => this.useCoupon(user)}>Click to use</button>
             </div>
         ) :
         <h2>There are no discounts currently available.</h2>;
 
         this.setState({
             discount: discountDiv,
-            couponLoading: false
+            couponLoading: false,
+            couponUsed: false,
+            useCouponLoading: false
         });
     }
 
-    // useCoupon = async(user) => {
-    //     var currTime = new Date(Date.now()).getTime();
-    //     var 
-    //     };
-    //     // update user
-    //     try {
-    //         await API.graphql({
-    //             query: mutations.updateUser
-    //         })
-    //     }
-    // }
+    useCoupon = async(user) => {
+        this.setState({useCouponLoading: true});
+        var currTime = new Date(Date.now()).getTime();
+        var currCoupon = user?.coupons?.[user?.coupons?.length - 1];
+        var newCoupon = {
+            ...currCoupon,
+            used: true,
+            timeUsed: currTime
+        };
+        var newCouponsList = user?.coupons;
+        console.log(user);
+        console.log(currCoupon);
+        console.log(newCoupon);
+        console.log(newCouponsList);
+        newCouponsList.splice(user?.coupons?.length, 1, newCoupon);
+        var updatedUser = {
+            ...user,
+            coupons: newCouponsList
+        };
+        // update user
+        try {
+            await API.graphql({
+                query: mutations.updateUser,
+                variables: {input: updatedUser}
+            });
+        }
+        catch (error) {
+            console.log(error);
+        }
+        this.setState({
+            couponUsed: true,
+        });
+    }
 
     getUserBookmarks = async(currUser) => {
         try {
@@ -415,7 +444,7 @@ class Account extends Component {
         const currentUser = await this.getCurrentUser();
         console.log(currentUser);
         if (currentUser) {
-            this.setUserState(currentUser?.attributes?.name);
+            this.setUserState(currentUser);
             await this.getUserBookmarks(currentUser);
             await this.getBusinesses();
             this.generateBookmarkTiles();
@@ -427,19 +456,21 @@ class Account extends Component {
     }
 
     componentDidUpdate(prevProps, prevState) {
-        const { filter, sort } = this.state;
+        const { filter, sort, couponUsed, currAuthUser } = this.state;
         var updateCondition = (
             prevState.filter !== filter
             || prevState.sort !== sort
+            || prevState.couponUsed !== couponUsed
         );
 
         if (updateCondition) {
             this.generateBookmarkTiles();
+            this.generateNewDiscount(currAuthUser);
         }
     }
 
     render() {
-        const { currentUser, bookmarksList, bookmarksLoading, filter, sort, discount, couponLoading } = this.state;
+        const { currentUser, bookmarksList, bookmarksLoading, filter, sort, discount, couponLoading, useCouponLoading } = this.state;
 
         return (
             <div className="account">
@@ -454,6 +485,7 @@ class Account extends Component {
                             <img src={QRCode} />
                         </div> */}
                     </div>
+                    <div className='coupon'>{useCouponLoading && <Loader type='TailSpin' color='#385FDC' height={40}/>}</div>
                 </div>
 
                 <div className="bookmark-wrapper">
