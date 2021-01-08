@@ -1407,8 +1407,8 @@ nav .dropdown:hover .dropdown-content {
 .business-photo {  
   white-space: nowrap;      
   object-fit: cover;
-  --width: 150px;
-  --height: 150px;
+  width: 150px;
+  height: 150px;
   margin: 0.5em 0.5em;
 }
 .business-row {

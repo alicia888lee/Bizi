@@ -69,6 +69,13 @@ class Account extends Component {
         });
     }
 
+    checkTimeSinceUse = (timeUsed) => {
+        var currTime = new Date(Date.now()).getTime();
+        var diff = (currTime - timeUsed) / 1000;
+        var weeksPassed = Math.ceil(diff / (60 * 60 * 24 * 7));
+        return weeksPassed > 1 ? true : false;
+    }
+
     generateNewDiscount = async(currUser) => {
         const { businesses } = this.state;
         console.log(businesses);
@@ -86,60 +93,68 @@ class Account extends Component {
         var promise = await credentialsPromise;
         var accessKey = promise?.data?.getCredentials?.accessKey;
         var secretKey = promise?.data?.getCredentials?.secretKey;
+        var timeValid = true;
         if (!user?.coupons || user?.coupons?.[user?.coupons?.length - 1]?.used) {
-            // filter businesses that have available coupons
-            var available = businesses.filter((item) => (
-                item.discounts?.filter((discount) => discount[1] > 0).length > 0
-            ));
-            console.log(available);
-            var discountBusinessIndex = Math.floor(Math.random() * available.length);
-            var discountBusiness = available[discountBusinessIndex];
-            var discountIndex = Math.floor(Math.random() * discountBusiness?.discounts?.length);
-            var discount = discountBusiness?.discounts?.[discountIndex];
-            // add coupon to user's coupons
-            var newCoupon = {
-                businessID: discountBusiness?.id,
-                discountIndex: discountIndex,
-                used: false
-            };
-            
-            if (!user?.coupons) {
-                var newCouponsList = [newCoupon];
+            // make sure enough time has passed since last coupon was used
+
+            if (user?.coupons?.[user?.coupons?.length - 1]?.used) {
+                timeValid = this.checkTimeSinceUse(user?.coupons?.[user?.coupons?.length - 1]?.timeUsed);
             }
-            else {
-                var currCoupons = user?.coupons.slice();
-                newCouponsList = currCoupons.push(newCoupon);
-            }
-            var updatedUser = {
-                ...user,
-                coupons: newCouponsList
-            };
-            try {
-                await API.graphql({
-                    query: mutations.updateUser,
-                    variables: {input: updatedUser}
-                });
-            }
-            catch (error) {
-                console.log(error);
-            }
-            // update quantity in business
-            var updatedDiscounts = discountBusiness?.discounts;
-            var newQt = updatedDiscounts?.[discountIndex]?.[1] - 1;
-            updatedDiscounts[discountIndex].splice(1, 1, newQt);
-            console.log(updatedDiscounts);
-            var updatedBusiness = {
-                ...discountBusiness,
-                discounts: updatedDiscounts
-            };
-            try {
-                await API.graphql({
-                    query: mutations.updateBusiness,
-                    variables: {input: updatedBusiness}
-                });
-            }
-            catch (error) {
-                console.log(error);
+            if (timeValid) {
+                // filter businesses that have available coupons
+                var available = businesses.filter((item) => (
+                    item.discounts?.filter((discount) => discount[1] > 0).length > 0
+                ));
+                console.log(available);
+                var discountBusinessIndex = Math.floor(Math.random() * available.length);
+                var discountBusiness = available[discountBusinessIndex];
+                var discountIndex = Math.floor(Math.random() * discountBusiness?.discounts?.length);
+                var discount = discountBusiness?.discounts?.[discountIndex];
+                // add coupon to user's coupons
+                var newCoupon = {
+                    businessID: discountBusiness?.id,
+                    discountIndex: discountIndex,
+                    used: false
+                };
+                
+                if (!user?.coupons) {
+                    var newCouponsList = [newCoupon];
+                }
+                else {
+                    var currCoupons = user?.coupons.slice();
+                    newCouponsList = currCoupons.push(newCoupon);
+                }
+                var updatedUser = {
+                    ...user,
+                    coupons: newCouponsList
+                };
+                try {
+                    await API.graphql({
+                        query: mutations.updateUser,
+                        variables: {input: updatedUser}
+                    });
+                }
+                catch (error) {
+                    console.log(error);
+                }
+                // update quantity in business
+                var updatedDiscounts = discountBusiness?.discounts;
+                var newQt = updatedDiscounts?.[discountIndex]?.[1] - 1;
+                updatedDiscounts[discountIndex].splice(1, 1, newQt);
+                console.log(updatedDiscounts);
+                var updatedBusiness = {
+                    ...discountBusiness,
+                    discounts: updatedDiscounts
+                };
+                try {
+                    await API.graphql({
+                        query: mutations.updateBusiness,
+                        variables: {input: updatedBusiness}
+                    });
+                }
+                catch (error) {
+                    console.log(error);
+                }
             }
         }
         else {
@@ -166,18 +181,33 @@ class Account extends Component {
         }
         console.log(user);
         console.log(discountIndex);
-        var discountDiv = (
+        console.log(timeValid);
+        var discountDiv = timeValid ? (
             <div className="discount-info">
                 {url ? <img src={url} style={{maxWidth: '200px', height: 'auto'}} /> : <h1>{discountBusiness?.businessName}</h1>}
                 <h2>{discount?.[0]}% off your next purchase at {discountBusiness?.businessName}!</h2>
                 <button id='useCoupon'>Click to use</button>
             </div>
-        );
+        ) :
+        <h2>There are no discounts currently available.</h2>;
+
         this.setState({
             discount: discountDiv,
             couponLoading: false
         });
     }
+
+    // useCoupon = async(user) => {
+    //     var currTime = new Date(Date.now()).getTime();
+    //     var 
+    //     };
+    //     // update user
+    //     try {
+    //         await API.graphql({
+    //             query: mutations.updateUser
+    //         })
+    //     }
+    // }
 
     getUserBookmarks = async(currUser) => {
         try {

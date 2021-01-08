@@ -56,10 +56,10 @@ class Nav extends Component {
         return (
             <nav className={!light && 'dark'}>
               <Link to='/'><img class="logo" src={light ? LightLogo : DarkLogo} alt="nav logo img"/></Link>
-              <ul>                                  
+              <ul>
+                <li><Link to="/search">Search</Link></li>
+                <li><Link to="/stories">Stories</Link></li>
                 <li><Link to="/contact">Contact</Link></li>
-                <li><Link to="/stories">Stories</Link></li>                
-                <li><Link to="/search">Search</Link></li>                
                   { userAuthenticated ?                  
                     <div className="dropdown">
                       <Link className="account-nav" to='/account'>My Account <RiArrowDropDownLine className="account-icon"/></Link>

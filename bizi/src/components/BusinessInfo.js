@@ -33,7 +33,7 @@ class BusinessInfo extends React.Component {
       const { business } = this.props;
       var col1 = [];
       var col2 = [];
-
+      console.log(business);
       if (business?.policyList.length > 0) {
         for (var i = 0; i < business?.policyList.length; i++) {
           i % 2 == 0 ? 
@@ -49,20 +49,21 @@ class BusinessInfo extends React.Component {
     }
 
     generateReviews = () => {
-        if(this.props.business.reviews){
-            const reviews = this.props?.business?.reviews;
-            const reviewList = reviews.map(review =>
-                <div className="review-item">                              
-                    {review.rating > 0 ? 
-                      <FiThumbsUp className="thumbs"/> : 
-                      <FiThumbsDown className="thumbs"/> }
-                    <div>
-                      <p className="name">{review.user}</p>
-                      <p>{review.text}</p>
-                    </div>                      
-                </div>
-            )        
-            this.setState({reviews: reviewList})                    
+      const { business } = this.props;
+        if(business?.reviews){
+          const reviews = this.props?.business?.reviews;
+          const reviewList = reviews.map(review =>
+              <div className="review-item">                              
+                  {review.rating > 0 ? 
+                    <FiThumbsUp className="thumbs"/> : 
+                    <FiThumbsDown className="thumbs"/> }
+                  <div>
+                    <p className="name">{review.user}</p>
+                    <p>{review.text}</p>
+                  </div>                      
+              </div>
+          )        
+          this.setState({reviews: reviewList})                    
         }
     }
 

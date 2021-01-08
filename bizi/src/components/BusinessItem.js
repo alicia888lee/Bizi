@@ -4,9 +4,10 @@ import AddReview from './AddReview'
 import BusinessInfo from './BusinessInfo'
 import { withRouter } from "react-router-dom";
 import { Component } from "react";
-import { API } from 'aws-amplify'
+import { API, Storage } from 'aws-amplify'
 import * as queries from '../graphql/queries';
 import {AmplifyS3Image} from "@aws-amplify/ui-react";
+import { credentialsPromise } from '../index';
 
 class BusinessItem extends Component {
     constructor(props) {
@@ -21,9 +22,30 @@ class BusinessItem extends Component {
     generateReviewImgs = async() => {      
       if(this.state?.business?.reviews){
         const reviews = this.state?.business?.reviews;
-        const reviewImgs = reviews.map((review) =>           
-            <AmplifyS3Image imgKey={review.imgPath} className="business-photo" /> );
-                                    
+        // const reviewImgs = reviews.map((review) =>           
+        //     <AmplifyS3Image imgKey={review.imgPath} className="business-photo" /> );
+        var promise = await credentialsPromise;
+        var accessKey = promise?.data?.getCredentials?.accessKey;
+        var secretKey = promise?.data?.getCredentials?.secretKey;
+        try {
+          var imgURLs = await Promise.all(reviews.map(async(review) => {
+            if (review?.imgPath ) {
+              return await Storage.get(review?.imgPath, 
+                { credentials: {
+                  accessKeyId: accessKey,
+                  secretAccessKey: secretKey
+                } },
+                { level: 'public' }
+              );
+            }
+            return null;
+        }))}
+        catch (error){
+          console.log(error);
+        }
+        const reviewImgs = imgURLs.filter((img) => img).map((img) => 
+          <img src={img} className='business-photo' />
+        )
         let rows = []
         let cols = []
         for (let i = 0; i < 8; i++) {
@@ -40,7 +62,6 @@ class BusinessItem extends Component {
     }    
     
     async componentDidMount() {
-      this.generateReviewImgs();
       const { business } = this.state;
       // console.log(location?.state?.business);
       // if url accessed directly, check database for business based on id
@@ -65,6 +86,7 @@ class BusinessItem extends Component {
           console.log(error);
         }
       }
+      this.generateReviewImgs();
     }    
 
     componentDidUpdate(prevProps) {

@@ -1058,7 +1058,6 @@ class CreateAccount extends Component {
 
     userRegistered = async(user) => {
         var email = user?.attributes?.email;
-
         try {
             var registered = await API.graphql({
                 query: queries.getUser,
@@ -1078,6 +1077,7 @@ class CreateAccount extends Component {
         this.setState({
             smRedirecting: false
         });
+        console.log(userRegistered);
         if (currentUser) {
             if (userRegistered) {
                 this.props.history.push('/account');

@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-import Amplify, { API } from 'aws-amplify';
+import Amplify, { API, Auth, Storage } from 'aws-amplify';
 import awsExports from "./aws-exports";
 import * as queries from './graphql/queries';
 
@@ -36,7 +36,10 @@ const updatedAwsExports = {
   }
 }
 
-Amplify.configure(updatedAwsExports);
+// Amplify.configure(updatedAwsExports);
+Auth.configure(updatedAwsExports);
+API.configure(updatedAwsExports);
+Storage.configure(updatedAwsExports);
 
 const getCredentials = async() => {
   try {
