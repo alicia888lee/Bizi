@@ -5,6 +5,7 @@ import { FiThumbsUp, FiThumbsDown } from "react-icons/fi";
 import { Auth, Storage, API } from 'aws-amplify'
 import * as mutations from '../graphql/mutations'
 import Loader from 'react-loader-spinner'
+import { credentialsPromise } from '../index';
 
 class AddReview extends React.Component {
     constructor(props) {
@@ -36,17 +37,21 @@ class AddReview extends React.Component {
 
         if(this.state.rating !== 0){
             try {
-                this.setState({loading: true})        
-                await Storage.put(file.name, file, {              
-                contentType: 'image/jpg'
-                });            
+                this.setState({loading: true})  
+                var promise = await credentialsPromise;
+                var accessKey = promise?.data?.getCredentials?.accessKey;
+                var secretKey = promise?.data?.getCredentials?.secretKey;      
                 
+                await Storage.put(file.name, file, { 
+                    contentType: 'image/jpg' });            
+                                                       
+
                 let currReviews = this.props.business.reviews ? this.props.business?.reviews : []            
                 let review = {                
                     user: this.state.user,
                     imgPath: file.name,
                     text: this.state.text,
-                    rating: this.state.rating
+                    rating: parseInt(this.state.rating)
                 }                                           
 
                 currReviews.push(review)
@@ -119,7 +124,7 @@ class AddReview extends React.Component {
                                     <input type="radio" id="thumbsUp" value="1" onChange={this.handleChange} name="rating"/>
                                     <label for="thumbsUp"><FiThumbsUp /></label>
 
-                                    <input type="radio" id="thumbsDown" value="-1" onChange={this.handleChange} name="rating" />
+                                    <input type="radio" id="thumbsDown" value="0" onChange={this.handleChange} name="rating" />
                                     <label for="thumbsDown"><FiThumbsDown /></label>
                                 </div>
                                 <textarea value={this.state.text} onChange={this.handleChange} name="text"
