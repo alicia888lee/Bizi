@@ -3,6 +3,7 @@ import { Link, withRouter } from "react-router-dom";
 import LightLogo from '../images/lightLogo.jpg';
 import DarkLogo from '../images/darkLogo.jpg';
 import { Auth } from 'aws-amplify'
+import {RiArrowDropDownLine} from 'react-icons/ri'
 
 class Nav extends Component {
     constructor(props) {
@@ -20,8 +21,7 @@ class Nav extends Component {
       }
       catch (e){
         console.log('error checking authentication', e);
-      }
-      
+      }      
     }
 
     updateUserState = (isAuth = false) => {
@@ -46,12 +46,6 @@ class Nav extends Component {
       this.props.history.push('/login');
     }
 
-    selectAccountOption = (e) => {
-      e.target.value == 'My Account' ?
-        this.props.history.push('/account') :
-        this.signOut();
-    }
-
     render() {
         const {
             light
@@ -61,23 +55,19 @@ class Nav extends Component {
 
         return (
             <nav className={!light && 'dark'}>
-              <Link to='/'><img class="logo" src={light ? LightLogo : DarkLogo} /></Link>
-              <ul>                  
-                <li id='myAccount'>
-                  {
-                    userAuthenticated ? 
-                    <select id='myAccountSelect' onChange={this.selectAccountOption}>
-                      <option disabled selected style={{display: 'none'}}>My Account</option>
-                      <option>My Account</option>
-                      <option>Sign Out</option>
-                    </select> :
-                    <Link to='/login'>Log In</Link>
-                  }
-                </li>
+              <Link to='/'><img class="logo" src={light ? LightLogo : DarkLogo} alt="nav logo img"/></Link>
+              <ul>                                  
                 <li><Link to="/contact">Contact</Link></li>
-                <li><Link to="/stories">Stories</Link></li>
-                {/* <li><Link to="/discover" activeClassName="active">Discover</Link></li> */}
-                <li><Link to="/search">Search</Link></li>
+                <li><Link to="/stories">Stories</Link></li>                
+                <li><Link to="/search">Search</Link></li>                
+                  { userAuthenticated ?                  
+                    <div className="dropdown">
+                      <Link className="account-nav" to='/account'>My Account <RiArrowDropDownLine className="account-icon"/></Link>
+                      <div className="dropdown-content">
+                        <a href="" onClick={this.signOut}>Sign out</a>
+                      </div>
+                    </div> :
+                    <li className="login-nav"><Link to='/login'>Log In</Link></li> }                
               </ul>
             </nav>          
       )
