@@ -1,7 +1,7 @@
 import React from "react"
 import { BsBookmarkPlus, BsDownload, BsBookmarkFill } from "react-icons/bs";
-import { BiBadgeCheck, BiCalendarPlus, BiPhone } from "react-icons/bi";
-import { AiOutlineQuestionCircle, AiOutlineEye } from "react-icons/ai";
+import { BiCalendarPlus, BiPhone } from "react-icons/bi";
+import { AiOutlineEye } from "react-icons/ai";
 import { FiThumbsUp, FiThumbsDown } from "react-icons/fi";
 import { GiHealthNormal } from "react-icons/gi";
 import { RiArrowGoBackFill } from "react-icons/ri";
@@ -17,6 +17,7 @@ class BusinessInfo extends React.Component {
       this.state = {
         policyList: [],
         reviews: [],
+        totalLikes: 0,
         bookmarked: false,
         currUser: null,
         currUserAPI: null        
@@ -63,7 +64,9 @@ class BusinessInfo extends React.Component {
                   </div>                      
               </div>
           )        
-          this.setState({reviews: reviewList})                    
+          this.setState({reviews: reviewList})               
+          let total = business?.reviews.reduce((total, item) => total + item.rating, 0)      
+          this.setState({totalLikes: total})
         }
     }
 
@@ -165,19 +168,19 @@ class BusinessInfo extends React.Component {
     }
 
     render() {
-      const { business } = this.props;
-      const { policyList, reviews, currUser, bookmarked } = this.state;      
+      const { business } = this.props;                  
+      const { policyList, reviews, currUser, bookmarked, totalLikes } = this.state;      
       return (
           <div className="description-text">
               <div className="textbox">
                   <div className="business-header">
                       <Link to="/search"><RiArrowGoBackFill className="back-icon" /></Link>
-                      <h2>{business?.businessName}</h2>       
-                      <div className="a-box">                        
-                          <BiBadgeCheck/>
-                          <h4>A</h4> 
-                      </div>
-                      <AiOutlineQuestionCircle className="question"/>                                                                                                                                                                         
+                      <h2>{business?.businessName}</h2>    
+                      {totalLikes > 0 &&    
+                        <div className="business-likes">                                                  
+                            <FiThumbsUp/>                          
+                            <h4>{totalLikes}</h4> 
+                        </div>}         
                   </div>
                   <h3 className="business-header-icons">
                       {currUser && !bookmarked && <BsBookmarkPlus className="icon" onClick={this.setBookmark}/>}
@@ -185,7 +188,7 @@ class BusinessInfo extends React.Component {
                       <BsDownload className="icon "/>            
                   </h3>
               </div>
-            {/* description */}
+            
             <p className="textbox">{business?.businessDescription}</p>                        
 
             {policyList.length > 0 &&           

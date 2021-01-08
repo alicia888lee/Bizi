@@ -1368,8 +1368,8 @@ nav .dropdown:hover .dropdown-content {
   color: #385FDC;
   font-size: 2.5em;
 }
-.a-box {
-  background-color: #83cb7b;
+.business-likes {
+  background-color: #385FDC;
   color: white;  
   display: flex;
   width: 100px;
@@ -1380,8 +1380,8 @@ nav .dropdown:hover .dropdown-content {
   height: 45px;
   margin-left: 0.75em;
 }
-.a-box h4 {
-  margin-left: 0.15em;
+.business-likes h4 {  
+  margin-left: 0.25em;
 }
 .business-header h2, .question {
   margin-left: 0.5em;
@@ -1414,10 +1414,18 @@ nav .dropdown:hover .dropdown-content {
 .business-row {
   display: flex;  
 }
+.add-review-header, .add-review-subtext {
+  font-size: 1.3em;
+}
 .add-review-header {
   display: flex;
   align-items: center;
   margin-top: 0;
+}
+.add-review-subtext {
+  color: #263EE7;
+  font-weight: normal;
+  text-align: left;
 }
 .review-icon {
   margin-right: 0.4em;
@@ -1453,13 +1461,15 @@ nav .dropdown:hover .dropdown-content {
 .reviewText {
   background-color: #dee6f9;
   color: #385FDC;  
-  padding: 2em 3em;
+  padding: 1em 2em;
+  margin-top: 1em;
 }
 .reviewText::placeholder {
-  color: #385FDC;
+  color: #acbae7;
 }
 .review-upload h3 {
   margin: 0;
+  color: #acbae7;
 }
 .review-add-icon, .register-photo-add-icon {
   font-size: 5em;
@@ -1467,6 +1477,32 @@ nav .dropdown:hover .dropdown-content {
 .review-description {
   flex: 2;
 }
+.review-likes input[type="radio"] {
+  opacity: 0;
+  position: fixed;
+  width: 0;  
+}
+.review-likes input[type="radio"]:checked + label {
+  background-color: #385FDC;
+  color: white;  
+}
+
+.review-likes {
+  display: flex;
+  align-items: start;
+}
+.review-likes label{
+  background-color: #dee6f9;
+  color: #263EE7;
+  font-size: 1.5em;
+  padding: 0.5em;
+  border-radius: 50%;        
+  margin-right: 0.5em;
+  display: flex;
+  align-items: center;
+
+}
+
 .reviewBtn {
   margin: 2em 0;
   width: 15%;
@@ -1494,4 +1530,8 @@ input[type="file"] {
   display: flex;
   align-items: center;
   justify-content: center;  
+}
+.error {
+  background-color: #DD4856;
+  color: white;
 }
