@@ -12,7 +12,7 @@ import * as mutations from '../graphql/mutations';
 import { credentialsPromise } from '../index';
 import Loader from 'react-loader-spinner';
 
-class CustomerAccount extends Component {
+class AccountCustomer extends Component {
     constructor(props) {
         super(props)
 
@@ -480,4 +480,4 @@ class CustomerAccount extends Component {
     }
 }
 
-export default withRouter(CustomerAccount);
+export default withRouter(AccountCustomer);

@@ -4,7 +4,7 @@ import Footer from './Footer'
 import { API, Auth, Storage } from 'aws-amplify'
 import { withRouter } from 'react-router-dom'
 import * as queries from '../graphql/queries';
-import CustomerAccount from './CustomerAccount';
+import AccountCustomer from './AccountCustomer';
 
 class Account extends Component {
     constructor(props) {
@@ -56,7 +56,7 @@ class Account extends Component {
         return (
             <div className="account">
                 <Nav />
-                {currentUser?.data?.getUser?.userType == 'Customer' && <CustomerAccount user={currentUser} authUser={currAuthUser} /> }
+                {currentUser?.data?.getUser?.userType == 'Customer' && <AccountCustomer user={currentUser} authUser={currAuthUser} /> }
 
                 <Footer />
             </div>
