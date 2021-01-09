@@ -32,6 +32,37 @@ class Step3 extends Component {
             'Saturday',
             'Sunday'
         ];
+        var times = [
+            '12:00', 
+            '12:30', 
+            '1:00',
+            '1:30', 
+            '2:00', 
+            '2:30', 
+            '3:00', 
+            '3:30', 
+            '4:00', 
+            '4:30', 
+            '5:00', 
+            '5:30', 
+            '6:00', 
+            '6:30', 
+            '7:00', 
+            '7:30', 
+            '8:00', 
+            '8:30', 
+            '9:00', 
+            '9:30', 
+            '10:00', 
+            '10:30', 
+            '11:00', 
+            '11:30']
+        var am_pm = ['AM', 'PM'];
+        var options = am_pm.map(per => (
+            times.map(time => (
+                <option>{time + ' ' + per}</option>
+            ))
+        ));
 
         var schedule = days.map((day) => 
             <div className='dayHours'>
@@ -39,107 +70,13 @@ class Step3 extends Component {
                 <div className='search-selects'>
                     <select onChange={(e) => setSchedule(day, e.target.value, null)} disabled={disabled[day]}>
                         <option selected disabled style={{display: 'none'}}>Open</option>
-                        <option>12:00 AM</option>
-                        <option>12:30 AM</option>
-                        <option>1:00 AM</option>
-                        <option>1:30 AM</option>
-                        <option>2:00 AM</option>
-                        <option>2:30 AM</option>
-                        <option>3:00 AM</option>
-                        <option>3:30 AM</option>
-                        <option>4:00 AM</option>
-                        <option>4:30 AM</option>
-                        <option>5:00 AM</option>
-                        <option>5:30 AM</option>
-                        <option>6:00 AM</option>
-                        <option>6:30 AM</option>
-                        <option>7:00 AM</option>
-                        <option>7:30 AM</option>
-                        <option>8:00 AM</option>
-                        <option>8:30 AM</option>
-                        <option>9:00 AM</option>
-                        <option>9:30 AM</option>
-                        <option>10:00 AM</option>
-                        <option>10:30 AM</option>
-                        <option>11:00 AM</option>
-                        <option>11:30 AM</option>
-                        <option>12:00 PM</option>
-                        <option>12:30 PM</option>
-                        <option>1:00 PM</option>
-                        <option>1:30 PM</option>
-                        <option>2:00 PM</option>
-                        <option>2:30 PM</option>
-                        <option>3:00 PM</option>
-                        <option>3:30 PM</option>
-                        <option>4:00 PM</option>
-                        <option>4:30 PM</option>
-                        <option>5:00 PM</option>
-                        <option>5:30 PM</option>
-                        <option>6:00 PM</option>
-                        <option>6:30 PM</option>
-                        <option>7:00 PM</option>
-                        <option>7:30 PM</option>
-                        <option>8:00 PM</option>
-                        <option>8:30 PM</option>
-                        <option>9:00 PM</option>
-                        <option>9:30 PM</option>
-                        <option>10:00 PM</option>
-                        <option>10:30 PM</option>
-                        <option>11:00 PM</option>
-                        <option>11:30 PM</option>
+                        {options}
                     </select>
                 </div>
                 <div className='search-selects'>
                     <select onChange={(e) => setSchedule(day, null, e.target.value)} disabled={disabled[day]}>
                         <option selected disabled style={{display: 'none'}}>Close</option>
-                        <option>12:00 AM</option>
-                        <option>12:30 AM</option>
-                        <option>1:00 AM</option>
-                        <option>1:30 AM</option>
-                        <option>2:00 AM</option>
-                        <option>2:30 AM</option>
-                        <option>3:00 AM</option>
-                        <option>3:30 AM</option>
-                        <option>4:00 AM</option>
-                        <option>4:30 AM</option>
-                        <option>5:00 AM</option>
-                        <option>5:30 AM</option>
-                        <option>6:00 AM</option>
-                        <option>6:30 AM</option>
-                        <option>7:00 AM</option>
-                        <option>7:30 AM</option>
-                        <option>8:00 AM</option>
-                        <option>8:30 AM</option>
-                        <option>9:00 AM</option>
-                        <option>9:30 AM</option>
-                        <option>10:00 AM</option>
-                        <option>10:30 AM</option>
-                        <option>11:00 AM</option>
-                        <option>11:30 AM</option>
-                        <option>12:00 PM</option>
-                        <option>12:30 PM</option>
-                        <option>1:00 PM</option>
-                        <option>1:30 PM</option>
-                        <option>2:00 PM</option>
-                        <option>2:30 PM</option>
-                        <option>3:00 PM</option>
-                        <option>3:30 PM</option>
-                        <option>4:00 PM</option>
-                        <option>4:30 PM</option>
-                        <option>5:00 PM</option>
-                        <option>5:30 PM</option>
-                        <option>6:00 PM</option>
-                        <option>6:30 PM</option>
-                        <option>7:00 PM</option>
-                        <option>7:30 PM</option>
-                        <option>8:00 PM</option>
-                        <option>8:30 PM</option>
-                        <option>9:00 PM</option>
-                        <option>9:30 PM</option>
-                        <option>10:00 PM</option>
-                        <option>10:30 PM</option>
-                        <option>11:00 PM</option>
-                        <option>11:30 PM</option>
+                        {options}
                     </select>
                 </div>
                 <div className='checkboxGroup'>
