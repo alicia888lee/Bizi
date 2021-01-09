@@ -6,8 +6,6 @@ import { withRouter } from "react-router-dom";
 import { Component } from "react";
 import { API, Storage } from 'aws-amplify'
 import * as queries from '../graphql/queries';
-import {AmplifyS3Image} from "@aws-amplify/ui-react";
-import { credentialsPromise } from '../index';
 
 class BusinessItem extends Component {
     constructor(props) {
@@ -24,17 +22,10 @@ class BusinessItem extends Component {
         const reviews = this.state?.business?.reviews;
         // const reviewImgs = reviews.map((review) =>           
         //     <AmplifyS3Image imgKey={review.imgPath} className="business-photo" /> );
-        var promise = await credentialsPromise;
-        var accessKey = promise?.data?.getCredentials?.accessKey;
-        var secretKey = promise?.data?.getCredentials?.secretKey;
         try {
           var imgURLs = await Promise.all(reviews.map(async(review) => {
             if (review?.imgPath ) {
-              return await Storage.get(review?.imgPath, 
-                { credentials: {
-                  accessKeyId: accessKey,
-                  secretAccessKey: secretKey
-                } },
+              return await Storage.get(review?.imgPath,
                 { level: 'public' }
               );
             }

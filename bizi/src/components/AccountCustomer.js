@@ -9,8 +9,27 @@ import { API, Auth, Storage } from 'aws-amplify'
 import { withRouter } from 'react-router-dom'
 import * as queries from '../graphql/queries';
 import * as mutations from '../graphql/mutations';
-import { credentialsPromise } from '../index';
 import Loader from 'react-loader-spinner';
+import { AiOutlineQuestionCircle } from 'react-icons/ai';
+import { createPortal } from 'react-dom';
+import UseModal from './UseModal';
+
+const Modal = ({ isVisible, hideModal }) => {
+    return isVisible
+        ? createPortal(
+            <div>
+                <div>
+                    <h5>Modal</h5>
+                    <span>Why this modal popped up</span>
+                </div>
+                <button onClick={hideModal}>
+                    Close
+                </button>
+            </div>,
+            document.body,
+        )
+        : null;
+};
 
 class AccountCustomer extends Component {
     constructor(props) {
@@ -62,9 +81,6 @@ class AccountCustomer extends Component {
         console.log(businesses);
         
         var user = currUser?.data?.getUser;
-        var promise = await credentialsPromise;
-        var accessKey = promise?.data?.getCredentials?.accessKey;
-        var secretKey = promise?.data?.getCredentials?.secretKey;
         var timeValid = true;
         if (!user?.coupons || user?.coupons?.[user?.coupons?.length - 1]?.used) {
             // make sure enough time has passed since last coupon was used
@@ -140,10 +156,10 @@ class AccountCustomer extends Component {
         try {
             if (discountBusiness?.imgPath) {
                 url = await Storage.get(discountBusiness?.imgPath,
-                    { credentials: {
-                        accessKeyId: accessKey,
-                        secretAccessKey: secretKey
-                    } },
+                    // { credentials: {
+                    //     accessKeyId: accessKey,
+                    //     secretAccessKey: secretKey
+                    // } },
                     { level: 'public' }
                 );
             }
@@ -433,13 +449,14 @@ class AccountCustomer extends Component {
 
     render() {
         const { userName, bookmarksList, bookmarksLoading, filter, sort, discount, couponLoading, useCouponLoading } = this.state;
-
+        // const { isVisible, toggleModal } = UseModal();
         return (
             <div className="account">
                 <h1 className="accountHeader">Hey {userName}! Welcome Back!</h1>
                 
                 <div className="discounts-wrapper">                            
-                    <h3><RiScissorsCutLine className="accountIcon"/>Your new discount</h3>
+                    {/* <h3><RiScissorsCutLine className="accountIcon"/>Your new discount<AiOutlineQuestionCircle onClick={toggleModal}/></h3> */}
+                    {/* <Modal isVisible={isVisible} hideModal={toggleModal} /> */}
                     <div className="discounts">
                         <div className='coupon'>{couponLoading ? <Loader type='TailSpin' color='#385FDC' height={40} /> : discount}</div>
                         {/* <div className="QR">
