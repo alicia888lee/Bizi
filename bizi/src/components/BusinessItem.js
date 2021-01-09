@@ -15,6 +15,7 @@ class BusinessItem extends Component {
         business: this.props.location?.state?.business,
         reviewImgs: []
       }
+      this.handler = this.handler.bind(this)
     }
 
     generateReviewImgs = async() => {      
@@ -86,7 +87,13 @@ class BusinessItem extends Component {
         this.setState({
           business: location?.state?.business
         });
-      }
+      }      
+    }
+
+    handler(val){
+      this.setState({
+        business: val
+      })
     }
 
     render() {
@@ -103,7 +110,7 @@ class BusinessItem extends Component {
                   </div>
                   <BusinessInfo business={business}/>        
               </div>            
-              <AddReview business={business}/>   
+              <AddReview business={business} handler={this.handler} />   
           </>
       )
   }

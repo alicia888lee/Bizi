@@ -64,6 +64,7 @@ class AddReview extends React.Component {
 
                 this.setState({loading: false,
                                 success: true})            
+                this.props.handler(updatedBusiness)
             } catch (err) {
                 console.log(err)
                 // this.setState({error: err})            
