@@ -74,7 +74,8 @@ export const createBusiness = `mutation CreateBusiness($input: CreateBusinessInp
     imgPath
     discounts
     reviews {
-      user
+      userEmail
+      userName
       imgPath
       rating
       text
@@ -103,7 +104,8 @@ export const updateBusiness = `mutation UpdateBusiness($input: UpdateBusinessInp
     imgPath
     discounts
     reviews {
-      user
+      userEmail
+      userName
       imgPath
       rating
       text
@@ -132,7 +134,8 @@ export const deleteBusiness = `mutation DeleteBusiness($input: DeleteBusinessInp
     imgPath
     discounts
     reviews {
-      user
+      userEmail
+      userName
       imgPath
       rating
       text

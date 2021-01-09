@@ -66,7 +66,8 @@ export const onCreateBusiness = `subscription OnCreateBusiness {
     imgPath
     discounts
     reviews {
-      user
+      userEmail
+      userName
       imgPath
       rating
       text
@@ -95,7 +96,8 @@ export const onUpdateBusiness = `subscription OnUpdateBusiness {
     imgPath
     discounts
     reviews {
-      user
+      userEmail
+      userName
       imgPath
       rating
       text
@@ -124,7 +126,8 @@ export const onDeleteBusiness = `subscription OnDeleteBusiness {
     imgPath
     discounts
     reviews {
-      user
+      userEmail
+      userName
       imgPath
       rating
       text

@@ -59,7 +59,7 @@ class BusinessInfo extends React.Component {
                     <FiThumbsUp className="thumbs"/> : 
                     <FiThumbsDown className="thumbs"/> }
                   <div>
-                    <p className="name">{review.user}</p>
+                    <p className="name">{review.userName}</p>
                     <p>{review.text}</p>
                   </div>                      
               </div>
@@ -153,6 +153,7 @@ class BusinessInfo extends React.Component {
     async componentDidMount() {
       const verifyAuth = await this.checkAuth();
       verifyAuth && this.updateAuth(verifyAuth);
+      console.log('INFO REMOUNTING');
       this.generatePolicyList();
       this.checkBookmarkStatus();
       this.generateReviews();
@@ -166,6 +167,7 @@ class BusinessInfo extends React.Component {
         this.checkBookmarkStatus();
         this.generateReviews();
       }
+      console.log(this.state.reviews);
       console.log(policyList);
     }
 

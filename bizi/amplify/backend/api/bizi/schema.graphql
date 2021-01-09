@@ -36,7 +36,8 @@ type Business @model {
 }
 
 type Review {
-  user: String!
+  userEmail: String!
+  userName: String!
   imgPath: String
   rating: Int!
   text: String

@@ -42,8 +42,9 @@ class AddReview extends React.Component {
                     contentType: 'image/jpg' });                                                                   
 
                 let currReviews = this.props.business.reviews ? this.props.business?.reviews : []            
-                let review = {                
-                    user: this.state.user,
+                let review = {
+                    userEmail: this.state.user?.email,
+                    userName: this.state.user?.name,
                     imgPath: file.name,
                     text: this.state.text,
                     rating: parseInt(this.state.rating)
@@ -78,7 +79,7 @@ class AddReview extends React.Component {
     checkAuth = async() => {
         try {
             const currentUser = await Auth.currentAuthenticatedUser();            
-            this.setState({user: currentUser?.attributes?.name})
+            this.setState({user: currentUser?.attributes})
             return currentUser;
         }
         catch (e){            

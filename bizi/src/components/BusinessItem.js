@@ -20,7 +20,9 @@ class BusinessItem extends Component {
       this.handler = this.handler.bind(this)
     }
 
-    generateReviewImgs = async() => {      
+    generateReviewImgs = async() => {
+      var rows = [];
+      var cols = [];
       if(this.state?.business?.reviews){
         console.log(this.state.business);
         const reviews = this.state?.business?.reviews;
@@ -43,8 +45,6 @@ class BusinessItem extends Component {
           <img src={img} className='business-photo' />
         )
         console.log(reviewImgs);
-        let rows = []
-        let cols = []
         if (reviewImgs.length > 0) {
           for (let i = 0; i < 8; i++) {
             cols.push(reviewImgs[i]);
@@ -56,8 +56,8 @@ class BusinessItem extends Component {
             }
           }
         }
-        this.setState({reviewImgs: rows})        
       }
+      this.setState({reviewImgs: rows})
     }
 
     getUpdatedBusinessInformation = async(id) => {
@@ -116,6 +116,8 @@ class BusinessItem extends Component {
         this.getUpdatedBusinessInformation(location?.state?.business?.id);
       }
       if (prevState.business !== this.state.business) {
+        console.log(prevState.business);
+        console.log(this.state.business);
         this.generateReviewImgs();
       }
     }

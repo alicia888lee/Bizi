@@ -66,7 +66,8 @@ export const getBusiness = `query GetBusiness($id: ID!) {
     imgPath
     discounts
     reviews {
-      user
+      userEmail
+      userName
       imgPath
       rating
       text
@@ -100,7 +101,8 @@ export const listBusinesss = `query ListBusinesss(
       imgPath
       discounts
       reviews {
-        user
+        userEmail
+        userName
         imgPath
         rating
         text
