@@ -17,10 +17,15 @@ import UseModal from './UseModal';
 const Modal = ({ isVisible, hideModal }) => {
     return isVisible
         ? createPortal(
-            <div>
+            <div className='couponModal'>
                 <div>
-                    <h5>Modal</h5>
-                    <span>Why this modal popped up</span>
+                    <h2>About Coupons</h2>
+                    <span>
+                        A random coupon is generated and can be used
+                        at the establishment listed on it. After you
+                        click to use the coupon, you need to wait one week
+                        before another coupon is generated.
+                    </span>
                 </div>
                 <button onClick={hideModal}>
                     Close
@@ -30,6 +35,25 @@ const Modal = ({ isVisible, hideModal }) => {
         )
         : null;
 };
+
+function ModalComponent(props) {
+    const { handler, isOpen } = props;
+    const { isVisible, toggleModal } = UseModal();
+    console.log('in modal function component');
+    if (isVisible !== isOpen) {
+        handler(isVisible);
+    }
+    return (
+        <>
+            <div>
+                <AiOutlineQuestionCircle onClick={toggleModal} style={{cursor: 'pointer'}}/>
+            </div>
+            <div className='couponModalContainer'>
+                <Modal isVisible={isVisible} hideModal={toggleModal} />
+            </div>
+        </>
+    )
+}
 
 class AccountCustomer extends Component {
     constructor(props) {
@@ -48,7 +72,8 @@ class AccountCustomer extends Component {
             discount: null,
             couponLoading: false,
             couponUsed: false,
-            useCouponLoading: false
+            useCouponLoading: false,
+            couponModalOpen: false
         }
     }
 
@@ -409,6 +434,12 @@ class AccountCustomer extends Component {
         })
     }
 
+    handler = (isOpen) => {
+        this.setState({
+            couponModalOpen: isOpen
+        });
+    }
+
     async componentDidMount() {
         const { user, authUser } = this.props;
         this.setState({
@@ -448,15 +479,14 @@ class AccountCustomer extends Component {
     }
 
     render() {
-        const { userName, bookmarksList, bookmarksLoading, filter, sort, discount, couponLoading, useCouponLoading } = this.state;
-        // const { isVisible, toggleModal } = UseModal();
+        const { userName, bookmarksList, bookmarksLoading, filter, sort, discount, couponLoading, useCouponLoading, couponModalOpen } = this.state;
+        console.log(couponModalOpen);
         return (
-            <div className="account">
+            <div className="account" id={couponModalOpen && 'couponModalOpen'}>
                 <h1 className="accountHeader">Hey {userName}! Welcome Back!</h1>
                 
                 <div className="discounts-wrapper">                            
-                    {/* <h3><RiScissorsCutLine className="accountIcon"/>Your new discount<AiOutlineQuestionCircle onClick={toggleModal}/></h3> */}
-                    {/* <Modal isVisible={isVisible} hideModal={toggleModal} /> */}
+                    <h3><RiScissorsCutLine className="accountIcon"/>Your new discount<ModalComponent handler={this.handler} isOpen={couponModalOpen}/></h3>
                     <div className="discounts">
                         <div className='coupon'>{couponLoading ? <Loader type='TailSpin' color='#385FDC' height={40} /> : discount}</div>
                         {/* <div className="QR">

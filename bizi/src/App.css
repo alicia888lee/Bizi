@@ -1155,6 +1155,10 @@ nav .dropdown:hover .dropdown-content {
   transform: translateY(-50%);
 }
 
+#couponModalOpen {
+  opacity: 10%;
+}
+
 .account h3 {
   color: #385FDC;
   text-align: left;  
@@ -1534,4 +1538,38 @@ input[type="file"] {
 .error {
   background-color: #DD4856;
   color: white;
+}
+
+.couponModal {
+  position: absolute;
+  text-align: center;
+  color: white;
+  background-color: #385FDC;
+  border-radius: 1em;
+  left:0;
+  right:0;
+  margin-left: auto;
+  margin-right: auto;
+  height: 35%;
+  top: 40%;
+  width: 40%;
+  margin-top: -25px;
+}
+
+.couponModal span {
+  position: relative;
+  top: 50%;
+}
+
+.couponModal button {
+  position: relative;
+  top: 10%;
+  width: 180px;
+  height: 40px;
+  background-color: white;
+  color: #385FDC;
+  outline: none;
+  border-radius: 10px;
+  font-weight: 600;
+  cursor: pointer;
 }
