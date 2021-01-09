@@ -5,7 +5,6 @@ import { FiThumbsUp, FiThumbsDown } from "react-icons/fi";
 import { Auth, Storage, API } from 'aws-amplify'
 import * as mutations from '../graphql/mutations'
 import Loader from 'react-loader-spinner'
-import { credentialsPromise } from '../index';
 
 class AddReview extends React.Component {
     constructor(props) {
@@ -38,13 +37,9 @@ class AddReview extends React.Component {
         if(this.state.rating !== 0){
             try {
                 this.setState({loading: true})  
-                var promise = await credentialsPromise;
-                var accessKey = promise?.data?.getCredentials?.accessKey;
-                var secretKey = promise?.data?.getCredentials?.secretKey;      
                 
                 await Storage.put(file.name, file, { 
-                    contentType: 'image/jpg' });            
-                                                       
+                    contentType: 'image/jpg' });                                                                   
 
                 let currReviews = this.props.business.reviews ? this.props.business?.reviews : []            
                 let review = {                
