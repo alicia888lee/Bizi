@@ -43,10 +43,10 @@ class BusinessInfo extends React.Component {
         }
 
         var policies = [<ul>{col1}</ul>, <ul>{col2}</ul>];
-        this.setState({
-          policyList: policies
-        });
       }
+      this.setState({
+        policyList: policies
+      });
     }
 
     generateReviews = () => {
@@ -160,16 +160,19 @@ class BusinessInfo extends React.Component {
 
     componentDidUpdate(prevProps) {
       const { business } = this.props;
+      const { policyList } = this.state;
       if (prevProps?.business !== business) {
         this.generatePolicyList();
         this.checkBookmarkStatus();
         this.generateReviews();
       }
+      console.log(policyList);
     }
 
     render() {
       const { business } = this.props;                  
       const { policyList, reviews, currUser, bookmarked, totalLikes } = this.state;      
+      console.log(policyList);
       return (
           <div className="description-text">
               <div className="textbox">
@@ -191,7 +194,7 @@ class BusinessInfo extends React.Component {
             
             <p className="textbox">{business?.businessDescription}</p>                        
 
-            {policyList.length > 0 &&           
+            {policyList &&           
             <div className="icon-text">
               <GiHealthNormal className="action"/>
               {policyList}  

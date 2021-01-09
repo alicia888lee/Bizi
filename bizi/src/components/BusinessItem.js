@@ -6,6 +6,7 @@ import { withRouter } from "react-router-dom";
 import { Component } from "react";
 import { API, Storage } from 'aws-amplify'
 import * as queries from '../graphql/queries';
+import Loader from 'react-loader-spinner';
 
 class BusinessItem extends Component {
     constructor(props) {
@@ -13,13 +14,15 @@ class BusinessItem extends Component {
 
       this.state = {
         business: this.props.location?.state?.business,
-        reviewImgs: []
+        reviewImgs: [],
+        infoLoading: false
       }
       this.handler = this.handler.bind(this)
     }
 
     generateReviewImgs = async() => {      
       if(this.state?.business?.reviews){
+        console.log(this.state.business);
         const reviews = this.state?.business?.reviews;
         // const reviewImgs = reviews.map((review) =>           
         //     <AmplifyS3Image imgKey={review.imgPath} className="business-photo" /> );
@@ -35,23 +38,46 @@ class BusinessItem extends Component {
         catch (error){
           console.log(error);
         }
+        console.log(imgURLs);
         const reviewImgs = imgURLs.filter((img) => img).map((img) => 
           <img src={img} className='business-photo' />
         )
+        console.log(reviewImgs);
         let rows = []
         let cols = []
-        for (let i = 0; i < 8; i++) {
-          cols.push(reviewImgs[i]);
-          if((i + 1) % 4 === 0){
-            rows.push(<div className="business-row">
-              {cols}
-            </div>)
-            cols = []
+        if (reviewImgs.length > 0) {
+          for (let i = 0; i < 8; i++) {
+            cols.push(reviewImgs[i]);
+            if((i + 1) % 4 === 0){
+              rows.push(<div className="business-row">
+                {cols}
+              </div>)
+              cols = []
+            }
           }
         }
         this.setState({reviewImgs: rows})        
       }
-    }    
+    }
+
+    getUpdatedBusinessInformation = async(id) => {
+      this.setState({
+        infoLoading: true
+      });
+      try {
+        var business = await API.graphql({
+          query: queries.getBusiness,
+          variables: {id: id}
+        });
+      }
+      catch (error) {
+        console.log(error);
+      }
+      this.setState({
+        business: business?.data?.getBusiness,
+        infoLoading: false
+      });
+    }
     
     async componentDidMount() {
       const { business } = this.state;
@@ -78,16 +104,20 @@ class BusinessItem extends Component {
           console.log(error);
         }
       }
+      else {
+        this.getUpdatedBusinessInformation(business.id);
+      }
       this.generateReviewImgs();
     }    
 
-    componentDidUpdate(prevProps) {
+    componentDidUpdate(prevProps, prevState) {
       const { location } = this.props;
       if (prevProps?.location?.state?.business !== location?.state?.business) {
-        this.setState({
-          business: location?.state?.business
-        });
-      }      
+        this.getUpdatedBusinessInformation(location?.state?.business?.id);
+      }
+      if (prevState.business !== this.state.business) {
+        this.generateReviewImgs();
+      }
     }
 
     handler(val){
@@ -97,10 +127,13 @@ class BusinessItem extends Component {
     }
 
     render() {
-      const { business, reviewImgs } = this.state;
+      const { business, reviewImgs, infoLoading } = this.state;
       console.log('rendering business item', business);
+      console.log(reviewImgs);
       return (
-          <>            
+        <>
+        {infoLoading ? <Loader type="TailSpin" color="#385FDC" height={40} /> :
+          <>
               <div className="description">
                   <div className="map">
                     <Map height={50} filteredBusinesses={[business]}/>
@@ -112,6 +145,8 @@ class BusinessItem extends Component {
               </div>            
               <AddReview business={business} handler={this.handler} />   
           </>
+          }
+        </>
       )
   }
 }

@@ -97,6 +97,16 @@ class AddReview extends React.Component {
         verifyAuth && this.updateUserState(true);        
     }
 
+    componentDidUpdate(prevProps) {
+        const { business } = this.props;
+        if (prevProps.business?.id !== business?.id) {
+            this.setState({
+                success: false,
+                file: ''
+            });
+        }
+    }
+
     render(){
         const { userAuthenticated, file, loading, success, error } = this.state;        
 
@@ -108,7 +118,7 @@ class AddReview extends React.Component {
                 <>
                     <form className="add-review-wrapper" onSubmit={this.handleSubmit}>            
                         <h2 className="add-review-header"><IoMdText className="review-icon"/> Leave a Review</h2>
-                        <h2 className="add-review-subtext">Would you reccomend {this.props.business.businessName} to a friend?</h2>
+                        <h2 className="add-review-subtext">Would you recommend {this.props.business.businessName} to a friend?</h2>
                         <div className="review-wrapper">
                             <label for="reviewUpload" className="review-upload">
                                 <h3>Upload Photo</h3>                            
