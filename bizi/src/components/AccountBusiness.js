@@ -6,72 +6,80 @@ import { BiCalendarPlus, BiPhone } from "react-icons/bi";
 import { AiFillCamera } from "react-icons/ai";
 import { FiThumbsUp  } from "react-icons/fi";
 import { RiFlag2Line  } from "react-icons/ri";
+import * as queries from '../graphql/queries'
+import { API } from 'aws-amplify'
 
 class AccountBusiness extends React.Component {
     constructor(props){
         super(props)
         this.state = {
-            userName: ""
+            loading: false,
+            business: null,            
         }
     }
 
-    componentDidMount() {
-        // const { user, authUser } = this.props;        
-        // console.log('ya yeet')
-        // console.log(this.props)
-        // if (authUser) {
-            
-        //     var name = authUser?.attributes?.name;
-        //     const firstName = name.split(' ')[0];
-        //     console.log(firstName)
-        //     this.setState({
-        //         userName: firstName
-        //     });          
-        // } else {
-        // //   this.props.history.push('/login');
-        // }
+    getBusinessData = async() => {
+        this.setState({
+          loading: true
+        });
+        try {
+            var businessQuery = await API.graphql({
+                query: queries.listBusinesss
+            });
+            var listBusinesses = businessQuery?.data?.listBusinesss?.items?.filter(item => item.approved);                
+            let business = listBusinesses.filter(item => item.userEmail === this.props.authUser.attributes.email)[0];                                    
+            this.setState({
+                business: business,     
+                loading: false           
+            });
+        }
+        catch (error) {
+            console.log(error);
+        }
+      }
+
+    async componentDidMount() {
+        this.getBusinessData();        
     }
 
     render(){
-        const { user, authUser } = this.props; 
-        console.log(user)
-        let firstName = ""
-        if (authUser) {    
-            var name = authUser?.attributes?.name;
-            firstName = name.split(' ')[0];            
-        }
+        const { user, authUser } = this.props;       
+        const { business } = this.state;  
+        let policies = this.state.business?.policyList.map(item => <li>{item}</li>)
+
+        console.log(business)
+
+
+        let firstName = authUser?.attributes?.name.split(' ')[0]                                             
                 
         return(
             <div className="account business-account">
                 <h1 className="accountHeader">Hey {firstName}! Welcome Back!</h1>                
-                <button className="interview-btn">Schedule your business spotlight interview</button>
-                            
-                    <h3>Update your Business Information</h3>
+                <button className="interview-btn">Schedule your business spotlight interview</button>                            
+                <h3>Update your Business Information</h3>
 
                 <div className="business-info">
-                    <h2><BsBookmarkPlus className="account-header-icon" /> Stacy's Sprinkles</h2>
+                    <h2><BsBookmarkPlus className="account-header-icon" /> { business?.businessName }</h2>
                     
                     <div className="business-info-wrapper">
-                        <p>Lorem ipsum</p>
+                        <p>{ business?.businessDescription }</p>
                         <div className="account-policies">
                             <GiHealthNormal className="business-account-icon" />
                             <ul>
-                                <li>Air ventilation</li>
-                                <li>Outdoor seating</li>
-                                <li>1/2 capacity</li>
-                                <li>Sanitize between customers</li>
+                                {policies}
                                 <button><IoIosAdd /></button>
                             </ul>
                         </div>
-
+                        
                         <div className="icon-text">
                             <BiCalendarPlus className="business-account-icon"/> 
-                            <p><a href="">Order online here</a></p>
+                            <p><a href={business?.deliveryUrl} >Order online here</a></p>
                         </div>
+                        
                             
                         <div className="icon-text">
                             <BiPhone className="business-account-icon"/>
-                            <p>(123) 123-1234</p>
+                            <p>{business?.businessPhone}</p>
                         </div> 
                     </div>     
                 </div>                                                  
