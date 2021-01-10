@@ -1124,7 +1124,7 @@ nav .dropdown:hover .dropdown-content {
 .accountHeader {
   font-size: 3.5em;
 }
-.discounts-wrapper, .bookmark-wrapper {
+.discounts-wrapper, .bookmark-wrapper, business-info {
   padding: 0 8em;  
 }
 .discounts {
@@ -1439,7 +1439,7 @@ nav .dropdown:hover .dropdown-content {
   align-items: center;
   padding: 1em;  
 }
-.review-upload {  
+.review-upload, .business-upload {  
   background-color: #dee6f9;
   color: #385FDC;
   width: 175px;
@@ -1572,4 +1572,106 @@ input[type="file"] {
   border-radius: 10px;
   font-weight: 600;
   cursor: pointer;
+}
+.business-info {  
+}
+.business-account .interview-btn {
+  width: 100%;
+  height: initial;
+  font-weight: bold;
+  font-size: 1.25em;
+  border: none;
+  padding: 0.5em 4em;
+}
+.business-account {
+  padding: 0 6em;
+}
+.business-info {
+  text-align: left;  
+}
+.business-info h2 {
+  display: flex;
+  align-items: center;  
+  font-size: 2em;
+}
+.account-header-icon {
+  color: #385FDC;
+  margin-right: 0.5em;
+  font-size: 1em;
+}
+.account-policies {
+  display: flex;
+  align-items: center;
+}
+
+.account-policies ul {
+  display: flex;
+  flex-wrap: nowrap;
+  padding-left: 0;
+}
+
+.account-policies ul li {
+  list-style-type: none;
+  display: inline;
+  margin-right: 0.5em;
+  border: 3px solid #385FDC;
+  border-radius: 1em;
+  padding: 0.25em 0.5em;
+}
+
+.account-policies ul button {
+  width: 40px;
+  height: 40px;
+  background-color: #385FDC;
+  color: white;
+  border-radius: 50%;
+  border: none;
+  display: flex;
+  align-items: center;
+  font-size: 3em;
+}
+.business-info .business-account-icon {
+  color: #dee6f9;  
+  margin-right: 0.75em;
+}
+.business-account-icon {
+  font-size: 1.5em;
+  color: #385FDC;
+  margin-right: 0.4em;
+}
+.business-info a {
+  font-weight: bold;
+}
+.business-info-wrapper, .business-upload {
+  margin-left: 4em;
+}
+.account a {
+  text-decoration: none;
+  color: #385FDC;
+}
+.review-item-account {
+  background-color: #dee6f9;
+  padding: 0.25em 2em;
+  border-radius: 30px;    
+  margin-bottom: 1em;
+}
+.review-item-header {
+  display: flex;
+  justify-content:space-between;
+  align-items: center;
+  padding-top: 1em;
+}
+.review-item-header h4 {
+  margin: 0;
+}
+.review-item-header span {
+  display: flex;
+  align-items: center;
+}
+.review-item-header span .review-item-icon {
+  color: #385FDC;
+  margin-left: 0.5em;
+}
+.review-text { 
+  text-align: left; 
 }
