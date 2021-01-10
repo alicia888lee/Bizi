@@ -39,7 +39,7 @@ class AccountBusiness extends React.Component {
       }
 
     async componentDidMount() {
-        this.getBusinessData();        
+        this.getBusinessData();
     }
 
     render(){

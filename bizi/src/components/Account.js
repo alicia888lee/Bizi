@@ -58,9 +58,8 @@ class Account extends Component {
         return (
             <div className="account">
                 <Nav />
-                {currentUser?.data?.getUser?.userType === 'Customer' ?
-                    <AccountCustomer user={currentUser} authUser={currAuthUser} /> :
-                    <AccountBusiness user={currentUser} authUser={currAuthUser} /> }                
+                {currentUser?.data?.getUser?.userType === 'Customer' && <AccountCustomer user={currentUser} authUser={currAuthUser} />}
+                {currentUser?.data?.getUser?.userType === 'Business' && <AccountBusiness user={currentUser} authUser={currAuthUser} />}
                 <Footer />
             </div>
         )
