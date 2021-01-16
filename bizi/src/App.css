@@ -1651,18 +1651,23 @@ input[type="file"] {
 }
 .review-item-account {
   background-color: #dee6f9;
-  padding: 0.25em 2em;
+  padding: 1em 1.5em;
   border-radius: 30px;    
   margin-bottom: 1em;
 }
 .review-item-header {
   display: flex;
   justify-content:space-between;
-  align-items: center;
-  padding-top: 1em;
+  align-items: center;  
+}
+.review-item-header .review-thumbs {
+  margin-left: 0.5em;
+  color: #385FDC;
 }
 .review-item-header h4 {
   margin: 0;
+  display: flex;
+  align-items: center;
 }
 .review-item-header span {
   display: flex;
@@ -1672,6 +1677,10 @@ input[type="file"] {
   color: #385FDC;
   margin-left: 0.5em;
 }
+.review-item-wrapper {    
+  padding: 0.75em 0.5em;
+}
 .review-text { 
   text-align: left; 
+  margin-bottom: 0;
 }

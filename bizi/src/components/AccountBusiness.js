@@ -4,8 +4,8 @@ import { GiHealthNormal } from "react-icons/gi";
 import { IoIosAdd } from "react-icons/io";
 import { BiCalendarPlus, BiPhone } from "react-icons/bi";
 import { AiFillCamera } from "react-icons/ai";
-import { FiThumbsUp  } from "react-icons/fi";
-import { RiFlag2Line  } from "react-icons/ri";
+import { FiThumbsUp, FiThumbsDown  } from "react-icons/fi";
+import { RiFlag2Line } from "react-icons/ri";
 import * as queries from '../graphql/queries'
 import { API } from 'aws-amplify'
 
@@ -14,7 +14,8 @@ class AccountBusiness extends React.Component {
         super(props)
         this.state = {
             loading: false,
-            business: null,            
+            business: null,      
+            reviews: []       
         }
     }
 
@@ -26,8 +27,8 @@ class AccountBusiness extends React.Component {
             var businessQuery = await API.graphql({
                 query: queries.listBusinesss
             });
-            var listBusinesses = businessQuery?.data?.listBusinesss?.items?.filter(item => item.approved);                
-            let business = listBusinesses.filter(item => item.userEmail === this.props.authUser.attributes.email)[0];                                    
+            var listBusinesses = businessQuery?.data?.listBusinesss?.items?.filter(item => item.approved);                     
+            let business = listBusinesses.filter(item => item.userEmail === this.props.authUser.attributes.email)[0];                  
             this.setState({
                 business: business,     
                 loading: false           
@@ -36,20 +37,37 @@ class AccountBusiness extends React.Component {
         catch (error) {
             console.log(error);
         }
-      }
+    }
 
     async componentDidMount() {
-        this.getBusinessData();
+        await this.getBusinessData();    
+        this.generateReviews();    
+    }
+
+    generateReviews() {
+        const reviews = this.state.business.reviews;
+        let reviewList = reviews.map(review =>             
+            <div className="review-item-account">
+                <div classname="review-item-wrapper">
+                <div className="review-item-header">
+                    <h4>{review.userName} 
+                        {review.rating > 0 ? <FiThumbsUp className="review-thumbs" /> : <FiThumbsDown className="review-thumbs"/>}</h4>
+                    <span>
+                        <a href="#">reply</a>                            
+                        <RiFlag2Line className="review-item-icon" />
+                    </span>
+                </div>
+                { review.text !== "" && <p className="review-text">{review.text}</p> }
+                </div>
+            </div>                        
+        )
+        this.setState({reviews: reviewList});        
     }
 
     render(){
-        const { user, authUser } = this.props;       
-        const { business } = this.state;  
-        let policies = this.state.business?.policyList.map(item => <li>{item}</li>)
-
-        console.log(business)
-
-
+        const { authUser } = this.props;       
+        const { business, reviews } = this.state;  
+        let policies = this.state.business?.policyList.map(item => <li>{item}</li>)    
         let firstName = authUser?.attributes?.name.split(' ')[0]                                             
                 
         return(
@@ -75,8 +93,7 @@ class AccountBusiness extends React.Component {
                             <BiCalendarPlus className="business-account-icon"/> 
                             <p><a href={business?.deliveryUrl} >Order online here</a></p>
                         </div>
-                        
-                            
+                                                    
                         <div className="icon-text">
                             <BiPhone className="business-account-icon"/>
                             <p>{business?.businessPhone}</p>
@@ -93,20 +110,14 @@ class AccountBusiness extends React.Component {
                 </div>    
 
                 <div>                    
-                    <h3><FiThumbsUp className="business-account-icon" /> Your Business Reviews</h3>
-                    <div>
-                        <div className="review-item-account">
-                            <div className="review-item-header">
-                                <h4>Username</h4>
-                                <span>
-                                    <a href="#">reply</a>                            
-                                    <RiFlag2Line className="review-item-icon" />
-                                </span>
-                            </div>
-                            <p className="review-text">Lorem ipsum</p>
-                        </div>
-                        <a href="#">see more</a>                        
-                    </div>
+                    <h3><FiThumbsUp className="business-account-icon" /> Your Business Reviews</h3>                                        
+                    { reviews.length === 0 ?
+                        <p>No reviews have been written for your business yet!</p> : 
+                        <>
+                            { reviews }
+                            <a href="#">see more</a>                                            
+                        </>
+                    }                    
                 </div>            
             </div>
         )
