@@ -46,22 +46,24 @@ class AccountBusiness extends React.Component {
 
     generateReviews() {
         const reviews = this.state.business.reviews;
-        let reviewList = reviews.map(review =>             
-            <div className="review-item-account">
-                <div classname="review-item-wrapper">
-                <div className="review-item-header">
-                    <h4>{review.userName} 
-                        {review.rating > 0 ? <FiThumbsUp className="review-thumbs" /> : <FiThumbsDown className="review-thumbs"/>}</h4>
-                    <span>
-                        <a href="#">reply</a>                            
-                        <RiFlag2Line className="review-item-icon" />
-                    </span>
-                </div>
-                { review.text !== "" && <p className="review-text">{review.text}</p> }
-                </div>
-            </div>                        
-        )
-        this.setState({reviews: reviewList});        
+        if (reviews) {
+            let reviewList = reviews?.map(review =>             
+                <div className="review-item-account">
+                    <div classname="review-item-wrapper">
+                    <div className="review-item-header">
+                        <h4>{review.userName} 
+                            {review.rating > 0 ? <FiThumbsUp className="review-thumbs" /> : <FiThumbsDown className="review-thumbs"/>}</h4>
+                        <span>
+                            <a href="#">reply</a>                            
+                            <RiFlag2Line className="review-item-icon" />
+                        </span>
+                    </div>
+                    { review.text !== "" && <p className="review-text">{review.text}</p> }
+                    </div>
+                </div>                        
+            )
+            this.setState({reviews: reviewList});
+        }
     }
 
     render(){
