@@ -64,6 +64,7 @@ class BusinessInfo extends React.Component {
                   </div>                      
               </div>
           )
+          
           this.setState({reviews: reviewList})               
           let total = business?.reviews.reduce((total, item) => total + item.rating, 0)      
           this.setState({totalLikes: total})
