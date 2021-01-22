@@ -1,14 +1,15 @@
 import React, { Component } from 'react'
 import Nav from './Nav'
+import Loader from 'react-loader-spinner'
 
 class VerifyStep extends Component {
-    
     render() {
         const { 
             verify,
             invalidCode,
             onCodeInputChange,
-            errorMessage
+            errorMessage,
+            loading
         } = this.props;
         return (
             <div>
@@ -25,7 +26,7 @@ class VerifyStep extends Component {
                         </div>
                     </form>
                 </div>
-                
+                {loading && <Loader type='TailSpin' color='#385FDC' height={40}/>}
                 <div className='verifyEmailButton'>
                     <button onClick = {verify}>Verify</button>
                 </div>

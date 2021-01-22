@@ -39,6 +39,7 @@ class CreateAccount extends Component {
             registering: false,
             firstStep: true,
             secondStep: false,
+            verifyingEmail: false,
             thirdStep: false,
             verifyStep: false,
             finishedWizard: false,
@@ -504,6 +505,7 @@ class CreateAccount extends Component {
         catch (error) {
             console.log('error confirming sign up', error);
             console.log('error message', error.message);
+            this.setState({verifyingEmail: false});
             return error.message;
         }
     }
@@ -518,11 +520,12 @@ class CreateAccount extends Component {
         } catch (error) {
             console.log('error signing in', error);
         }
+        this.setState({verifyingEmail: false});
     }
 
     updateUserPreferences = async() => {
         const { 
-            typeBusinessSelected, 
+            typeBusinessSelected,
             userEmail,
             typeSustainableSelected,
             typeEthicalSelected,
@@ -579,7 +582,8 @@ class CreateAccount extends Component {
 
     }
 
-    goToThirdStep = () => {
+    goToThirdStep = async() => {
+        await this.autoSignIn();
         this.setState({
             firstStep: false,
             secondStep: false,
@@ -1138,7 +1142,8 @@ class CreateAccount extends Component {
             file,
             registering,
             validDiscounts,
-            discounts
+            discounts,
+            verifyingEmail
         } = this.state;
         console.log(discounts);
         return (
@@ -1179,14 +1184,15 @@ class CreateAccount extends Component {
 
                     {verifyStep && <VerifyStep
                         verify = {async() => {
+                            this.setState({verifyingEmail: true});
                             const verifyResult = await this.verifyEmail();
                             console.log(verifyResult);
                             verifyResult == 'SUCCESS' ? this.goToThirdStep() : this.goToVerifyStep(false, verifyResult)
-                            this.autoSignIn();
                         }}
                         errorMessage = {errorValidationMessage}
                         invalidCode = {!firstVerifyAttempt}
                         onCodeInputChange = {this.setVerifyCode}
+                        loading={verifyingEmail}
                     />}
 
                     {thirdStep && <Step3

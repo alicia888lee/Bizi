@@ -131,57 +131,58 @@ class AccountCustomer extends Component {
                     item.discounts?.filter((discount) => discount[1] > 0).length > 0
                 ));
                 console.log(available);
-                var discountBusinessIndex = Math.floor(Math.random() * available.length);
-                var discountBusiness = available[discountBusinessIndex];
-                var discountIndex = Math.floor(Math.random() * discountBusiness?.discounts?.length);
-                var discount = discountBusiness?.discounts?.[discountIndex];
-                // add coupon to user's coupons
-                var newCoupon = {
-                    businessID: discountBusiness?.id,
-                    discountIndex: discountIndex,
-                    used: false
-                };
-                
-                if (!user?.coupons) {
-                    var currCoupons = [newCoupon];
-                }
-                else {
-                    currCoupons = user?.coupons.slice();
-                    console.log('PUSHING COUPON TO END');
-                    currCoupons.push(newCoupon);
-                }
-                var updatedUser = {
-                    ...user,
-                    coupons: currCoupons
-                };
-                user = updatedUser;
-                console.log(updatedUser);
-                try {
-                    await API.graphql({
-                        query: mutations.updateUser,
-                        variables: {input: updatedUser}
-                    });
-                }
-                catch (error) {
-                    console.log(error);
-                }
-                // update quantity in business
-                var updatedDiscounts = discountBusiness?.discounts;
-                var newQt = updatedDiscounts?.[discountIndex]?.[1] - 1;
-                updatedDiscounts[discountIndex].splice(1, 1, newQt);
-                console.log(updatedDiscounts);
-                var updatedBusiness = {
-                    ...discountBusiness,
-                    discounts: updatedDiscounts
-                };
-                try {
-                    await API.graphql({
-                        query: mutations.updateBusiness,
-                        variables: {input: updatedBusiness}
-                    });
-                }
-                catch (error) {
-                    console.log(error);
+                if (available.length > 0) {
+                    var discountBusinessIndex = Math.floor(Math.random() * available.length);
+                    var discountBusiness = available[discountBusinessIndex];
+                    var discountIndex = Math.floor(Math.random() * discountBusiness?.discounts?.length);
+                    var discount = discountBusiness?.discounts?.[discountIndex];
+                    // add coupon to user's coupons
+                    var newCoupon = {
+                        businessID: discountBusiness?.id,
+                        discountIndex: discountIndex,
+                        used: false
+                    };
+                    
+                    if (!user?.coupons) {
+                        var currCoupons = [newCoupon];
+                    }
+                    else {
+                        currCoupons = user?.coupons.slice();
+                        currCoupons.push(newCoupon);
+                    }
+                    var updatedUser = {
+                        ...user,
+                        coupons: currCoupons
+                    };
+                    user = updatedUser;
+                    console.log(updatedUser);
+                    try {
+                        await API.graphql({
+                            query: mutations.updateUser,
+                            variables: {input: updatedUser}
+                        });
+                    }
+                    catch (error) {
+                        console.log(error);
+                    }
+                    // update quantity in business
+                    var updatedDiscounts = discountBusiness?.discounts;
+                    var newQt = updatedDiscounts?.[discountIndex]?.[1] - 1;
+                    updatedDiscounts[discountIndex].splice(1, 1, newQt);
+                    console.log(updatedDiscounts);
+                    var updatedBusiness = {
+                        ...discountBusiness,
+                        discounts: updatedDiscounts
+                    };
+                    try {
+                        await API.graphql({
+                            query: mutations.updateBusiness,
+                            variables: {input: updatedBusiness}
+                        });
+                    }
+                    catch (error) {
+                        console.log(error);
+                    }
                 }
             }
         }
@@ -206,16 +207,16 @@ class AccountCustomer extends Component {
         console.log(user);
         console.log(discountIndex);
         console.log(timeValid);
-        var discountDiv = timeValid ? (
+        
+        const discountDiv = timeValid && discountBusiness ? (
             <div className="discount-info">
                 {url ? <img src={url} style={{maxWidth: '200px', height: 'auto'}} /> : <h1>{discountBusiness?.businessName}</h1>}
                 <h2>{discount?.[0]}% off your next purchase at {discountBusiness?.businessName}!</h2>
-                <button id='useCoupon' onClick={() => this.useCoupon(user)}>Click to use</button>
+                <button id='useCoupon' onClick={() => this.useCoupon()}>Click to use</button>
             </div>
         ) :
         <h2>There are no discounts currently available.</h2>;
-
-        console.log(user);
+        
         this.setState({
             discount: discountDiv,
             couponLoading: false,
@@ -224,28 +225,47 @@ class AccountCustomer extends Component {
         });
     }
 
-    useCoupon = async(user) => {
+    useCoupon = async() => {
         this.setState({useCouponLoading: true});
-        console.log(user);
+        const { user } = this.props;
+        // get updated user
+        var currUser = null;
+        try {
+            console.log("FETCHING USER", Date.now());
+            var fetchedUser = await API.graphql({
+                query: queries.getUser,
+                variables: {userEmail: user?.data?.getUser?.userEmail}
+            });
+            console.log(fetchedUser, Date.now());
+            currUser = fetchedUser?.data?.getUser;
+            console.log(currUser);
+        }
+        catch (error) {
+            console.log(error);
+        }
+        console.log(currUser);
         var currTime = new Date(Date.now()).getTime();
-        var currCoupon = user?.coupons?.[user?.coupons?.length - 1];
+        var currCoupon = currUser?.coupons?.[currUser?.coupons?.length - 1];
         var newCoupon = {
             ...currCoupon,
             used: true,
             timeUsed: currTime
         };
-        var newCouponsList = user?.coupons;
-        console.log(user);
+        var newCouponsList = currUser?.coupons;
+        console.log(currUser);
         console.log(currCoupon);
         console.log(newCoupon);
         console.log(newCouponsList);
-        newCouponsList.splice(user?.coupons?.length, 1, newCoupon);
+        newCouponsList.splice(currUser?.coupons?.length - 1, 1, newCoupon);
+        console.log('SPLICED COUPONS');
+        console.log(newCouponsList);
         var updatedUser = {
-            ...user,
+            ...currUser,
             coupons: newCouponsList
         };
         // update user
         try {
+            console.log("UPDATING USER", Date.now());
             await API.graphql({
                 query: mutations.updateUser,
                 variables: {input: updatedUser}
