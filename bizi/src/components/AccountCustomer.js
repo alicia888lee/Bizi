@@ -101,11 +101,23 @@ class AccountCustomer extends Component {
         return weeksPassed > 1 ? true : false;
     }
 
-    generateNewDiscount = async(currUser) => {
+    generateNewDiscount = async(userEmail) => {
         const { businesses } = this.state;
         console.log(businesses);
-        
-        var user = currUser?.data?.getUser;
+        console.log(userEmail);
+        var user = null;
+        // get updated user
+        try {
+            var fetchedUser = await API.graphql({
+                query: queries.getUser,
+                variables: {userEmail: userEmail}
+            });
+            user = fetchedUser?.data?.getUser;
+            console.log(user);
+        }
+        catch (error) {
+            console.log(error);
+        }
         var timeValid = true;
         if (!user?.coupons || user?.coupons?.[user?.coupons?.length - 1]?.used) {
             // make sure enough time has passed since last coupon was used
@@ -135,12 +147,15 @@ class AccountCustomer extends Component {
                 }
                 else {
                     currCoupons = user?.coupons.slice();
+                    console.log('PUSHING COUPON TO END');
                     currCoupons.push(newCoupon);
                 }
                 var updatedUser = {
                     ...user,
                     coupons: currCoupons
                 };
+                user = updatedUser;
+                console.log(updatedUser);
                 try {
                     await API.graphql({
                         query: mutations.updateUser,
@@ -181,10 +196,6 @@ class AccountCustomer extends Component {
         try {
             if (discountBusiness?.imgPath) {
                 url = await Storage.get(discountBusiness?.imgPath,
-                    // { credentials: {
-                    //     accessKeyId: accessKey,
-                    //     secretAccessKey: secretKey
-                    // } },
                     { level: 'public' }
                 );
             }
@@ -204,6 +215,7 @@ class AccountCustomer extends Component {
         ) :
         <h2>There are no discounts currently available.</h2>;
 
+        console.log(user);
         this.setState({
             discount: discountDiv,
             couponLoading: false,
@@ -214,6 +226,7 @@ class AccountCustomer extends Component {
 
     useCoupon = async(user) => {
         this.setState({useCouponLoading: true});
+        console.log(user);
         var currTime = new Date(Date.now()).getTime();
         var currCoupon = user?.coupons?.[user?.coupons?.length - 1];
         var newCoupon = {
@@ -456,10 +469,11 @@ class AccountCustomer extends Component {
             await this.getUserBookmarks(user);
             await this.getBusinesses();
             this.generateBookmarkTiles();
-            this.generateNewDiscount(user);
+            this.generateNewDiscount(user?.data?.getUser?.userEmail);
         }
         else {
-          this.props.history.push('/login');
+            console.log(authUser);
+            this.props.history.push('/login');
         }
     }
 
@@ -473,8 +487,9 @@ class AccountCustomer extends Component {
         );
 
         if (updateCondition) {
+            console.log('COMPONENT UPDATED');
             this.generateBookmarkTiles();
-            this.generateNewDiscount(user);
+            this.generateNewDiscount(user?.data?.getUser?.userEmail);
         }
     }
 
