@@ -1731,7 +1731,7 @@ input[type="file"] {
   flex: 1;
   text-align: left;
 }
-.story-modal-content h3, p  {
+.story-modal-content h3, .story-modal-content p  {
   font-weight: 600;
   padding-left: 1.5em;   
 }
