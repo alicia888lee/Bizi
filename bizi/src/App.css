@@ -1684,3 +1684,65 @@ input[type="file"] {
   text-align: left; 
   margin-bottom: 0;
 }
+.story-modal {
+  position: absolute;
+  text-align: center;
+  color: #385FDC;
+  background-color: white;
+  border-radius: 1em;
+  left:0;
+  right:0;
+  margin-left: auto;
+  margin-right: auto;  
+  top: 40%;
+  width: 75%; 
+}
+.story-modal-header {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 60%;
+  background-color: #385FDC;
+  color: white;  
+  border-radius: 0 0 0 2em;
+  z-index: 999;
+}
+.story-modal-header h2 span {
+  color: #dee6f9;
+}
+.story-modal-close {
+  position: absolute;
+  top: 0.5em;
+  right: 0.5em;
+  font-size: 1.5em;
+}
+.story-modal-body {
+  display: flex;  
+  align-items: center;
+}
+.story-modal-body img {
+  width: 35vw;  
+  height: 35vw;
+  object-fit: cover;
+  position: relative;
+  flex: 1;
+}
+.story-modal-body .story-modal-content {
+  flex: 1;
+  text-align: left;
+}
+.story-modal-content h3, p  {
+  font-weight: 600;
+  padding-left: 1.5em;   
+}
+.story-modal-content h3 {
+  font-size: 2em;    
+}
+.story-modal-enter {
+  position: absolute;
+  bottom: 0;
+  color: #a5b4e4;
+}
+.story-modal-enter span {
+  color: #385FDC;
+}
