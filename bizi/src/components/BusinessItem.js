@@ -134,19 +134,21 @@ class BusinessItem extends Component {
       console.log(reviewImgs);
       return (
         <>
-        {infoLoading ? <Loader type="TailSpin" color="#385FDC" height={40} /> :
-          <>
-              <div className="description">
-                  <div className="map">
-                    <Map height={50} filteredBusinesses={[business]}/>
-                    <div className="business-gallery">
-                        {reviewImgs.length > 0 ? reviewImgs : <div>This business has no images.</div>}                      
+        {business ?
+          infoLoading ? <Loader type="TailSpin" color="#385FDC" height={40} /> :
+            <>
+                <div className="description">
+                    <div className="map">
+                      <Map height={50} filteredBusinesses={[business]}/>
+                      <div className="business-gallery">
+                          {reviewImgs.length > 0 ? reviewImgs : <div>This business has no images.</div>}                      
+                      </div>
                     </div>
-                  </div>
-                  <BusinessInfo business={business}/>        
-              </div>            
-              <AddReview business={business} handler={this.handler} />   
-          </>
+                    <BusinessInfo business={business}/>        
+                </div>            
+                <AddReview business={business} handler={this.handler} />   
+            </> :
+            null
           }
         </>
       )
