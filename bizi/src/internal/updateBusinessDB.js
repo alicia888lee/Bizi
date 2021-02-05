@@ -1,5 +1,5 @@
 // Tool used to push custom business data to amplify
-// Only uncomment when doing this in Foother.js
+// Only uncomment when doing this in Footer.js
 import React from 'react'
 import { API } from 'aws-amplify'
 import * as mutations from '../graphql/mutations.js'
@@ -9,18 +9,19 @@ async function updateDB(data) {
     for (var business in data) {
         const business_obj = {
             businessName: business,
-            businessDescription: data[business]['Description'],
-            initiatives: data[business]['Initiatives'],
-            policyList: data[business]['Policies'],
-            businessPhone: data[business]['Phone Number'],
-            businessURL: data[business]['Website'],
-            deliveryURL: data[business]['Delivery'],
-            reservationURL: data[business]['Reservations'],
-            address: data[business]['Address'],
-            priceRange: data[business]['Price Range'],
-            schedule: data[business]['Schedule'],
-            imgPath: data[business]['Business Photo'],
-            approved: data[business]['Approved']
+            businessDescription: data[business]?.['Description'],
+            initiatives: data[business]?.['Initiatives'],
+            policyList: data[business]?.['Policies'],
+            businessPhone: data[business]?.['Phone Number'],
+            businessURL: data[business]?.['Website'],
+            deliveryURL: data[business]?.['Delivery'],
+            reservationURL: data[business]?.['Reservations'],
+            address: data[business]?.['Address'],
+            priceRange: data[business]?.['Price Range'],
+            schedule: data[business]?.['Schedule'],
+            imgPath: data[business]?.['Business Photo'],
+            discounts: data[business]?.["Discounts"],
+            approved: data[business]?.['Approved']
         };
 
         try {

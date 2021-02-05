@@ -35,7 +35,7 @@ class BusinessInfo extends React.Component {
       var col1 = [];
       var col2 = [];
       console.log(business);
-      if (business?.policyList.length > 0) {
+      if (business?.policyList?.length > 0) {
         for (var i = 0; i < business?.policyList.length; i++) {
           i % 2 == 0 ? 
             col1.push(<li>{business?.policyList[i]}</li>) :

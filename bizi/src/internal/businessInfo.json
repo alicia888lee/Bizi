@@ -2,15 +2,12 @@
     "Trader Joe's": {
         "Description": "Food & Services",
         "Initiatives": ["Sustainability", "Ethical Supply Chain"],
-        "Policies": [],
         "Phone Number": "(888) 123-4523",
-        "Website": "",
-        "Delivery": "",
-        "Reservations": "",
         "Address": "1211 Chicago Ave, Evanston, IL 60202",
         "Price Range": 1,
         "Schedule": [[8, 15], [9, 16], [9, 16], [9, 16], [9, 16], [9, 16], [8, 15]],
         "Business Photo": "tjs.jpg",
+        "Discounts": [[30, 50], [25, 60]],
         "Approved": true
     },
     "Jewel": {
@@ -19,12 +16,9 @@
         "Policies": ["Sanitation", "Limited Capacity", "Masks required"],
         "Phone Number": "(888) 123-4523",
         "Website": "jewel.com",
-        "Delivery": "",
-        "Reservations": "",
         "Address": "1128 Chicago Ave, Evanston, IL 60202",
         "Price Range": 1,
         "Schedule": [[8, 15], [9, 16], [9, 16], [9, 16], [9, 16], [9, 16], [8, 15]],
-        "Business Photo": "",
         "Approved": true
     },
     "Starbuck's": {
@@ -33,12 +27,9 @@
         "Policies": ["Sanitation", "Masks", "1/2 Capacity", "Outdoor seating", "Social distancing"],
         "Phone Number": "(888) 123-4523",
         "Website": "starbucks.com",
-        "Delivery": "",
-        "Reservations": "",
         "Address" : "1734 Sherman Ave, Evanston, IL 60201",
         "Price Range": 2,
         "Schedule": [[8, 15], [9, 16], [9, 16], [9, 16], [9, 16], [9, 16], [8, 15]],
-        "Business Photo": "",
         "Approved": true
     },
     "Bat 17": {
@@ -47,12 +38,11 @@
         "Policies": ["Sanitation", "Outdoor seating", "Masks required"],
         "Phone Number": "(888) 123-4523",
         "Website": "bat17.com",
-        "Delivery": "",
         "Reservations": "opentable.com",
         "Address": "1709 Benson Ave, Evanston, IL 60201",
         "Price Range": 2,
+        "Discounts": [[10, 100], [15, 80]],
         "Schedule": [[8, 15], [9, 16], [9, 16], [9, 16], [9, 16], [9, 16], [8, 15]],
-        "Business Photo": "",
         "Approved": true
     }
 }
