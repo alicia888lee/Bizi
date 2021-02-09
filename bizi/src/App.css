@@ -1744,3 +1744,22 @@ input[type="file"] {
 .story-modal-enter span {
   color: #385FDC;
 }
+
+#interview-signup {
+  font-weight: bold;
+  font-size: 20px;
+}
+
+#interview-signup a:link {
+  text-decoration: underline;
+  color: #385FDC;
+}
+
+#interview-signup a:visited {
+  text-decoration: none;
+  color: #385FDC;
+}
+
+#interview-signup a:hover {
+  color: #385FDC;
+}

@@ -370,7 +370,7 @@ class Step3 extends Component {
                     </div>
                     {!validPrice && <p id='priceInvalid'>Must choose one</p>}
                     <br />
-                    {<p>Discounts<br/>(if your business would like to distribute coupons)</p>}
+                    <p>Discounts<br/>(if your business would like to distribute coupons)</p>
                     <div className='loginBody'>
                         <form>
                             {this.generateDiscountForm()}
@@ -402,6 +402,8 @@ class Step3 extends Component {
                         </label>
                         <input id='registerUpload' type="file" onChange={handleUpload}/>
                     </div>
+                    <br />
+                    <p id='interview-signup'>Sign up for a <a href="https://calendly.com/biziinterview/30min" target="_blank">business spotlight interview</a> right away! </p>
                 </>
                 }
                 {typeCustomer ? 
