@@ -1574,13 +1574,22 @@ input[type="file"] {
   cursor: pointer;
 }
 .business-account .interview-btn {
-  width: 100%;
+  width: 50%;
   height: initial;
   font-weight: bold;
   font-size: 1.25em;
   border: none;
   padding: 0.5em 4em;
 }
+
+#interview-schedule {
+  background-color: #ebbc13;
+}
+
+#save-update {
+  width: 50px;
+}
+
 .business-account {
   padding: 0 6em;
 }
@@ -1643,6 +1652,11 @@ input[type="file"] {
 .business-info-wrapper, .business-upload {
   margin-left: 4em;
 }
+
+#edit-business {
+  cursor: pointer;
+}
+
 .account a {
   text-decoration: none;
   color: #385FDC;
