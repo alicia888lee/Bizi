@@ -109,6 +109,52 @@ class Step3 extends Component {
         });
     }
 
+    generatePolicyChecklist = (handleClick) => {
+        var col1 = [
+            "Weekly testing",
+            "Daily deep cleans",
+            "Contactless payment",
+            "Temperature Checks",
+            "Tables six feet apart",
+            "Enforce Masks",
+            "Air purification system",
+            "Provides hand sanitizer",
+            "Controlled capacity"
+        ];
+        var col2 = [
+            "Sells masks",
+            "Shield at the register",
+            "Regular sanitizing",
+            "Gloves for shopping",
+            "UV lights sanitization",
+            "Curbside pick-up",
+            "Delivery available",
+            "Wait outside for appointment",
+            "Virtual services"
+        ];
+        var checklist = (
+            <div className='policyChecklist'>
+                <div id='policy-col'>
+                    {col1.map(p => (
+                        <div id='policy-checkbox'>
+                            <input id={p} type="checkbox" value={p} onChange={handleClick}/>
+                            <label for={p}>{p}</label>
+                        </div>
+                    ))}
+                </div>
+                <div id='policy-col'>
+                    {col2.map(p => (
+                        <div id='policy-checkbox'>
+                            <input id={p} type="checkbox" value={p} onChange={handleClick}/>
+                            <label for={p}>{p}</label>
+                        </div>
+                    ))}
+                </div>
+            </div>
+        );
+        return checklist;
+    }
+
     generateDiscountForm = () => {
         const { setDiscounts } = this.props;
         const { numDiscounts, validInputs } = this.state;
@@ -271,10 +317,14 @@ class Step3 extends Component {
                                 <input id={!validBusinessDescription && 'invalidInput'} type='text' name='description' onBlur={onDescriptionChange}/>
                                 {!validBusinessDescription && <p>Cannot be blank</p>}
                             </div>
-                            <div className='inputGroup'>
+                            <p>Business Policies</p>
+                            <div>
+                                {this.generatePolicyChecklist(onPolicyChange)}
+                            </div>
+                            {/* <div className='inputGroup'>
                                 <label for='policies'>Business Policies<br/>(separated by a comma; if none, leave blank)</label>
                                 <input type='text' name='policies' onBlur={onPolicyChange}/>
-                            </div>
+                            </div> */}
                             <div className='inputGroup'>
                                 <label for='phone'>Business Phone</label>
                                 <input className='phoneInput' id={!validPhone && 'invalidInput'} type='text' name='phone' onBlur={onPhoneChange} placeholder='(xxx) xxx-xxxx'/>

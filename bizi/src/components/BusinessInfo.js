@@ -24,7 +24,16 @@ class BusinessInfo extends React.Component {
       }
     }
 
-    updateAuth = (user) => {
+    updateAuth = async(authUser) => {
+      try {
+        var user = await API.graphql({
+          query: queries.getUser,
+          variables: {userEmail: authUser?.attributes?.email}
+        });
+      }
+      catch(error) {
+        console.log(error);
+      }
       this.setState({
         currUser: user
       });
@@ -86,17 +95,7 @@ class BusinessInfo extends React.Component {
       const { business } = this.props;
       // check if business should be bookmarked or not
       console.log(currUser);
-      try {
-        var userEmail = currUser?.attributes?.email;
-        var user = await API.graphql({
-          query: queries.getUser,
-          variables: {userEmail: userEmail}
-        });
-      }
-      catch (error) {
-        console.log(error);
-      }
-      var currUserAPI = user?.data?.getUser;
+      var currUserAPI = currUser?.data?.getUser;
       var currBookmarks = currUserAPI?.bookmarks;
       console.log(currUserAPI);
       if (currUserAPI?.bookmarks) {
@@ -153,7 +152,7 @@ class BusinessInfo extends React.Component {
 
     async componentDidMount() {
       const verifyAuth = await this.checkAuth();
-      verifyAuth && this.updateAuth(verifyAuth);
+      verifyAuth && await this.updateAuth(verifyAuth);
       console.log('INFO REMOUNTING');
       this.generatePolicyList();
       this.checkBookmarkStatus();
@@ -176,6 +175,7 @@ class BusinessInfo extends React.Component {
       const { business } = this.props;                  
       const { policyList, reviews, currUser, bookmarked, totalLikes } = this.state;      
       console.log(policyList);
+      console.log(currUser);
       return (
           <div className="description-text">
               <div className="textbox">
@@ -189,8 +189,8 @@ class BusinessInfo extends React.Component {
                         </div>}         
                   </div>
                   <h3 className="business-header-icons">
-                      {currUser && !bookmarked && <BsBookmarkPlus className="icon" onClick={this.setBookmark}/>}
-                      {currUser && bookmarked && <BsBookmarkFill className='icon' onClick={this.setBookmark} />}
+                      {currUser?.data?.getUser?.userType == "Customer" && !bookmarked && <BsBookmarkPlus className="icon" onClick={this.setBookmark}/>}
+                      {currUser?.data?.getUser?.userType == "Customer" && bookmarked && <BsBookmarkFill className='icon' onClick={this.setBookmark} />}
                       <BsDownload className="icon "/>            
                   </h3>
               </div>
@@ -203,11 +203,16 @@ class BusinessInfo extends React.Component {
               {policyList}  
             </div>
             }
-
             {business?.reservationURL &&
             <div className="icon-text">
               <BiCalendarPlus className="action"/> 
               <p><a href={`//${business?.reservationURL}`} target='_blank'>Make  reservation</a></p>
+            </div>
+            }
+            {business?.deliveryURL &&
+            <div className="icon-text">
+              <BiCalendarPlus className="action"/> 
+              <p><a href={`//${business?.deliveryURL}`} target='_blank'>Order online here</a></p>
             </div>
             }
             <div className="icon-text">

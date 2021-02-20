@@ -793,10 +793,13 @@ class CreateAccount extends Component {
     }
 
     setPolicies = (e) => {
-        var policies = [];
-        e.target.value.length > 0 ? 
-            policies = e.target.value.split(/,\s*/) :
-            policies = [];
+        const { policyList }= this.state;
+        var policies = policyList.slice();
+        policies.includes(e.target.value) ?
+            policies.splice(policies.indexOf(e.target.value), 1) :
+            policies.push(e.target.value);
+        
+            console.log(policies);
         this.setState({
             policyList: policies
         });

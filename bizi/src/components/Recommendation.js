@@ -55,7 +55,7 @@ class Recommendation extends React.Component {
                 <h1>{item?.businessName}</h1>
                 <div className='recImgs'>
                     {item?.initiatives.map((init, index) => 
-                        Object.keys(iconDict).includes(init) && <img src={iconDict[init]?.img} key={index} />
+                        Object.keys(iconDict).includes(init) && <img src={iconDict[init]?.img} title={init} key={index} />
                     )}
                 </div>
             </div>

@@ -22,7 +22,17 @@ class AccountBusiness extends React.Component {
             editDescription: false,
             newBusinessDescription: "",
             validBusinessDescription: true,
-            updatingBusinessDescription: false
+            updatingBusinessDescription: false,
+            newPolicies: [],
+            editPolicies: false,
+            updatingBusinessPolicies: false,
+            newOrderUrl: "",
+            updatingOrderUrl: false,
+            editOrderUrl: false,
+            newPhone: "",
+            updatingPhone: false,
+            editPhone: false,
+            validPhone: true
         }
     }
 
@@ -39,7 +49,10 @@ class AccountBusiness extends React.Component {
             this.setState({
                 business: business,     
                 loading: false,
-                newBusinessDescription: business?.businessDescription           
+                newBusinessDescription: business?.businessDescription,
+                newPolicies: business?.policyList,
+                newOrderUrl: business?.deliveryURL,
+                newPhone: business?.businessPhone
             });
         }
         catch (error) {
@@ -52,10 +65,9 @@ class AccountBusiness extends React.Component {
             newBusinessDescription, 
             business, 
             validBusinessDescription,
-            updatingBusinessDescription
         } = this.state;
         switch(action) {
-            case "make-editable":
+            case "edit":
                 // create input box
                 this.setState({
                     editDescription: true
@@ -90,16 +102,226 @@ class AccountBusiness extends React.Component {
                     console.log("invalid desc");
                     this.setState({validBusinessDescription: false});
                 }
-                
+                break;
             default:
                 break;
         } 
     }
 
+    editPolicies = async(action, e) => {
+        const { 
+            newPolicies,
+            business
+        } = this.state;
+        console.log(newPolicies);
+        switch (action) {
+            case "edit":
+                this.setState({editPolicies: true});
+                break;
+            case "set-check":
+                var policies = newPolicies.slice();
+                policies.includes(e.target.value) ?
+                    policies.splice(policies.indexOf(e.target.value), 1) :
+                    policies.push(e.target.value);
+                console.log(policies);
+                this.setState({newPolicies: policies});
+                break;
+            case "save":
+                // save
+                this.setState({updatingBusinessPolicies: true});
+                var updatedBusiness = {
+                    ...business,
+                    policyList: newPolicies
+                }
+                try {
+                    await API.graphql({
+                        query: mutations.updateBusiness,
+                        variables: {input: updatedBusiness}
+                    });
+                }
+                catch(e) {
+                    console.log(e);
+                }
+                await this.getBusinessData();
+                this.setState({
+                    editPolicies: false,
+                    updatingBusinessPolicies: false
+                });
+                break;
+        }
+    }
+
+    editOrderUrl = async(action) => {
+        const { 
+            newOrderUrl, 
+            business, 
+        } = this.state;
+        switch(action) {
+            case "edit":
+                // create input box
+                this.setState({
+                    editOrderUrl: true
+                });
+                break;
+            case "save":
+                // save
+                this.setState({updatingOrderUrl: true});
+                var updatedBusiness = {
+                    ...business,
+                    deliveryURL: newOrderUrl
+                }
+                try {
+                    await API.graphql({
+                        query: mutations.updateBusiness,
+                        variables: {input: updatedBusiness}
+                    });
+                }
+                catch(e) {
+                    console.log(e);
+                }
+                await this.getBusinessData();
+                this.setState({
+                    editOrderUrl: false,
+                    updatingOrderUrl: false
+                });
+                break;
+            default:
+                break;
+        } 
+    }
+
+    editPhone = async(action) => {
+        const { 
+            newPhone, 
+            business, 
+            validPhone,
+        } = this.state;
+        switch(action) {
+            case "edit":
+                // create input box
+                this.setState({
+                    editPhone: true
+                });
+                break;
+            case "save":
+                // validate input
+                if (newPhone && validPhone) {
+                    // save
+                    this.setState({updatingPhone: true});
+                    var updatedBusiness = {
+                        ...business,
+                        businessPhone: newPhone
+                    }
+                    try {
+                        await API.graphql({
+                            query: mutations.updateBusiness,
+                            variables: {input: updatedBusiness}
+                        });
+                    }
+                    catch(e) {
+                        console.log(e);
+                    }
+                    await this.getBusinessData();
+                    this.setState({
+                        editPhone: false,
+                        updatingPhone: false
+                    });
+                }
+                else {
+                    console.log("invalid desc");
+                    this.setState({validPhone: false});
+                }
+                break;
+            default:
+                break;
+        } 
+    }
 
     async componentDidMount() {
-        await this.getBusinessData();    
-        this.generateReviews();    
+        await this.getBusinessData();  
+        this.generateReviews();
+    }
+
+    generatePolicyChecklist = () => {
+        const { newPolicies, editPolicies, updatingBusinessPolicies } = this.state;
+        var col1 = [
+            "Weekly testing",
+            "Daily deep cleans",
+            "Contactless payment",
+            "Temperature Checks",
+            "Tables six feet apart",
+            "Enforce Masks"
+        ];
+        var col2 = [
+            "Air purification system",
+            "Provides hand sanitizer",
+            "Controlled capacity",
+            "Sells masks",
+            "Shield at the register",
+            "Regular sanitizing"
+        ];
+        var col3 = [
+            "UV lights sanitization",
+            "Curbside pick-up",
+            "Delivery available",
+            "Wait outside for appointment",
+            "Virtual services",
+            "Gloves for shopping"
+        ];
+        var checklist = (
+            <div className='policy-checklist-acct'>
+                <div id='policy-col-acct'>
+                    {col1.map(p => (
+                        <div id='policy-checkbox'>
+                            <input 
+                                id={p} type="checkbox" 
+                                disabled={!editPolicies} 
+                                checked={newPolicies.includes(p)} 
+                                value={p} 
+                                onChange={(e) => this.editPolicies("set-check", e)}/>
+                            <label for={p}>{p}</label>
+                        </div>
+                    ))}
+                </div>
+                <div id='policy-col-acct'>
+                    {col2.map(p => (
+                        <div id='policy-checkbox'>
+                            <input 
+                                id={p} 
+                                type="checkbox" 
+                                disabled={!editPolicies} 
+                                checked={newPolicies.includes(p)} 
+                                value={p} 
+                                onChange={(e) => this.editPolicies("set-check", e)}/>
+                            <label for={p}>{p}</label>
+                        </div>
+                    ))}
+                </div>
+                <div id='policy-col-acct'>
+                    {col3.map(p => (
+                        <div id='policy-checkbox'>
+                            <input 
+                                id={p} 
+                                type="checkbox" 
+                                disabled={!editPolicies} 
+                                checked={newPolicies.includes(p)} 
+                                value={p} 
+                                onChange={(e) => this.editPolicies("set-check", e)}/>
+                            <label for={p}>{p}</label>
+                        </div>
+                    ))}
+                </div>
+                <div id='policy-col-acct'>
+                    {editPolicies ?
+                        <div className='loginBody'>
+                            <button id="save-update" onClick={() => this.editPolicies("save")}>Save</button>
+                            {updatingBusinessPolicies && <Loader type='TailSpin' color='#385FDC' height={30}/>}
+                        </div> :
+                        <p><BsPencil id='edit-icon' onClick={() => this.editPolicies("edit")}/></p>}
+                </div>
+            </div>
+        );
+        return checklist;
     }
 
     generateReviews() {
@@ -125,9 +347,11 @@ class AccountBusiness extends React.Component {
     }
 
     componentDidUpdate(prevProps, prevState) {
-        const { newBusinessDescription } = this.state;
-        if (prevState.newBusinessDescription != newBusinessDescription) {
-            this.setState({validBusinessDescription: newBusinessDescription})
+        const { newBusinessDescription, newPhone } = this.state;
+        if (prevState.newBusinessDescription != newBusinessDescription
+        || prevState.newPhone != newPhone) {
+            var re = new RegExp(/^\([0-9]{3}\)\s[0-9]{3}-[0-9]{4}$/);
+            this.setState({validPhone: re.test(newPhone)});
         }
     }
 
@@ -137,10 +361,14 @@ class AccountBusiness extends React.Component {
             business, 
             reviews, 
             editDescription,
+            editOrderUrl,
             validBusinessDescription,
-            updatingBusinessDescription
-        } = this.state;  
-        let policies = this.state.business?.policyList.map(item => <li>{item}</li>)
+            updatingBusinessDescription,
+            updatingOrderUrl,
+            editPhone,
+            validPhone,
+            updatingPhone
+        } = this.state;
         let firstName = authUser?.attributes?.name.split(' ')[0]
         return(
             <div className="account business-account">
@@ -155,7 +383,7 @@ class AccountBusiness extends React.Component {
                         {editDescription ? 
                             <div className="loginBody">
                                 <input
-                                id={!validBusinessDescription && "invalidInput"}
+                                    id={!validBusinessDescription && "invalidInput"}
                                     type="text"
                                     disabled={updatingBusinessDescription}
                                     defaultValue={business?.businessDescription}
@@ -164,23 +392,55 @@ class AccountBusiness extends React.Component {
                                 <button id="save-update" onClick={() => this.editDescription("save")}>Save</button>
                                 {updatingBusinessDescription && <Loader type='TailSpin' color='#385FDC' height={30}/>}
                             </div> :
-                            <p>{ business?.businessDescription + "\t"}<BsPencil onClick={() => this.editDescription("make-editable")} id="edit-business"/></p>}
+                            <p>{business?.businessDescription + "\t"}<BsPencil onClick={() => this.editDescription("edit")} id="edit-icon"/></p>}
                         <div className="account-policies">
                             <GiHealthNormal className="business-account-icon" />
-                            <ul>
-                                {policies}
-                                <button><IoIosAdd /></button>
-                            </ul>
+                            {this.generatePolicyChecklist()}                           
                         </div>
                         
                         <div className="icon-text">
                             <BiCalendarPlus className="business-account-icon"/> 
-                            <p><a href={business?.deliveryUrl} >Order online here</a></p>
+                            {editOrderUrl ?
+                                <div className='loginBody'>
+                                    <input
+                                        type="text"
+                                        disabled={updatingOrderUrl}
+                                        defaultValue={business?.deliveryURL}
+                                        onChange={(e) => this.setState({newOrderUrl: e.target.value})}
+                                    />
+                                    <button id="save-update" onClick={() => this.editOrderUrl("save")}>Save</button>
+                                    {updatingOrderUrl && <Loader type='TailSpin' color='#385FDC' height={30}/>}
+                                </div> :
+                                <p>
+                                    <a 
+                                        href={business?.deliveryURL ? `//${business?.deliveryURL}` : null}
+                                        target="_blank"
+                                    >
+                                        {"Order online here" + "\t"}
+                                    </a>
+                                    <BsPencil onClick={() => this.editOrderUrl("edit")} id="edit-icon"/>
+                                </p>}
                         </div>
                                                     
                         <div className="icon-text">
                             <BiPhone className="business-account-icon"/>
-                            <p>{business?.businessPhone}</p>
+                            {editPhone ?
+                                <div className='loginBody'>
+                                    <input
+                                        type="text"
+                                        id={!validPhone && 'invalidInput'}
+                                        placeholder='(xxx) xxx-xxxx'
+                                        disabled={updatingOrderUrl}
+                                        defaultValue={business?.businessPhone}
+                                        onChange={(e) => this.setState({newPhone: e.target.value})}
+                                    />
+                                    <button id="save-update" onClick={() => this.editPhone("save")}>Save</button>
+                                    {updatingPhone && <Loader type='TailSpin' color='#385FDC' height={30}/>}
+                                </div> :
+                                <p>
+                                    {business?.businessPhone + "\t"}
+                                    <BsPencil onClick={() => this.editPhone("edit")} id="edit-icon"/>
+                                </p>}
                         </div> 
                     </div>     
                 </div>                                                  
