@@ -37,15 +37,35 @@ class AddReview extends React.Component {
         if(this.state.rating !== 0){
             try {
                 this.setState({loading: true})  
+
+                let name = file.name;
+
+                try {                    
+                    await Storage.get(name);
+
+                    //file name exists already
+                    let index = name.indexOf("--");                    
+                    if(index < 0){
+                        name = name.substring(0, name.lastIndexOf(".")) + "--1" + name.substring(name.lastIndexOf("."))                        
+                    } else {
+                        console.log("file copy already exists")
+                        // let num = parseInt(name.substring(index + 2)) + 1;
+                        // name = name.substring(0, index + 2) + num + name.substring(name.lastIndexOf("."));
+                    }
+
+                    console.log(name);
+                } catch (e) {
+                    //file name doesn't exist, proceed normally                     
+                }
                 
-                await Storage.put(file.name, file, { 
+                await Storage.put(name, file, { 
                     contentType: 'image/jpg' });                                                                   
 
                 let currReviews = this.props.business.reviews ? this.props.business?.reviews : []            
                 let review = {
                     userEmail: this.state.user?.email,
                     userName: this.state.user?.name,
-                    imgPath: file.name,
+                    imgPath: name,
                     text: this.state.text,
                     rating: parseInt(this.state.rating)
                 }                                           
