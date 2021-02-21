@@ -44,7 +44,14 @@ class Modal extends React.Component {
               <input type="hidden" onKeyPress={this.handleKeyPress}/>
               <div className="story-modal-header">
                 <h2>John Smith, <span>Owner of Juicery</span></h2>
-                <AiOutlineClose className="story-modal-close" onClick={this.props.hideModal}/>              
+                <AiOutlineClose className="story-modal-close" onClick={() => {
+                  this.props.hideModal();
+                  this.setState({
+                    page1: true,
+                    page2: false,
+                    page3: false
+                  });
+                }}/>              
               </div>
               {page1 && <div className="story-modal-body">                  
                   <img className="story-modal-img" src={busImg3} />
