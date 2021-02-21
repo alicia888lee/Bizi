@@ -9,7 +9,7 @@ import { FiThumbsUp, FiThumbsDown  } from "react-icons/fi";
 import { RiFlag2Line } from "react-icons/ri";
 import * as queries from '../graphql/queries';
 import * as mutations from '../graphql/mutations';
-import { API } from 'aws-amplify';
+import { API, Storage } from 'aws-amplify';
 import Loader from 'react-loader-spinner';
 
 class AccountBusiness extends React.Component {
@@ -32,7 +32,11 @@ class AccountBusiness extends React.Component {
             newPhone: "",
             updatingPhone: false,
             editPhone: false,
-            validPhone: true
+            validPhone: true,
+            imgFile: "",
+            editImg: false,
+            currImg: "",
+            updatingImg: false
         }
     }
 
@@ -54,6 +58,7 @@ class AccountBusiness extends React.Component {
                 newOrderUrl: business?.deliveryURL,
                 newPhone: business?.businessPhone
             });
+            await this.getCurrentImage();
         }
         catch (error) {
             console.log(error);
@@ -334,8 +339,8 @@ class AccountBusiness extends React.Component {
                         <h4>{review.userName} 
                             {review.rating > 0 ? <FiThumbsUp className="review-thumbs" /> : <FiThumbsDown className="review-thumbs"/>}</h4>
                         <span>
-                            <a href="#">reply</a>                            
-                            <RiFlag2Line className="review-item-icon" />
+                            {/* <a href="#">reply</a>                           */}
+                            {/* <RiFlag2Line className="review-item-icon" /> */}
                         </span>
                     </div>
                     { review.text !== "" && <p className="review-text">{review.text}</p> }
@@ -344,6 +349,77 @@ class AccountBusiness extends React.Component {
             )
             this.setState({reviews: reviewList});
         }
+    }
+
+    handleImgUpload = (e) => {
+        this.setState({
+            imgFile: e.target.files[0]
+        });
+    }
+
+    getCurrentImage = async() => {
+        const { business } = this.state;
+        if (business?.imgPath) {
+            try {
+                var imgUrl = await Storage.get(business?.imgPath,
+                    { level: 'public' }
+                );
+            }
+            catch(e) {
+                console.log(e);
+            }
+            console.log(imgUrl);
+            this.setState({currImg: imgUrl});
+        }
+    }
+
+    editImg = async(action) => {
+        const { 
+            imgFile, 
+            business,
+        } = this.state;
+        switch(action) {
+            case "edit":
+                this.setState({
+                    editImg: true
+                });
+                break;
+            case "save":
+                // save
+                this.setState({updatingImg: true});
+                // save to s3
+                console.log(imgFile.name);
+                try {
+                    await Storage.put(imgFile.name, imgFile, {
+                        contentType: 'image/jpg'
+                    });
+                }
+                catch(err) {
+                    console.log(err);
+                }
+                
+                var updatedBusiness = {
+                    ...business,
+                    imgPath: imgFile.name
+                }
+                try {
+                    await API.graphql({
+                        query: mutations.updateBusiness,
+                        variables: {input: updatedBusiness}
+                    });
+                }
+                catch(e) {
+                    console.log(e);
+                }
+                await this.getBusinessData();
+                this.setState({
+                    editImg: false,
+                    updatingImg: false
+                });
+                break;
+            default:
+                break;
+        } 
     }
 
     componentDidUpdate(prevProps, prevState) {
@@ -367,7 +443,11 @@ class AccountBusiness extends React.Component {
             updatingOrderUrl,
             editPhone,
             validPhone,
-            updatingPhone
+            updatingPhone,
+            imgFile,
+            editImg,
+            currImg,
+            updatingImg
         } = this.state;
         let firstName = authUser?.attributes?.name.split(' ')[0]
         return(
@@ -446,11 +526,23 @@ class AccountBusiness extends React.Component {
                 </div>                                                  
                 
                 <div>                    
-                    <h3><AiFillCamera className="business-account-icon" /> Upload photos for increased engagement</h3>
-                    <label for="businessUpload" className="business-upload">                        
-                        <IoIosAdd className="review-add-icon" /> 
-                    </label>
-                    <input id="businessUpload" type="file" name="file"/>
+                    <h3><AiFillCamera className="business-account-icon" />Update your Business Photo</h3>
+                    {editImg ?
+                        <div className='img-upload'>
+                            <label for="businessUpload" className="business-upload">
+                                {imgFile ? <ImgThumb image={imgFile} /> : <IoIosAdd className="review-add-icon" />}
+                            </label>
+                            <input id="businessUpload" type="file" name="file" onChange={this.handleImgUpload}/>
+                            <button id='save-update-img' onClick={() => this.editImg('save')}>Save</button>
+                            {updatingImg && <Loader type='TailSpin' color='#385FDC' height={30}/>}
+                        </div> :
+                        <div className='img-upload'>
+                            {currImg ? 
+                                <img id='update-img' src={currImg}/> :                                    
+                                <p>Your business has no photo</p>
+                            }
+                            <p><BsPencil id='edit-icon' onClick={() => this.editImg('edit')}/></p>
+                        </div>}
                 </div>    
 
                 <div>                    
@@ -459,7 +551,7 @@ class AccountBusiness extends React.Component {
                         <p>No reviews have been written for your business yet!</p> : 
                         <>
                             { reviews }
-                            <a href="#">see more</a>                                            
+                            {/* <a href="#">see more</a>                                      */}
                         </>
                     }                    
                 </div>            
@@ -467,5 +559,9 @@ class AccountBusiness extends React.Component {
         )
     }
 }
+
+const ImgThumb = ({ image }) => {
+    return <img src={URL.createObjectURL(image)} alt={image.name} className="reviewImg" />;
+};
 
 export default AccountBusiness

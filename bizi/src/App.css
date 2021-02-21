@@ -910,6 +910,22 @@ nav .dropdown:hover .dropdown-content {
   background-color: #f1f5ff;
 }
 
+#google-blue {
+  color: #4885ed ;
+}
+
+#google-red {
+  color: #db3236  ;
+}
+
+#google-yellow {
+  color: #f4c20d  ;
+}
+
+#google-green {
+  color: #3cba54  ;
+}
+
 #invalidInput {
   border-color: #385FDC;
   border-style: solid;
@@ -1472,12 +1488,12 @@ nav .dropdown:hover .dropdown-content {
   background-color: #dee6f9;
   color: #385FDC;
   width: 175px;
-  height: 175px; 
+  height: 175px;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column; 
-  margin-right: 2em;         
+  margin-right: 2em;
 }
 
 .register-upload {
@@ -1619,6 +1635,13 @@ input[type="file"] {
   width: 50px;
 }
 
+#update-img {
+  width: 175px;
+  height: 175px;
+  object-fit: cover;
+  /* float: left; */
+}
+
 .business-account {
   padding: 0 6em;
 }
@@ -1682,6 +1705,32 @@ input[type="file"] {
   margin-left: 4em;
 }
 
+.img-upload {
+  width: 175px;
+  position: relative;
+  height: 175px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column; 
+  margin-right: 2em;
+  margin-left: 4em;
+}
+
+#save-update-img {
+  margin-left: 4em;
+  margin-right: 2em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 50px;
+}
+
+.img-upload img {
+  margin-top: 2vh;
+}
+
 #edit-icon {
   cursor: pointer;
 }
@@ -1735,7 +1784,7 @@ input[type="file"] {
   right:0;
   margin-left: auto;
   margin-right: auto;  
-  top: 40%;
+  top: 250vh;
   width: 75%; 
 }
 .story-modal-header {
@@ -1772,9 +1821,24 @@ input[type="file"] {
   flex: 1;
   text-align: left;
 }
+.story-modal-content{
+  padding-left: 1.5em;
+}
+
+.story-modal-3 p{
+  margin: 0;
+}
+
+#story-modal-3-address {
+  margin-bottom: 1em;
+}
+
+.story-modal-3 a{  
+  color: #385FDC;
+}
 .story-modal-content h3, .story-modal-content p  {
   font-weight: 600;
-  padding-left: 1.5em;   
+  
 }
 .story-modal-content h3 {
   font-size: 2em;    

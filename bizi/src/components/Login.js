@@ -150,7 +150,16 @@ class Login extends Component {
                     </form>
                     <div className="socialLogin">
                         <button className="facebook" onClick={this.doFacebookLogin}>Log in with Facebook</button>
-                        <button className="google" onClick={this.doGoogleLogin}>Log in with Google</button>
+                        <button className="google" onClick={this.doGoogleLogin}>Log in with {
+                            <>
+                                <span id='google-blue'>G</span>
+                                <span id='google-red'>o</span>
+                                <span id='google-yellow'>o</span>
+                                <span id='google-blue'>g</span>
+                                <span id='google-green'>l</span>
+                                <span id='google-red'>e</span>
+                            </>
+                        }</button>
                     </div>
                     
                 </div>
