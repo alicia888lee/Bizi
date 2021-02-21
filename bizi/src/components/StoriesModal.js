@@ -9,7 +9,7 @@ import busImg2 from '../images/pexels-rfstudio-4177755.jpg';
 import busImg3 from '../images/pexels-justin-l-4060881.jpg';
 import Map from './Map'
 
-export function ModalComponent(props) {
+function ModalComponent(props) {
     // read in business from prop
     // pass business as prop to StoriesModal
     const { handler, isOpen } = props;
