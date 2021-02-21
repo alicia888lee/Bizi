@@ -399,6 +399,40 @@ class CreateAccount extends Component {
             ' ' + 
             zip;
 
+        var imgName = file.name;
+
+        // check for duplicate name
+        try {                    
+            var fileList = await Storage.list("", 
+                { level: 'public' });
+            console.log(fileList);
+            fileList = fileList.map(f => (
+                f?.key
+            ));
+            console.log(fileList);
+            
+            var imgExists = fileList.includes(imgName);
+            var re = new RegExp(/\-[0-9]/);
+            while (imgExists) {
+                var extension = imgName.lastIndexOf(".");
+                var version = imgName.substring(extension - 2, extension);
+                if (re.test(version)) {
+                    console.log(imgName);
+
+                    var newVersion = parseInt(version[1]) + 1;
+                    imgName = imgName.substring(0, extension - 1) + newVersion + imgName.substring(extension);
+                }
+                else {
+                    imgName = imgName.substring(0, extension) + "-1" + imgName.substring(extension);
+                }
+                console.log(imgName);
+                imgExists = fileList.includes(imgName);
+            }
+        }
+        catch (e) {
+            //file name doesn't exist, proceed normally                     
+        }
+
         if (inputsValid && !noneValid) {
             const businessInfo = {
                 businessName: businessName,
@@ -413,7 +447,7 @@ class CreateAccount extends Component {
                 userEmail: userEmail,
                 priceRange: priceRange,
                 schedule: scheduleArr,
-                imgPath: file.name,
+                imgPath: imgName,
                 discounts: discounts,
                 approved: false,
             };
@@ -424,19 +458,22 @@ class CreateAccount extends Component {
                 });
                 console.log(newBusiness);
             }
+
+            
             catch(error) {
                 console.log(error);
             }
 
             // upload photo to s3
             try {
-                await Storage.put(file.name, file, {
+                await Storage.put(imgName, file, {
                     contentType: 'image/jpg'
                 });
             }
             catch (err) {
                 console.log(err);
             }
+            
             // send email notification to business email regarding new business awaiting approval
             try {
                 var notification = await API.graphql({

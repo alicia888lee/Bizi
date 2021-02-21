@@ -40,21 +40,35 @@ class AddReview extends React.Component {
 
                 let name = file.name;
 
+                // check for duplicate name
                 try {                    
-                    await Storage.get(name);
+                    var fileList = await Storage.list("", 
+                        { level: 'public' });
+                    console.log(fileList);
+                    fileList = fileList.map(f => (
+                        f?.key
+                    ));
+                    console.log(fileList);
+                    
+                    var imgExists = fileList.includes(name);
+                    var re = new RegExp(/\-[0-9]/);
+                    while (imgExists) {
+                        var extension = name.lastIndexOf(".");
+                        var version = name.substring(extension - 2, extension);
+                        if (re.test(version)) {
+                            console.log(name);
 
-                    //file name exists already
-                    let index = name.indexOf("--");                    
-                    if(index < 0){
-                        name = name.substring(0, name.lastIndexOf(".")) + "--1" + name.substring(name.lastIndexOf("."))                        
-                    } else {
-                        console.log("file copy already exists")
-                        // let num = parseInt(name.substring(index + 2)) + 1;
-                        // name = name.substring(0, index + 2) + num + name.substring(name.lastIndexOf("."));
+                            var newVersion = parseInt(version[1]) + 1;
+                            name = name.substring(0, extension - 1) + newVersion + name.substring(extension);
+                        }
+                        else {
+                            name = name.substring(0, extension) + "-1" + name.substring(extension);
+                        }
+                        console.log(name);
+                        imgExists = fileList.includes(name);
                     }
-
-                    console.log(name);
-                } catch (e) {
+                }
+                catch (e) {
                     //file name doesn't exist, proceed normally                     
                 }
                 

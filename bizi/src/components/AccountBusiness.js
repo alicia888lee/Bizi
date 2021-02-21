@@ -48,7 +48,7 @@ class AccountBusiness extends React.Component {
             var businessQuery = await API.graphql({
                 query: queries.listBusinesss
             });
-            var listBusinesses = businessQuery?.data?.listBusinesss?.items?.filter(item => item.approved);                     
+            var listBusinesses = businessQuery?.data?.listBusinesss?.items;               
             let business = listBusinesses.filter(item => item.userEmail === this.props.authUser.attributes.email)[0];                  
             this.setState({
                 business: business,     
@@ -387,10 +387,42 @@ class AccountBusiness extends React.Component {
             case "save":
                 // save
                 this.setState({updatingImg: true});
+                var name = imgFile.name;
+                // check for duplicate name
+                try {                    
+                    var fileList = await Storage.list("", 
+                        { level: 'public' });
+                    console.log(fileList);
+                    fileList = fileList.map(f => (
+                        f?.key
+                    ));
+                    console.log(fileList);
+                    
+                    var imgExists = fileList.includes(name);
+                    var re = new RegExp(/\-[0-9]/);
+                    while (imgExists) {
+                        var extension = name.lastIndexOf(".");
+                        var version = name.substring(extension - 2, extension);
+                        if (re.test(version)) {
+                            console.log(name);
+
+                            var newVersion = parseInt(version[1]) + 1;
+                            name = name.substring(0, extension - 1) + newVersion + name.substring(extension);
+                        }
+                        else {
+                            name = name.substring(0, extension) + "-1" + name.substring(extension);
+                        }
+                        console.log(name);
+                        imgExists = fileList.includes(name);
+                    }
+                }
+                catch (e) {
+                    //file name doesn't exist, proceed normally                     
+                }
                 // save to s3
                 console.log(imgFile.name);
                 try {
-                    await Storage.put(imgFile.name, imgFile, {
+                    await Storage.put(name, imgFile, {
                         contentType: 'image/jpg'
                     });
                 }
@@ -400,7 +432,7 @@ class AccountBusiness extends React.Component {
                 
                 var updatedBusiness = {
                     ...business,
-                    imgPath: imgFile.name
+                    imgPath: name
                 }
                 try {
                     await API.graphql({
