@@ -14,7 +14,7 @@ function SearchItems(props){
               <Map height={100} filteredBusinesses={filteredBusinesses}/>
             </div>
       
-            <div className="description-text">          
+            <div className="description-text">  
               <SearchItemsList searchList={searchList} doFilter={doFilter} filter={filter} doSort={doSort} sort={sort}/>                                                          
             </div>      
           </div>

@@ -392,6 +392,8 @@ nav .dropdown:hover .dropdown-content {
 .description-text {  
   padding: 10px 20px;
   flex: 1.1;
+  max-height: 50vh;
+  overflow-y: auto;
 }
   
 .description-text button{
