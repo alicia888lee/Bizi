@@ -534,7 +534,7 @@ class AccountBusiness extends React.Component {
                             </label>
                             <input id="businessUpload" type="file" name="file" onChange={this.handleImgUpload}/>
                             <button id='save-update-img' onClick={() => this.editImg('save')}>Save</button>
-                            {updatingImg && <Loader type='TailSpin' color='#385FDC' height={30}/>}
+                            {updatingImg && <div id='update-img-load'><Loader type='TailSpin' color='#385FDC' height={30}/></div>}
                         </div> :
                         <div className='img-upload'>
                             {currImg ? 
