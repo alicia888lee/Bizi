@@ -1817,6 +1817,7 @@ input[type="file"] {
   height: 35vw;
   width: 75%;
   -webkit-transform: translateZ(0);
+  transform: translateZ(0);
 }
 .story-modal-header {
   position: absolute;
