@@ -129,10 +129,10 @@ class Login extends Component {
                             <p>{errorMessage}</p>         
                         </div>        
 
-                        <div className="checkboxGroup">
+                        {/* <div className="checkboxGroup">
                             <label for="rememberMe">Remember Me</label>
                             <input type="checkbox" name="rememberMe"/>                            
-                        </div>
+                        </div> */}
 
                         <div className='inputGroup'>
                             <input className='loginBtn' type='submit' value='Log In'/>

@@ -181,12 +181,14 @@
   margin-top: 20px;
   position: relative;
 }
+
 #footer-icons {
-  font-size: 2em;    
+  font-size: 2em;
 }
 .footer-icon {
-  padding-left: 0.2em;
-  padding-right: 0.2em;
+  cursor: pointer;
+  margin-right: 0.2em;
+  margin-left: 0.2em;
 }
 .contact{
   font-weight: 500;
