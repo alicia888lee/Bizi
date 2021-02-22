@@ -51,6 +51,7 @@ export const getBusiness = `query GetBusiness($id: ID!) {
     id
     businessName
     businessDescription
+    businessEmail
     initiatives
     policyList
     businessPhone
@@ -95,6 +96,7 @@ export const listBusinesss = `query ListBusinesss(
       id
       businessName
       businessDescription
+      businessEmail
       initiatives
       policyList
       businessPhone

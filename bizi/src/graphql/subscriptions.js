@@ -51,6 +51,7 @@ export const onCreateBusiness = `subscription OnCreateBusiness {
     id
     businessName
     businessDescription
+    businessEmail
     initiatives
     policyList
     businessPhone
@@ -90,6 +91,7 @@ export const onUpdateBusiness = `subscription OnUpdateBusiness {
     id
     businessName
     businessDescription
+    businessEmail
     initiatives
     policyList
     businessPhone
@@ -129,6 +131,7 @@ export const onDeleteBusiness = `subscription OnDeleteBusiness {
     id
     businessName
     businessDescription
+    businessEmail
     initiatives
     policyList
     businessPhone

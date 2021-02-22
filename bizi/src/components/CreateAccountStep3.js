@@ -227,6 +227,8 @@ class Step3 extends Component {
             onNameChange,
             validBusinessDescription,
             onDescriptionChange,
+            onEmailChange,
+            validBusinessEmail,
             onPolicyChange,
             validPhone,
             onPhoneChange,
@@ -316,6 +318,11 @@ class Step3 extends Component {
                                 <label for='description'>Business Description</label>
                                 <input id={!validBusinessDescription && 'invalidInput'} type='text' name='description' onBlur={onDescriptionChange}/>
                                 {!validBusinessDescription && <p>Cannot be blank</p>}
+                            </div>
+                            <div className='inputGroup'>
+                                <label for='description'>Business Email</label>
+                                <input id={!validBusinessEmail && 'invalidInput'} type='text' name='description' onBlur={onEmailChange}/>
+                                {!validBusinessEmail && <p>Must be a valid email address</p>}
                             </div>
                             <p>Business Policies</p>
                             <div>

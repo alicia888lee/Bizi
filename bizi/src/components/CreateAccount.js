@@ -77,6 +77,7 @@ class CreateAccount extends Component {
             validPrice: true,
             businessName: '',
             businessDescription: '',
+            businessEmail: '',
             policyList: [],
             phone: '',
             url: '',
@@ -88,6 +89,7 @@ class CreateAccount extends Component {
             zip: '',
             validBusinessName: true,
             validBusinessDescription: true,
+            validBusinessEmail: true,
             validPhone: true,
             validUrl: true,
             validDelivery: true,
@@ -271,6 +273,7 @@ class CreateAccount extends Component {
         const {
             businessName,
             businessDescription,
+            businessEmail,
             typeSustainableSelected,
             typeEthicalSelected,
             typeDiversitySelected,
@@ -288,6 +291,7 @@ class CreateAccount extends Component {
             zip,
             validBusinessName,
             validBusinessDescription,
+            validBusinessEmail,
             validPhone,
             validStreet,
             validCity,
@@ -312,6 +316,7 @@ class CreateAccount extends Component {
 
         const noneValid = !(businessName
             || businessDescription
+            || businessEmail
             || phone
             || street
             || city
@@ -328,6 +333,7 @@ class CreateAccount extends Component {
 
         const inputsValid = validBusinessName
             && validBusinessDescription
+            && validBusinessEmail
             && validPhone
             && validStreet
             && validCity
@@ -437,6 +443,7 @@ class CreateAccount extends Component {
             const businessInfo = {
                 businessName: businessName,
                 businessDescription: businessDescription,
+                businessEmail: businessEmail,
                 initiatives: businessInitiatives,
                 policyList: policyList,
                 businessPhone: phone,
@@ -498,6 +505,7 @@ class CreateAccount extends Component {
             this.setState({
                 validBusinessName: false,
                 validBusinessDescription: false,
+                validBusinessEmail: false,
                 validPhone: false,
                 validStreet: false,
                 validCity: false,
@@ -819,6 +827,12 @@ class CreateAccount extends Component {
         });
     }
 
+    setBusinessEmail = (e) => {
+        this.setState({
+            businessEmail: e.target.value
+        });
+    }
+
     setInitiatives = (e) => {
         var initiatives = [];
         e.target.value.length > 0 ?
@@ -975,6 +989,7 @@ class CreateAccount extends Component {
         const {
             businessName,
             businessDescription,
+            businessEmail,
             phone,
             street,
             city,
@@ -1007,12 +1022,17 @@ class CreateAccount extends Component {
                 && Number(tuple[0]) >= 0
                 && Number(tuple[0]) <= 100
         });
+
+        // check for valid email address
+        re = new RegExp('\\S+@\\S+\\.\\S+');
+        const validEmail = re.test(businessEmail);
         var completeDiscounts = discounts.every((tuple) => tuple.length == 2);
         console.log(validDiscountValues);
         this.setState({ 
             validBusinessName: businessName,
             validBusinessDescription: businessDescription,
-            validPhone: phone && validPhoneFormat,
+            validBusinessEmail: validEmail,
+            validPhone: validPhoneFormat,
             validStreet: street,
             validCity: city,
             validState: state,
@@ -1041,6 +1061,7 @@ class CreateAccount extends Component {
             userName,
             businessName,
             businessDescription,
+            businessEmail,
             policyList,
             phone,
             url,
@@ -1074,6 +1095,7 @@ class CreateAccount extends Component {
         let step3UpdateCondition = (
             businessName !== prevState.businessName
             || businessDescription !== prevState.businessDescription
+            || businessEmail !== prevState.businessEmail
             || policyList !== prevState.policyList
             || phone !== prevState.phone
             || url !== prevState.url
@@ -1165,6 +1187,7 @@ class CreateAccount extends Component {
             duplicateEmailMessage,
             validBusinessName,
             validBusinessDescription,
+            validBusinessEmail,
             validInitiatives,
             validPhone,
             validStreet,
@@ -1246,6 +1269,7 @@ class CreateAccount extends Component {
                         registering = {registering}
                         validBusinessName = {validBusinessName}
                         validBusinessDescription = {validBusinessDescription}
+                        validBusinessEmail = {validBusinessEmail}
                         validInitiatives = {validInitiatives}
                         validPhone = {validPhone}
                         validStreet = {validStreet}
@@ -1254,6 +1278,7 @@ class CreateAccount extends Component {
                         validZip = {validZip}
                         onNameChange = {this.setBusinessName}
                         onDescriptionChange = {this.setBusinessDescription}
+                        onEmailChange = {this.setBusinessEmail}
                         onInitiativesChange = {this.setInitiatives}
                         onPolicyChange = {this.setPolicies}
                         onPhoneChange = {this.setPhone}

@@ -1,6 +1,6 @@
 import React from "react"
 import { BsBookmarkPlus, BsDownload, BsBookmarkFill } from "react-icons/bs";
-import { BiCalendarPlus, BiPhone } from "react-icons/bi";
+import { BiCalendarPlus, BiPhone, BiEnvelope } from "react-icons/bi";
 import { AiOutlineEye } from "react-icons/ai";
 import { FiThumbsUp, FiThumbsDown } from "react-icons/fi";
 import { GiHealthNormal } from "react-icons/gi";
@@ -191,7 +191,7 @@ class BusinessInfo extends React.Component {
                   <h3 className="business-header-icons">
                       {currUser?.data?.getUser?.userType == "Customer" && !bookmarked && <BsBookmarkPlus className="icon" onClick={this.setBookmark}/>}
                       {currUser?.data?.getUser?.userType == "Customer" && bookmarked && <BsBookmarkFill className='icon' onClick={this.setBookmark} />}
-                      <BsDownload className="icon "/>            
+                      {/* <BsDownload className="icon "/>             */}
                   </h3>
               </div>
             
@@ -218,6 +218,10 @@ class BusinessInfo extends React.Component {
             <div className="icon-text">
               <BiPhone className="action"/> 
               <p>{business?.businessPhone}</p>
+            </div>
+            <div className="icon-text">
+              <BiEnvelope className="action"/> 
+              <p>{business?.businessEmail}</p>
             </div>
 
             <div className="icon-text">
