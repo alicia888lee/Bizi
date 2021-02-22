@@ -370,6 +370,12 @@ nav .dropdown:hover .dropdown-content {
   padding: 30px;  
   flex: 1;  
 }
+
+.map-modal {
+  width: 35vw;
+  height: 35vw;
+}
+
 .pin {
   position: absolute;
   width: 100px;
@@ -392,6 +398,9 @@ nav .dropdown:hover .dropdown-content {
 .description-text {  
   padding: 10px 20px;
   flex: 1.1;
+}
+
+.SearchItemsList {
   max-height: 50vh;
   overflow-y: auto;
 }
@@ -443,6 +452,12 @@ nav .dropdown:hover .dropdown-content {
 .icon-text ul {
   flex: 3.5;
 }
+
+.reviews-text {
+  max-height: 30vh;
+  overflow-y: auto;
+}
+
 .review-item{
   background-color: #dee6f9;
   padding: 7px 17px;
@@ -1797,6 +1812,7 @@ input[type="file"] {
   margin-left: auto;
   margin-right: auto;  
   top: 0;
+  height: 35vw;
   width: 75%;
   -webkit-transform: translateZ(0);
 }

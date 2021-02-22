@@ -8,23 +8,37 @@ import busImg1 from '../images/pexels-andrea-piacquadio-3932730.jpg';
 import busImg2 from '../images/pexels-rfstudio-4177755.jpg';
 import busImg3 from '../images/pexels-justin-l-4060881.jpg';
 import Map from './Map'
+import { Storage } from 'aws-amplify';
+
 
 function ModalComponent(props) {
     // read in business from prop
     // pass business as prop to StoriesModal
-    const { handler, isOpen } = props;
-    const { isVisible, toggleModal } = UseModal();  
+    const { handler, isOpen, business, img1, img2 } = props;
+    const { isVisible, toggleModal } = UseModal();
+    var resetModal = false;
     if (isVisible !== isOpen) {
         handler(isVisible);
+        resetModal = true;
     }
-  
+      
     return (
         <>
             <div className="gridElement">
-              <img className="gridImg" src={busImg1} onClick={toggleModal} style={{cursor: 'pointer'}}/>
+              <img className="gridImg" src={img1} onClick={toggleModal} style={{cursor: 'pointer'}}/>
             </div>                                  
             <div className='couponModalContainer'>
-                <StoriesModal isVisible={isVisible} hideModal={toggleModal} page1={true} page2={false} page3={false}/>
+                <StoriesModal 
+                  isVisible={isVisible} 
+                  hideModal={toggleModal} 
+                  reset={resetModal}
+                  page1={true} 
+                  page2={false} 
+                  page3={false}
+                  img1={img1}
+                  img2={img2}
+                  business={business}
+                />    
             </div>
         </>
     )
@@ -51,24 +65,34 @@ class StoriesModal extends React.Component {
         this.setState({page3: true});           
       }    
     }
+
+    componentDidUpdate(prevProps) {
+      if (prevProps.reset != this.props.reset) {
+        this.setState({page1: true, page2: false, page3:false});
+      }
+    }
   
     render(){
-      let {page1, page2, page3} = this.state;    
-  
+      const {page1, page2, page3} = this.state;
+      const { img1, img2, business, isVisible, hideModal } = this.props;
       if(this.props.isVisible){
         document.getElementById('root').style.filter = 'blur(5px)';        
       } else {
         document.getElementById('root').style.filter = '';        
       }
-  
-      return this.props.isVisible
+      var firstName = business?.story?.storyPerson.split(" ")[0];
+      var firstNamePlural = firstName.slice(-1).toLowerCase() != 's' ?
+        firstName + "\'s" :
+        firstName + "\'";
+
+      return isVisible
         ? createPortal(
             <div className='story-modal'>
                 <input type="hidden" onKeyPress={this.handleKeyPress}/>
                 <div className="story-modal-header">
-                  <h2>John Smith, <span>Owner of Juicery</span></h2>
+                  <h2>{business?.story?.storyPerson}, <span>{business?.story?.storyPersonTitle}</span></h2>
                   <AiOutlineClose className="story-modal-close" onClick={() => {
-                    this.props.hideModal();
+                    hideModal();
                     this.setState({
                       page1: true,
                       page2: false,
@@ -77,29 +101,29 @@ class StoriesModal extends React.Component {
                   }}/>              
                 </div>
                 {page1 && <div className="story-modal-body">                  
-                    <img className="story-modal-img" src={busImg3} />
+                    <img className="story-modal-img" src={img1} />
                     <div className="story-modal-content">
-                      <h3>Drinks. Atmosphere. Organic.</h3>
-                      <p>This business is different from competitors because ya yeet.</p>
-                      <p className="story-modal-enter">Click <span onClick={() => this.handleClick(2)}>Enter</span> to follow John's journey</p>
+                      <h3>{business?.story?.storyKeywords}</h3>
+                      <p>{business?.story?.storyDifference}</p>
+                      <p className="story-modal-enter">Click <span onClick={() => this.handleClick(2)}>Enter</span> to follow {firstNamePlural} journey</p>
                     </div>
                   </div> }
                 {page2 && <div className="story-modal-body">                  
-                    <img className="story-modal-img" src={busImg3} />
+                    <img className="story-modal-img" src={img2} />
                     <div className="story-modal-content">                  
-                      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent non lorem ut justo convallis semper. Integer molestie purus ac ligula posuere, non hendrerit mauris placerat. Praesent sit amet condimentum eros. Aliquam quis finibus mauris, a aliquam tellus. Sed purus justo, pulvinar sed volutpat id, venenatis at eros. Cras id fermentum est.</p>
-                      <p className="story-modal-enter">Click <span onClick={() => this.handleClick(3)}>Enter</span> to follow John's journey</p>
+                      <p>{business?.story?.storyBackground}</p>
+                      <p className="story-modal-enter">Click <span onClick={() => this.handleClick(3)}>Enter</span> to follow {firstNamePlural} journey</p>
                     </div>
-                  </div>   }
+                  </div>}
                 {page3 && <div className="story-modal-body">                  
-                    <img className="story-modal-img" src={busImg3} />
+                    <div className='map-modal'><Map height={35} filteredBusinesses={[business]} modal/></div>
                     <div className="story-modal-content story-modal-3">                  
-                      <h3>Juicery</h3>
+                      <h3>{business?.businessName}</h3>
   
-                      <p>Juice Bar | Lounge</p>
-                      <p id="story-modal-3-address">1234 Sheridan Dr., Evanston IL, 60201</p>
+                      <p>{business?.businessDescription}</p>
+                      <p id="story-modal-3-address">{business?.address}</p>
   
-                      <Link to="/search">View Business Profile</Link>                  
+                      <Link to={{pathname:`/search/${business?.id}`, state: {business: business}}}>View Business Profile</Link>                  
                     </div>
                   </div>}                                 
             </div>,

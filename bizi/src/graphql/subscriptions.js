@@ -73,6 +73,15 @@ export const onCreateBusiness = `subscription OnCreateBusiness {
       text
     }
     approved
+    story {
+      storyImg1
+      storyImg2
+      storyPerson
+      storyPersonTitle
+      storyKeywords
+      storyDifference
+      storyBackground
+    }
   }
 }
 `;
@@ -103,6 +112,15 @@ export const onUpdateBusiness = `subscription OnUpdateBusiness {
       text
     }
     approved
+    story {
+      storyImg1
+      storyImg2
+      storyPerson
+      storyPersonTitle
+      storyKeywords
+      storyDifference
+      storyBackground
+    }
   }
 }
 `;
@@ -133,6 +151,15 @@ export const onDeleteBusiness = `subscription OnDeleteBusiness {
       text
     }
     approved
+    story {
+      storyImg1
+      storyImg2
+      storyPerson
+      storyPersonTitle
+      storyKeywords
+      storyDifference
+      storyBackground
+    }
   }
 }
 `;

@@ -9,9 +9,9 @@ function Stories(){
       <div>
         <Nav light={false} />
         <h1 className = "story-header">Meet the People Behind your Favorite Business</h1>
-        <Business />
+        {/* <Business /> */}
         <div className="imageGrid">
-          <StoriesSearchBar />
+          {/* <StoriesSearchBar /> */}
           <ImageGrid />
         </div>
       </div>

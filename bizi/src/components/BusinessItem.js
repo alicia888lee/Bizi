@@ -45,6 +45,7 @@ class BusinessItem extends Component {
           <img src={img} className='business-photo' />
         )
         console.log(reviewImgs);
+        // TODO NOT PRESSING: randomize images shown if >8
         if (reviewImgs.length > 0) {
           for (let i = 0; i < 8; i++) {
             cols.push(reviewImgs[i]);

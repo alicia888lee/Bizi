@@ -229,11 +229,11 @@ class BusinessInfo extends React.Component {
             <div className="reviews">
               <div className="textbox">
                 <h3>Reviews</h3>
-                {business?.businessURL && this.state.reviews.length > 0 && <p><a href={`//${business?.businessURL}`} target='_blank'>See more</a></p>}
+                {/* {business?.businessURL && this.state.reviews.length > 0 && <p><a href={`//${business?.businessURL}`} target='_blank'>See more</a></p>} */}
               </div>
               
               { this.state.reviews.length === 0 ? 
-                <div>This business has no reviews. Be the first!</div> : reviews }
+                <div>This business has no reviews. Be the first!</div> : <div className='reviews-text'>{reviews}</div> }
             </div>
           </div>                      
         )

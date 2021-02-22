@@ -81,6 +81,15 @@ export const createBusiness = `mutation CreateBusiness($input: CreateBusinessInp
       text
     }
     approved
+    story {
+      storyImg1
+      storyImg2
+      storyPerson
+      storyPersonTitle
+      storyKeywords
+      storyDifference
+      storyBackground
+    }
   }
 }
 `;
@@ -111,6 +120,15 @@ export const updateBusiness = `mutation UpdateBusiness($input: UpdateBusinessInp
       text
     }
     approved
+    story {
+      storyImg1
+      storyImg2
+      storyPerson
+      storyPersonTitle
+      storyKeywords
+      storyDifference
+      storyBackground
+    }
   }
 }
 `;
@@ -141,6 +159,15 @@ export const deleteBusiness = `mutation DeleteBusiness($input: DeleteBusinessInp
       text
     }
     approved
+    story {
+      storyImg1
+      storyImg2
+      storyPerson
+      storyPersonTitle
+      storyKeywords
+      storyDifference
+      storyBackground
+    }
   }
 }
 `;

@@ -33,6 +33,17 @@ type Business @model {
   discounts: [[Int!]!]
   reviews: [Review!]
   approved: Boolean!
+  story: Story
+}
+
+type Story {
+  storyImg1: String
+  storyImg2: String
+  storyPerson: String
+  storyPersonTitle: String
+  storyKeywords: String
+  storyDifference: String
+  storyBackground: String
 }
 
 type Review {

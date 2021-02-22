@@ -73,6 +73,15 @@ export const getBusiness = `query GetBusiness($id: ID!) {
       text
     }
     approved
+    story {
+      storyImg1
+      storyImg2
+      storyPerson
+      storyPersonTitle
+      storyKeywords
+      storyDifference
+      storyBackground
+    }
   }
 }
 `;
@@ -108,6 +117,15 @@ export const listBusinesss = `query ListBusinesss(
         text
       }
       approved
+      story {
+        storyImg1
+        storyImg2
+        storyPerson
+        storyPersonTitle
+        storyKeywords
+        storyDifference
+        storyBackground
+      }
     }
     nextToken
   }

@@ -144,10 +144,11 @@ class Map extends Component {
   }
 
   render() {
-    const { height } = this.props;
+    const { height, modal } = this.props;
     const { locationPins, center, mapAPIKey } = this.state;
-    let heightNum = `${height}%`;
+    let heightNum = modal ? `${height}vw`: `${height}%`;
     if (mapAPIKey) {
+      console.log(locationPins);
       return (      
         <div style={{ height: heightNum, width: '100%' }}>
           <GoogleMapReact
