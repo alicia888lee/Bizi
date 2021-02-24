@@ -35,6 +35,9 @@ const updatedAwsExports = {
     redirectSignOut: isLocalhost ? localRedirectSignOut : productionRedirectSignOut,
   }
 }
+if (!isLocalhost) {
+  console.log = function() {};
+}
 
 // Amplify.configure(updatedAwsExports);
 Auth.configure(updatedAwsExports);
