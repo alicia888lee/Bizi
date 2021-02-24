@@ -88,6 +88,7 @@ class ImageGrid extends React.Component {
             business={business}
             img1={img1}
             img2={img2}
+            storiesPage={true}
           />
         </div>
     )}));

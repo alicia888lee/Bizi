@@ -1,11 +1,12 @@
 import React from 'react'
 import environmentImg from '../images/environment.png';
+import placeholderImg from '../images/pexels-mariana-kurnyk-1775043.jpg';
 import businessImg from '../images/pexels-ksenia-chernaya-3965557.jpg'
 import heartImg from '../images/heart_hand.png';
 import communityImg from '../images/community.png';
 import * as queries from '../graphql/queries'
 import * as mutations from '../graphql/mutations'
-import { API, Auth } from 'aws-amplify'
+import { API, Auth, Storage } from 'aws-amplify'
 import Loader from 'react-loader-spinner'
 import { withRouter } from 'react-router-dom'
 
@@ -21,7 +22,18 @@ class Recommendation extends React.Component {
         }
     }
 
-    generateRecommendations = () => {
+    getImgUrl = async(path) => {
+        try {
+          var url = await Storage.get(path,
+            { level: 'public' });
+            return url;
+          }
+        catch(e) {
+          console.log(e);
+        }
+      }
+
+    generateRecommendations = async() => {
         const { recommendationIDs, businesses } = this.state;
         console.log(recommendationIDs);
         var recommendationBusinesses = recommendationIDs.map((id) => {
@@ -45,21 +57,23 @@ class Recommendation extends React.Component {
 
         console.log(recommendationBusinesses);
         
-        var recommendationList = recommendationBusinesses.map((item, index) => 
-            <div 
-                className='recItem' 
-                style={{backgroundImage: `url(${businessImg})`}}
-                onClick={() => this.props.history.push({pathname: `/search/${item?.id}`, state: {business: item}})}
-                key={index}
-                >
-                <h1>{item?.businessName}</h1>
-                <div className='recImgs'>
-                    {item?.initiatives.map((init, index) => 
-                        Object.keys(iconDict).includes(init) && <img src={iconDict[init]?.img} title={init} key={index} />
-                    )}
+        var recommendationList = await Promise.all(recommendationBusinesses.map(async(item, index) => {
+            var background = item?.imgPath ? await this.getImgUrl(item?.imgPath) : null;
+            return (
+                <div 
+                    className='recItem' 
+                    style={{backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(${background ? background : placeholderImg})`}}
+                    onClick={() => this.props.history.push({pathname: `/search/${item?.id}`, state: {business: item}})}
+                    key={index}
+                    >
+                    <h1>{item?.businessName}</h1>
+                    <div className='recImgs'>
+                        {item?.initiatives.map((init, index) => 
+                            Object.keys(iconDict).includes(init) && <img src={iconDict[init]?.img} title={init} key={index} />
+                        )}
+                    </div>
                 </div>
-            </div>
-        );
+        )}));
         this.setState({
             recommendations: recommendationList,
             loading: false

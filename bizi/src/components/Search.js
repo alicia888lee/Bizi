@@ -12,7 +12,7 @@ import { API, Storage } from 'aws-amplify'
 import environmentImg from '../images/environment.png';
 import heartImg from '../images/heart_hand.png';
 import communityImg from '../images/community.png';
-import testImg from '../images/pexels-mariana-kurnyk-1775043.jpg';
+import placeholderImg from '../images/pexels-mariana-kurnyk-1775043.jpg';
 import { OpenTag, ClosedTag, PriceTag } from './SearchItemsList'
 
 class Search extends React.Component {
@@ -249,7 +249,7 @@ class Search extends React.Component {
                         <PriceTag price={item?.priceRange}/>
                     </div>
                 </div>
-                <img className='SearchItemImg' src={newURLs[index] ? newURLs[index] : testImg} />
+                <img className='SearchItemImg' src={newURLs[index] ? newURLs[index] : placeholderImg} />
             </Link>
         );
         

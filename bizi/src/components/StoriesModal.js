@@ -14,26 +14,33 @@ import { Storage } from 'aws-amplify';
 function ModalComponent(props) {
     // read in business from prop
     // pass business as prop to StoriesModal
-    const { handler, isOpen, business, img1, img2 } = props;
+    const { handler, isOpen, business, img1, img2, storiesPage } = props;
     const { isVisible, toggleModal } = UseModal();
     var resetModal = false;
     if (isVisible !== isOpen) {
         handler(isVisible);
         resetModal = true;
     }
+    var name_bus = business?.businessName;
+    var plural_bus = name_bus.slice(-1).toLowerCase() != 's' ?
+      name_bus + "\'s" :
+      name_bus + "\'";
       
     return (
         <>
-            <div className="gridElement">
-              <img className="gridImg" src={img1} onClick={toggleModal} style={{cursor: 'pointer'}}/>
-            </div>                                  
+            <>{storiesPage ?
+              <div className="gridElement"> 
+                  <img className="gridImg" src={img1} onClick={toggleModal} style={{cursor: 'pointer'}}/>
+              </div> :
+              <p><a onClick={toggleModal} style={{cursor: 'pointer'}}>{`View ${plural_bus} Story`}</a></p>}
+            </>
             <div className='couponModalContainer'>
-                <StoriesModal 
-                  isVisible={isVisible} 
-                  hideModal={toggleModal} 
+                <StoriesModal
+                  isVisible={isVisible}
+                  hideModal={toggleModal}
                   reset={resetModal}
-                  page1={true} 
-                  page2={false} 
+                  page1={true}
+                  page2={false}
                   page3={false}
                   img1={img1}
                   img2={img2}

@@ -6,9 +6,10 @@ import { FiThumbsUp, FiThumbsDown } from "react-icons/fi";
 import { GiHealthNormal } from "react-icons/gi";
 import { RiArrowGoBackFill } from "react-icons/ri";
 import { Link } from "react-router-dom";
-import { API, Auth } from 'aws-amplify'
+import { API, Auth, Storage } from 'aws-amplify'
 import * as queries from '../graphql/queries';
 import * as mutations from '../graphql/mutations';
+import ModalComponent from './StoriesModal';
 
 class BusinessInfo extends React.Component {
     constructor(props) {
@@ -20,8 +21,15 @@ class BusinessInfo extends React.Component {
         totalLikes: 0,
         bookmarked: false,
         currUser: null,
-        currUserAPI: null        
+        currUserAPI: null,
+        storyImg1: '',
+        storyImg2: '',
+        storyModal: false
       }
+    }
+
+    componentWillUnmount() {
+      document.getElementById('root').style.filter = '';
     }
 
     updateAuth = async(authUser) => {
@@ -150,10 +158,37 @@ class BusinessInfo extends React.Component {
       
     }
 
+    handler = (isOpen) => {        
+      this.setState({
+        storyModal: isOpen
+      });
+    }
+
+    getImgUrl = async() => {
+      const { business } = this.props;
+      if (business?.story) {
+        try {
+          var url1 = await Storage.get(business?.story?.storyImg1,
+            { level: 'public' });
+
+          var url2 = await Storage.get(business?.story?.storyImg2,
+            { level: 'public'});
+          }
+        catch(e) {
+          console.log(e);
+        }
+        this.setState({
+          storyImg1: url1,
+          storyImg2: url2
+        });
+      }
+    }
+
     async componentDidMount() {
       const verifyAuth = await this.checkAuth();
       verifyAuth && await this.updateAuth(verifyAuth);
       console.log('INFO REMOUNTING');
+      this.getImgUrl();
       this.generatePolicyList();
       this.checkBookmarkStatus();
       this.generateReviews();
@@ -163,6 +198,7 @@ class BusinessInfo extends React.Component {
       const { business } = this.props;
       const { policyList } = this.state;
       if (prevProps?.business !== business) {
+        this.getImgUrl();
         this.generatePolicyList();
         this.checkBookmarkStatus();
         this.generateReviews();
@@ -173,7 +209,7 @@ class BusinessInfo extends React.Component {
 
     render() {
       const { business } = this.props;                  
-      const { policyList, reviews, currUser, bookmarked, totalLikes } = this.state;      
+      const { policyList, reviews, currUser, bookmarked, totalLikes, storyImg1, storyImg2, storyModal } = this.state;      
       console.log(policyList);
       console.log(currUser);
       return (
@@ -224,11 +260,19 @@ class BusinessInfo extends React.Component {
               <p>{business?.businessEmail}</p>
             </div>
 
+            {business?.story &&
             <div className="icon-text">
               <AiOutlineEye className="action"/> 
-              <p><a href="#">View First Antique's story</a></p>
+              <ModalComponent
+                handler={this.handler}
+                isOpen={storyModal}
+                business={business}
+                img1={storyImg1}
+                img2={storyImg2}
+                storiesPage={false}
+              />
             </div>
-            
+            }
     
             <div className="reviews">
               <div className="textbox">
@@ -244,4 +288,4 @@ class BusinessInfo extends React.Component {
     }
 }
 
-export default BusinessInfo
+export default BusinessInfo;
