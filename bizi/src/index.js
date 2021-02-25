@@ -17,22 +17,43 @@ const isLocalhost = Boolean(
     )
 );
 
+const isWWW = Boolean(window.location.hostname.includes('www'));
+
 const [
   localRedirectSignIn,
   productionRedirectSignIn,
+  productionRedirectSignInWWW,
 ] = awsExports.oauth.redirectSignIn.split(",");
 
 const [
   localRedirectSignOut,
   productionRedirectSignOut,
+  productionRedirectSignOutWWW,
 ] = awsExports.oauth.redirectSignOut.split(",");
+
+var redirectSignIn = null;
+var redirectSignOut = null;
+if (!isLocalhost) {
+  if (isWWW) {
+    redirectSignIn = productionRedirectSignInWWW;
+    redirectSignOut = productionRedirectSignOutWWW;
+  }
+  else {
+    redirectSignIn = productionRedirectSignIn;
+    redirectSignOut = productionRedirectSignOut;
+  }
+}
+else {
+  redirectSignIn = localRedirectSignIn;
+  redirectSignOut = localRedirectSignOut;
+}
 
 const updatedAwsExports = {
   ...awsExports,
   oauth: {
     ...awsExports.oauth,
-    redirectSignIn: isLocalhost ? localRedirectSignIn : productionRedirectSignIn,
-    redirectSignOut: isLocalhost ? localRedirectSignOut : productionRedirectSignOut,
+    redirectSignIn: redirectSignIn,
+    redirectSignOut: redirectSignOut,
   }
 }
 if (!isLocalhost) {
