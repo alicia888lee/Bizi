@@ -164,7 +164,7 @@ class Login extends Component {
                     
                 </div>
                 <div className='termsAgreement'>
-                    <a className="smallText" href="https://www.termsfeed.com/live/cce55d58-2f48-4d9c-ab31-478dafcdca99" target='_blank'>Terms of Agreement</a>   
+                    <a className="smallText" href="https://www.termsfeed.com/live/cce55d58-2f48-4d9c-ab31-478dafcdca99" target='_blank'>Privacy Policy</a>   
                 </div>                     
             </div>
         );

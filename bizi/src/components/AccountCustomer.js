@@ -318,7 +318,7 @@ class AccountCustomer extends Component {
                         this.props.history.push({pathname: `search/${item?.id}`, state: {business: item}})}>
                     <h1>{item?.businessName}</h1>
                     {item?.initiatives.map((init, index) => 
-                        Object.keys(iconDict).includes(init) && <img src={iconDict[init]?.img} className='bookmarkIcon' key={index} />
+                        Object.keys(iconDict).includes(init) && <img src={iconDict[init]?.img} className='bookmarkIcon' key={index} title={init}/>
                     )}
                 </div>
             );
