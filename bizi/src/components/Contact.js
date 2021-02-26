@@ -149,13 +149,13 @@ class Contact extends React.Component {
                                     <AiOutlineInstagram className="contact-icon" onClick={() => window.open('https://www.instagram.com/thebiziteam/', '_blank')}/>
                                     {/* <FiTwitter className="contact-icon"/> */}
                                 </div>
-                                <h2>1111 Campus Dr., Evanston, IL 60201</h2>
+                                <h2>thebiziteam@gmail.com</h2>
                             </div>
                         </div>
                     </div>
 
                     <div className='termsAgreement'>
-                        <a className="smallText" href="#">Terms of Agreement</a>   
+                        <a className="smallText" href="https://www.termsfeed.com/live/cce55d58-2f48-4d9c-ab31-478dafcdca99" target='_blank'>Terms of Agreement</a>   
                     </div>              
                 </div> :
                 <div>

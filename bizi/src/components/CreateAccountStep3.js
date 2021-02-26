@@ -474,9 +474,10 @@ class Step3 extends Component {
                         <button id='register' onClick={register}>Register</button>
                     </div>
                     {registering && <Loader type='TailSpin' color='#385FDC' height={40} />}
-                    {<p id='regDisclaimer'>Your registration will be reviewed within 24-48 hours. 
-                        You will then receive an email notifying you whether your business
-                        was approved.</p>}
+                    {<p id='regDisclaimer'>
+                        Your registration will be reviewed within 24-48 hours.
+                        Once approved, your business will become searchable.
+                    </p>}
                 </>
                 }
                 <div className="circles">
