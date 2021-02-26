@@ -27,7 +27,7 @@ class SearchItemsList extends Component {
         return (
             <div>
                 <div className="search-selects" id='filter-selects'>
-                    <select onChange={(e) => doFilter(e)} title='Filter By All Initiatives'>
+                    <select onChange={(e) => doFilter(e)} title='Filter By Initiatives'>
                         <option selected={filterInitiative == 'Filter By All Initiatives'}>Filter By All Initiatives</option>  
                         <option selected={filterInitiative == 'Sustainable'}>Sustainable</option>
                         <option selected={filterInitiative == 'Supply Chain'}>Supply Chain</option>
@@ -36,11 +36,11 @@ class SearchItemsList extends Component {
                         <option selected={filterInitiative == 'Food'}>Food</option>
                         <option selected={filterInitiative == 'Services'}>Services</option>
                     </select>
-                    <select onChange={(e) => doFilter(e)} title='Filter By All Hours'>
+                    <select onChange={(e) => doFilter(e)} title='Filter By Hours'>
                         <option selected={filterOpen == 'Filter By All Hours'}>Filter By All Hours</option>  
                         <option selected={filterOpen == 'Open Now'}>Open Now</option>
                     </select>
-                    <select onChange={(e) => doFilter(e)} title='Filter By All Prices'>
+                    <select onChange={(e) => doFilter(e)} title='Filter By Prices'>
                         <option selected={filterPrice == 'Filter By All Prices'}>Filter By All Prices</option>  
                         <option selected={filterPrice == '$'}>$</option>
                         <option selected={filterPrice == '$$'}>$$</option>

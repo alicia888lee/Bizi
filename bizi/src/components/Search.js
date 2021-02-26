@@ -267,9 +267,22 @@ class Search extends React.Component {
         return false;
       }
 
-      generateSearchList = async() => {
+      generateSearchList = async(randomize=false) => {
         const { filteredBusinesses } = this.state;
-        
+        var shuffledFilteredBusinesses = filteredBusinesses.slice();
+        if (randomize) {
+          console.log('RANDOMIZING');
+          // shuffle business list
+            for (let i = shuffledFilteredBusinesses.length - 1; i > 0; i--) {
+              var rand = Math.floor(Math.random() * (i + 1));
+              var old = shuffledFilteredBusinesses[i];
+              shuffledFilteredBusinesses[i] = shuffledFilteredBusinesses[rand];
+              shuffledFilteredBusinesses[rand] = old;
+            }
+          this.setState({
+            businesses: shuffledFilteredBusinesses
+          });
+        }
         var iconDict = {
           'Sustainability': {
             id: 'searchEnvironment',
@@ -287,7 +300,7 @@ class Search extends React.Component {
 
         // update img urls for all businesses
         try {
-          var newURLs = await Promise.all(filteredBusinesses.map(async(item) => {
+          var newURLs = await Promise.all(shuffledFilteredBusinesses.map(async(item) => {
             if (item?.imgPath) {
               return await Storage.get(item?.imgPath,
                 { level: 'public' }
@@ -301,7 +314,7 @@ class Search extends React.Component {
 
         // console.log(newURLs);
   
-        var searchList = filteredBusinesses.map((item, index) =>
+        var searchList = shuffledFilteredBusinesses.map((item, index) =>
           item.approved &&
             <Link to={{pathname: `/search/${item?.id}`, state: {business: item}}} className='SearchItem' key={index}>
                 <div className='SearchItemWrapper'>
@@ -336,7 +349,7 @@ class Search extends React.Component {
         await this.getBusinessData();
         this.filterChange(null, initialFilter);
         this.searchChange(null, initialSearch);
-        this.generateSearchList();
+        this.generateSearchList(true);
       }
 
       componentDidUpdate(prevProps, prevState) {
