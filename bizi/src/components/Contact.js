@@ -146,8 +146,8 @@ class Contact extends React.Component {
                             <div className="contactFooter">
                                 <div className="contactIcons">
                                     <AiOutlineFacebook className="contact-icon"/>
-                                    <AiOutlineInstagram className="contact-icon"/>
-                                    <FiTwitter className="contact-icon"/>
+                                    <AiOutlineInstagram className="contact-icon" onClick={() => window.open('https://www.instagram.com/thebiziteam/', '_blank')}/>
+                                    {/* <FiTwitter className="contact-icon"/> */}
                                 </div>
                                 <h2>1111 Campus Dr., Evanston, IL 60201</h2>
                             </div>

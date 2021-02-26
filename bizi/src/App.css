@@ -1169,6 +1169,7 @@ nav .dropdown:hover .dropdown-content {
 }
 
 .contact-icon {
+  cursor: pointer;
   font-size: 3em;
   color: #385FDC;
 }
