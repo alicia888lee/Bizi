@@ -344,12 +344,13 @@ class Search extends React.Component {
       async componentDidMount() {
         const { location } = this.props;
         console.log(location?.state?.initialFilter);
+        console.log(location?.state?.initialSearch);
         var initialFilter = location?.state?.initialFilter;
         var initialSearch = location?.state?.initialSearch;
         await this.getBusinessData();
         this.filterChange(null, initialFilter);
         this.searchChange(null, initialSearch);
-        if (initialFilter) {
+        if (initialFilter || initialSearch) {
           this.generateSearchList();
         }
         else {
