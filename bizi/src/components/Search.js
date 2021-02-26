@@ -349,7 +349,12 @@ class Search extends React.Component {
         await this.getBusinessData();
         this.filterChange(null, initialFilter);
         this.searchChange(null, initialSearch);
-        this.generateSearchList(true);
+        if (initialFilter) {
+          this.generateSearchList();
+        }
+        else {
+          this.generateSearchList(true);
+        }
       }
 
       componentDidUpdate(prevProps, prevState) {
