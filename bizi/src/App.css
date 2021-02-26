@@ -477,7 +477,7 @@ nav .dropdown:hover .dropdown-content {
   flex: 9;
 }
 .story-header {
-  padding: 0em 6em;
+  padding: 0em 1em;
   font-size: 4em;
 }
 
@@ -591,6 +591,7 @@ nav .dropdown:hover .dropdown-content {
 }
 
 .gridImgDescription {
+  cursor: pointer;
   padding: 1em;
   display: flex;
   align-items: center;  
@@ -609,16 +610,22 @@ nav .dropdown:hover .dropdown-content {
 }
 
 .gridImgDescription h2 {
-  font-size: 2em;
+  font-size: 2vw;
   margin-bottom: 0.4em;
 }
 
+.gridImgDescription h3 {
+  font-size: 1.5vw;
+}
+
 .imgTextWrapper {    
-    max-width: 20vh;    
+    max-width: 40vw;
 }
 
 .gridImgDescription p {
-  margin-top: 1.5em;    
+  margin-top: 1em;
+  line-height: 2em;
+  font-size: 1.5vw;
 }
 
 .gridElement:hover .gridImgDescription {
@@ -689,8 +696,8 @@ nav .dropdown:hover .dropdown-content {
 .policyChecklist {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  margin-left: 15%;
-  margin-right: 15%;
+  margin-left: 23%;
+  margin-right: 23%;
   text-align: left;
   margin-bottom: 5px;
 }
@@ -790,7 +797,6 @@ nav .dropdown:hover .dropdown-content {
   margin: 0 auto;
   width: 50vw;
   column-gap: 4.5vw;
-  margin-bottom: 2vw;
 }
 
 .prefCol {
@@ -830,13 +836,13 @@ nav .dropdown:hover .dropdown-content {
 }
 
 .prefCol img {
-  width: 10vw;
-  height: 10vw;
+  width: 10em;
+  height: 10em;
 }
 
 .businessInitiativesGrid .prefCol img {
-  width: 5vw;
-  height: 5vw;
+  width: 8em;
+  height: 8em;
 }
 
 .userPreferencesGrid p {
@@ -1366,7 +1372,7 @@ nav .dropdown:hover .dropdown-content {
 }
 
 #filter-selects select {
-  width: 20vw;
+  width: 14vw;
 }
 
 .searchHeader {
@@ -1398,7 +1404,7 @@ nav .dropdown:hover .dropdown-content {
 }
 .recItem img {
   width: 15%;
-  margin: 0 0.25em;    
+  margin: 0 0.25em;
 }
 
 .recImgs {
@@ -1858,6 +1864,19 @@ input[type="file"] {
 }
 .story-modal-content{
   padding-left: 1.5em;
+}
+
+.modal-initiatives {
+  margin-bottom: 1em;
+}
+
+.modal-initiatives img {
+  height: 5%;
+  width: 5%;
+}
+
+.story-modal-3 h3 {
+  margin-bottom: 0;
 }
 
 .story-modal-3 p{

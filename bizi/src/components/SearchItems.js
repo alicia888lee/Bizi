@@ -4,7 +4,16 @@ import SearchItemsList from './SearchItemsList'
 import Loader from 'react-loader-spinner'
 
 function SearchItems(props){
-  const { searchList, loading, filteredBusinesses, doFilter, filter, doSort, sort } = props;
+  const { 
+    searchList, 
+    loading, 
+    filteredBusinesses, 
+    doFilter, 
+    filterInitiative,
+    filterPrice,
+    filterOpen, 
+    doSort, 
+    sort } = props;
 
   return(
       <>
@@ -15,7 +24,7 @@ function SearchItems(props){
             </div>
       
             <div className="description-text">  
-              <SearchItemsList searchList={searchList} doFilter={doFilter} filter={filter} doSort={doSort} sort={sort}/>                                                          
+              <SearchItemsList searchList={searchList} doFilter={doFilter} filterInitiative={filterInitiative} filterPrice={filterPrice} filterOpen={filterOpen} doSort={doSort} sort={sort}/>                                                          
             </div>      
           </div>
         }
@@ -31,7 +40,7 @@ function SearchItems(props){
             </div>
     
             <div className="description-text">          
-              <SearchItemsList searchList={searchList} doFilter={doFilter} filter={filter} doSort={doSort} sort={sort} />                                                          
+              <SearchItemsList searchList={searchList} doFilter={doFilter} filterInitiative={filterInitiative} filterPrice={filterPrice} filterOpen={filterOpen} doSort={doSort} sort={sort} />                                                          
             </div>      
           </div>
         </>

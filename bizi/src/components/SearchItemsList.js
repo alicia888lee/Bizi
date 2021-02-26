@@ -13,29 +13,39 @@ class SearchItemsList extends Component {
     }
 
     render() {
-        const { searchList, doFilter, filter, sort, doSort } = this.props;
+        const { 
+            searchList, 
+            doFilter, 
+            filterInitiative,
+            filterPrice,
+            filterOpen, 
+            sort, 
+            doSort } = this.props;
+            console.log(filterInitiative);
+            console.log(filterPrice);
 
         return (
             <div>
                 <div className="search-selects" id='filter-selects'>
-                    <select onChange={(e) => doFilter(e)}>
-                        <option selected={filter == 'Filter'}>Filter</option>  
-                        <option selected={filter == 'Open Now'}>Open Now</option>
-                        <option selected={filter == 'Sustainable'}>Sustainable</option>
-                        <option selected={filter == 'Supply Chain'}>Supply Chain</option>
-                        <option selected={filter == 'Diversity Focused'}>Diversity Focused</option>
-                        <option selected={filter == 'Shopping'}>Shopping</option>
-                        <option selected={filter == 'Food'}>Food</option>
-                        <option selected={filter == 'Services'}>Services</option>
-                        <option selected={filter == '$'}>$</option>
-                        <option selected={filter == '$$'}>$$</option>
-                        <option selected={filter == '$$$'}>$$$</option>
-                        <option selected={filter == '$$$$'}>$$$$</option>
+                    <select onChange={(e) => doFilter(e)} title='Filter By All Initiatives'>
+                        <option selected={filterInitiative == 'Filter By All Initiatives'}>Filter By All Initiatives</option>  
+                        <option selected={filterInitiative == 'Sustainable'}>Sustainable</option>
+                        <option selected={filterInitiative == 'Supply Chain'}>Supply Chain</option>
+                        <option selected={filterInitiative == 'Diversity Focused'}>Diversity Focused</option>
+                        <option selected={filterInitiative == 'Shopping'}>Shopping</option>
+                        <option selected={filterInitiative == 'Food'}>Food</option>
+                        <option selected={filterInitiative == 'Services'}>Services</option>
                     </select>
-                    <select onChange={(e) => doSort(e)}>
-                        <option selected disabled style={{display: 'none'}}>Sort By</option>  
-                        <option selected={sort == 'Lowest Price'}>Lowest Price</option>
-                        <option selected={sort == 'Highest Price'}>Highest Price</option>
+                    <select onChange={(e) => doFilter(e)} title='Filter By All Hours'>
+                        <option selected={filterOpen == 'Filter By All Hours'}>Filter By All Hours</option>  
+                        <option selected={filterOpen == 'Open Now'}>Open Now</option>
+                    </select>
+                    <select onChange={(e) => doFilter(e)} title='Filter By All Prices'>
+                        <option selected={filterPrice == 'Filter By All Prices'}>Filter By All Prices</option>  
+                        <option selected={filterPrice == '$'}>$</option>
+                        <option selected={filterPrice == '$$'}>$$</option>
+                        <option selected={filterPrice == '$$$'}>$$$</option>
+                        <option selected={filterPrice == '$$$$'}>$$$$</option>
                     </select>
                 </div>
                 <div className="SearchItemsList">

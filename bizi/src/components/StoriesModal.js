@@ -8,6 +8,9 @@ import busImg1 from '../images/pexels-andrea-piacquadio-3932730.jpg';
 import busImg2 from '../images/pexels-rfstudio-4177755.jpg';
 import busImg3 from '../images/pexels-justin-l-4060881.jpg';
 import Map from './Map'
+import environmentImg from '../images/environment.png';
+import heartImg from '../images/heart_hand.png';
+import communityImg from '../images/community.png';
 import { Storage } from 'aws-amplify';
 
 
@@ -30,7 +33,14 @@ function ModalComponent(props) {
         <>
             <>{storiesPage ?
               <div className="gridElement"> 
-                  <img className="gridImg" src={img1} onClick={toggleModal} style={{cursor: 'pointer'}}/>
+                  <img className="gridImg" src={img1}/>
+                  <div className='gridImgDescription' onClick={toggleModal}>
+                    <h2>{`Meet ${business?.story?.storyPerson.split(' ')[0]}`}</h2>
+                    <h3>{`Owner of ${business?.businessName}`}</h3>
+                    <div className='imgTextWrapper'>
+                      <p>Click to Learn More</p>
+                    </div>
+                  </div>
               </div> :
               <p><a onClick={toggleModal} style={{cursor: 'pointer'}}>{`View ${plural_bus} Story`}</a></p>}
             </>
@@ -92,6 +102,21 @@ class StoriesModal extends React.Component {
         firstName + "\'s" :
         firstName + "\'";
 
+      var iconDict = {
+        'Sustainability': {
+          id: 'searchEnvironment',
+          img: environmentImg
+        },
+        'Ethical Supply Chain': {
+          id: 'searchHeart',
+          img: heartImg
+        },
+        'Diversity Initiatives': {
+          id: 'searchCommunity',
+          img: communityImg
+        }
+      };
+
       return isVisible
         ? createPortal(
             <div className='story-modal'>
@@ -126,7 +151,15 @@ class StoriesModal extends React.Component {
                     <div className='map-modal'><Map height={35} filteredBusinesses={[business]} modal/></div>
                     <div className="story-modal-content story-modal-3">                  
                       <h3>{business?.businessName}</h3>
-  
+                      <div className='modal-initiatives'>
+                        {business?.initiatives?.map((init, index) => 
+                          Object.keys(iconDict).includes(init) && <img src={iconDict[init]?.img} title={init} key={index}/>
+                        )}
+                      </div>
+                      {/* <div className='modal-inits'>
+                        <img src={environmentImg} id='modal-icon'/>
+                        <img src={environmentImg} id='modal-icon'/>
+                      </div> */}
                       <p>{business?.businessDescription}</p>
                       <p id="story-modal-3-address">{business?.address}</p>
   
