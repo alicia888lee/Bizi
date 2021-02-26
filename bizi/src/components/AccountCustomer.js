@@ -67,13 +67,16 @@ class AccountCustomer extends Component {
             bookmarksLoading: false,
             filteredBookmarks: [],
             filteredBusinesses: [],
-            filter: 'Filter',
+            filterInitiative: '',
+            filterPrice: '',
+            filterOpen: '',
             sort: '',
             discount: null,
             couponLoading: false,
             couponUsed: false,
             useCouponLoading: false,
-            couponModalOpen: false
+            couponModalOpen: false,
+            currentFilters: [null, null, null]
         }
     }
 
@@ -359,65 +362,120 @@ class AccountCustomer extends Component {
       }
 
     doFilter = (e) => {
-        const { businesses, bookmarks } = this.state;
+        const { businesses, bookmarks, currentFilters } = this.state;
+        var setFilters = currentFilters.slice();
         var filterTypes = {
+            'All Initiatives': {
+              category: 'initiatives',
+              value: ['Sustainability', 'Ethical Supply Chain', 'Diversity Initiatives', 'Shopping', 'Food', 'Services']
+            },
             'Sustainable': {
-            category: 'initiatives',
-            value: 'Sustainability'
+              category: 'initiatives',
+              value: 'Sustainability'
             },
             'Supply Chain': {
-            category: 'initiatives',
-            value: 'Ethical Supply Chain'
+              category: 'initiatives',
+              value: 'Ethical Supply Chain'
             },
             'Diversity Focused': {
-            category: 'initiatives',
-            value: 'Diversity Initiatives'
+              category: 'initiatives',
+              value: 'Diversity Initiatives'
             },
             'Shopping': {
-            category: 'initiatives',
-            value: 'Shopping'
+              category: 'initiatives',
+              value: 'Shopping'
             },
             'Food': {
-            category: 'initiatives',
-            value: 'Food'
+              category: 'initiatives',
+              value: 'Food'
             },
             'Services': {
-            category: 'initiatives',
-            value: 'Services'
+              category: 'initiatives',
+              value: 'Services'
+            },
+            'All Prices': {
+              category: 'priceRange',
+              value: [1, 2, 3, 4]
             },
             '$': {
-            category: 'priceRange',
-            value: 1
+              category: 'priceRange',
+              value: 1
             },
             '$$': {
-            category: 'priceRange',
-            value: 2
+              category: 'priceRange',
+              value: 2
             },
             '$$$': {
-            category: 'priceRange',
-            value: 3
+              category: 'priceRange',
+              value: 3
             },
             '$$$$': {
-            category: 'priceRange',
-            value: 4
+              category: 'priceRange',
+              value: 4
+            },
+            'All Hours': {
+              category: 'schedule'
             },
             'Open Now': {
-            category: 'schedule'
+              category: 'schedule'
             }
         };
 
-        var filteredBusinesses = businesses.filter((item) => {
-            if (filterTypes[e.target.value]?.category == 'initiatives') {
-                return item?.initiatives?.includes(filterTypes[e.target.value]?.value);
-            }
-            if (filterTypes[e.target.value]?.category == 'priceRange') {
-                return item?.priceRange == filterTypes[e.target.value]?.value;
-            }
-            if (filterTypes[e.target.value]?.category == 'schedule') {
-                return this.isOpen(item?.schedule);
-            }
-            if (e.target.value == 'Filter') {
-                return true;
+        if (filterTypes[e.target.value]?.category == 'initiatives') {
+        setFilters[0] = e.target.value;
+        this.setState({filterInitiative: e.target.value});
+        }
+        if (filterTypes[e.target.value]?.category == 'priceRange') {
+        setFilters[1] = e.target.value;
+        this.setState({filterPrice: e.target.value});
+        }
+        if (filterTypes[e.target.value]?.category == 'schedule') {
+        setFilters[2] = e.target.value;
+        this.setState({filterOpen: e.target.value});
+        }
+        if (e.target.value == 'Filter By All Initiatives') {
+        setFilters[0] = 'All Initiatives';
+        this.setState({filterInitiative: e.target.value});
+        }
+        if (e.target.value == 'Filter By All Prices') {
+        this.setState({filterPrice: e.target.value});
+        setFilters[1] = 'All Prices';
+        }
+        if (e.target.value == 'Filter By All Hours') {
+        this.setState({filterOpen: e.target.value});
+        setFilters[2] = 'All Hours';
+        }
+
+        var filteredBusinesses = businesses.slice();
+        setFilters.filter(fil => fil)
+            .forEach(fil => {
+              console.log(fil);
+              switch(filterTypes[fil]?.category) {
+                case "initiatives":
+                  filteredBusinesses = businesses?.filter(item => {
+                    if (fil == 'All Initiatives') {
+                      return filterTypes[fil]?.value.some(val => item?.initiatives?.includes(val));
+                    }
+                    return item?.initiatives?.includes(filterTypes[fil]?.value)
+                  });
+                  break;
+                case "priceRange":
+                  filteredBusinesses = filteredBusinesses?.filter(item => {
+                    if (fil == 'All Prices') {
+                      return filterTypes[fil]?.value.some(val => item?.priceRange == val);
+                    }
+                    return item?.priceRange == filterTypes[fil]?.value
+                  });
+                  break;
+                case "schedule":
+                  filteredBusinesses = filteredBusinesses?.filter(item => {
+                    if (fil == 'All Hours') {
+                      return this.isOpen(item?.schedule) || !this.isOpen(item?.schedule);
+                    }
+                    return this.isOpen(item?.schedule)
+                  });
+                default:
+                  break;
             }
         });
 
@@ -429,9 +487,10 @@ class AccountCustomer extends Component {
         );
 
         this.setState({
-        filteredBusinesses: filteredBusinesses,
-        filteredBookmarks: filteredBookmarksUpdated,
-        filter: e.target.value
+            currentFilters: setFilters,
+            filteredBusinesses: filteredBusinesses,
+            filteredBookmarks: filteredBookmarksUpdated,
+            filter: e.target.value
         });
     }
 
@@ -514,7 +573,18 @@ class AccountCustomer extends Component {
     }
 
     render() {
-        const { userName, bookmarksList, bookmarksLoading, filter, sort, discount, couponLoading, useCouponLoading, couponModalOpen } = this.state;
+        const { 
+            userName, 
+            bookmarksList, 
+            bookmarksLoading, 
+            filterInitiative,
+            filterOpen,
+            filterPrice,
+            sort,
+            discount, 
+            couponLoading, 
+            useCouponLoading, 
+            couponModalOpen } = this.state;
         console.log(couponModalOpen);
         return (
             <div className="account" id={couponModalOpen && 'couponModalOpen'}>
@@ -534,25 +604,26 @@ class AccountCustomer extends Component {
                 <div className="bookmark-wrapper">
                     <h3><BsBookmarkPlus className="accountIcon"/> Your bookmarks</h3>
 
-                    <div className="bookmark-selects">
-                        <select onChange={this.doFilter}>
-                            <option selected={filter == 'Filter'}>Filter</option>  
-                            <option selected={filter == 'Open Now'}>Open Now</option>
-                            <option selected={filter == 'Sustainable'}>Sustainable</option>
-                            <option selected={filter == 'Supply Chain'}>Supply Chain</option>
-                            <option selected={filter == 'Diversity Focused'}>Diversity Focused</option>
-                            <option selected={filter == 'Shopping'}>Shopping</option>
-                            <option selected={filter == 'Food'}>Food</option>
-                            <option selected={filter == 'Services'}>Services</option>
-                            <option selected={filter == '$'}>$</option>
-                            <option selected={filter == '$$'}>$$</option>
-                            <option selected={filter == '$$$'}>$$$</option>
-                            <option selected={filter == '$$$$'}>$$$$</option>
+                    <div className="bookmark-selects" id='filter-selects'>
+                        <select onChange={this.doFilter} title='Filter By All Initiatives'>
+                            <option selected={filterInitiative == 'Filter By All Initiatives'}>Filter By All Initiatives</option>  
+                            <option selected={filterInitiative == 'Sustainable'}>Sustainable</option>
+                            <option selected={filterInitiative == 'Supply Chain'}>Supply Chain</option>
+                            <option selected={filterInitiative == 'Diversity Focused'}>Diversity Focused</option>
+                            <option selected={filterInitiative == 'Shopping'}>Shopping</option>
+                            <option selected={filterInitiative == 'Food'}>Food</option>
+                            <option selected={filterInitiative == 'Services'}>Services</option>
                         </select>
-                        <select onChange={this.doSort}>
-                            <option selected disabled style={{display: 'none'}}>Sort By</option>  
-                            <option selected={sort == 'Lowest Price'}>Lowest Price</option>
-                            <option selected={sort == 'Highest Price'}>Highest Price</option>
+                        <select onChange={this.doFilter} title='Filter By All Hours'>
+                            <option selected={filterOpen == 'Filter By All Hours'}>Filter By All Hours</option>  
+                            <option selected={filterOpen == 'Open Now'}>Open Now</option>
+                        </select>
+                        <select onChange={this.doFilter} title='Filter By All Prices'>
+                            <option selected={filterPrice == 'Filter By All Prices'}>Filter By All Prices</option>  
+                            <option selected={filterPrice == '$'}>$</option>
+                            <option selected={filterPrice == '$$'}>$$</option>
+                            <option selected={filterPrice == '$$$'}>$$$</option>
+                            <option selected={filterPrice == '$$$$'}>$$$$</option>
                         </select>
                     </div>
                     {bookmarksLoading ? <Loader type='TailSpin' color='#385FDC' height={40} /> : bookmarksList}
