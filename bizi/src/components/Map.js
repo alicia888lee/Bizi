@@ -154,7 +154,7 @@ class Map extends Component {
           <GoogleMapReact
             bootstrapURLKeys={{ key: mapAPIKey }}
             center={center}
-            defaultZoom={14}
+            defaultZoom={10.2}
           >
             {locationPins}
           </GoogleMapReact>

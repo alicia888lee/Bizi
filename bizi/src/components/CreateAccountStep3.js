@@ -342,7 +342,7 @@ class Step3 extends Component {
                                 <input type='text' name='url' onBlur={onURLChange}/>
                             </div>
                             <div className='inputGroup'>
-                                <label for='delivery'>URL of Grubhub, Doordash, etc<br/>(if none, leave blank)</label>
+                                <label for='delivery'>Online Order URL<br/>(if none, leave blank)</label>
                                 <input type='text' name='delivery' onBlur={onDeliveryChange}/>
                             </div>
                             <div className='inputGroup'>

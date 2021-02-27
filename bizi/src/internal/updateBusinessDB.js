@@ -15,7 +15,7 @@ async function updateDB(data) {
             businessPhone: data[business]?.['Phone Number'],
             businessEmail: data[business]?.['Email'],
             businessURL: data[business]?.['Website'],
-            deliveryURL: data[business]?.['Delivery'],
+            deliveryURL: data[business]?.['Order Online'],
             reservationURL: data[business]?.['Reservations'],
             address: data[business]?.['Address'],
             priceRange: data[business]?.['Price Range'],
