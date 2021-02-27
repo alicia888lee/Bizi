@@ -83,7 +83,8 @@ class AccountCustomer extends Component {
     getBusinesses = async() => {
         try {
             var businessQuery = await API.graphql({
-                query: queries.listBusinesss
+                query: queries.listBusinesss,
+                variables: {limit: 1000}
             });
             var businesses = businessQuery?.data?.listBusinesss?.items;
         }

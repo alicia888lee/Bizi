@@ -13,6 +13,7 @@ async function updateDB(data) {
             initiatives: data[business]?.['Initiatives'],
             policyList: data[business]?.['Policies'],
             businessPhone: data[business]?.['Phone Number'],
+            businessEmail: data[business]?.['Email'],
             businessURL: data[business]?.['Website'],
             deliveryURL: data[business]?.['Delivery'],
             reservationURL: data[business]?.['Reservations'],

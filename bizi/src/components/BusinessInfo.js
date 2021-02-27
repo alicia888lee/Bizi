@@ -1,6 +1,6 @@
 import React from "react"
 import { BsBookmarkPlus, BsDownload, BsBookmarkFill } from "react-icons/bs";
-import { BiCalendarPlus, BiPhone, BiEnvelope } from "react-icons/bi";
+import { BiCalendarPlus, BiPhone, BiEnvelope, BiGlobe } from "react-icons/bi";
 import { AiOutlineEye } from "react-icons/ai";
 import { FiThumbsUp, FiThumbsDown } from "react-icons/fi";
 import { GiHealthNormal } from "react-icons/gi";
@@ -239,27 +239,34 @@ class BusinessInfo extends React.Component {
               {policyList}  
             </div>
             }
+            {business?.businessURL &&
+            <div className="icon-text">
+              <BiGlobe className="action"/>
+              <p><a href={business?.businessURL} target='_blank'>Visit us</a></p>
+            </div>
+            }
             {business?.reservationURL &&
             <div className="icon-text">
               <BiCalendarPlus className="action"/> 
-              <p><a href={`//${business?.reservationURL}`} target='_blank'>Make  reservation</a></p>
+              <p><a href={business?.reservationURL} target='_blank'>Make  reservation</a></p>
             </div>
             }
             {business?.deliveryURL &&
             <div className="icon-text">
               <BiCalendarPlus className="action"/> 
-              <p><a href={`//${business?.deliveryURL}`} target='_blank'>Order online here</a></p>
+              <p><a href={business?.deliveryURL} target='_blank'>Order online here</a></p>
             </div>
             }
             <div className="icon-text">
               <BiPhone className="action"/> 
               <p>{business?.businessPhone}</p>
             </div>
+            {business?.businessEmail &&
             <div className="icon-text">
               <BiEnvelope className="action"/> 
               <p>{business?.businessEmail}</p>
             </div>
-
+            }
             {business?.story &&
             <div className="icon-text">
               <AiOutlineEye className="action"/> 

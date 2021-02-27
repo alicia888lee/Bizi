@@ -25,7 +25,8 @@ class ReadStories extends React.Component {
     this.setState({storiesLoading: true});
     try {
       var businessQuery = await API.graphql({
-        query: queries.listBusinesss
+        query: queries.listBusinesss,
+        variables: {limit: 1000}
       });
       console.log(businessQuery);
       var listStories = businessQuery?.data?.listBusinesss?.items?.filter(item => item?.story);

@@ -88,7 +88,8 @@ class Recommendation extends React.Component {
         // get list of businesses
         try {
             var businessQuery = await API.graphql({
-                query: queries.listBusinesss
+                query: queries.listBusinesss,
+                variables: {limit: 1000}
             });
             businesses = businessQuery?.data?.listBusinesss?.items;
         }

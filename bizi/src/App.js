@@ -12,8 +12,11 @@ import './App.css';
 import ScrollToTop from './components/ScrollToTop.js';
 
 function App() {
+  var UNDER_CONSTRUCTION = false;
   return (
     <div className="App">
+      {UNDER_CONSTRUCTION ?
+        <h1>Website is currently under construction, check back later.</h1> :
       <Router>
         <ScrollToTop />
         <Switch>          
@@ -40,7 +43,7 @@ function App() {
             <ForgotPassword />
           </Route>
         </Switch>       
-      </Router>
+      </Router>}
     </div>
   );
 }

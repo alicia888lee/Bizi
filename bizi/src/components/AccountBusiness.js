@@ -46,7 +46,8 @@ class AccountBusiness extends React.Component {
         });
         try {
             var businessQuery = await API.graphql({
-                query: queries.listBusinesss
+                query: queries.listBusinesss,
+                variables: {limit: 1000}
             });
             var listBusinesses = businessQuery?.data?.listBusinesss?.items;               
             let business = listBusinesses.filter(item => item.userEmail === this.props.authUser.attributes.email)[0];                  

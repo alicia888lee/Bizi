@@ -1,0 +1,48 @@
+{
+    "Trader Joe's": {
+        "Description": "Food & Services",
+        "Initiatives": ["Sustainability", "Ethical Supply Chain"],
+        "Phone Number": "(888) 123-4523",
+        "Address": "1211 Chicago Ave, Evanston, IL 60202",
+        "Price Range": 1,
+        "Schedule": [[8, 15], [9, 16], [9, 16], [9, 16], [9, 16], [9, 16], [8, 15]],
+        "Business Photo": "tjs.jpg",
+        "Discounts": [[30, 50], [25, 60]],
+        "Approved": true
+    },
+    "Jewel": {
+        "Description": "Food & Services",
+        "Initiatives": ["Sustainability", "Diversity Initiatives"],
+        "Policies": ["Sanitation", "Limited Capacity", "Masks required"],
+        "Phone Number": "(888) 123-4523",
+        "Website": "jewel.com",
+        "Address": "1128 Chicago Ave, Evanston, IL 60202",
+        "Price Range": 1,
+        "Schedule": [[8, 15], [9, 16], [9, 16], [9, 16], [9, 16], [9, 16], [8, 15]],
+        "Approved": true
+    },
+    "Starbuck's": {
+        "Description": "Food & Services",
+        "Initiatives": ["Diversity Initiatives", "Sustainability", "Ethical Supply Chain"],
+        "Policies": ["Sanitation", "Masks", "1/2 Capacity", "Outdoor seating", "Social distancing"],
+        "Phone Number": "(888) 123-4523",
+        "Website": "starbucks.com",
+        "Address" : "1734 Sherman Ave, Evanston, IL 60201",
+        "Price Range": 2,
+        "Schedule": [[8, 15], [9, 16], [9, 16], [9, 16], [9, 16], [9, 16], [8, 15]],
+        "Approved": true
+    },
+    "Bat 17": {
+        "Description": "Food & Services",
+        "Initiatives": ["Ethical Supply Chain"],
+        "Policies": ["Sanitation", "Outdoor seating", "Masks required"],
+        "Phone Number": "(888) 123-4523",
+        "Website": "bat17.com",
+        "Reservations": "opentable.com",
+        "Address": "1709 Benson Ave, Evanston, IL 60201",
+        "Price Range": 2,
+        "Discounts": [[10, 100], [15, 80]],
+        "Schedule": [[8, 15], [9, 16], [9, 16], [9, 16], [9, 16], [9, 16], [8, 15]],
+        "Approved": true
+    }
+}

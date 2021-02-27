@@ -115,7 +115,7 @@ class Map extends Component {
       center: {
         lat: avgLat,
         lng: avgLng
-      }
+      },
     });
     
   }
