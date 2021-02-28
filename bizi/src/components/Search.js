@@ -18,57 +18,30 @@ import { OpenTag, ClosedTag, PriceTag } from './SearchItemsList'
 class Search extends React.Component {
     constructor(props) {
         super(props);
-        this.searchChange = this.searchChange.bind(this);
 
         this.state = {
           businesses: [],
           filteredBusinesses: [],
           searchList: [],
           search: "",
-          currentFilters: [null, null, null],
-          filterInitiative: this.props.location?.state?.initialFilter,
-          filterPrice: '',
-          filterOpen: '',
+          currentInitFilters: [],
+          currentPriceFilters: [],
+          currentScheduleFilter: [],
           sort: '',
           loading: false,
         }
       }
-      searchChange(e, initialSearch='') {
-        const { businesses } = this.state;
-        
-        if (initialSearch) {
-          var filtered = businesses.filter((item) => {
-            if (initialSearch == '') {
-              return true;
-            }
-            return item?.businessName?.toLowerCase().includes(initialSearch.toLowerCase());
-          });
-          this.setState({
-            filteredBusinesses: filtered,
-            search: initialSearch
-          });
-        }
 
-        if (e) {
-          filtered = businesses.filter((item) => item?.businessName?.toLowerCase().includes(e.target.value.toLowerCase()));
-          this.setState({
-            filteredBusinesses: filtered,
-            search: e.target.value
-          });
-        }
-      }
-
-      filterChange(e, initialFilter) {
-        const { businesses, currentFilters } = this.state;
+      filterChange(e, initialFilters, initialSearch, isSearch) {
+        const { businesses, filteredBusinesses, search, currentInitFilters, currentPriceFilters, currentScheduleFilter } = this.state;
         // currentFilters format is [initiative, price, open]
-        var setFilters = currentFilters.slice();
-        console.log(setFilters);
-        console.log(initialFilter);
+        var setInitFilters = currentInitFilters.slice();
+        var setPriceFilters = currentPriceFilters.slice();
+        var setScheduleFilter = currentScheduleFilter.slice();
+        var setSearch = search.slice();
+        // console.log(setFilters);
+        // console.log(initialFilter);
         var filterTypes = {
-          'All Initiatives': {
-            category: 'initiatives',
-            value: ['Sustainability', 'Ethical Supply Chain', 'Diversity Initiatives', 'Shopping', 'Food', 'Services']
-          },
           'Sustainable': {
             category: 'initiatives',
             value: 'Sustainability'
@@ -80,22 +53,6 @@ class Search extends React.Component {
           'Diversity Focused': {
             category: 'initiatives',
             value: 'Diversity Initiatives'
-          },
-          'Shopping': {
-            category: 'initiatives',
-            value: 'Shopping'
-          },
-          'Food': {
-            category: 'initiatives',
-            value: 'Food'
-          },
-          'Services': {
-            category: 'initiatives',
-            value: 'Services'
-          },
-          'All Prices': {
-            category: 'priceRange',
-            value: [1, 2, 3, 4]
           },
           '$': {
             category: 'priceRange',
@@ -113,99 +70,123 @@ class Search extends React.Component {
             category: 'priceRange',
             value: 4
           },
-          'All Hours': {
-            category: 'schedule'
-          },
           'Open Now': {
             category: 'schedule'
           }
         };
-        console.log(initialFilter);
         
-        if (initialFilter) {
-          setFilters[0] = initialFilter;
-          this.setState({
-            filterInitiative: initialFilter,
-          });
+        if (initialFilters) {
+          setInitFilters = initialFilters.slice();
+        }
+        if (initialSearch) {
+          setSearch = initialSearch.slice();
         }
 
-        if (e) {
+        if (e && !isSearch) {
           // filtered = businesses.filter((item) => {
             if (filterTypes[e.target.value]?.category == 'initiatives') {
-              setFilters[0] = e.target.value;
+              setInitFilters.includes(e.target.value) ?
+                setInitFilters.splice(setInitFilters.indexOf(e.target.value), 1) :
+                setInitFilters.push(e.target.value);
+              // setFilters[0] = e.target.value;
               // filtered = filtered.filter(item => 
               //   item?.initiatives?.includes(filterTypes[e.target.value]?.value));
-              this.setState({filterInitiative: e.target.value});
+              // this.setState({filterInitiative: e.target.value});
               // return item?.initiatives?.includes(filterTypes[e.target.value]?.value);
             }
             if (filterTypes[e.target.value]?.category == 'priceRange') {
-              setFilters[1] = e.target.value;
+              setPriceFilters.includes(e.target.value) ?
+                setPriceFilters.splice(setPriceFilters.indexOf(e.target.value), 1) :
+                setPriceFilters.push(e.target.value);
+              // setFilters[1] = e.target.value;
               // filtered = filtered.filter(item => 
               //   item?.priceRange == filterTypes[e.target.value]?.value);
-              this.setState({filterPrice: e.target.value});
+              // this.setState({filterPrice: e.target.value});
               // return item?.priceRange == filterTypes[e.target.value]?.value;
             }
             if (filterTypes[e.target.value]?.category == 'schedule') {
-              setFilters[2] = e.target.value;
+              setScheduleFilter.includes(e.target.value) ?
+                setScheduleFilter.splice(setScheduleFilter.indexOf(e.target.value), 1) :
+                setScheduleFilter.push(e.target.value);
+              // setFilters[2] = e.target.value;
               // filtered = filtered.filter(item => 
               //   this.isOpen(item?.schedule));
-              this.setState({filterOpen: e.target.value});
+              // this.setState({filterOpen: e.target.value});
               // return this.isOpen(item?.schedule);
             }
-            if (e.target.value == 'Filter By All Initiatives') {
-              setFilters[0] = 'All Initiatives';
-              this.setState({filterInitiative: e.target.value});
-              // return true;
-            }
-            if (e.target.value == 'Filter By All Prices') {
-              this.setState({filterPrice: e.target.value});
-              setFilters[1] = 'All Prices';
-            }
-            if (e.target.value == 'Filter By All Hours') {
-              this.setState({filterOpen: e.target.value});
-              setFilters[2] = 'All Hours';
-            }
+            // if (e.target.value == 'Filter By All Initiatives') {
+            //   setFilters[0] = 'All Initiatives';
+            //   this.setState({filterInitiative: e.target.value});
+            //   // return true;
+            // }
+            // if (e.target.value == 'Filter By All Prices') {
+            //   this.setState({filterPrice: e.target.value});
+            //   setFilters[1] = 'All Prices';
+            // }
+            // if (e.target.value == 'Filter By All Hours') {
+            //   this.setState({filterOpen: e.target.value});
+            //   setFilters[2] = 'All Hours';
+            // }
           }
-
+          else if (e && isSearch) {
+            setSearch = e.target.value;
+          }
           var filtered = businesses.slice();
-          setFilters.filter(fil => fil)
-            .forEach(fil => {
-              console.log(fil);
-              switch(filterTypes[fil]?.category) {
-                case "initiatives":
-                  filtered = businesses?.filter(item => {
-                    if (fil == 'All Initiatives') {
-                      return filterTypes[fil]?.value.some(val => item?.initiatives?.includes(val));
-                    }
-                    return item?.initiatives?.includes(filterTypes[fil]?.value)
-                  });
-                  console.log(filtered);
-                  break;
-                case "priceRange":
-                  filtered = filtered?.filter(item => {
-                    if (fil == 'All Prices') {
-                      return filterTypes[fil]?.value.some(val => item?.priceRange == val);
-                    }
-                    return item?.priceRange == filterTypes[fil]?.value
-                  });
-                  console.log(filtered);
-                  break;
-                case "schedule":
-                  filtered = filtered?.filter(item => {
-                    if (fil == 'All Hours') {
-                      return this.isOpen(item?.schedule) || !this.isOpen(item?.schedule);
-                    }
-                    return this.isOpen(item?.schedule)
-                  });
-                default:
-                  break;
-              }
-            });
+
+          filtered = filtered?.filter(item => 
+            setInitFilters.length > 0 ? 
+              setInitFilters?.some(fil => item?.initiatives?.includes(filterTypes[fil]?.value)) :
+              true);
+          filtered = filtered?.filter(item =>
+            setPriceFilters.length > 0 ?
+              setPriceFilters?.some(fil => item?.priceRange == filterTypes[fil]?.value) :
+              true);
+          setScheduleFilter.forEach(fil => {
+            filtered = filtered?.filter(item => this.isOpen(item?.schedule));
+          });
+          // handle search filtering
+          filtered = filtered?.filter(item => item?.businessName?.toLowerCase().includes(setSearch.toLowerCase()));
+          // setFilters.filter(fil => fil)
+          //   .forEach(fil => {
+          //     console.log(fil);
+          //     switch(filterTypes[fil]?.category) {
+          //       case "initiatives":
+          //         filtered = businesses?.filter(item => {
+          //           if (fil == 'All Initiatives') {
+          //             return filterTypes[fil]?.value.some(val => item?.initiatives?.includes(val));
+          //           }
+          //           return item?.initiatives?.includes(filterTypes[fil]?.value)
+          //         });
+          //         console.log(filtered);
+          //         break;
+          //       case "priceRange":
+          //         filtered = filtered?.filter(item => {
+          //           if (fil == 'All Prices') {
+          //             return filterTypes[fil]?.value.some(val => item?.priceRange == val);
+          //           }
+          //           return item?.priceRange == filterTypes[fil]?.value
+          //         });
+          //         console.log(filtered);
+          //         break;
+          //       case "schedule":
+          //         filtered = filtered?.filter(item => {
+          //           if (fil == 'All Hours') {
+          //             return this.isOpen(item?.schedule) || !this.isOpen(item?.schedule);
+          //           }
+          //           return this.isOpen(item?.schedule)
+          //         });
+          //       default:
+          //         break;
+          //     }
+          //   });
           console.log(filtered);
 
           this.setState({
             filteredBusinesses: filtered,
-            currentFilters: setFilters
+            search: setSearch,
+            currentInitFilters: setInitFilters,
+            currentPriceFilters: setPriceFilters,
+            currentScheduleFilter: setScheduleFilter
           });
       }
 
@@ -344,14 +325,13 @@ class Search extends React.Component {
 
       async componentDidMount() {
         const { location } = this.props;
-        console.log(location?.state?.initialFilter);
+        console.log(location?.state?.initialFilters);
         console.log(location?.state?.initialSearch);
-        var initialFilter = location?.state?.initialFilter;
+        var initialFilters = location?.state?.initialFilters;
         var initialSearch = location?.state?.initialSearch;
         await this.getBusinessData();
-        this.filterChange(null, initialFilter);
-        this.searchChange(null, initialSearch);
-        if (initialFilter || initialSearch) {
+        this.filterChange(null, initialFilters, initialSearch);
+        if (initialFilters || initialSearch) {
           this.generateSearchList();
         }
         else {
@@ -360,11 +340,11 @@ class Search extends React.Component {
       }
 
       componentDidUpdate(prevProps, prevState) {
-        const { search, filterInitiative, filterPrice, filterOpen, sort } = this.state;
+        const { search, currentInitFilters, currentPriceFilters, currentScheduleFilter } = this.state;
         var updateCondition = (prevState.search !== search
-          || prevState.filterInitiative !== filterInitiative
-          || prevState.filterPrice !== filterPrice
-          || prevState.filterOpen !== filterOpen
+          || prevState.currentInitFilters !== currentInitFilters
+          || prevState.currentPriceFilters !== currentPriceFilters
+          || prevState.currentScheduleFilter !== currentScheduleFilter
           // || prevState.sort !== sort
         );
 
@@ -380,17 +360,16 @@ class Search extends React.Component {
           loading, 
           businesses, 
           filteredBusinesses, 
-          filterInitiative,
-          filterPrice,
-          filterOpen, 
+          currentInitFilters,
+          currentPriceFilters,
+          currentScheduleFilter,
           sort } = this.state;
         console.log(businesses);
-        console.log(filterInitiative);
         return (
             <div className="search">
                 <Nav />
                 <h1 className="searchHeader">Find Local Businesses</h1>
-                {location?.pathname == '/search' && <input type="text" id="searchbar2" placeholder="&#xF002; Search businesses near you" value={this.state.search} onChange={this.searchChange}/>}    
+                {location?.pathname == '/search' && <input type="text" id="searchbar2" placeholder="&#xF002; Search businesses near you" value={this.state.search} onChange={(e) => this.filterChange(e, null, null, true)}/>}    
                 
                 <Switch>
                   <Route exact path="/search">
@@ -399,11 +378,9 @@ class Search extends React.Component {
                       loading={loading} 
                       filteredBusinesses={filteredBusinesses} 
                       doFilter={(e) => this.filterChange(e)} 
-                      filterInitiative={filterInitiative}
-                      filterPrice={filterPrice}
-                      filterOpen={filterOpen} 
-                      sort={sort}
-                      doSort={(e) => this.sortChange(e)}
+                      filterInitiative={currentInitFilters}
+                      filterPrice={currentPriceFilters}
+                      filterOpen={currentScheduleFilter}
                     />       
                   </Route>
                   <Route path={`/search/:businessId`} component={BusinessItem} />               

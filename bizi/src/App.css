@@ -693,7 +693,7 @@ nav .dropdown:hover .dropdown-content {
   margin-top: 50px;
 }
 
-.policyChecklist {
+.policyChecklist, .userPrefChecklist {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   margin-left: 23%;
@@ -702,13 +702,27 @@ nav .dropdown:hover .dropdown-content {
   margin-bottom: 5px;
 }
 
+.search-filters-checklist {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  text-align: left;
+  column-gap: 3em;
+  margin-left: 20%;
+}
+
+
 .policy-checklist-acct {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   text-align: left;
 }
 
-#policy-col {
+#open-now-checkbox {
+  text-align: center;
+  margin-bottom: 2em;
+}
+
+#policy-col, #user-pref-col {
   margin-left: 25%;
 }
 
@@ -716,7 +730,7 @@ nav .dropdown:hover .dropdown-content {
   margin-left: 25%;
 }
 
-#policy-checkbox input {
+#policy-checkbox input, #pref-checkbox input, #filter-checkbox input {
   display: inline-block;
   vertical-align: middle;
   margin-right: 3px;
@@ -902,6 +916,10 @@ nav .dropdown:hover .dropdown-content {
 
 #userTypePreferenceHighlighted {
   background-color: #dee6f9;
+}
+
+#filter-highlighted {
+  background-color: #ccd5e8;
 }
 
 .userCol p {
@@ -1304,20 +1322,21 @@ nav .dropdown:hover .dropdown-content {
 
 .SearchItemHeader {
   display: flex;
-  align-items: center;    
+  align-items: baseline;
 }
 .SearchItemHeader h2 {
   color: black;
+  font-size: 1em;
 }
 
 .searchEnvironment {
-  width: 11%;  
+  width: 7%;  
 }
 .searchHeart {
-  width: 9%;
+  width: 5%;
 }
 .searchCommunity {
-  width: 8%;
+  width: 5%;
 }
 
 .OpenNow {
@@ -1332,7 +1351,7 @@ nav .dropdown:hover .dropdown-content {
 
 .OpenNow p, .price p, .ClosedNow p {
   margin: 0.25em 0;
-  font-size: 0.9em;
+  font-size: 0.8em;
 }
 
 .ClosedNow {
@@ -1365,7 +1384,7 @@ nav .dropdown:hover .dropdown-content {
 }
 
 .SearchItemImg {
-  width: 30%;
+  width: 20%;
 }
 .SearchItemsList .SearchItem:nth-child(even){
   background-color: white;

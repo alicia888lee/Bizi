@@ -12,6 +12,50 @@ class SearchItemsList extends Component {
         super(props)
     }
 
+    generateFilters = (handleClick, filterInitiative, filterPrice, filterOpen) => {
+        var col1 = [
+            "Sustainable",
+            "Supply Chain",
+            "Diversity Focused"
+        ];
+        var col2 = [
+            "$",
+            "$$",
+            "$$$",
+            "$$$$"
+        ];
+        
+        var checklist = (
+            <>
+                <div className='search-filters-checklist'>
+                    <div id='filter-col'>
+                        <p>Initiatives</p>
+                        {col1.map(p => (
+                            <div id='filter-checkbox'>
+                                <input id={p} type='checkbox' checked={filterInitiative?.includes(p)} value={p} onChange={handleClick}/>
+                                <label for={p}>{p}</label>
+                            </div>
+                        ))}
+                    </div>
+                    <div id='filter-col'>
+                        <p>Price</p>
+                        {col2.map(p => (
+                            <div id='filter-checkbox'>
+                                <input id={p} type='checkbox' checked={filterPrice?.includes(p)} value={p} onChange={handleClick}/>
+                                <label for={p}>{p}</label>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+                <div id='open-now-checkbox'>
+                    <input id='open-now' type='checkbox' checked={filterOpen?.includes("Open Now")} value='Open Now' onChange={handleClick}/>
+                    <label for='open-now'>Open Now</label>
+                </div>
+            </>
+        );
+        return checklist;
+    }
+
     render() {
         const { 
             searchList, 
@@ -21,12 +65,10 @@ class SearchItemsList extends Component {
             filterOpen, 
             sort, 
             doSort } = this.props;
-            console.log(filterInitiative);
-            console.log(filterPrice);
 
         return (
             <div>
-                <div className="search-selects" id='filter-selects'>
+                {/* <div className="search-selects" id='filter-selects'>
                     <select onChange={(e) => doFilter(e)} title='Filter By Initiatives'>
                         <option selected={filterInitiative == 'Filter By All Initiatives'}>Filter By All Initiatives</option>  
                         <option selected={filterInitiative == 'Sustainable'}>Sustainable</option>
@@ -47,7 +89,8 @@ class SearchItemsList extends Component {
                         <option selected={filterPrice == '$$$'}>$$$</option>
                         <option selected={filterPrice == '$$$$'}>$$$$</option>
                     </select>
-                </div>
+                </div> */}
+                {this.generateFilters(doFilter, filterInitiative, filterPrice, filterOpen)}
                 <div className="SearchItemsList">
                     {searchList}
                 </div>

@@ -77,8 +77,10 @@ class CreateAccount extends Component {
             validPrice: true,
             businessName: '',
             businessDescription: '',
+            businessSubHeading: '',
             businessEmail: '',
             policyList: [],
+            initiativeList: [],
             phone: '',
             url: '',
             deliveryURL: '',
@@ -273,6 +275,7 @@ class CreateAccount extends Component {
         const {
             businessName,
             businessDescription,
+            businessSubHeading,
             businessEmail,
             typeSustainableSelected,
             typeEthicalSelected,
@@ -307,7 +310,8 @@ class CreateAccount extends Component {
             validSchedule,
             file,
             discounts,
-            validDiscounts
+            validDiscounts,
+            initiativeList
         } = this.state;
 
         this.setState({
@@ -344,12 +348,12 @@ class CreateAccount extends Component {
             && validDiscounts;
 
         const selectedInitiativeBooleans = [
-            typeSustainableSelected,
-            typeEthicalSelected,
-            typeDiversitySelected,
-            typeShoppingSelected,
-            typeFoodSelected,
-            typeServicesSelected
+            initiativeList.includes("Sustainability"),
+            initiativeList.includes("Ethical Supply Chain"),
+            initiativeList.includes("Diversity Initiatives"),
+            initiativeList.includes("Shopping"),
+            initiativeList.includes("Food"),
+            initiativeList.includes("Services")
         ];
 
         const possibleBusinessInitiatives = [
@@ -443,6 +447,7 @@ class CreateAccount extends Component {
             const businessInfo = {
                 businessName: businessName,
                 businessDescription: businessDescription,
+                businessSubHeading: businessSubHeading,
                 businessEmail: businessEmail,
                 initiatives: businessInitiatives,
                 policyList: policyList,
@@ -577,16 +582,17 @@ class CreateAccount extends Component {
             typeDiversitySelected,
             typeShoppingSelected,
             typeFoodSelected,
-            typeServicesSelected
+            typeServicesSelected,
+            initiativeList
         } = this.state;
 
         const selectedPreferencesBooleans = [
-            typeSustainableSelected,
-            typeEthicalSelected,
-            typeDiversitySelected,
-            typeShoppingSelected,
-            typeFoodSelected,
-            typeServicesSelected
+            initiativeList.includes("Sustainability"),
+            initiativeList.includes("Ethical Supply Chain"),
+            initiativeList.includes("Diversity Initiatives"),
+            initiativeList.includes("Shopping"),
+            initiativeList.includes("Food"),
+            initiativeList.includes("Services")
         ];
 
         const possibleUserPreferences = [
@@ -649,6 +655,19 @@ class CreateAccount extends Component {
             typeBusinessSelected: true,
             typeCustomerSelected: false
         })
+    }
+    
+    setInitiatives = (e) => {
+        const { initiativeList }= this.state;
+        var initiatives = initiativeList.slice();
+        initiatives.includes(e.target.value) ?
+            initiatives.splice(initiatives.indexOf(e.target.value), 1) :
+            initiatives.push(e.target.value);
+        
+        console.log(initiatives);
+        this.setState({
+            initiativeList: initiatives
+        });
     }
 
     setPrefSustainable = () => {
@@ -827,21 +846,27 @@ class CreateAccount extends Component {
         });
     }
 
+    setBusinessSubHeading = (e) => {
+        this.setState({
+            businessSubHeading: e.target.value
+        });
+    }
+
     setBusinessEmail = (e) => {
         this.setState({
             businessEmail: e.target.value
         });
     }
 
-    setInitiatives = (e) => {
-        var initiatives = [];
-        e.target.value.length > 0 ?
-            initiatives = e.target.value.split(/,\s*/) :
-            initiatives = [];
-        this.setState({
-            initiatives: initiatives
-        });
-    }
+    // setInitiatives = (e) => {
+    //     var initiatives = [];
+    //     e.target.value.length > 0 ?
+    //         initiatives = e.target.value.split(/,\s*/) :
+    //         initiatives = [];
+    //     this.setState({
+    //         initiatives: initiatives
+    //     });
+    // }
 
     setPolicies = (e) => {
         const { policyList }= this.state;
@@ -1223,7 +1248,7 @@ class CreateAccount extends Component {
                         invalidSelection = {invalidSelection}
                     />}
 
-                    {secondStep && <Step2 
+                    {thirdStep && <Step2 
                         next = {async() => {
                             const createResult = await this.doCreate();
                             createResult && this.goToSecondStep(true, createResult)
@@ -1258,7 +1283,7 @@ class CreateAccount extends Component {
                         loading={verifyingEmail}
                     />}
 
-                    {thirdStep && <Step3
+                    {secondStep && <Step3
                         finishSignUp = {() => {
                             this.updateUserPreferences();
                             this.props.history.push('/account');
@@ -1278,6 +1303,7 @@ class CreateAccount extends Component {
                         validZip = {validZip}
                         onNameChange = {this.setBusinessName}
                         onDescriptionChange = {this.setBusinessDescription}
+                        onSubHeadingChange = {this.setBusinessSubHeading}
                         onEmailChange = {this.setBusinessEmail}
                         onInitiativesChange = {this.setInitiatives}
                         onPolicyChange = {this.setPolicies}

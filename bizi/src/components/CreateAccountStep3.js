@@ -155,6 +155,80 @@ class Step3 extends Component {
         return checklist;
     }
 
+    generateUserPref = (handleClick) => {
+        var col1 = [
+            "Sustainability",
+            "Ethical Supply Chain",
+            "Diversity Initiatives"
+        ];
+        var col2 = [
+            "Shopping",
+            "Food",
+            "Services"
+        ];
+        
+        var checklist = (
+            <div className='userPrefChecklist'>
+                <div id='user-pref-col'>
+                    <h3>Business Initiatives</h3>
+                    {col1.map(p => (
+                        <div id='pref-checkbox'>
+                            <input id={p} type='checkbox' value={p} onChange={handleClick}/>
+                            <label for={p}>{p}</label>
+                        </div>
+                    ))}
+                </div>
+                <div id='user-pref-col'>
+                    <h3>Business Types</h3>
+                    {col2.map(p => (
+                        <div id='pref-checkbox'>
+                            <input id={p} type='checkbox' value={p} onChange={handleClick}/>
+                            <label for={p}>{p}</label>
+                        </div>
+                    ))}
+                </div>
+            </div>
+        );
+        return checklist;
+    }
+
+    generateBusPrefs = (handleClick) => {
+        var col1 = [
+            "Sustainability",
+            "Ethical Supply Chain",
+            "Diversity Initiatives"
+        ];
+        var col2 = [
+            "Shopping",
+            "Food",
+            "Services"
+        ];
+        
+        var checklist = (
+            <div className='userPrefChecklist'>
+                <div id='user-pref-col'>
+                    <p>Business Initiatives</p>
+                    {col1.map(p => (
+                        <div id='pref-checkbox'>
+                            <input id={p} type='checkbox' value={p} onChange={handleClick}/>
+                            <label for={p}>{p}</label>
+                        </div>
+                    ))}
+                </div>
+                <div id='user-pref-col'>
+                    <p>Area(s) of Business</p>
+                    {col2.map(p => (
+                        <div id='pref-checkbox'>
+                            <input id={p} type='checkbox' value={p} onChange={handleClick}/>
+                            <label for={p}>{p}</label>
+                        </div>
+                    ))}
+                </div>
+            </div>
+        );
+        return checklist;
+    }
+
     generateDiscountForm = () => {
         const { setDiscounts } = this.props;
         const { numDiscounts, validInputs } = this.state;
@@ -227,9 +301,11 @@ class Step3 extends Component {
             onNameChange,
             validBusinessDescription,
             onDescriptionChange,
+            onSubHeadingChange,
             onEmailChange,
             validBusinessEmail,
             onPolicyChange,
+            onInitiativesChange,
             validPhone,
             onPhoneChange,
             onURLChange,
@@ -273,38 +349,41 @@ class Step3 extends Component {
                     <p><b>{typeCustomer && 'What are you interested in?'}</b></p>
                 </div>
                 {typeCustomer ?
-                <div className='userPreferencesGrid'>
-                    <div onClick={selectSustainable} className='prefCol' id={sustainableSelected && 'userTypePreferenceHighlighted'}>
-                        <img src={envImg} />
-                        <span>
-                            <p>Sustainability</p>
-                        </span>
-                    </div>
-                    <div onClick={selectEthical} className='prefCol' id={ethicalSelected && 'userTypePreferenceHighlighted'}>
-                        <img src={handImg} />
-                        <span>
-                            <p>Ethical Supply Chain</p>
-                        </span>
-                    </div>
-                    <div onClick={selectDiversity} className='prefCol' id={diversitySelected && 'userTypePreferenceHighlighted'}>
-                        <img src={communityImg} />
-                        <span>
-                            <p>Diversity Initiatives</p>
-                        </span>
-                    </div>
-                    <div className='prefCol' id='invisibleColumn'>
-                        <div className='userPrefSubGrid'>
-                            <div className='prefRow' onClick={selectShopping} id={shoppingSelected && 'userTypePreferenceHighlighted'}>
-                                <p>Shopping</p>
-                            </div>
-                            <div className='prefRow' onClick={selectFood} id={foodSelected && 'userTypePreferenceHighlighted'}>
-                                <p>Food</p>
-                            </div>
-                            <div className='prefRow' onClick={selectServices} id={servicesSelected && 'userTypePreferenceHighlighted'}>
-                                <p>Services</p>
-                            </div>
-                        </div>
-                    </div>
+                // <div className='userPreferencesGrid'>
+                //     <div onClick={selectSustainable} className='prefCol' id={sustainableSelected && 'userTypePreferenceHighlighted'}>
+                //         <img src={envImg} />
+                //         <span>
+                //             <p>Sustainability</p>
+                //         </span>
+                //     </div>
+                //     <div onClick={selectEthical} className='prefCol' id={ethicalSelected && 'userTypePreferenceHighlighted'}>
+                //         <img src={handImg} />
+                //         <span>
+                //             <p>Ethical Supply Chain</p>
+                //         </span>
+                //     </div>
+                //     <div onClick={selectDiversity} className='prefCol' id={diversitySelected && 'userTypePreferenceHighlighted'}>
+                //         <img src={communityImg} />
+                //         <span>
+                //             <p>Diversity Initiatives</p>
+                //         </span>
+                //     </div>
+                //     <div className='prefCol' id='invisibleColumn'>
+                //         <div className='userPrefSubGrid'>
+                //             <div className='prefRow' onClick={selectShopping} id={shoppingSelected && 'userTypePreferenceHighlighted'}>
+                //                 <p>Shopping</p>
+                //             </div>
+                //             <div className='prefRow' onClick={selectFood} id={foodSelected && 'userTypePreferenceHighlighted'}>
+                //                 <p>Food</p>
+                //             </div>
+                //             <div className='prefRow' onClick={selectServices} id={servicesSelected && 'userTypePreferenceHighlighted'}>
+                //                 <p>Services</p>
+                //             </div>
+                //         </div>
+                //     </div>
+                // </div> :
+                <div>
+                    {this.generateUserPref(onInitiativesChange)}
                 </div> :
                 <>
                     <div className='loginBody'>
@@ -318,6 +397,10 @@ class Step3 extends Component {
                                 <label for='description'>Business Description</label>
                                 <input id={!validBusinessDescription && 'invalidInput'} type='text' name='description' onBlur={onDescriptionChange}/>
                                 {!validBusinessDescription && <p>Cannot be blank</p>}
+                            </div>
+                            <div className='inputGroup'>
+                                <label for='description'>A Few Words To Highlight Your Business (optional)</label>
+                                <input type='text' name='subheading' onBlur={onSubHeadingChange}/>
                             </div>
                             <div className='inputGroup'>
                                 <label for='description'>Business Email</label>
@@ -371,39 +454,9 @@ class Step3 extends Component {
                             </div>
                         </form>
                     </div>
-                    {<p>Initiatives</p>}
-                    <div className='businessInitiativesGrid'>
-                        <div onClick={selectSustainable} className='prefCol' id={sustainableSelected && 'userTypePreferenceHighlighted'}>
-                            <img src={envImg} />
-                            <span>
-                                <p>Sustainability</p>
-                            </span>
-                        </div>
-                        <div onClick={selectEthical} className='prefCol' id={ethicalSelected && 'userTypePreferenceHighlighted'}>
-                            <img src={handImg} />
-                            <span>
-                                <p>Ethical Supply Chain</p>
-                            </span>
-                        </div>
-                        <div onClick={selectDiversity} className='prefCol' id={diversitySelected && 'userTypePreferenceHighlighted'}>
-                            <img src={communityImg} />
-                            <span>
-                                <p>Diversity Initiatives</p>
-                            </span>
-                        </div>
-                        <div className='prefCol' id='invisibleColumn'>
-                            <div className='userPrefSubGrid'>
-                                <div className='prefRow' onClick={selectShopping} id={shoppingSelected && 'userTypePreferenceHighlighted'}>
-                                    <p>Shopping</p>
-                                </div>
-                                <div className='prefRow' onClick={selectFood} id={foodSelected && 'userTypePreferenceHighlighted'}>
-                                    <p>Food</p>
-                                </div>
-                                <div className='prefRow' onClick={selectServices} id={servicesSelected && 'userTypePreferenceHighlighted'}>
-                                    <p>Services</p>
-                                </div>
-                            </div>
-                        </div>
+                    {<p>Initiatives and Specialization</p>}
+                    <div>
+                        {this.generateBusPrefs(onInitiativesChange)}
                     </div>
                     <br />
                     {<p>Price Range</p>}

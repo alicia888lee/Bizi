@@ -17,6 +17,7 @@ type Business @model {
   id: ID!
   businessName: String
   businessDescription: String
+  businessSubHeading: String
   businessEmail: String
   initiatives: [String]
   policyList: [String]

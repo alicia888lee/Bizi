@@ -59,6 +59,7 @@ export const createBusiness = `mutation CreateBusiness($input: CreateBusinessInp
     id
     businessName
     businessDescription
+    businessSubHeading
     businessEmail
     initiatives
     policyList
@@ -99,6 +100,7 @@ export const updateBusiness = `mutation UpdateBusiness($input: UpdateBusinessInp
     id
     businessName
     businessDescription
+    businessSubHeading
     businessEmail
     initiatives
     policyList
@@ -139,6 +141,7 @@ export const deleteBusiness = `mutation DeleteBusiness($input: DeleteBusinessInp
     id
     businessName
     businessDescription
+    businessSubHeading
     businessEmail
     initiatives
     policyList
