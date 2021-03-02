@@ -443,6 +443,8 @@ class CreateAccount extends Component {
             //file name doesn't exist, proceed normally                     
         }
 
+        var searchTags = businessInitiatives.concat(businessName, businessSubHeading);
+
         if (inputsValid && !noneValid) {
             const businessInfo = {
                 businessName: businessName,
@@ -450,6 +452,7 @@ class CreateAccount extends Component {
                 businessSubHeading: businessSubHeading,
                 businessEmail: businessEmail,
                 initiatives: businessInitiatives,
+                searchTags: searchTags,
                 policyList: policyList,
                 businessPhone: phone,
                 businessURL: url,
@@ -1248,7 +1251,7 @@ class CreateAccount extends Component {
                         invalidSelection = {invalidSelection}
                     />}
 
-                    {thirdStep && <Step2 
+                    {secondStep && <Step2 
                         next = {async() => {
                             const createResult = await this.doCreate();
                             createResult && this.goToSecondStep(true, createResult)
@@ -1283,7 +1286,7 @@ class CreateAccount extends Component {
                         loading={verifyingEmail}
                     />}
 
-                    {secondStep && <Step3
+                    {thirdStep && <Step3
                         finishSignUp = {() => {
                             this.updateUserPreferences();
                             this.props.history.push('/account');

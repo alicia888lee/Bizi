@@ -707,9 +707,11 @@ nav .dropdown:hover .dropdown-content {
   grid-template-columns: repeat(2, 1fr);
   text-align: left;
   column-gap: 3em;
-  margin-left: 20%;
 }
 
+#filter-col {
+  margin: 0 auto;
+}
 
 .policy-checklist-acct {
   display: grid;
@@ -1327,6 +1329,12 @@ nav .dropdown:hover .dropdown-content {
 .SearchItemHeader h2 {
   color: black;
   font-size: 1em;
+}
+.SearchItemWrapper h3 {
+  color: black;
+  font-size: 0.8em;
+  margin-top: -1em;
+  font-weight: 500;
 }
 
 .searchEnvironment {

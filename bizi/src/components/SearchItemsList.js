@@ -68,28 +68,6 @@ class SearchItemsList extends Component {
 
         return (
             <div>
-                {/* <div className="search-selects" id='filter-selects'>
-                    <select onChange={(e) => doFilter(e)} title='Filter By Initiatives'>
-                        <option selected={filterInitiative == 'Filter By All Initiatives'}>Filter By All Initiatives</option>  
-                        <option selected={filterInitiative == 'Sustainable'}>Sustainable</option>
-                        <option selected={filterInitiative == 'Supply Chain'}>Supply Chain</option>
-                        <option selected={filterInitiative == 'Diversity Focused'}>Diversity Focused</option>
-                        <option selected={filterInitiative == 'Shopping'}>Shopping</option>
-                        <option selected={filterInitiative == 'Food'}>Food</option>
-                        <option selected={filterInitiative == 'Services'}>Services</option>
-                    </select>
-                    <select onChange={(e) => doFilter(e)} title='Filter By Hours'>
-                        <option selected={filterOpen == 'Filter By All Hours'}>Filter By All Hours</option>  
-                        <option selected={filterOpen == 'Open Now'}>Open Now</option>
-                    </select>
-                    <select onChange={(e) => doFilter(e)} title='Filter By Prices'>
-                        <option selected={filterPrice == 'Filter By All Prices'}>Filter By All Prices</option>  
-                        <option selected={filterPrice == '$'}>$</option>
-                        <option selected={filterPrice == '$$'}>$$</option>
-                        <option selected={filterPrice == '$$$'}>$$$</option>
-                        <option selected={filterPrice == '$$$$'}>$$$$</option>
-                    </select>
-                </div> */}
                 {this.generateFilters(doFilter, filterInitiative, filterPrice, filterOpen)}
                 <div className="SearchItemsList">
                     {searchList}

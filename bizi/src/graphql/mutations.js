@@ -92,6 +92,7 @@ export const createBusiness = `mutation CreateBusiness($input: CreateBusinessInp
       storyDifference
       storyBackground
     }
+    searchTags
   }
 }
 `;
@@ -133,6 +134,7 @@ export const updateBusiness = `mutation UpdateBusiness($input: UpdateBusinessInp
       storyDifference
       storyBackground
     }
+    searchTags
   }
 }
 `;
@@ -174,6 +176,7 @@ export const deleteBusiness = `mutation DeleteBusiness($input: DeleteBusinessInp
       storyDifference
       storyBackground
     }
+    searchTags
   }
 }
 `;

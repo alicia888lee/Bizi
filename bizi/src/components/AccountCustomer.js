@@ -67,16 +67,14 @@ class AccountCustomer extends Component {
             bookmarksLoading: false,
             filteredBookmarks: [],
             filteredBusinesses: [],
-            filterInitiative: '',
-            filterPrice: '',
-            filterOpen: '',
-            sort: '',
             discount: null,
             couponLoading: false,
             couponUsed: false,
             useCouponLoading: false,
             couponModalOpen: false,
-            currentFilters: [null, null, null]
+            currentInitFilters: [],
+            currentPriceFilters: [],
+            currentScheduleFilter: []
         }
     }
 
@@ -362,136 +360,131 @@ class AccountCustomer extends Component {
         return false;
       }
 
+      generateFilters = (handleClick, filterInitiative, filterPrice, filterOpen) => {
+        var col1 = [
+            "Sustainable",
+            "Supply Chain",
+            "Diversity Focused"
+        ];
+        var col2 = [
+            "$",
+            "$$",
+            "$$$",
+            "$$$$"
+        ];
+        
+        var checklist = (
+            <>
+                <div className='search-filters-checklist'>
+                    <div id='filter-col'>
+                        <p>Initiatives</p>
+                        {col1.map(p => (
+                            <div id='filter-checkbox'>
+                                <input id={p} type='checkbox' checked={filterInitiative?.includes(p)} value={p} onChange={handleClick}/>
+                                <label for={p}>{p}</label>
+                            </div>
+                        ))}
+                    </div>
+                    <div id='filter-col'>
+                        <p>Price</p>
+                        {col2.map(p => (
+                            <div id='filter-checkbox'>
+                                <input id={p} type='checkbox' checked={filterPrice?.includes(p)} value={p} onChange={handleClick}/>
+                                <label for={p}>{p}</label>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+                <div id='open-now-checkbox'>
+                    <input id='open-now' type='checkbox' checked={filterOpen?.includes("Open Now")} value='Open Now' onChange={handleClick}/>
+                    <label for='open-now'>Open Now</label>
+                </div>
+            </>
+        );
+        return checklist;
+    }
+
     doFilter = (e) => {
-        const { businesses, bookmarks, currentFilters } = this.state;
-        var setFilters = currentFilters.slice();
+        const { businesses, bookmarks, currentInitFilters, currentPriceFilters, currentScheduleFilter } = this.state;
+        var setInitFilters = currentInitFilters.slice();
+        var setPriceFilters = currentPriceFilters.slice();
+        var setScheduleFilter = currentScheduleFilter.slice();
         var filterTypes = {
-            'All Initiatives': {
-              category: 'initiatives',
-              value: ['Sustainability', 'Ethical Supply Chain', 'Diversity Initiatives', 'Shopping', 'Food', 'Services']
-            },
             'Sustainable': {
-              category: 'initiatives',
-              value: 'Sustainability'
+                category: 'initiatives',
+                value: 'Sustainability'
             },
             'Supply Chain': {
-              category: 'initiatives',
-              value: 'Ethical Supply Chain'
+                category: 'initiatives',
+                value: 'Ethical Supply Chain'
             },
             'Diversity Focused': {
-              category: 'initiatives',
-              value: 'Diversity Initiatives'
-            },
-            'Shopping': {
-              category: 'initiatives',
-              value: 'Shopping'
-            },
-            'Food': {
-              category: 'initiatives',
-              value: 'Food'
-            },
-            'Services': {
-              category: 'initiatives',
-              value: 'Services'
-            },
-            'All Prices': {
-              category: 'priceRange',
-              value: [1, 2, 3, 4]
+                category: 'initiatives',
+                value: 'Diversity Initiatives'
             },
             '$': {
-              category: 'priceRange',
-              value: 1
+                category: 'priceRange',
+                value: 1
             },
             '$$': {
-              category: 'priceRange',
-              value: 2
+                category: 'priceRange',
+                value: 2
             },
             '$$$': {
-              category: 'priceRange',
-              value: 3
+                category: 'priceRange',
+                value: 3
             },
             '$$$$': {
-              category: 'priceRange',
-              value: 4
-            },
-            'All Hours': {
-              category: 'schedule'
+                category: 'priceRange',
+                value: 4
             },
             'Open Now': {
-              category: 'schedule'
+                category: 'schedule'
             }
         };
 
         if (filterTypes[e.target.value]?.category == 'initiatives') {
-        setFilters[0] = e.target.value;
-        this.setState({filterInitiative: e.target.value});
-        }
-        if (filterTypes[e.target.value]?.category == 'priceRange') {
-        setFilters[1] = e.target.value;
-        this.setState({filterPrice: e.target.value});
-        }
-        if (filterTypes[e.target.value]?.category == 'schedule') {
-        setFilters[2] = e.target.value;
-        this.setState({filterOpen: e.target.value});
-        }
-        if (e.target.value == 'Filter By All Initiatives') {
-        setFilters[0] = 'All Initiatives';
-        this.setState({filterInitiative: e.target.value});
-        }
-        if (e.target.value == 'Filter By All Prices') {
-        this.setState({filterPrice: e.target.value});
-        setFilters[1] = 'All Prices';
-        }
-        if (e.target.value == 'Filter By All Hours') {
-        this.setState({filterOpen: e.target.value});
-        setFilters[2] = 'All Hours';
-        }
+            setInitFilters.includes(e.target.value) ?
+              setInitFilters.splice(setInitFilters.indexOf(e.target.value), 1) :
+              setInitFilters.push(e.target.value);
+          }
+          if (filterTypes[e.target.value]?.category == 'priceRange') {
+            setPriceFilters.includes(e.target.value) ?
+              setPriceFilters.splice(setPriceFilters.indexOf(e.target.value), 1) :
+              setPriceFilters.push(e.target.value);
+          }
+          if (filterTypes[e.target.value]?.category == 'schedule') {
+            setScheduleFilter.includes(e.target.value) ?
+              setScheduleFilter.splice(setScheduleFilter.indexOf(e.target.value), 1) :
+              setScheduleFilter.push(e.target.value);
+          }
 
         var filteredBusinesses = businesses.slice();
-        setFilters.filter(fil => fil)
-            .forEach(fil => {
-              console.log(fil);
-              switch(filterTypes[fil]?.category) {
-                case "initiatives":
-                  filteredBusinesses = businesses?.filter(item => {
-                    if (fil == 'All Initiatives') {
-                      return filterTypes[fil]?.value.some(val => item?.initiatives?.includes(val));
-                    }
-                    return item?.initiatives?.includes(filterTypes[fil]?.value)
-                  });
-                  break;
-                case "priceRange":
-                  filteredBusinesses = filteredBusinesses?.filter(item => {
-                    if (fil == 'All Prices') {
-                      return filterTypes[fil]?.value.some(val => item?.priceRange == val);
-                    }
-                    return item?.priceRange == filterTypes[fil]?.value
-                  });
-                  break;
-                case "schedule":
-                  filteredBusinesses = filteredBusinesses?.filter(item => {
-                    if (fil == 'All Hours') {
-                      return this.isOpen(item?.schedule) || !this.isOpen(item?.schedule);
-                    }
-                    return this.isOpen(item?.schedule)
-                  });
-                default:
-                  break;
-            }
-        });
+        filteredBusinesses = filteredBusinesses?.filter(item =>
+            setInitFilters.length > 0 ?
+                setInitFilters?.some(fil => item?.initiatives?.includes(filterTypes[fil]?.value)) :
+                true);
+            filteredBusinesses = filteredBusinesses?.filter(item =>
+                setPriceFilters.length > 0 ?
+                    setPriceFilters?.some(fil => item?.priceRange == filterTypes[fil]?.value) :
+                    true);
+            setScheduleFilter.forEach(fil => {
+                filteredBusinesses = filteredBusinesses?.filter(item => this.isOpen(item?.schedule));
+            });
 
         var filteredBusinessIDs = filteredBusinesses.map((item) => 
             item?.id
         );
         var filteredBookmarksUpdated = filteredBusinessIDs.filter((id) => 
-            bookmarks.includes(id)
+            bookmarks?.includes(id)
         );
 
         this.setState({
-            currentFilters: setFilters,
+            currentInitFilters: setInitFilters,
+            currentPriceFilters: setPriceFilters,
+            currentScheduleFilter: setScheduleFilter,
             filteredBusinesses: filteredBusinesses,
-            filteredBookmarks: filteredBookmarksUpdated,
-            filter: e.target.value
+            filteredBookmarks: filteredBookmarksUpdated
         });
     }
 
@@ -558,11 +551,12 @@ class AccountCustomer extends Component {
     }
 
     componentDidUpdate(prevProps, prevState) {
-        const { filter, sort, couponUsed } = this.state;
+        const { currentInitFilters, currentPriceFilters, currentScheduleFilter, couponUsed } = this.state;
         const { user } = this.props;
         var updateCondition = (
-            prevState.filter !== filter
-            || prevState.sort !== sort
+            prevState.currentInitFilters !== currentInitFilters
+            || prevState.currentPriceFilters !== currentPriceFilters
+            || prevState.currentScheduleFilter !== currentScheduleFilter
             || prevState.couponUsed !== couponUsed
         );
 
@@ -578,9 +572,9 @@ class AccountCustomer extends Component {
             userName, 
             bookmarksList, 
             bookmarksLoading, 
-            filterInitiative,
-            filterOpen,
-            filterPrice,
+            currentPriceFilters,
+            currentInitFilters,
+            currentScheduleFilter,
             sort,
             discount, 
             couponLoading, 
@@ -604,8 +598,8 @@ class AccountCustomer extends Component {
 
                 <div className="bookmark-wrapper">
                     <h3><BsBookmarkPlus className="accountIcon"/> Your bookmarks</h3>
-
-                    <div className="bookmark-selects" id='filter-selects'>
+                    {this.generateFilters(this.doFilter, currentInitFilters, currentPriceFilters, currentScheduleFilter)}
+                    {/* <div className="bookmark-selects" id='filter-selects'>
                         <select onChange={this.doFilter} title='Filter By Initiatives'>
                             <option selected={filterInitiative == 'Filter By All Initiatives'}>Filter By All Initiatives</option>  
                             <option selected={filterInitiative == 'Sustainable'}>Sustainable</option>
@@ -626,7 +620,7 @@ class AccountCustomer extends Component {
                             <option selected={filterPrice == '$$$'}>$$$</option>
                             <option selected={filterPrice == '$$$$'}>$$$$</option>
                         </select>
-                    </div>
+                    </div> */}
                     {bookmarksLoading ? <Loader type='TailSpin' color='#385FDC' height={40} /> : bookmarksList}
                 </div>
             </div>

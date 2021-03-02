@@ -36,6 +36,7 @@ type Business @model {
   reviews: [Review!]
   approved: Boolean!
   story: Story
+  searchTags: [String]
 }
 
 type Story {

@@ -7,6 +7,8 @@
         "Order Online": "https://ddfinerfoods.com/order-grocery/",
         "Phone Number":"(847) 475-4344",
         "Address":"825 Noyes St, Evanston, IL 60201",
+        "Subheading": "Deli, groceries",
+        "Search Tags": ["deli", "Groceries", "snacks", "goods", "alcohol", "beer", "wine"],
         "Price Range": 1,
         "Schedule": [[8, 20], [8, 20], [8, 20], [8, 20], [8, 20], [8, 20], [8, 20]],
         "Approved": true
@@ -20,6 +22,7 @@
         "Phone Number": "(847) 869-7033",
         "Address": "1722 Sherman Ave, Evanston, IL 60201",
         "Price Range": 2,
+        "Search Tags": ["clothing", "gear", "souvenirs", "gifts"],
         "Schedule": [[9, 19], [9, 19], [9, 19], [9, 19], [9, 19], [9, 19], [9, 19]],
         "Approved": true
     },
@@ -64,7 +67,7 @@
         "Initiatives": ["Services"],
         "Website": "http://www.quartetdigitalprinting.com/",
         "Phone Number": "(312) 503-8995",
-        "Address": "320 E Superior St, Evanston, IL 60201",
+        "Address": "825 Clark St, Evanston, IL 60201",
         "Price Range": 2,
         "Schedule": [[8, 17], [8, 17], [8, 17], [8, 17], [8, 17], [-1,-1], [-1, -1]],
         "Approved": true

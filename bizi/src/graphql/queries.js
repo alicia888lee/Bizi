@@ -84,6 +84,7 @@ export const getBusiness = `query GetBusiness($id: ID!) {
       storyDifference
       storyBackground
     }
+    searchTags
   }
 }
 `;
@@ -130,6 +131,7 @@ export const listBusinesss = `query ListBusinesss(
         storyDifference
         storyBackground
       }
+      searchTags
     }
     nextToken
   }

@@ -34,7 +34,6 @@ class Search extends React.Component {
 
       filterChange(e, initialFilters, initialSearch, isSearch) {
         const { businesses, filteredBusinesses, search, currentInitFilters, currentPriceFilters, currentScheduleFilter } = this.state;
-        // currentFilters format is [initiative, price, open]
         var setInitFilters = currentInitFilters.slice();
         var setPriceFilters = currentPriceFilters.slice();
         var setScheduleFilter = currentScheduleFilter.slice();
@@ -88,49 +87,22 @@ class Search extends React.Component {
               setInitFilters.includes(e.target.value) ?
                 setInitFilters.splice(setInitFilters.indexOf(e.target.value), 1) :
                 setInitFilters.push(e.target.value);
-              // setFilters[0] = e.target.value;
-              // filtered = filtered.filter(item => 
-              //   item?.initiatives?.includes(filterTypes[e.target.value]?.value));
-              // this.setState({filterInitiative: e.target.value});
-              // return item?.initiatives?.includes(filterTypes[e.target.value]?.value);
             }
             if (filterTypes[e.target.value]?.category == 'priceRange') {
               setPriceFilters.includes(e.target.value) ?
                 setPriceFilters.splice(setPriceFilters.indexOf(e.target.value), 1) :
                 setPriceFilters.push(e.target.value);
-              // setFilters[1] = e.target.value;
-              // filtered = filtered.filter(item => 
-              //   item?.priceRange == filterTypes[e.target.value]?.value);
-              // this.setState({filterPrice: e.target.value});
-              // return item?.priceRange == filterTypes[e.target.value]?.value;
             }
             if (filterTypes[e.target.value]?.category == 'schedule') {
               setScheduleFilter.includes(e.target.value) ?
                 setScheduleFilter.splice(setScheduleFilter.indexOf(e.target.value), 1) :
                 setScheduleFilter.push(e.target.value);
-              // setFilters[2] = e.target.value;
-              // filtered = filtered.filter(item => 
-              //   this.isOpen(item?.schedule));
-              // this.setState({filterOpen: e.target.value});
-              // return this.isOpen(item?.schedule);
             }
-            // if (e.target.value == 'Filter By All Initiatives') {
-            //   setFilters[0] = 'All Initiatives';
-            //   this.setState({filterInitiative: e.target.value});
-            //   // return true;
-            // }
-            // if (e.target.value == 'Filter By All Prices') {
-            //   this.setState({filterPrice: e.target.value});
-            //   setFilters[1] = 'All Prices';
-            // }
-            // if (e.target.value == 'Filter By All Hours') {
-            //   this.setState({filterOpen: e.target.value});
-            //   setFilters[2] = 'All Hours';
-            // }
           }
           else if (e && isSearch) {
             setSearch = e.target.value;
           }
+          console.log(businesses);
           var filtered = businesses.slice();
 
           filtered = filtered?.filter(item => 
@@ -145,40 +117,13 @@ class Search extends React.Component {
             filtered = filtered?.filter(item => this.isOpen(item?.schedule));
           });
           // handle search filtering
-          filtered = filtered?.filter(item => item?.businessName?.toLowerCase().includes(setSearch.toLowerCase()));
-          // setFilters.filter(fil => fil)
-          //   .forEach(fil => {
-          //     console.log(fil);
-          //     switch(filterTypes[fil]?.category) {
-          //       case "initiatives":
-          //         filtered = businesses?.filter(item => {
-          //           if (fil == 'All Initiatives') {
-          //             return filterTypes[fil]?.value.some(val => item?.initiatives?.includes(val));
-          //           }
-          //           return item?.initiatives?.includes(filterTypes[fil]?.value)
-          //         });
-          //         console.log(filtered);
-          //         break;
-          //       case "priceRange":
-          //         filtered = filtered?.filter(item => {
-          //           if (fil == 'All Prices') {
-          //             return filterTypes[fil]?.value.some(val => item?.priceRange == val);
-          //           }
-          //           return item?.priceRange == filterTypes[fil]?.value
-          //         });
-          //         console.log(filtered);
-          //         break;
-          //       case "schedule":
-          //         filtered = filtered?.filter(item => {
-          //           if (fil == 'All Hours') {
-          //             return this.isOpen(item?.schedule) || !this.isOpen(item?.schedule);
-          //           }
-          //           return this.isOpen(item?.schedule)
-          //         });
-          //       default:
-          //         break;
-          //     }
-          //   });
+          if (setSearch) {
+            filtered = filtered?.filter(item => {
+              var searchTags = item?.searchTags?.map(tag => tag.toLowerCase());
+              return searchTags.some(tag => tag.includes(setSearch.toLowerCase()));
+            });
+          }
+          
           console.log(filtered);
 
           this.setState({
@@ -307,7 +252,7 @@ class Search extends React.Component {
                           <img className={iconDict[init]?.id} title={init} src={iconDict[init]?.img} key={index}/>
                         )}
                     </div>
-
+                    {item?.businessSubHeading && <h3>{item?.businessSubHeading}</h3>}
                     <div className='SearchItemTags'>
                         {this.isOpen(item?.schedule) ? <OpenTag /> : <ClosedTag />}
                         <PriceTag price={item?.priceRange}/>

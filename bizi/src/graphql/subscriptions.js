@@ -84,6 +84,7 @@ export const onCreateBusiness = `subscription OnCreateBusiness {
       storyDifference
       storyBackground
     }
+    searchTags
   }
 }
 `;
@@ -125,6 +126,7 @@ export const onUpdateBusiness = `subscription OnUpdateBusiness {
       storyDifference
       storyBackground
     }
+    searchTags
   }
 }
 `;
@@ -166,6 +168,7 @@ export const onDeleteBusiness = `subscription OnDeleteBusiness {
       storyDifference
       storyBackground
     }
+    searchTags
   }
 }
 `;

@@ -7,9 +7,18 @@ import data from '../internal/businessInfo.json';
 
 async function updateDB(data) {
     for (var business in data) {
+        var searchTags = data[business]?.['Search Tags'] ?
+            data[business]?.['Search Tags']
+                .concat(data[business]?.['Initiatives'])
+                .concat(business) :
+            data[business]?.['Initiatives']
+                .concat(business)
+                .concat(data[business]?.['Subheading']);
+        
         const business_obj = {
             businessName: business,
             businessDescription: data[business]?.['Description'],
+            businessSubHeading: data[business]?.['Subheading'],
             initiatives: data[business]?.['Initiatives'],
             policyList: data[business]?.['Policies'],
             businessPhone: data[business]?.['Phone Number'],
@@ -18,6 +27,7 @@ async function updateDB(data) {
             deliveryURL: data[business]?.['Order Online'],
             reservationURL: data[business]?.['Reservations'],
             address: data[business]?.['Address'],
+            searchTags: searchTags,
             priceRange: data[business]?.['Price Range'],
             schedule: data[business]?.['Schedule'],
             imgPath: data[business]?.['Business Photo'],
