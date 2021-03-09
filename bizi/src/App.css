@@ -1959,3 +1959,16 @@ input[type="file"] {
 #interview-signup a:hover {
   color: #385FDC;
 }
+
+#is-mobile {
+  background-image: url("images/headerImage.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;  
+  min-height: 100vh;
+  overflow: hidden;
+}
+#is-mobile h2 {
+  margin-top: 35vh;
+  color: white;
+}
