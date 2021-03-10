@@ -1703,6 +1703,11 @@ input[type="file"] {
   /* float: left; */
 }
 
+#no-businesses {
+  margin-top: 15vh;
+  margin-bottom: 15vh;
+}
+
 .business-account {
   padding: 0 6em;
 }

@@ -331,7 +331,7 @@ class AccountBusiness extends React.Component {
     }
 
     generateReviews() {
-        const reviews = this.state.business.reviews;
+        const reviews = this.state.business?.reviews;
         if (reviews) {
             let reviewList = reviews?.map(review =>             
                 <div className="review-item-account">
@@ -484,111 +484,119 @@ class AccountBusiness extends React.Component {
         } = this.state;
         let firstName = authUser?.attributes?.name.split(' ')[0]
         return(
-            <div className="account business-account">
-                <h1 className="accountHeader">Hey {firstName}! Welcome Back!</h1>                
-                <a href="https://calendly.com/biziinterview/30min" target="_blank"><button className="interview-btn" id="interview-schedule">Schedule your business spotlight interview</button></a>
-                <h3>Update your Business Information</h3>
+            <>
+                {business? 
+                <div className="account business-account">
+                    <h1 className="accountHeader">Hey {firstName}! Welcome Back!</h1>                
+                    <a href="https://calendly.com/biziinterview/30min" target="_blank"><button className="interview-btn" id="interview-schedule">Schedule your business spotlight interview</button></a>
+                    <h3>Update your Business Information</h3>
 
-                <div className="business-info">
-                    <h2><BsBookmarkPlus className="account-header-icon" /> { business?.businessName }</h2>
-                    
-                    <div className="business-info-wrapper">
-                        {editDescription ? 
-                            <div className="loginBody">
-                                <input
-                                    id={!validBusinessDescription && "invalidInput"}
-                                    type="text"
-                                    disabled={updatingBusinessDescription}
-                                    defaultValue={business?.businessDescription}
-                                    onChange={(e) => this.setState({newBusinessDescription: e.target.value})}
-                                />
-                                <button id="save-update" onClick={() => this.editDescription("save")}>Save</button>
-                                {updatingBusinessDescription && <Loader type='TailSpin' color='#385FDC' height={30}/>}
-                            </div> :
-                            <p>{business?.businessDescription + "\t"}<BsPencil onClick={() => this.editDescription("edit")} id="edit-icon"/></p>}
-                        <div className="account-policies">
-                            <GiHealthNormal className="business-account-icon" />
-                            {this.generatePolicyChecklist()}                           
-                        </div>
+                    <div className="business-info">
+                        <h2><BsBookmarkPlus className="account-header-icon" /> { business?.businessName }</h2>
                         
-                        <div className="icon-text">
-                            <BiCalendarPlus className="business-account-icon"/> 
-                            {editOrderUrl ?
-                                <div className='loginBody'>
+                        <div className="business-info-wrapper">
+                            {editDescription ? 
+                                <div className="loginBody">
                                     <input
+                                        id={!validBusinessDescription && "invalidInput"}
                                         type="text"
-                                        disabled={updatingOrderUrl}
-                                        defaultValue={business?.deliveryURL}
-                                        onChange={(e) => this.setState({newOrderUrl: e.target.value})}
+                                        disabled={updatingBusinessDescription}
+                                        defaultValue={business?.businessDescription}
+                                        onChange={(e) => this.setState({newBusinessDescription: e.target.value})}
                                     />
-                                    <button id="save-update" onClick={() => this.editOrderUrl("save")}>Save</button>
-                                    {updatingOrderUrl && <Loader type='TailSpin' color='#385FDC' height={30}/>}
+                                    <button id="save-update" onClick={() => this.editDescription("save")}>Save</button>
+                                    {updatingBusinessDescription && <Loader type='TailSpin' color='#385FDC' height={30}/>}
                                 </div> :
-                                <p>
-                                    <a 
-                                        href={business?.deliveryURL ? `//${business?.deliveryURL}` : null}
-                                        target="_blank"
-                                    >
-                                        {"Order online here" + "\t"}
-                                    </a>
-                                    <BsPencil onClick={() => this.editOrderUrl("edit")} id="edit-icon"/>
-                                </p>}
-                        </div>
-                                                    
-                        <div className="icon-text">
-                            <BiPhone className="business-account-icon"/>
-                            {editPhone ?
-                                <div className='loginBody'>
-                                    <input
-                                        type="text"
-                                        id={!validPhone && 'invalidInput'}
-                                        placeholder='(xxx) xxx-xxxx'
-                                        disabled={updatingOrderUrl}
-                                        defaultValue={business?.businessPhone}
-                                        onChange={(e) => this.setState({newPhone: e.target.value})}
-                                    />
-                                    <button id="save-update" onClick={() => this.editPhone("save")}>Save</button>
-                                    {updatingPhone && <Loader type='TailSpin' color='#385FDC' height={30}/>}
-                                </div> :
-                                <p>
-                                    {business?.businessPhone + "\t"}
-                                    <BsPencil onClick={() => this.editPhone("edit")} id="edit-icon"/>
-                                </p>}
-                        </div> 
-                    </div>     
-                </div>                                                  
-                
-                <div>                    
-                    <h3><AiFillCamera className="business-account-icon" />Update your Business Photo</h3>
-                    {editImg ?
-                        <div className='img-upload'>
-                            <label for="businessUpload" className="business-upload">
-                                {imgFile ? <ImgThumb image={imgFile} /> : <IoIosAdd className="review-add-icon" />}
-                            </label>
-                            <input id="businessUpload" type="file" name="file" onChange={this.handleImgUpload}/>
-                            <button id='save-update-img' onClick={() => this.editImg('save')}>Save</button>
-                            {updatingImg && <div id='update-img-load'><Loader type='TailSpin' color='#385FDC' height={30}/></div>}
-                        </div> :
-                        <div className='img-upload'>
-                            {currImg ? 
-                                <img id='update-img' src={currImg}/> :                                    
-                                <p>Your business has no photo</p>
-                            }
-                            <p><BsPencil id='edit-icon' onClick={() => this.editImg('edit')}/></p>
-                        </div>}
-                </div>    
+                                <p>{business?.businessDescription + "\t"}<BsPencil onClick={() => this.editDescription("edit")} id="edit-icon"/></p>}
+                            <div className="account-policies">
+                                <GiHealthNormal className="business-account-icon" />
+                                {this.generatePolicyChecklist()}                           
+                            </div>
+                            
+                            <div className="icon-text">
+                                <BiCalendarPlus className="business-account-icon"/> 
+                                {editOrderUrl ?
+                                    <div className='loginBody'>
+                                        <input
+                                            type="text"
+                                            disabled={updatingOrderUrl}
+                                            defaultValue={business?.deliveryURL}
+                                            onChange={(e) => this.setState({newOrderUrl: e.target.value})}
+                                        />
+                                        <button id="save-update" onClick={() => this.editOrderUrl("save")}>Save</button>
+                                        {updatingOrderUrl && <Loader type='TailSpin' color='#385FDC' height={30}/>}
+                                    </div> :
+                                    <p>
+                                        <a 
+                                            href={business?.deliveryURL ? `//${business?.deliveryURL}` : null}
+                                            target="_blank"
+                                        >
+                                            {"Order online here" + "\t"}
+                                        </a>
+                                        <BsPencil onClick={() => this.editOrderUrl("edit")} id="edit-icon"/>
+                                    </p>}
+                            </div>
+                                                        
+                            <div className="icon-text">
+                                <BiPhone className="business-account-icon"/>
+                                {editPhone ?
+                                    <div className='loginBody'>
+                                        <input
+                                            type="text"
+                                            id={!validPhone && 'invalidInput'}
+                                            placeholder='(xxx) xxx-xxxx'
+                                            disabled={updatingOrderUrl}
+                                            defaultValue={business?.businessPhone}
+                                            onChange={(e) => this.setState({newPhone: e.target.value})}
+                                        />
+                                        <button id="save-update" onClick={() => this.editPhone("save")}>Save</button>
+                                        {updatingPhone && <Loader type='TailSpin' color='#385FDC' height={30}/>}
+                                    </div> :
+                                    <p>
+                                        {business?.businessPhone + "\t"}
+                                        <BsPencil onClick={() => this.editPhone("edit")} id="edit-icon"/>
+                                    </p>}
+                            </div> 
+                        </div>     
+                    </div>                                                  
+                    
+                    <div>                    
+                        <h3><AiFillCamera className="business-account-icon" />Update your Business Photo</h3>
+                        {editImg ?
+                            <div className='img-upload'>
+                                <label for="businessUpload" className="business-upload">
+                                    {imgFile ? <ImgThumb image={imgFile} /> : <IoIosAdd className="review-add-icon" />}
+                                </label>
+                                <input id="businessUpload" type="file" name="file" onChange={this.handleImgUpload}/>
+                                <button id='save-update-img' onClick={() => this.editImg('save')}>Save</button>
+                                {updatingImg && <div id='update-img-load'><Loader type='TailSpin' color='#385FDC' height={30}/></div>}
+                            </div> :
+                            <div className='img-upload'>
+                                {currImg ? 
+                                    <img id='update-img' src={currImg}/> :                                    
+                                    <p>Your business has no photo</p>
+                                }
+                                <p><BsPencil id='edit-icon' onClick={() => this.editImg('edit')}/></p>
+                            </div>}
+                    </div>    
 
-                <div>                    
-                    <h3><FiThumbsUp className="business-account-icon" /> Your Business Reviews</h3>                                        
-                    { reviews.length === 0 ?
-                        <p>No reviews have been written for your business yet!</p> : 
-                        <>
-                            { reviews }
-                            {/* <a href="#">see more</a>                                      */}
-                        </>
-                    }                    
-                </div>            
-            </div>
+                    <div>                    
+                        <h3><FiThumbsUp className="business-account-icon" /> Your Business Reviews</h3>                                        
+                        { reviews.length === 0 ?
+                            <p>No reviews have been written for your business yet!</p> : 
+                            <>
+                                { reviews }
+                                {/* <a href="#">see more</a>                                      */}
+                            </>
+                        }                    
+                    </div>            
+                </div> :
+                <div className="account business-account">
+                    <h1 className="accountHeader">Hey {firstName}! Welcome Back!</h1>
+                    <h2 id='no-businesses'>You have not claimed or registered any businesses yet!</h2>
+                </div>
+                }
+            </>
         )
     }
 }
