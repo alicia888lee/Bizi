@@ -6,6 +6,7 @@ import Login from './components/Login'
 import Account from './components/Account'
 import CreateAccount from './components/CreateAccount'
 import Search from './components/Search'
+import LightLogo from '../src/images/lightLogo.jpg'
 import ForgotPassword from './components/ForgotPassword'
 import { BrowserRouter as Router, Route, Switch} from "react-router-dom";
 import './App.css';
@@ -21,7 +22,8 @@ function App() {
       }
       {IS_MOBILE && !UNDER_CONSTRUCTION &&
         <div id='is-mobile'>
-          <h2>Looks like you're trying to find us from your phone...<br />...we're still working on the mobile site, so please visit us from your computer for now!</h2>
+          <h2>Looks like you're trying to find us from your phone...<br />...we're still working on the mobile site, so please visit our desktop site for now!</h2>
+          <img src={LightLogo} />
         </div>
       }
       {!IS_MOBILE && !UNDER_CONSTRUCTION &&

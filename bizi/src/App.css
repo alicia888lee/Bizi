@@ -1976,3 +1976,6 @@ input[type="file"] {
   margin-top: 35vh;
   color: white;
 }
+#is-mobile img {
+  height: 50vw;
+}
