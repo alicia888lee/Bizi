@@ -428,6 +428,7 @@ nav .dropdown:hover .dropdown-content {
   border: none;
   cursor: pointer;
   margin-left: 1em;
+  outline: none;
   margin-right: 1em;
 }
 
