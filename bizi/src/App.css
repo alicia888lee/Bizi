@@ -411,8 +411,27 @@ nav .dropdown:hover .dropdown-content {
   max-height: 50vh;
   overflow-y: auto;
 }
-  
-.description-text button{
+
+.pagination-buttons {
+  display: block;
+  margin-top: 2em;
+  text-align: center;
+}
+
+.pagination-buttons #next-page-search {
+  width: 8vw; 
+  font-size: 20px;
+  font-weight: bold;
+  color: white;
+  background-color: #385FDC;
+  border-radius: 25px;
+  border: none;
+  cursor: pointer;
+  margin-left: 1em;
+  margin-right: 1em;
+}
+
+/* .description-text button{
   background-color: #83cb7b;
   color: white;
   border: none;
@@ -424,7 +443,7 @@ nav .dropdown:hover .dropdown-content {
   font-weight: bold;
   display: table-cell;
   align-items: center;
-}
+} */
 .right {
   font-size: 2em;
 }

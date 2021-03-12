@@ -257,10 +257,12 @@ class BusinessInfo extends React.Component {
               <p><a href={business?.deliveryURL} target='_blank'>Order online here</a></p>
             </div>
             }
+            {business?.businessPhone &&
             <div className="icon-text">
               <BiPhone className="action"/> 
               <p>{business?.businessPhone}</p>
             </div>
+            }
             {business?.businessEmail &&
             <div className="icon-text">
               <BiEnvelope className="action"/> 

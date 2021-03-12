@@ -11,8 +11,11 @@ function SearchItems(props){
     doFilter, 
     filterInitiative,
     filterPrice,
-    filterOpen, 
-    doSort, 
+    filterOpen,
+    startMarker,
+    updateMarker,
+    doSort,
+    totalBusinesses,
     sort } = props;
 
   return(
@@ -24,7 +27,7 @@ function SearchItems(props){
             </div>
       
             <div className="description-text">  
-              <SearchItemsList searchList={searchList} doFilter={doFilter} filterInitiative={filterInitiative} filterPrice={filterPrice} filterOpen={filterOpen} />                                                          
+              <SearchItemsList startMarker={startMarker} updateMarker={updateMarker} searchList={searchList} doFilter={doFilter} filterInitiative={filterInitiative} filterPrice={filterPrice} filterOpen={filterOpen} total={totalBusinesses} />                                                          
             </div>      
           </div>
         }

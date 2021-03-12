@@ -63,7 +63,10 @@ class SearchItemsList extends Component {
             filterInitiative,
             filterPrice,
             filterOpen, 
-            sort, 
+            sort,
+            startMarker,
+            updateMarker,
+            total,
             doSort } = this.props;
 
         return (
@@ -71,6 +74,12 @@ class SearchItemsList extends Component {
                 {this.generateFilters(doFilter, filterInitiative, filterPrice, filterOpen)}
                 <div className="SearchItemsList">
                     {searchList}
+                </div>
+                <div className='pagination-buttons'>
+                    {startMarker >= 10 && <button id='next-page-search' onClick={() => updateMarker("previous")}>Previous</button>}
+                    {searchList.length >=10 && 
+                    startMarker + 10 < total && 
+                    <button id='next-page-search' onClick={() => updateMarker("next")}>Next</button>}
                 </div>
             </div>
         )

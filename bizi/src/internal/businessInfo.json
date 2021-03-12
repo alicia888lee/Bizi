@@ -541,7 +541,7 @@
     "Salon Antou": {
         "Description": "Salon Antou employs professionally trained and experienced stylists, and carries top-line hair and coloring products from Aveda.",
         "Policies": ["Enforce Masks", "Regular sanitizing", "Controlled capacity", "Temperature Checks", "Daily deep cleans", "Provides hand sanitizer"],
-        "Initiatives": ["Sustainability", "Ethical Supply Chain", "Diversity Initiatives", "Shopping", "Food", "Services"],
+        "Initiatives": ["Sustainability", "Ethical Supply Chain", "Diversity Initiatives", "Shopping", "Services"],
         "Website": "https://www.salonantouevanston.com/",
         "Reservations": "https://www.salonantouevanston.com/contact",
         "Phone Number": "(847) 328-3800",
@@ -569,7 +569,7 @@
     "Beacon Academy": {
         "Description": "High schools haven’t changed much in the past century, and yet the skills that students need to contribute to an ever-changing world have evolved radically. At Beacon, high school education is re-imagined with an innovative curriculum that is challenging, rigorous, engaging, and creative. Students learn how to think for themselves, collaborate and work in teams, and interact with the outside world by working on authentic problems.",
         "Policies": ["Enforce Masks", "Regular sanitizing", "Controlled capacity", "Temperature Checks", "Daily deep cleans", "Provides hand sanitizer", "Air purification system", "Tables six feet apart", "Weekly testing"],
-        "Initiatives": ["Education", "Diverse Board", "Environmentally-friendly", "Staff volunteer locally", "Wheelchair-accessible", "Diversity Initiatives"],
+        "Initiatives": ["Education", "Diverse Board", "Environmentally-friendly", "Staff volunteer locally", "Wheelchair-accessible", "Sustainability", "Diversity Initiatives"],
         "Website": "https://www.beaconacademyil.org/",
         "Phone Number": "(224) 999-1177",
         "Address": "1574 Sherman Ave, Evanston, IL 60201",
@@ -675,7 +675,7 @@
     "Tomate Fresh Kitchen": {
         "Description": "A variety of burritos and tacos served in a cozy but iconic restaurant.",
         "Policies": ["Curbside pick-up"],
-        "Initiatives": ["Food", "Diversity Initiatives"],
+        "Initiatives": ["Diversity Initiatives", "Food"],
         "Website": "https://www.tomatefreshkitchen.com/",
         "Delivery": "https://tomatefreshkitchen.hngr.co/menu/start?utm_source=google&utm_medium=gmb&utm_campaign=tomate",
         "Phone Number": "(847) 905-0194",
@@ -908,7 +908,7 @@
     "Jennifer’s Edible": {
         "Description": "With ingredients sourced from local farmer markets, Jennifer’s Edibles offers a wide selection of authentic Jamaican food.",
         "Policies": ["Curbside pick-up", "Delivery available"],
-        "Initiatives": ["Black Owned", "Charitable Donations", "Locally sourced", "Diversity Initiatives", "Sustainability"],
+        "Initiatives": ["Black Owned", "Charitable Donations", "Locally sourced", "Sustainability", "Diversity Initiatives"],
         "Phone Number":"(224) 717-1835",
         "Address": "1623 Simpson St, Evanston, IL 60201",
         "Price Range": 2,
@@ -920,7 +920,7 @@
     "Hecky’s Barbecue": {
         "Description": "Serving the Evanston community since 1983, Hecky’s is famous for their barbecue ribs and chicken.",
         "Policies": ["Curbside pick-up", "Delivery available"],
-        "Initiatives": ["Black Owned", "Charitable Donations", "Locally sourced", "Diversity Initiatives", "Sustainability"],
+        "Initiatives": ["Black Owned", "Charitable Donations", "Locally sourced", "Sustainability", "Diversity Initiatives"],
         "Website":"https://www.heckys.com/",
         "Delivery": "https://www.heckys.com/s/order",
         "Phone Number":"(847) 492-1182",

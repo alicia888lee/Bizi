@@ -29,11 +29,28 @@ class Search extends React.Component {
           currentScheduleFilter: [],
           sort: '',
           loading: false,
+          startMarker: 0,
+          paginatedBusinesses: []
+        }
+      }
+
+      updateMarker = (action) => {
+        const { startMarker } = this.state;
+        switch(action) {
+          case "next":
+            this.setState({startMarker: startMarker + 10});
+            break;
+          case "previous":
+            this.setState({startMarker: startMarker - 10});
+            break;
+          default:
+            break;
         }
       }
 
       filterChange(e, initialFilters, initialSearch, isSearch) {
         const { businesses, filteredBusinesses, search, currentInitFilters, currentPriceFilters, currentScheduleFilter } = this.state;
+        this.setState({startMarker: 0});
         var setInitFilters = currentInitFilters.slice();
         var setPriceFilters = currentPriceFilters.slice();
         var setScheduleFilter = currentScheduleFilter.slice();
@@ -195,7 +212,7 @@ class Search extends React.Component {
       }
 
       generateSearchList = async(randomize=false) => {
-        const { filteredBusinesses } = this.state;
+        const { filteredBusinesses, startMarker } = this.state;
         var shuffledFilteredBusinesses = filteredBusinesses.slice();
         if (randomize) {
           console.log('RANDOMIZING');
@@ -210,6 +227,8 @@ class Search extends React.Component {
             businesses: shuffledFilteredBusinesses
           });
         }
+        var paginatedBusinesses = shuffledFilteredBusinesses.slice(startMarker, startMarker + 10);
+
         var iconDict = {
           'Sustainability': {
             id: 'searchEnvironment',
@@ -241,7 +260,7 @@ class Search extends React.Component {
 
         // console.log(newURLs);
   
-        var searchList = shuffledFilteredBusinesses.map((item, index) =>
+        var searchList = paginatedBusinesses.map((item, index) =>
           item.approved &&
             <Link to={{pathname: `/search/${item?.id}`, state: {business: item}}} className='SearchItem' key={index}>
                 <div className='SearchItemWrapper'>
@@ -264,7 +283,8 @@ class Search extends React.Component {
         
         this.setState({
             searchList: searchList,
-            loading: false
+            loading: false,
+            paginatedBusinesses: paginatedBusinesses
         });
       }
 
@@ -285,11 +305,12 @@ class Search extends React.Component {
       }
 
       componentDidUpdate(prevProps, prevState) {
-        const { search, currentInitFilters, currentPriceFilters, currentScheduleFilter } = this.state;
+        const { search, startMarker, currentInitFilters, currentPriceFilters, currentScheduleFilter } = this.state;
         var updateCondition = (prevState.search !== search
           || prevState.currentInitFilters !== currentInitFilters
           || prevState.currentPriceFilters !== currentPriceFilters
           || prevState.currentScheduleFilter !== currentScheduleFilter
+          || prevState.startMarker !== startMarker
           // || prevState.sort !== sort
         );
 
@@ -308,6 +329,8 @@ class Search extends React.Component {
           currentInitFilters,
           currentPriceFilters,
           currentScheduleFilter,
+          startMarker,
+          paginatedBusinesses,
           sort } = this.state;
         console.log(businesses);
         return (
@@ -318,10 +341,13 @@ class Search extends React.Component {
                 
                 <Switch>
                   <Route exact path="/search">
-                    <SearchItems 
+                    <SearchItems
+                      totalBusinesses={filteredBusinesses.length}
+                      updateMarker={this.updateMarker}
+                      startMarker={startMarker}
                       searchList={searchList} 
                       loading={loading} 
-                      filteredBusinesses={filteredBusinesses} 
+                      filteredBusinesses={paginatedBusinesses} 
                       doFilter={(e) => this.filterChange(e)} 
                       filterInitiative={currentInitFilters}
                       filterPrice={currentPriceFilters}
