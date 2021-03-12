@@ -796,6 +796,12 @@ class CreateAccount extends Component {
             open: open ? timeOpen : schedule[day]?.open,
             close: close ? timeClose : schedule[day]?.close
         };
+        if (updatedSchedule[day]?.open == updatedSchedule[day]?.close) {
+            updatedSchedule[day] = {
+                open: 0,
+                close: 24
+            }
+        }
         this.setState({
             schedule: updatedSchedule,
             previousSchedule: schedule
@@ -1234,9 +1240,9 @@ class CreateAccount extends Component {
             registering,
             validDiscounts,
             discounts,
-            verifyingEmail
+            verifyingEmail,
+            schedule
         } = this.state;
-        console.log(discounts);
         return (
             <>
                 {smRedirecting ? <Loader type='TailSpin' color='#385FDC' height={40}/> : 
