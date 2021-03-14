@@ -10,7 +10,8 @@ async function updateDB(data) {
         var searchTags = data[business]?.['Search Tags'] ?
             data[business]?.['Search Tags']
                 .concat(data[business]?.['Initiatives'])
-                .concat(business) :
+                .concat(business)
+                .concat(data[business]?.['Subheading']) :
             data[business]?.['Initiatives']
                 .concat(business)
                 .concat(data[business]?.['Subheading']);
