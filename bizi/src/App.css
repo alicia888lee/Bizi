@@ -420,7 +420,7 @@ nav .dropdown:hover .dropdown-content {
 
 .pagination-buttons #next-page-search {
   width: 8vw; 
-  font-size: 20px;
+  font-size: 1vw;
   font-weight: bold;
   color: white;
   background-color: #385FDC;

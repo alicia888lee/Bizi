@@ -14,7 +14,7 @@ import ScrollToTop from './components/ScrollToTop.js';
 
 function App() {
   var UNDER_CONSTRUCTION = false;
-  var IS_MOBILE = /Android|webOS|iPhone|iPad|iPod|BlackBerry|BB|PlayBook|IEMobile|Windows Phone|Kindle|Silk|Opera Mini/i.test(navigator.userAgent)
+  var IS_MOBILE = /Android|webOS|iPhone|iPod|BlackBerry|BB|PlayBook|IEMobile|Windows Phone|Kindle|Silk|Opera Mini/i.test(navigator.userAgent)
   return (
     <div className="App">
       {UNDER_CONSTRUCTION &&
