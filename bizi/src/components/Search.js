@@ -60,15 +60,38 @@ class Search extends React.Component {
         var filterTypes = {
           'Sustainable': {
             category: 'initiatives',
-            value: 'Sustainability'
+            value: [
+              'Sustainability', 
+              'Recycling', 
+              'Waste Reduction',
+              'Renewable Energy Sources',
+              'LEED Certified',
+              'Sustainable Products',
+              'Vegan Friendly',
+              'Vegetarian Friendly',
+              'Vegan Products',
+              'Vintage'
+            ]
           },
           'Supply Chain': {
             category: 'initiatives',
-            value: 'Ethical Supply Chain'
+            value: [
+              'Ethical Supply Chain',
+              'Handmade',
+              'Animal Cruelty Free',
+              'Locally Sourced'
+            ]
           },
           'Diversity Focused': {
             category: 'initiatives',
-            value: 'Diversity Initiatives'
+            value: [
+              'Diversity Initiatives',
+              'Family Owned',
+              'Female Owned',
+              'Minority Owned',
+              'Black Owned',
+              'Wheelchair Friendly'
+            ]
           },
           '$': {
             category: 'priceRange',
@@ -124,7 +147,7 @@ class Search extends React.Component {
 
           filtered = filtered?.filter(item => 
             setInitFilters.length > 0 ? 
-              setInitFilters?.some(fil => item?.initiatives?.includes(filterTypes[fil]?.value)) :
+              setInitFilters?.some(fil => filterTypes[fil]?.value.some(val => item?.initiatives?.includes(val))) :
               true);
           filtered = filtered?.filter(item =>
             setPriceFilters.length > 0 ?

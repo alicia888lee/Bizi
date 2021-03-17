@@ -1494,6 +1494,11 @@ nav .dropdown:hover .dropdown-content {
 .business-header * {
   display: inline;
 }
+
+.business-tags * {
+  display: inline;
+  padding: 1em;
+}
 .back-icon {
   color: #385FDC;
   font-size: 2.5em;

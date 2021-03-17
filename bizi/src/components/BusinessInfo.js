@@ -231,6 +231,15 @@ class BusinessInfo extends React.Component {
                   </h3>
               </div>
             
+            <div className='business-tags'>
+              <p>Recyclable Bottles</p>
+              <p>Black Owned</p>
+              <p>Charitable Donations</p>
+              <p>Volunteering</p>
+              <p>Volunteering</p>
+              <p>Volunteering</p>
+              <p>Volunteering</p>
+            </div>
             <p className="textbox">{business?.businessDescription}</p>                        
 
             {policyList &&           
