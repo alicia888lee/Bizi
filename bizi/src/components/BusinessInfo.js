@@ -187,7 +187,6 @@ class BusinessInfo extends React.Component {
     async componentDidMount() {
       const verifyAuth = await this.checkAuth();
       verifyAuth && await this.updateAuth(verifyAuth);
-      console.log('INFO REMOUNTING');
       this.getImgUrl();
       this.generatePolicyList();
       this.checkBookmarkStatus();
