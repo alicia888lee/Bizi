@@ -102,7 +102,7 @@ class BusinessInfo extends React.Component {
       const { currUser } = this.state;
       const { business } = this.props;
       // check if business should be bookmarked or not
-      console.log(currUser);
+      // console.log(currUser);
       var currUserAPI = currUser?.data?.getUser;
       var currBookmarks = currUserAPI?.bookmarks;
       console.log(currUserAPI);
