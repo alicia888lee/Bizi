@@ -66,6 +66,50 @@ class BusinessInfo extends React.Component {
       });
     }
 
+    generateTags = () => {
+      const { business } = this.props;
+      const initiativeDict = {
+        'Sustainable': {
+          value: [
+            'Sustainability', 
+            'Recycling', 
+            'Waste Reduction',
+            'Renewable Energy Sources',
+            'LEED Certified',
+            'Sustainable Products',
+            'Vegan Friendly',
+            'Vegetarian Friendly',
+            'Vegan Products',
+            'Vintage'
+          ]
+        },
+        'Supply Chain': {
+          value: [
+            'Ethical Supply Chain',
+            'Handmade',
+            'Animal Cruelty Free',
+            'Locally Sourced'
+          ]
+        },
+        'Diversity Focused': {
+          value: [
+            'Diversity Initiatives',
+            'Family Owned',
+            'Female Owned',
+            'Minority Owned',
+            'Black Owned',
+            'Wheelchair Friendly'
+          ]
+        }
+      }
+
+      var tags = business?.initiatives?.map(init => {
+        for (type in initiativeDict) {
+          if 
+        }
+      })
+    }
+
     generateReviews = () => {
       const { business } = this.props;
         if(business?.reviews){
@@ -232,6 +276,7 @@ class BusinessInfo extends React.Component {
               </div>
             
             <div className='business-tags'>
+              <p id='subheading'>{business?.businessSubHeading}</p>
               <p>Recyclable Bottles</p>
               <p>Black Owned</p>
               <p>Charitable Donations</p>
