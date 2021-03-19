@@ -257,7 +257,7 @@ fieldset button {
   cursor: pointer;
 }
 #searchbar {    
-  width: 700px;   
+  width: 40vw;
   border-radius: 5em 0 0 5em;
   overflow: hidden;
   text-overflow: ellipsis;
