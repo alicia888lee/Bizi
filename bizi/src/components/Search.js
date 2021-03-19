@@ -60,38 +60,15 @@ class Search extends React.Component {
         var filterTypes = {
           'Sustainable': {
             category: 'initiatives',
-            value: [
-              'Sustainability', 
-              'Recycling', 
-              'Waste Reduction',
-              'Renewable Energy Sources',
-              'LEED Certified',
-              'Sustainable Products',
-              'Vegan Friendly',
-              'Vegetarian Friendly',
-              'Vegan Products',
-              'Vintage'
-            ]
+            value: 'Sustainability', 
           },
           'Supply Chain': {
             category: 'initiatives',
-            value: [
-              'Ethical Supply Chain',
-              'Handmade',
-              'Animal Cruelty Free',
-              'Locally Sourced'
-            ]
+            value: 'Ethical Supply Chain',
           },
           'Diversity Focused': {
             category: 'initiatives',
-            value: [
-              'Diversity Initiatives',
-              'Family Owned',
-              'Female Owned',
-              'Minority Owned',
-              'Black Owned',
-              'Wheelchair Friendly'
-            ]
+            value: 'Diversity Initiatives',
           },
           '$': {
             category: 'priceRange',
@@ -147,7 +124,7 @@ class Search extends React.Component {
 
           filtered = filtered?.filter(item => 
             setInitFilters.length > 0 ? 
-              setInitFilters?.some(fil => filterTypes[fil]?.value.some(val => item?.initiatives?.includes(val))) :
+              setInitFilters?.some(fil => item?.initiatives?.includes(filterTypes[fil]?.value)) :
               true);
           filtered = filtered?.filter(item =>
             setPriceFilters.length > 0 ?
@@ -252,6 +229,8 @@ class Search extends React.Component {
         }
         var paginatedBusinesses = shuffledFilteredBusinesses.slice(startMarker, startMarker + 10);
 
+        var iconOrder = ["Sustainability", "Ethical Supply Chain", "Diversity Initiatives"];
+
         var iconDict = {
           'Sustainability': {
             id: 'searchEnvironment',
@@ -289,9 +268,10 @@ class Search extends React.Component {
                 <div className='SearchItemWrapper'>
                     <div className='SearchItemHeader'>
                         <h2>{item?.businessName}</h2>
-                        {item?.initiatives?.map((init, index) => 
-                          Object.keys(iconDict).includes(init) && 
-                          <img className={iconDict[init]?.id} title={init} src={iconDict[init]?.img} key={index}/>
+                        {iconOrder.map((init, index) =>
+                          item?.initiatives?.includes(init) ?
+                            <img className={iconDict[init]?.id} title={init} src={iconDict[init]?.img} key={index}/> :
+                            null
                         )}
                     </div>
                     {item?.businessSubHeading && <h3>{item?.businessSubHeading}</h3>}

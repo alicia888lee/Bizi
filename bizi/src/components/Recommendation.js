@@ -40,6 +40,8 @@ class Recommendation extends React.Component {
             return businesses.filter((item) => item?.id == id)[0];
         });
 
+        var iconOrder = ["Sustainability", "Ethical Supply Chain", "Diversity Initiatives"];
+
         var iconDict = {
             'Sustainability': {
               id: 'searchEnvironment',
@@ -68,8 +70,10 @@ class Recommendation extends React.Component {
                     >
                     <h1>{item?.businessName}</h1>
                     <div className='recImgs'>
-                        {item?.initiatives?.map((init, index) => 
-                            Object.keys(iconDict).includes(init) && <img src={iconDict[init]?.img} className={iconDict[init]?.id} title={init} key={index} />
+                        {iconOrder.map((init, index) =>
+                          item?.initiatives?.includes(init) ?
+                            <img className={iconDict[init]?.id} title={init} src={iconDict[init]?.img} key={index}/> :
+                            null
                         )}
                     </div>
                 </div>

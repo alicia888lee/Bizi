@@ -1496,13 +1496,38 @@ nav .dropdown:hover .dropdown-content {
 }
 
 .business-tags * {
-  display: inline;
+  display: inline-block;
+  margin-right: 0.3em;
+  margin-top: -5px;
+  margin-bottom: -5px;
+}
+
+.business-tags p {
+  border-style: solid;
+  border-radius: 25px;
+  border-width: 0.20em;
+  white-space: nowrap;
+  padding-left: 1em;
   padding-right: 1em;
+}
+
+#tag-sustainable {
+  border-color: #3cba54;
+}
+
+#tag-supply-chain {
+  border-color: orange;
+}
+
+#tag-diversity {
+  border-color: #DD4856;
 }
 
 .business-tags #subheading {
   color: #6e6767;
   font-size: 1.5em;
+  padding-left: 0;
+  border: none;
 }
 
 .back-icon {

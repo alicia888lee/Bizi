@@ -69,9 +69,8 @@ class BusinessInfo extends React.Component {
     generateTags = () => {
       const { business } = this.props;
       const initiativeDict = {
-        'Sustainable': {
+        'sustainable': {
           value: [
-            'Sustainability', 
             'Recycling', 
             'Waste Reduction',
             'Renewable Energy Sources',
@@ -81,33 +80,42 @@ class BusinessInfo extends React.Component {
             'Vegetarian Friendly',
             'Vegan Products',
             'Vintage'
-          ]
+          ],
+          bucket: 'Sustainability'
         },
-        'Supply Chain': {
+        'supply-chain': {
           value: [
-            'Ethical Supply Chain',
             'Handmade',
             'Animal Cruelty Free',
             'Locally Sourced'
-          ]
+          ],
+          bucket: 'Ethical Supply Chain'
         },
-        'Diversity Focused': {
+        'diversity': {
           value: [
-            'Diversity Initiatives',
             'Family Owned',
             'Female Owned',
             'Minority Owned',
             'Black Owned',
             'Wheelchair Friendly'
-          ]
+          ],
+          bucket: 'Diversity Initiatives'
         }
       }
 
       var tags = business?.initiatives?.map(init => {
-        for (type in initiativeDict) {
-          if 
+        for (var type in initiativeDict) {
+          if (initiativeDict[type]?.value?.includes(init)) {
+            return (
+              <div title={initiativeDict[type]?.bucket}>
+                <p id={`tag-${type}`}>{init}</p>
+              </div>
+            )
+          }
         }
-      })
+      });
+      console.log(tags);
+      return tags;
     }
 
     generateReviews = () => {
@@ -276,13 +284,7 @@ class BusinessInfo extends React.Component {
             
             <div className='business-tags'>
               <p id='subheading'>{business?.businessSubHeading}</p>
-              <p>Recyclable Bottles</p>
-              <p>Black Owned</p>
-              <p>Charitable Donations</p>
-              <p>Volunteering</p>
-              <p>Volunteering</p>
-              <p>Volunteering</p>
-              <p>Volunteering</p>
+              {this.generateTags()}
             </div>
             <p className="textbox">{business?.businessDescription}</p>                        
 
