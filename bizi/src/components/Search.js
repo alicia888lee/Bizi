@@ -286,7 +286,7 @@ class Search extends React.Component {
             loading: false,
             paginatedBusinesses: paginatedBusinesses
         },
-        () => document.getElementsByClassName("SearchItemsList")[0].scrollTo(0, 0));
+        () => document.getElementsByClassName("SearchItemsList")?.[0]?.scrollTo(0, 0));
       }
 
       async componentDidMount() {
