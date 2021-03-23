@@ -4,7 +4,7 @@ import React from 'react'
 import { API } from 'aws-amplify'
 import * as mutations from '../graphql/mutations.js'
 import * as queries from '../graphql/queries.js'
-import data from '../internal/businessInfo.json';
+import data from '../internal/mockData.json';
 
 async function updateExisting(data) {
     // read in all existing businesses from db
@@ -66,10 +66,13 @@ async function updateExisting(data) {
                 .concat(listBusinesses[business]?.businessName)
                 .concat(data[listBusinesses[business]?.businessName]?.['Subheading']);
         
+        var phone = data[listBusinesses[business]?.businessName]?.['Phone Number'];
+
         const business_obj = {
             ...listBusinesses[business],
             initiatives: initiatives,
             searchTags: searchTags,
+            businessPhone: phone
         };
 
         // update
@@ -170,7 +173,7 @@ async function updateDB(data) {
 
 export function InternalDBTool(props) {
     return (
-        <button onClick={() => updateExisting(data)}>
+        <button onClick={() => updateDB(data)}>
             Sync DB
         </button>
     );
