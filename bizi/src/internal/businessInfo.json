@@ -16,7 +16,7 @@
     "Vinic Wine Co": {
         "Description": "Vinic Wine is a great way to meet quality wines. They offer two tastings a week and they also have an online shop. Vinic is a super useful place to visit before a date— they’ll give you recommendations of food that pairs well with a specific wine you choose. Must be 21+. ",
         "Policies":["Enforce Masks", "Controlled capacity", "Regular sanitizing"],
-        "Initiatives": ["Alcoholic beverages", "Food", "Charitable donations"],
+        "Initiatives": ["Alcoholic beverages", "Food", "Charitable Donations"],
         "Website": "http://vinicwine.com/",
         "Phone Number": "(847) 733-7000",
         "Address": "1509 Chicago Ave, Evanston, IL 60201",
@@ -213,7 +213,7 @@
     "Na Korn": {
         "Description": "Na Korn is an urban Thai restaurant. They offer super tasty dishes with an interesting modern Thai decor. During COVID-19, they’re offering outdoor dining options in heated bubble tents and at-home meal kits. They also donate to \"Put a Fork In Hunger\" and welcome any donations.",
         "Policies":["Enforce Masks"],
-        "Initiatives": ["Food", "Charitable donations"],
+        "Initiatives": ["Food", "Charitable Donations"],
         "Website": "https://nakornkitchen.com/",
         "Delivery":"https://nakorn.hngr.co/menu/start",
         "Phone Number": "(847) 733-8424",
@@ -221,7 +221,7 @@
         "Price Range": 3,
         "Schedule": [[-1,-1], [-1,-1], [17, 20], [17,20], [17,20], [17,20], [17,20]],
         "Subheading": "Thai Restaurant",
-        "Search Tags": ["thai", "Asian", "asian food", "healthy food", "vegan", "vegetarian", "healthy", "charitable donations", "community engagement", "restaurant", "food", "fresh fruit"],
+        "Search Tags": ["thai", "Asian", "asian food", "healthy food", "vegan", "vegetarian", "healthy", "Charitable Donations", "Community Engagement", "restaurant", "food", "fresh fruit"],
         "Approved": true
     },    
     "Kansaku": {
@@ -1008,6 +1008,19 @@
         "Schedule": [[15, 21], [15, 21], [15, 21], [15, 21], [15, 21], [15, 21], [15, 21]],
         "Subheading": "American Cuisine",
         "Search Tags": ["American", "food", "restaurant", "seafood", "prairie moon", "prarie", "prairy", "cuisine", "evanston", "trout", "crawfish"],
+        "Approved": true
+    },
+    "Cross-Rhodes": {
+        "Description": "Local staple serving gyros, pitas & other Greek grub in a tiny, no-frills space known for its fries and and \"Chicken Greek Style\" served in a unique white wine, lemon and herb sauce. Cross Rhodes supports shelters and soup kitchens and welcomes donations.",
+        "Policies": ["Delivery available", "Curbside pick-up"],
+        "Initiatives": ["Charitable Donations", "Community Engagement"],
+        "Website": "https://crossrhodesevanston.com/",
+        "Phone Number": "(847) 475-4475",
+        "Address": "913 Chicago Ave, Evanston IL 60202",
+        "Price Range": "1",
+        "Schedule": [[16, 20], [16, 20], [16, 20], [16, 20], [11.5, 20], [11.5, 21], [11.5, 21], [16, 20]],
+        "Subheading": "Greek Restaurant",
+        "Search Tags": ["restaurant", "food", "Greek", "Mediterranean", "American", "fries", "chicken", "gyro", "pita", "Turkish", "evanston", "cross roads", "cross", "rhodes", "crossrhodes", "cross rhodes", "crossroads", "cross-roads"],
         "Approved": true
     }
 }

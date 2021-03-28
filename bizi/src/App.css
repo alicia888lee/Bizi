@@ -1362,11 +1362,15 @@ nav .dropdown:hover .dropdown-content {
 }
 
 .searchEnvironment {
-  width: 7%;  
+  width: 5%;
 }
 .searchHeart {
   width: 5%;
 }
+.searchDiversity {
+  width: 5%;
+}
+
 .searchCommunity {
   width: 5%;
 }
@@ -1512,15 +1516,19 @@ nav .dropdown:hover .dropdown-content {
 }
 
 #tag-sustainable {
-  border-color: #3cba54;
+  border-color: #78CC5B;
 }
 
 #tag-supply-chain {
-  border-color: orange;
+  border-color: #F47369;
 }
 
 #tag-diversity {
-  border-color: #DD4856;
+  border-color: #FDC269;
+}
+
+#tag-community {
+  border-color: #8FC4EB;
 }
 
 .business-tags #subheading {

@@ -9,9 +9,10 @@ import Footer from './Footer'
 import * as queries from '../graphql/queries'
 import * as mutations from '../graphql/mutations'
 import { API, Storage } from 'aws-amplify'
-import environmentImg from '../images/environment.png';
-import heartImg from '../images/heart_hand.png';
-import communityImg from '../images/community.png';
+import environmentImg from '../images/sustainability.png';
+import heartImg from '../images/ethical.png';
+import diversityImg from '../images/diversity.png';
+import communityImg from '../images/community_engagement.png';
 import placeholderImg from '../images/pexels-mariana-kurnyk-1775043.jpg';
 import { OpenTag, ClosedTag, PriceTag } from './SearchItemsList'
 
@@ -69,6 +70,10 @@ class Search extends React.Component {
           'Diversity Focused': {
             category: 'initiatives',
             value: 'Diversity Initiatives',
+          },
+          'Community Engagement': {
+            category: 'initiatives',
+            value: 'Community Engagement'
           },
           '$': {
             category: 'priceRange',
@@ -229,7 +234,7 @@ class Search extends React.Component {
         }
         var paginatedBusinesses = shuffledFilteredBusinesses.slice(startMarker, startMarker + 10);
 
-        var iconOrder = ["Sustainability", "Ethical Supply Chain", "Diversity Initiatives"];
+        var iconOrder = ["Sustainability", "Ethical Supply Chain", "Diversity Initiatives", "Community Engagement"];
 
         var iconDict = {
           'Sustainability': {
@@ -241,6 +246,10 @@ class Search extends React.Component {
             img: heartImg
           },
           'Diversity Initiatives': {
+            id: 'searchDiversity',
+            img: diversityImg
+          },
+          'Community Engagement': {
             id: 'searchCommunity',
             img: communityImg
           }

@@ -100,6 +100,13 @@ class BusinessInfo extends React.Component {
             'Wheelchair Friendly'
           ],
           bucket: 'Diversity Initiatives'
+        },
+        'community': {
+          value: [
+            'Charitable Donations',
+            'Volunteer Efforts'
+          ],
+          bucket: 'Community Engagement'
         }
       }
 
