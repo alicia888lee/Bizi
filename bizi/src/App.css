@@ -730,6 +730,19 @@ nav .dropdown:hover .dropdown-content {
   margin-bottom: 5px;
 }
 
+.businessPrefChecklist {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  margin-left: 8%;
+  margin-right: 8%;
+  text-align: left;
+  margin-bottom: 5px;
+}
+
+.businessPrefChecklist p {
+  font-weight: 600;
+}
+
 .search-filters-checklist {
   display: grid;
   grid-template-columns: repeat(2, 1fr);

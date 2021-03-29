@@ -364,13 +364,16 @@ class CreateAccount extends Component {
                 'Animal Cruelty Free',
                 'Locally Sourced'
             ],
-            "Diversity Initiatives": [
-                'Diversity Initiatives',
+            "Diversity Initiatives": [,
                 'Family Owned',
                 'Female Owned',
                 'Minority Owned',
                 'Black Owned',
                 'Wheelchair Friendly'
+            ],
+            "Community Engagement": [
+                'Charitable Donations',
+                'Volunteer Efforts'
             ]
         };
 
@@ -605,6 +608,7 @@ class CreateAccount extends Component {
             initiativeList.includes("Sustainability"),
             initiativeList.includes("Ethical Supply Chain"),
             initiativeList.includes("Diversity Initiatives"),
+            initiativeList.includes("Community Engagement"),
             initiativeList.includes("Shopping"),
             initiativeList.includes("Food"),
             initiativeList.includes("Services")
@@ -614,6 +618,7 @@ class CreateAccount extends Component {
             'Sustainability',
             'Ethical Supply Chain',
             'Diversity Initiatives',
+            'Community Engagement',
             'Shopping',
             'Food',
             'Services'
