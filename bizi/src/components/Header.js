@@ -58,15 +58,15 @@ class Header extends React.Component {
             </div>
             <div className='header-tag' id={filters.includes("Supply Chain") && 'filter-highlighted'} onClick={() => this.filterClick("Supply Chain")}>
               <img src={ethical} />
-              <h3>Ethical Supply Chain</h3>
+              <h3>Ethical</h3>
             </div>
             <div className='header-tag' id={filters.includes("Diversity Focused") && 'filter-highlighted'} onClick={() => this.filterClick("Diversity Focused")}>
               <img src={diversity} />
-              <h3>Diversity Initiatives</h3>
+              <h3>Diversity</h3>
             </div>
             <div className='header-tag' id={filters.includes("Community Engagement") && 'filter-highlighted'} onClick={() => this.filterClick("Community Engagement")}>
               <img src={community} />
-              <h3>Community Engagement</h3>
+              <h3>Community</h3>
             </div>
           </div>          
           <fieldset>
