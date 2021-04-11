@@ -51,6 +51,11 @@ class ReadStories extends React.Component {
     }
   }
 
+  createSampleText = (text) => {
+    return text.substring(0, 150) + "...";
+  }
+
+
   generateTiles = async() => {
     const { storyBusinesses, storyModal } = this.state;
     var businesses = [];
@@ -71,7 +76,7 @@ class ReadStories extends React.Component {
         <div>
           <img src={coverImg}/>
           <h2>{business?.businessName}</h2>
-          <p>{business?.story?.storyBackground}</p>
+          <p id={businesses.length == 1 && 'story-margin'}>{business?.story?.storySlide1}</p>
         </div>
     )}));
     console.log(businesses);

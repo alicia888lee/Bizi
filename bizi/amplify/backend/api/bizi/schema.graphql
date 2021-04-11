@@ -44,9 +44,9 @@ type Story {
   storyImg2: String
   storyPerson: String
   storyPersonTitle: String
-  storyKeywords: String
-  storyDifference: String
-  storyBackground: String
+  storySlide1: String
+  storySlide2: String
+  storySlide3: String
 }
 
 type Review {

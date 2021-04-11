@@ -115,6 +115,11 @@
   margin-bottom: 25px;
 }
 
+#story-margin {
+  margin-left: 25vw;
+  margin-right: 25vw;
+}
+
 .bus-cols img {
   width: 20vw;
   height: 20vw;
@@ -628,6 +633,7 @@ nav .dropdown:hover .dropdown-content {
   background: #00000080;
   color: white;
   visibility: hidden;
+  line-height: 2em;
   opacity: 0;  
   transition: opacity .2s, visibility .2s;
 }
@@ -1944,6 +1950,7 @@ input[type="file"] {
 
 #story-modal-3-address {
   margin-bottom: 1em;
+  margin-top: 1em;
 }
 
 .story-modal-3 a{  

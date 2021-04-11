@@ -20,6 +20,7 @@ exports.handler = async (event) => {
         'Sustainability',
         'Ethical Supply Chain',
         'Diversity Initiatives',
+        'Community Engagement',
         'Shopping',
         'Food',
         'Services'
