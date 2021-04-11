@@ -135,15 +135,15 @@ class StoriesModal extends React.Component {
                 {page1 && <div className="story-modal-body">                  
                     <img className="story-modal-img" src={img1} />
                     <div className="story-modal-content">
-                      <h3>{business?.story?.storyKeywords}</h3>
-                      <p>{business?.story?.storyDifference}</p>
+                      <h3>{business?.businessSubHeading}</h3>
+                      <p>{business?.story?.storySlide1}</p>
                       <p className="story-modal-enter">Click <span onClick={() => this.handleClick(2)}>Enter</span> to follow {firstNamePlural} journey</p>
                     </div>
                   </div> }
                 {page2 && <div className="story-modal-body">                  
                     <img className="story-modal-img" src={img2} />
                     <div className="story-modal-content">                  
-                      <p>{business?.story?.storyBackground}</p>
+                      <p>{business?.story?.storySlide2}</p>
                       <p className="story-modal-enter">Click <span onClick={() => this.handleClick(3)}>Enter</span> to follow {firstNamePlural} journey</p>
                     </div>
                   </div>}
@@ -160,7 +160,7 @@ class StoriesModal extends React.Component {
                         <img src={environmentImg} id='modal-icon'/>
                         <img src={environmentImg} id='modal-icon'/>
                       </div> */}
-                      <p>{business?.businessDescription}</p>
+                      <p>{business?.story?.storySlide3}</p>
                       <p id="story-modal-3-address">{business?.address}</p>
   
                       <Link to={{pathname:`/search/${business?.id}`, state: {business: business}}}>View Business Profile</Link>                  
