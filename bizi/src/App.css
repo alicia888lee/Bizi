@@ -633,6 +633,7 @@ nav .dropdown:hover .dropdown-content {
   background: #00000080;
   color: white;
   visibility: hidden;
+  line-height: 2em;
   opacity: 0;  
   transition: opacity .2s, visibility .2s;
 }
@@ -2005,6 +2006,7 @@ input[type="file"] {
 
 #story-modal-3-address {
   margin-bottom: 1em;
+  margin-top: 1em;
 }
 
 .story-modal-3 a{  
