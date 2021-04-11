@@ -80,9 +80,9 @@ export const getBusiness = `query GetBusiness($id: ID!) {
       storyImg2
       storyPerson
       storyPersonTitle
-      storyKeywords
-      storyDifference
-      storyBackground
+      storySlide1
+      storySlide2
+      storySlide3
     }
     searchTags
   }
@@ -127,9 +127,9 @@ export const listBusinesss = `query ListBusinesss(
         storyImg2
         storyPerson
         storyPersonTitle
-        storyKeywords
-        storyDifference
-        storyBackground
+        storySlide1
+        storySlide2
+        storySlide3
       }
       searchTags
     }

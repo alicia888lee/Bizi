@@ -80,9 +80,9 @@ export const onCreateBusiness = `subscription OnCreateBusiness {
       storyImg2
       storyPerson
       storyPersonTitle
-      storyKeywords
-      storyDifference
-      storyBackground
+      storySlide1
+      storySlide2
+      storySlide3
     }
     searchTags
   }
@@ -122,9 +122,9 @@ export const onUpdateBusiness = `subscription OnUpdateBusiness {
       storyImg2
       storyPerson
       storyPersonTitle
-      storyKeywords
-      storyDifference
-      storyBackground
+      storySlide1
+      storySlide2
+      storySlide3
     }
     searchTags
   }
@@ -164,9 +164,9 @@ export const onDeleteBusiness = `subscription OnDeleteBusiness {
       storyImg2
       storyPerson
       storyPersonTitle
-      storyKeywords
-      storyDifference
-      storyBackground
+      storySlide1
+      storySlide2
+      storySlide3
     }
     searchTags
   }

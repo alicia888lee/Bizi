@@ -115,6 +115,11 @@
   margin-bottom: 25px;
 }
 
+#story-margin {
+  margin-left: 25vw;
+  margin-right: 25vw;
+}
+
 .bus-cols img {
   width: 20vw;
   height: 20vw;

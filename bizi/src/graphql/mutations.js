@@ -88,9 +88,9 @@ export const createBusiness = `mutation CreateBusiness($input: CreateBusinessInp
       storyImg2
       storyPerson
       storyPersonTitle
-      storyKeywords
-      storyDifference
-      storyBackground
+      storySlide1
+      storySlide2
+      storySlide3
     }
     searchTags
   }
@@ -130,9 +130,9 @@ export const updateBusiness = `mutation UpdateBusiness($input: UpdateBusinessInp
       storyImg2
       storyPerson
       storyPersonTitle
-      storyKeywords
-      storyDifference
-      storyBackground
+      storySlide1
+      storySlide2
+      storySlide3
     }
     searchTags
   }
@@ -172,9 +172,9 @@ export const deleteBusiness = `mutation DeleteBusiness($input: DeleteBusinessInp
       storyImg2
       storyPerson
       storyPersonTitle
-      storyKeywords
-      storyDifference
-      storyBackground
+      storySlide1
+      storySlide2
+      storySlide3
     }
     searchTags
   }
