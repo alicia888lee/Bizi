@@ -71,12 +71,14 @@ async function updateExisting(data) {
                 .concat(data[listBusinesses[business]?.businessName]?.['Subheading']);
         
         var phone = data[listBusinesses[business]?.businessName]?.['Phone Number'];
+        var story = data[listBusinesses[business]?.businessName]?.['Story'];
 
         const business_obj = {
             ...listBusinesses[business],
             initiatives: initiatives,
             searchTags: searchTags,
-            businessPhone: phone
+            businessPhone: phone,
+            story: story
         };
 
         // update

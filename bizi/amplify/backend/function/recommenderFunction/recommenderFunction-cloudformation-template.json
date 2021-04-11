@@ -63,7 +63,7 @@
 				"Timeout": "25",
 				"Code": {
 					"S3Bucket": "amplify-bizi-dev-212038-deployment",
-					"S3Key": "amplify-builds/recommenderFunction-49474d4b2b4651345a75-build.zip"
+					"S3Key": "amplify-builds/recommenderFunction-364f6d65367537727a67-build.zip"
 				}
 			}
 		},

@@ -852,6 +852,15 @@
         "Schedule": [[16.5, 21], [16.5, 21], [16.5, 21], [16.5, 21], [16.5, 22], [11.5, 22], [11.5, 21]],
         "Subheading": "Asian Cuisine",
         "Search Tags": ["asian", "chinese", "japanese", "sushi", "food", "restaurant", "seafood", "duck", "fusion", "minority", "cuisine", "evanston"],
+        "Story": {
+            "storyImg1": "koi-story-1.jpg",
+            "storyImg2": "koi-story-2.jpg",
+            "storyPerson": "Sandy Chen",
+            "storyPersonTitle": "Owner",
+            "storySlide1": "Koi Fine Asian Cuisine & Lounge is one of Evanston’s oldest Asian restaurants and they take pride in giving back to the community that has supported them for almost 2 decades. We interviewed their owner to get the inside scoop! Let’s see what we learned —",
+            "storySlide2": "Owner Sandy Chen has organized Koi’s menu into 8 distinct regional Chinese cuisines so customers can learn the history behind their dish. Customers can also book sushi and dumpling-making classes to immerse themselves in Asian cooking. Alongside preparing delicious food, Koi promotes cultural education through cuisine so that customers can get the complete experience.",
+            "storySlide3": "Koi proudly participates in the Table 23 charity program by donating 23% of their gross profit to local organizations. With a new partner each month, Koi supports Evanstonians through mental health programs, arts empowerment, and everything in between. They also donate their tasty meals to the homeless every Thursday! “We give back to the community,” says owner Sandy Chen. “We think that the whole community of Evanston is a big family.”"
+        },
         "Approved": true
     },    
     "La Cocinita": {
