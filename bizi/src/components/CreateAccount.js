@@ -346,32 +346,47 @@ class CreateAccount extends Component {
             && validPrice
             && validSchedule
             && validDiscounts;
+        
+        const initBuckets = {
+            "Sustainability": [
+                'Recycling', 
+                'Waste Reduction',
+                'Renewable Energy Sources',
+                'LEED Certified',
+                'Sustainable Products',
+                'Vegan Friendly',
+                'Vegetarian Friendly',
+                'Vegan Products',
+                'Vintage'
+            ],
+            "Ethical Supply Chain": [
+                'Handmade',
+                'Animal Cruelty Free',
+                'Locally Sourced'
+            ],
+            "Diversity Initiatives": [,
+                'Family Owned',
+                'Female Owned',
+                'Minority Owned',
+                'Black Owned',
+                'Wheelchair Friendly'
+            ],
+            "Community Engagement": [
+                'Charitable Donations',
+                'Volunteer Efforts'
+            ]
+        };
 
-        const selectedInitiativeBooleans = [
-            initiativeList.includes("Sustainability"),
-            initiativeList.includes("Ethical Supply Chain"),
-            initiativeList.includes("Diversity Initiatives"),
-            initiativeList.includes("Shopping"),
-            initiativeList.includes("Food"),
-            initiativeList.includes("Services")
-        ];
+        var initiatives = initiativeList.slice();
 
-        const possibleBusinessInitiatives = [
-            'Sustainability',
-            'Ethical Supply Chain',
-            'Diversity Initiatives',
-            'Shopping',
-            'Food',
-            'Services'
-        ];
-
-        const selectedInitiatives = selectedInitiativeBooleans
-            .map((bool, index) => bool ? index : null)
-            .filter(index => index !== null);
-
-        const businessInitiatives = selectedInitiatives.map(
-            i => possibleBusinessInitiatives[i]
-        );
+        for (var bucket in initBuckets) {
+            if (initBuckets[bucket]?.some(init => 
+                initiatives?.includes(init))) {
+                    if (!initiatives?.includes(bucket)) {
+                        initiatives = initiatives?.concat(bucket);
+                    }
+                }
+        }
 
         const selectedPriceBooleans = [
             price1Selected,
@@ -443,7 +458,7 @@ class CreateAccount extends Component {
             //file name doesn't exist, proceed normally                     
         }
 
-        var searchTags = businessInitiatives.concat(businessName, businessSubHeading);
+        var searchTags = initiatives.concat(businessName, businessSubHeading);
 
         if (inputsValid && !noneValid) {
             const businessInfo = {
@@ -451,7 +466,7 @@ class CreateAccount extends Component {
                 businessDescription: businessDescription,
                 businessSubHeading: businessSubHeading,
                 businessEmail: businessEmail,
-                initiatives: businessInitiatives,
+                initiatives: initiatives,
                 searchTags: searchTags,
                 policyList: policyList,
                 businessPhone: phone,
@@ -593,6 +608,7 @@ class CreateAccount extends Component {
             initiativeList.includes("Sustainability"),
             initiativeList.includes("Ethical Supply Chain"),
             initiativeList.includes("Diversity Initiatives"),
+            initiativeList.includes("Community Engagement"),
             initiativeList.includes("Shopping"),
             initiativeList.includes("Food"),
             initiativeList.includes("Services")
@@ -602,6 +618,7 @@ class CreateAccount extends Component {
             'Sustainability',
             'Ethical Supply Chain',
             'Diversity Initiatives',
+            'Community Engagement',
             'Shopping',
             'Food',
             'Services'

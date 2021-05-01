@@ -9,9 +9,10 @@ import Footer from './Footer'
 import * as queries from '../graphql/queries'
 import * as mutations from '../graphql/mutations'
 import { API, Storage } from 'aws-amplify'
-import environmentImg from '../images/environment.png';
-import heartImg from '../images/heart_hand.png';
-import communityImg from '../images/community.png';
+import environmentImg from '../images/sustainability.png';
+import heartImg from '../images/ethical.png';
+import diversityImg from '../images/diversity.png';
+import communityImg from '../images/community_engagement.png';
 import placeholderImg from '../images/pexels-mariana-kurnyk-1775043.jpg';
 import { OpenTag, ClosedTag, PriceTag } from './SearchItemsList'
 
@@ -60,15 +61,19 @@ class Search extends React.Component {
         var filterTypes = {
           'Sustainable': {
             category: 'initiatives',
-            value: 'Sustainability'
+            value: 'Sustainability', 
           },
           'Supply Chain': {
             category: 'initiatives',
-            value: 'Ethical Supply Chain'
+            value: 'Ethical Supply Chain',
           },
           'Diversity Focused': {
             category: 'initiatives',
-            value: 'Diversity Initiatives'
+            value: 'Diversity Initiatives',
+          },
+          'Community Engagement': {
+            category: 'initiatives',
+            value: 'Community Engagement'
           },
           '$': {
             category: 'priceRange',
@@ -229,6 +234,8 @@ class Search extends React.Component {
         }
         var paginatedBusinesses = shuffledFilteredBusinesses.slice(startMarker, startMarker + 10);
 
+        var iconOrder = ["Sustainability", "Ethical Supply Chain", "Diversity Initiatives", "Community Engagement"];
+
         var iconDict = {
           'Sustainability': {
             id: 'searchEnvironment',
@@ -239,6 +246,10 @@ class Search extends React.Component {
             img: heartImg
           },
           'Diversity Initiatives': {
+            id: 'searchDiversity',
+            img: diversityImg
+          },
+          'Community Engagement': {
             id: 'searchCommunity',
             img: communityImg
           }
@@ -266,9 +277,10 @@ class Search extends React.Component {
                 <div className='SearchItemWrapper'>
                     <div className='SearchItemHeader'>
                         <h2>{item?.businessName}</h2>
-                        {item?.initiatives?.map((init, index) => 
-                          Object.keys(iconDict).includes(init) && 
-                          <img className={iconDict[init]?.id} title={init} src={iconDict[init]?.img} key={index}/>
+                        {iconOrder.map((init, index) =>
+                          item?.initiatives?.includes(init) ?
+                            <img className={iconDict[init]?.id} title={init} src={iconDict[init]?.img} key={index}/> :
+                            null
                         )}
                     </div>
                     {item?.businessSubHeading && <h3>{item?.businessSubHeading}</h3>}

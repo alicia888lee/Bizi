@@ -235,8 +235,13 @@
 }
 .header-tag h3 {
   margin-top: 0;
-  font-size: 0.75em;
+  font-size: 0.9em;
 }
+
+.header-tag img {
+  width:50%;
+}
+
 fieldset {
   margin-top: 2em;
   font-family: 'FontAwesome', 'Poppins';  
@@ -729,6 +734,19 @@ nav .dropdown:hover .dropdown-content {
   margin-right: 23%;
   text-align: left;
   margin-bottom: 5px;
+}
+
+.businessPrefChecklist {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  margin-left: 8%;
+  margin-right: 8%;
+  text-align: left;
+  margin-bottom: 5px;
+}
+
+.businessPrefChecklist p {
+  font-weight: 600;
 }
 
 .search-filters-checklist {
@@ -1368,11 +1386,15 @@ nav .dropdown:hover .dropdown-content {
 }
 
 .searchEnvironment {
-  width: 7%;  
+  width: 5%;
 }
 .searchHeart {
   width: 5%;
 }
+.searchDiversity {
+  width: 5%;
+}
+
 .searchCommunity {
   width: 5%;
 }
@@ -1500,6 +1522,45 @@ nav .dropdown:hover .dropdown-content {
 .business-header * {
   display: inline;
 }
+
+.business-tags * {
+  display: inline-block;
+  margin-right: 0.3em;
+  margin-top: -5px;
+}
+
+.business-tags p {
+  border-style: solid;
+  border-radius: 25px;
+  border-width: 0.20em;
+  white-space: nowrap;
+  padding-left: 1em;
+  padding-right: 1em;
+}
+
+#tag-sustainable {
+  border-color: #78CC5B;
+}
+
+#tag-supply-chain {
+  border-color: #F47369;
+}
+
+#tag-diversity {
+  border-color: #FDC269;
+}
+
+#tag-community {
+  border-color: #8FC4EB;
+}
+
+.business-tags #subheading {
+  color: #6e6767;
+  font-size: 1.5em;
+  padding-left: 0;
+  border: none;
+}
+
 .back-icon {
   color: #385FDC;
   font-size: 2.5em;

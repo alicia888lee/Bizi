@@ -16,7 +16,8 @@ class SearchItemsList extends Component {
         var col1 = [
             "Sustainable",
             "Supply Chain",
-            "Diversity Focused"
+            "Diversity Focused",
+            "Community Engagement"
         ];
         var col2 = [
             "$",

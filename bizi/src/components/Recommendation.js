@@ -1,9 +1,10 @@
 import React from 'react'
-import environmentImg from '../images/environment.png';
+import environmentImg from '../images/sustainability.png';
 import placeholderImg from '../images/pexels-mariana-kurnyk-1775043.jpg';
 import businessImg from '../images/pexels-ksenia-chernaya-3965557.jpg'
-import heartImg from '../images/heart_hand.png';
-import communityImg from '../images/community.png';
+import heartImg from '../images/ethical.png';
+import diversityImg from '../images/diversity.png';
+import communityImg from '../images/community_engagement.png';
 import * as queries from '../graphql/queries'
 import * as mutations from '../graphql/mutations'
 import { API, Auth, Storage } from 'aws-amplify'
@@ -40,6 +41,8 @@ class Recommendation extends React.Component {
             return businesses.filter((item) => item?.id == id)[0];
         });
 
+        var iconOrder = ["Sustainability", "Ethical Supply Chain", "Diversity Initiatives", "Community Engagement"];
+
         var iconDict = {
             'Sustainability': {
               id: 'searchEnvironment',
@@ -51,8 +54,12 @@ class Recommendation extends React.Component {
             },
             'Diversity Initiatives': {
               id: 'searchCommunity',
-              img: communityImg
-            }
+              img: diversityImg
+            },
+            'Community Engagement': {
+                id: 'searchCommunity',
+                img: communityImg
+              }
         };
 
         console.log(recommendationBusinesses);
@@ -68,8 +75,10 @@ class Recommendation extends React.Component {
                     >
                     <h1>{item?.businessName}</h1>
                     <div className='recImgs'>
-                        {item?.initiatives?.map((init, index) => 
-                            Object.keys(iconDict).includes(init) && <img src={iconDict[init]?.img} className={iconDict[init]?.id} title={init} key={index} />
+                        {iconOrder.map((init, index) =>
+                          item?.initiatives?.includes(init) ?
+                            <img className={iconDict[init]?.id} title={init} src={iconDict[init]?.img} key={index}/> :
+                            null
                         )}
                     </div>
                 </div>

@@ -66,6 +66,65 @@ class BusinessInfo extends React.Component {
       });
     }
 
+    generateTags = () => {
+      const { business } = this.props;
+      const initiativeDict = {
+        'sustainable': {
+          value: [
+            'Recycling', 
+            'Waste Reduction',
+            'Renewable Energy Sources',
+            'LEED Certified',
+            'Sustainable Products',
+            'Vegan Friendly',
+            'Vegetarian Friendly',
+            'Vegan Products',
+            'Vintage'
+          ],
+          bucket: 'Sustainability'
+        },
+        'supply-chain': {
+          value: [
+            'Handmade',
+            'Animal Cruelty Free',
+            'Locally Sourced'
+          ],
+          bucket: 'Ethical Supply Chain'
+        },
+        'diversity': {
+          value: [
+            'Family Owned',
+            'Female Owned',
+            'Minority Owned',
+            'Black Owned',
+            'Wheelchair Friendly'
+          ],
+          bucket: 'Diversity Initiatives'
+        },
+        'community': {
+          value: [
+            'Charitable Donations',
+            'Volunteer Efforts'
+          ],
+          bucket: 'Community Engagement'
+        }
+      }
+
+      var tags = business?.initiatives?.map(init => {
+        for (var type in initiativeDict) {
+          if (initiativeDict[type]?.value?.includes(init)) {
+            return (
+              <div title={initiativeDict[type]?.bucket}>
+                <p id={`tag-${type}`}>{init}</p>
+              </div>
+            )
+          }
+        }
+      });
+      console.log(tags);
+      return tags;
+    }
+
     generateReviews = () => {
       const { business } = this.props;
         if(business?.reviews){
@@ -230,6 +289,10 @@ class BusinessInfo extends React.Component {
                   </h3>
               </div>
             
+            <div className='business-tags'>
+              <p id='subheading'>{business?.businessSubHeading}</p>
+              {this.generateTags()}
+            </div>
             <p className="textbox">{business?.businessDescription}</p>                        
 
             {policyList &&           

@@ -159,7 +159,8 @@ class Step3 extends Component {
         var col1 = [
             "Sustainability",
             "Ethical Supply Chain",
-            "Diversity Initiatives"
+            "Diversity Initiatives",
+            "Community Engagement"
         ];
         var col2 = [
             "Shopping",
@@ -195,19 +196,45 @@ class Step3 extends Component {
     generateBusPrefs = (handleClick) => {
         var col1 = [
             "Sustainability",
-            "Ethical Supply Chain",
-            "Diversity Initiatives"
+            "Recycling",
+            "Waste Reduction",
+            "Renewable Energy Sources",
+            "LEED Certified",
+            "Sustainable Products",
+            "Vegan Friendly",
+            "Vegetarian Friendly",
+            "Vegan Products",
+            "Vintage",
         ];
         var col2 = [
+            "Ethical Supply Chain",
+            "Handmade",
+            "Animal Cruelty Free",
+            "Locally Sourced"
+        ];
+        var col3 = [
+            "Diversity Initiatives",
+            "Family Owned",
+            "Female Owned",
+            "Minority Owned",
+            "Black Owned",
+            "Wheelchair Friendly"
+        ];
+        var col4 = [
+            "Community Engagement",
+            "Charitable Donations",
+            "Volunteer Efforts"
+        ];
+        var col5 = [
             "Shopping",
             "Food",
             "Services"
         ];
         
         var checklist = (
-            <div className='userPrefChecklist'>
+            <div className='businessPrefChecklist'>
                 <div id='user-pref-col'>
-                    <p>Business Initiatives</p>
+                    <p>Sustainability</p>
                     {col1.map(p => (
                         <div id='pref-checkbox'>
                             <input id={p} type='checkbox' value={p} onChange={handleClick}/>
@@ -216,8 +243,35 @@ class Step3 extends Component {
                     ))}
                 </div>
                 <div id='user-pref-col'>
-                    <p>Area(s) of Business</p>
+                    <p>Ethical Supply Chain</p>
                     {col2.map(p => (
+                        <div id='pref-checkbox'>
+                            <input id={p} type='checkbox' value={p} onChange={handleClick}/>
+                            <label for={p}>{p}</label>
+                        </div>
+                    ))}
+                </div>
+                <div id='user-pref-col'>
+                    <p>Diversity Initiatives</p>
+                    {col3.map(p => (
+                        <div id='pref-checkbox'>
+                            <input id={p} type='checkbox' value={p} onChange={handleClick}/>
+                            <label for={p}>{p}</label>
+                        </div>
+                    ))}
+                </div>
+                <div id='user-pref-col'>
+                    <p>Community Engagement</p>
+                    {col4.map(p => (
+                        <div id='pref-checkbox'>
+                            <input id={p} type='checkbox' value={p} onChange={handleClick}/>
+                            <label for={p}>{p}</label>
+                        </div>
+                    ))}
+                </div>
+                <div id='user-pref-col'>
+                    <p>Business Category</p>
+                    {col5.map(p => (
                         <div id='pref-checkbox'>
                             <input id={p} type='checkbox' value={p} onChange={handleClick}/>
                             <label for={p}>{p}</label>
