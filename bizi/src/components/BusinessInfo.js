@@ -293,7 +293,7 @@ class BusinessInfo extends React.Component {
               <p id='subheading'>{business?.businessSubHeading}</p>
               {this.generateTags()}
             </div>
-            <p className="textbox">{business?.businessDescription}</p>                        
+            <p id="business-description">{business?.businessDescription}</p>                        
 
             {policyList &&           
             <div className="icon-text">

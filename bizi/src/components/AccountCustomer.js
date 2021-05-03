@@ -585,16 +585,16 @@ class AccountCustomer extends Component {
             <div className="account" id={couponModalOpen && 'couponModalOpen'}>
                 <h1 className="accountHeader">Hey {userName}! Welcome Back!</h1>
                 
-                <div className="discounts-wrapper">                            
-                    <h3><RiScissorsCutLine className="accountIcon"/>Your new discount<ModalComponent handler={this.handler} isOpen={couponModalOpen}/></h3>
-                    <div className="discounts">
-                        <div className='coupon'>{couponLoading ? <Loader type='TailSpin' color='#385FDC' height={40} /> : discount}</div>
+                {/* <div className="discounts-wrapper">                             */}
+                    {/* <h3><RiScissorsCutLine className="accountIcon"/>Your new discount<ModalComponent handler={this.handler} isOpen={couponModalOpen}/></h3> */}
+                    {/* <div className="discounts"> */}
+                        {/* <div className='coupon'>{couponLoading ? <Loader type='TailSpin' color='#385FDC' height={40} /> : discount}</div> */}
                         {/* <div className="QR">
                             <img src={QRCode} />
                         </div> */}
-                    </div>
-                    <div className='coupon'>{useCouponLoading && <Loader type='TailSpin' color='#385FDC' height={40}/>}</div>
-                </div>
+                    {/* </div> */}
+                    {/* <div className='coupon'>{useCouponLoading && <Loader type='TailSpin' color='#385FDC' height={40}/>}</div> */}
+                {/* </div> */}
 
                 <div className="bookmark-wrapper">
                     <h3><BsBookmarkPlus className="accountIcon"/> Your bookmarks</h3>

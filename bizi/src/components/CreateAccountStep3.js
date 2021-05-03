@@ -534,7 +534,7 @@ class Step3 extends Component {
                     </div>
                     {!validPrice && <p id='priceInvalid'>Must choose one</p>}
                     <br />
-                    <p>Discounts<br/>(if your business would like to distribute coupons)</p>
+                    {/* <p>Discounts<br/>(if your business would like to distribute coupons)</p>
                     <div className='loginBody'>
                         <form>
                             {this.generateDiscountForm()}
@@ -552,7 +552,7 @@ class Step3 extends Component {
                             </button>
                             {!validDiscounts && <p id='discountsInvalid'>All fields must be complete</p>}
                         </form>
-                    </div>
+                    </div> */}
                     <br />
                     {<p>Hours of Operation (All times in central time)</p>}
                     <div className='scheduleGrid'>

@@ -38,7 +38,9 @@ class Header extends React.Component {
       <div id="header">
         <Nav light={true} />
         <div className="header-content">
-          <img src={LightLogo} className="headerLogo" />        
+          {/* <img src={LightLogo} className="headerLogo" />         */}
+          <h1 id="home-heading">Find <span id="yellow-heading-word">businesses</span> that match your <span id="yellow-heading-word">values</span>.</h1>
+          <h3 id="home-heading">Filter by:</h3>
           <div className="header-tags">
             {/* <Link to={{pathname: "/search", state: {initialFilter: 'Sustainable'}}} className="header-tag">
               <img src={sustain} />
@@ -70,8 +72,8 @@ class Header extends React.Component {
             </div>
           </div>          
           <fieldset>
-            <input type="text" id="searchbar" placeholder="Search businesses near you" value={this.state.search} onChange={this.searchChange}/>
-            <button type="submit" onClick={() => this.props.history.push({pathname: '/search', state: {initialSearch: search, initialFilters: filters}})}>let's go!</button>
+            <input type="text" id="searchbar" placeholder="&#xF002; What do you want to do, buy, or eat?" value={this.state.search} onChange={this.searchChange}/>
+            <button type="submit" onClick={() => this.props.history.push({pathname: '/search', state: {initialSearch: search, initialFilters: filters}})}>Let's go!</button>
           </fieldset>      
         </div>
       </div>

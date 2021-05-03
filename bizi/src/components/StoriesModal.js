@@ -8,9 +8,10 @@ import busImg1 from '../images/pexels-andrea-piacquadio-3932730.jpg';
 import busImg2 from '../images/pexels-rfstudio-4177755.jpg';
 import busImg3 from '../images/pexels-justin-l-4060881.jpg';
 import Map from './Map'
-import environmentImg from '../images/environment.png';
-import heartImg from '../images/heart_hand.png';
-import communityImg from '../images/community.png';
+import environmentImg from '../images/sustainability.png';
+import heartImg from '../images/ethical.png';
+import diversityImg from '../images/diversity.png';
+import communityImg from '../images/community_engagement.png';
 import { Storage } from 'aws-amplify';
 
 
@@ -112,6 +113,10 @@ class StoriesModal extends React.Component {
           img: heartImg
         },
         'Diversity Initiatives': {
+          id: 'searchDiversity',
+          img: diversityImg
+        },
+        'Community Engagement': {
           id: 'searchCommunity',
           img: communityImg
         }

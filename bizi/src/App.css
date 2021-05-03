@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
 * {
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Poppins', sans-serif, 'FontAwesome';
 }
 
 .App {
@@ -102,7 +102,7 @@
   float: left;
   margin-left: 50px;
   margin-top: 80px;
-  font-size: 2.7em;
+  font-size: 2em;
 }
 
 .bus-cols {
@@ -135,7 +135,7 @@
 
 .bus-cols p {
   font-weight: 500;
-  font-size: 20px;
+  font-size: 1em;
   line-height: 1em;
 }
 
@@ -200,7 +200,7 @@
 }
 
 #header {
-  background-image: url("images/headerImage.jpg");
+  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("images/home_page.jpg");
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;  
@@ -214,6 +214,15 @@
   flex-direction: column;
   height: 90vh;
 }
+
+#yellow-heading-word {
+  color: #FDC269;
+}
+
+#home-heading {
+  color: white;
+}
+
 .header-content img {
   width: 35%;
 }
@@ -267,7 +276,7 @@ fieldset button {
   cursor: pointer;
 }
 #searchbar {    
-  width: 40vw;
+  width: 60vw;
   border-radius: 5em 0 0 5em;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -280,6 +289,7 @@ fieldset button {
 
 nav{
   position: absolute;
+  font-weight: 600;
   width: 100%;
   z-index: 9999;    
   right: 0;    
@@ -382,6 +392,10 @@ nav .dropdown:hover .dropdown-content {
   align-items: center;
 }
 
+#business-description {
+  font-size: 1.2em;
+}
+
 .map {
   text-align: center;
   padding: 30px;  
@@ -412,10 +426,11 @@ nav .dropdown:hover .dropdown-content {
   font-size: 2em;
 }
 
-.description-text {  
+.description-text {
   padding: 10px 20px;
   flex: 1.1;
 }
+
 
 .SearchItemsList {
   max-height: 50vh;
@@ -462,6 +477,11 @@ nav .dropdown:hover .dropdown-content {
 .textbox h2{
   font-size: 2em;
 }
+
+.textbox p {
+  font-size: 1em;
+}
+
 .center-text {
   vertical-align: middle;
 }
@@ -1137,8 +1157,11 @@ nav .dropdown:hover .dropdown-content {
 }
 
 .whatsBizi {
+  background-color: #f1f5ff;
   display: flex;
   align-items: center;
+  padding-left: 10%;
+  padding-right: 10%;
 }
 
 .whatsBizi div {
@@ -1148,11 +1171,11 @@ nav .dropdown:hover .dropdown-content {
 }
 
 .whatsBizi div h1 {
-  font-size: 3em;
+  font-size: 2em;
 }
 
 .whatsBizi div p {
-  font-size: 1.7em;
+  font-size: 1em;
 }
 
 #bigLogo {
@@ -1530,6 +1553,7 @@ nav .dropdown:hover .dropdown-content {
 }
 
 .business-tags p {
+  font-size: 1.2em;
   border-style: solid;
   border-radius: 25px;
   border-width: 0.20em;
@@ -1556,7 +1580,7 @@ nav .dropdown:hover .dropdown-content {
 
 .business-tags #subheading {
   color: #6e6767;
-  font-size: 1.5em;
+  font-size: 1.2em;
   padding-left: 0;
   border: none;
 }
