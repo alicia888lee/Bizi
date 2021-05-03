@@ -350,7 +350,7 @@ class Search extends React.Component {
             <div className="search">
                 <Nav />
                 <h1 className="searchHeader">Find Local Businesses</h1>
-                {location?.pathname == '/search' && <input type="text" id="searchbar2" placeholder="&#xF002; Search businesses near you" value={this.state.search} onChange={(e) => this.filterChange(e, null, null, true)}/>}    
+                {location?.pathname == '/search' && <input type="text" id="searchbar2" placeholder="&#xF002; What do you want to do, buy, or eat?" value={this.state.search} onChange={(e) => this.filterChange(e, null, null, true)}/>}    
                 
                 <Switch>
                   <Route exact path="/search">
