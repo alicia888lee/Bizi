@@ -19,7 +19,7 @@ function ModalComponent(props) {
     // read in business from prop
     // pass business as prop to StoriesModal
     const { handler, isOpen, business, img1, img2, storiesPage } = props;
-    const { isVisible, toggleModal } = UseModal();
+    const { isVisible, toggleModal, ref } = UseModal();
     var resetModal = false;
     if (isVisible !== isOpen) {
         handler(isVisible);
@@ -56,6 +56,7 @@ function ModalComponent(props) {
                   img1={img1}
                   img2={img2}
                   business={business}
+                  modalRef = {ref}
                 />    
             </div>
         </>
@@ -92,7 +93,7 @@ class StoriesModal extends React.Component {
   
     render(){
       const {page1, page2, page3} = this.state;
-      const { img1, img2, business, isVisible, hideModal } = this.props;
+      const { img1, img2, business, isVisible, hideModal, modalRef } = this.props;
       if(this.props.isVisible){
         document.getElementById('root').style.filter = 'blur(5px)';        
       } else {
@@ -124,7 +125,7 @@ class StoriesModal extends React.Component {
 
       return isVisible
         ? createPortal(
-            <div className='story-modal'>
+            <div ref={modalRef} className='story-modal'>
                 <input type="hidden" onKeyPress={this.handleKeyPress}/>
                 <div className="story-modal-header">
                   <h2>{business?.story?.storyPerson}, <span>{business?.story?.storyPersonTitle}</span></h2>
