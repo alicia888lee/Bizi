@@ -2017,6 +2017,11 @@ input[type="file"] {
   padding-left: 1.5em;
 }
 
+.story-modal-content p {
+  max-height: 30vh;
+  overflow: auto;
+}
+
 .modal-initiatives {
   margin-bottom: 1em;
 }
