@@ -232,6 +232,7 @@
   flex-direction: row;
 }
 .header-tag {
+  cursor: pointer;
   background-color: #f1f5ff;
   color: #385FDC;
   margin: 0 2em;
@@ -1972,7 +1973,10 @@ input[type="file"] {
   right:0;
   margin-left: auto;
   margin-right: auto;  
+  margin-top: auto;
+  margin-bottom: auto;
   top: 0;
+  bottom: 0;
   height: 35vw;
   width: 75%;
   -webkit-transform: translateZ(0);
