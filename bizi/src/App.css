@@ -1986,11 +1986,13 @@ input[type="file"] {
   position: absolute;
   top: 0;
   right: 0;
+  height: 18%;
   width: 60%;
   background-color: #385FDC;
   color: white;  
   border-radius: 0 0 0 2em;
   z-index: 999;
+  font-size: 1.3vw;
 }
 .story-modal-header h2 span {
   color: #dee6f9;
@@ -2003,7 +2005,7 @@ input[type="file"] {
   cursor: pointer;
 }
 .story-modal-body {
-  display: flex;  
+  display: flex;
   align-items: center;
 }
 .story-modal-body img {
@@ -2016,9 +2018,11 @@ input[type="file"] {
 .story-modal-body .story-modal-content {
   flex: 1;
   text-align: left;
+  font-size: 1vw;
 }
 .story-modal-content{
   padding-left: 1.5em;
+  margin-top: 5vw;
 }
 
 .story-modal-content p {
@@ -2053,7 +2057,7 @@ input[type="file"] {
 }
 .story-modal-content h3, .story-modal-content p  {
   font-weight: 600;
-  
+  /* font-size: 1.5vw; */
 }
 
 .story-modal-content p span {
@@ -2061,7 +2065,7 @@ input[type="file"] {
 }
 
 .story-modal-content h3 {
-  font-size: 2em;    
+  font-size: 2vw;
 }
 .story-modal-enter {
   position: absolute;
