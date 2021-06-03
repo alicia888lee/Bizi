@@ -10,6 +10,7 @@ import LightLogo from '../src/images/lightLogo.jpg'
 import ForgotPassword from './components/ForgotPassword'
 import { BrowserRouter as Router, Route, Switch} from "react-router-dom";
 import './App.css';
+import './mobile.css';
 import ScrollToTop from './components/ScrollToTop.js';
 
 function App() {
@@ -20,13 +21,14 @@ function App() {
       {UNDER_CONSTRUCTION &&
         <h1>Website is currently under construction, check back later.</h1>
       }
-      {IS_MOBILE && !UNDER_CONSTRUCTION &&
-        <div id='is-mobile'>
-          <h2>Looks like you're trying to find us from your phone...<br />...we're still working on the mobile site, so please visit our desktop site for now!</h2>
-          <img src={LightLogo} />
-        </div>
-      }
-      {!IS_MOBILE && !UNDER_CONSTRUCTION &&
+      {/* {IS_MOBILE && !UNDER_CONSTRUCTION &&
+        // <div id='is-mobile'>
+        //   <h2>Looks like you're trying to find us from your phone...<br />...we're still working on the mobile site, so please visit our desktop site for now!</h2>
+        //   <img src={LightLogo} />
+        // </div>
+        <Home />
+      } */}
+      {/* {!IS_MOBILE && !UNDER_CONSTRUCTION && */
         <Router>
           <ScrollToTop />
           <Switch>          
