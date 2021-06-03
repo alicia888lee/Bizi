@@ -1,26 +1,26 @@
 {
-    "dev": {
-        "awscloudformation": {
-            "AuthRoleName": "amplify-bizi-dev-212038-authRole",
-            "UnauthRoleArn": "arn:aws:iam::533184094755:role/amplify-bizi-dev-212038-unauthRole",
-            "AuthRoleArn": "arn:aws:iam::533184094755:role/amplify-bizi-dev-212038-authRole",
-            "Region": "us-east-1",
-            "DeploymentBucketName": "amplify-bizi-dev-212038-deployment",
-            "UnauthRoleName": "amplify-bizi-dev-212038-unauthRole",
-            "StackName": "amplify-bizi-dev-212038",
-            "StackId": "arn:aws:cloudformation:us-east-1:533184094755:stack/amplify-bizi-dev-212038/22652f20-2639-11eb-8834-12328959da6d",
-            "AmplifyAppId": "do18kbygs0baa"
-        },
-        "categories": {
-            "auth": {
-                "bizibf381b1c": {
-                    "hostedUIProviderCreds": "[{\"ProviderName\":\"Facebook\",\"client_id\":\"145793723804080\",\"client_secret\":\"8e6103017d8d4bc9c30137ffefab622c\"},{\"ProviderName\":\"Google\",\"client_id\":\"1011656666652-c3he8f4g49vtoluostmtd9mdmk0nhh0a.apps.googleusercontent.com\",\"client_secret\":\"8qCCNQewAptal0cVnI1UbJ2T\"}]"
-                }
-            },
-            "function": {
-                "recommenderFunction": {},
-                "emailFunction": {}
-            }
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-bizi-dev-212038-authRole",
+      "UnauthRoleArn": "arn:aws:iam::533184094755:role/amplify-bizi-dev-212038-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::533184094755:role/amplify-bizi-dev-212038-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-bizi-dev-212038-deployment",
+      "UnauthRoleName": "amplify-bizi-dev-212038-unauthRole",
+      "StackName": "amplify-bizi-dev-212038",
+      "StackId": "arn:aws:cloudformation:us-east-1:533184094755:stack/amplify-bizi-dev-212038/22652f20-2639-11eb-8834-12328959da6d",
+      "AmplifyAppId": "do18kbygs0baa"
+    },
+    "categories": {
+      "auth": {
+        "bizibf381b1c": {
+          "hostedUIProviderCreds": "[{\"ProviderName\":\"Facebook\",\"client_id\":\"145793723804080\",\"client_secret\":\"8e6103017d8d4bc9c30137ffefab622c\"},{\"ProviderName\":\"Google\",\"client_id\":\"1011656666652-c3he8f4g49vtoluostmtd9mdmk0nhh0a.apps.googleusercontent.com\",\"client_secret\":\"8qCCNQewAptal0cVnI1UbJ2T\"}]"
         }
+      },
+      "function": {
+        "recommenderFunction": {},
+        "emailFunction": {}
+      }
     }
+  }
 }
