@@ -12,6 +12,11 @@ class Nav extends Component {
       this.state = {
         userAuthenticated: false,
       }
+
+      let isDiplayed = false;
+      this.state = {
+        display: "flex"
+      }
     }
     // check if user is signed in
     checkAuth = async() => {
@@ -46,6 +51,22 @@ class Nav extends Component {
       this.props.history.push('/login');
     }
 
+    boxClick = (e) => {
+      console.log("hello there");
+      if(this.isDiplayed === false){
+        this.setState({
+          display: "flex"
+        });
+      } else{
+        this.setState({
+          display: "none"
+        });
+      }
+
+      this.isDiplayed = !this.isDiplayed;
+      
+    }
+
     render() {
         const {
             light
@@ -56,19 +77,28 @@ class Nav extends Component {
         return (
             <nav className={!light && 'dark'}>
               <Link to='/'><img class="logo" src={light ? LightLogo : DarkLogo} alt="nav logo img"/></Link>
-              <ul>
-                <li><Link to="/search">Search</Link></li>
-                <li><Link to="/stories">Stories</Link></li>
-                <li><Link to="/contact">Contact</Link></li>
-                  { userAuthenticated ?                  
-                    <div className="dropdown">
-                      <Link className="account-nav" to='/account'>My Account <RiArrowDropDownLine className="account-icon"/></Link>
-                      <div className="dropdown-content">
-                        <a style={{cursor: 'pointer'}} onClick={this.signOut}>Sign out</a>
-                      </div>
-                    </div> :
-                    <li className="login-nav"><Link to='/login'>Log In</Link></li> }                
-              </ul>
+
+              <a href="#" class="toggle-button"  onClick={this.boxClick}>
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+              </a>
+              
+              <div className="nav-bar-links" style={{display: this.state.display}}>
+                <ul>
+                  <li><Link to="/search">Search</Link></li>
+                  <li><Link to="/stories">Stories</Link></li>
+                  <li><Link to="/contact">Contact</Link></li>
+                    { userAuthenticated ?                  
+                      <div className="dropdown">
+                        <Link className="account-nav" to='/account'>My Account <RiArrowDropDownLine className="account-icon"/></Link>
+                        <div className="dropdown-content">
+                          <a style={{cursor: 'pointer'}} onClick={this.signOut}>Sign out</a>
+                        </div>
+                      </div> :
+                      <li className="login-nav"><Link to='/login'>Log In</Link></li> }                
+                </ul>
+              </div>
             </nav>          
       )
     }
