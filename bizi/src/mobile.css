@@ -77,11 +77,89 @@
     }
 
     .logo {
-        position: absolute;
+        position: relative;
         width: 30%;
-        margin-right: 0px;
-        display: flex;
+        margin: auto;
+        display: block;
       }
 
-    
+    /* login (returning users) */
+
+      .login {
+          background-color: #F1F5FF;
+      }
+
+      .loginBody input[type=text], input[type=password] {
+            background-color: #FFFFFF;
+            width: 75%;
+            border-radius: 100px;
+      }
+
+      .loginBody {
+          margin: auto;
+          display: contents;
+      }
+
+      .loginHeader h1 {
+          font-size: 2em;
+          padding-bottom: 4.5%;
+          color: #385FDC
+      }
+
+      .loginHeader p {
+        font-size: 0.9em;
+        padding-bottom: 2%
+    }
+
+        .loginBtn {
+            margin: 10% 0 3% 0;
+            border-radius: 100px;
+            border: none
+        }
+
+        .socialLogin {
+            border-left: none;
+            margin-bottom: 5%;
+            
+        }
+
+        .socialLogin button {
+            width: 85%;
+            padding:1.6%;
+            border-radius: 100px;
+            margin-bottom: -1%
+        }
+
+        .inputGroup ::placeholder {
+            color: #8196d3;
+            font-size: larger;
+        }
+
+        .horizLine {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding-bottom:5%
+        }
+
+        .horizLine hr{
+            border: 0.1rem solid #8196d3;
+            margin: 5%;
+            border-radius: 1000px;
+            width:40%
+        }
+
+        .midtext {
+            color: #8196d3;
+            text-align: center;
+        }
+
+        .google {
+            border:none
+        }
+
+
+    /* create an account */
+
+    /* contact form */
 }
