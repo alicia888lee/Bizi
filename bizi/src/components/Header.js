@@ -39,8 +39,10 @@ class Header extends React.Component {
         <Nav light={true} />
         <div className="header-content">
           {/* <img src={LightLogo} className="headerLogo" />         */}
-          <h1 id="home-heading">Find <span id="yellow-heading-word">businesses</span> that match your <span id="yellow-heading-word">values</span>.</h1>
-          <h3 id="home-heading">Filter by:</h3>
+          <div className="tag-line">
+            <h1 id="home-heading">Find <span id="yellow-heading-word">businesses</span> that match your <span id="yellow-heading-word">values</span>.</h1>
+            <h3 id="home-heading">Filter by:</h3>
+          </div>
           <div className="header-tags">
             {/* <Link to={{pathname: "/search", state: {initialFilter: 'Sustainable'}}} className="header-tag">
               <img src={sustain} />
