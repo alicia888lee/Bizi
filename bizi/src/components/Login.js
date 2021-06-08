@@ -180,8 +180,9 @@ class Login extends Component {
 
         else if (width <= 768){
             return (
-            <div className="login">
+            <div>
                     <Nav light={false} />
+                    <div className="login">
                     <div className="loginHeader">
                         <h1>Welcome Back!</h1>
                         <p>New to Bizi? <Link to="/create">Create an Account</Link></p>
@@ -241,7 +242,8 @@ class Login extends Component {
                         </div>
                         <div className='termsAgreement'>
                             <a className="smallText" href="https://www.termsfeed.com/live/cce55d58-2f48-4d9c-ab31-478dafcdca99" target='_blank'>Privacy Policy</a>   
-                        </div>                     
+                        </div> 
+                        </div>                    
                     </div>
             );
         }

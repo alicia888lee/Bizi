@@ -87,6 +87,8 @@
 
       .login {
           background-color: #F1F5FF;
+          border-radius: 100px 100px 0 0;
+          margin-top:-4%
       }
 
       .loginBody input[type=text], input[type=password] {
@@ -102,7 +104,7 @@
 
       .loginHeader h1 {
           font-size: 2em;
-          padding-bottom: 4.5%;
+          padding: 4% 0 4.5% 0;
           color: #385FDC
       }
 
@@ -162,4 +164,61 @@
     /* create an account */
 
     /* contact form */
+    .contact{
+        padding: 2rem 1rem;
+        background-color: #F1F5FF;
+        border-radius: 100px 100px 0 0;
+    }
+
+    .contactName{
+        margin-top:10%;
+        width:48%;
+        border-radius: 100px;
+    }
+
+    .contactEmail {
+        margin-top: 4%;
+        width: 90%;
+        border-radius: 100px;
+    }
+
+    .contactMsg {
+        margin-top: 4%;
+        background-color: #FFFFFF;
+    }
+
+    .sayHi {
+        text-align: center;
+    }
+
+    #invalidInput{
+        border: none;
+        background-color: #FFFFFF;
+    }
+
+    .contactBtn {
+        margin-top: 12%;
+        border:none;
+        border-radius: 100px;
+        transform: translateX(94%);
+    }
+
+    .contactFooter {
+        display: inline-block;
+        position: relative;
+        text-align: center;
+        width:100%;
+    }
+
+    .contact div input {
+        border-radius: 100px;
+        background-color: #FFFFFF;
+    }
+
+    .termsAgreement {
+        text-align: center;
+        padding-top: 5%;
+    }
+
+
 }

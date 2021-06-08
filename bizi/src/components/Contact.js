@@ -7,6 +7,9 @@ import { API } from 'aws-amplify'
 import * as mutations from '../graphql/mutations'
 import Loader from 'react-loader-spinner'
 
+var IS_MOBILE = /Android|webOS|iPhone|iPod|BlackBerry|BB|PlayBook|IEMobile|Windows Phone|Kindle|Silk|Opera Mini/i.test(navigator.userAgent);
+var width = window.innerWidth;
+
 class Contact extends React.Component {
     constructor(props) {
         super(props)
@@ -120,6 +123,7 @@ class Contact extends React.Component {
     render() {
         const { validEmail, validMessage, validName, sending, messageSent } = this.state;
 
+    if (width > 768){
         return (
             <>
                 {!messageSent ?
@@ -172,6 +176,60 @@ class Contact extends React.Component {
                 }
             </>
         )
+    }
+
+    else if (width <= 768){
+        return (
+            <>
+            {!messageSent ?
+            <div>
+                <Nav light={false} />
+                <div className="topCurve">
+                
+                </div>
+                <div className="contact">
+                    <div>
+                        <h2 className="sayHi"> <font style={{color:"#385FDC"}}>Say hi! </font><font style={{color:"#A5B2B8"}}>hello@bizi.com</font></h2> 
+                        <div className="contactFooter">
+                        <div className="contactIcons">
+                            <AiOutlineFacebook className="contact-icon"/>
+                            <AiOutlineInstagram className="contact-icon" onClick={() => window.open('https://www.instagram.com/thebiziteam/', '_blank')}/>
+                            <FiTwitter className="contact-icon"/>
+                        </div>
+                    </div>
+                        <form>
+                            <div className="contactInputs">
+                                <input className="contactName" id={!validName && 'invalidInput'} type="text" name="username" placeholder="Your Name" onChange={this.setName}/>
+                                <input className="contactEmail" id={!validEmail && 'invalidInput'} type="text" name="email" placeholder="Your E-mail" onChange={this.setEmail}/>
+                            </div>
+
+                            <textarea rows="4" className="contactMsg" id={!validMessage && 'invalidInput'} placeholder="Your Message" onChange={this.setMessage}></textarea>
+                            <button className="contactBtn" onClick={this.sendEmail}>Send</button>
+                            {sending && <Loader type='TailSpin' color='#385FDC' height={40} />}
+                        </form>
+                        <div className="termsAgreement">
+                            <a className="smallText" href="https://www.termsfeed.com/live/cce55d58-2f48-4d9c-ab31-478dafcdca99" target='_blank'>Privacy Policy</a>
+                        </div>
+    </div>     
+</div>
+
+           
+    </div> :
+    <div>
+        <Nav light={false} />
+        <div className='contactMsgSent'>
+            <h2>Your message has been received and will be reviewed
+                by a member of our team shortly.
+            </h2>
+        </div>
+        <div className='termsAgreement'>
+            <a className="smallText" href="https://www.termsfeed.com/live/cce55d58-2f48-4d9c-ab31-478dafcdca99" target='_blank'>Privacy Policy</a>   
+        </div>
+    </div>
+    }
+</>
+        )
+    }
     }
 }
 
