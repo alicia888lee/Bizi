@@ -82,10 +82,11 @@
     }
 
     .logo {
-        position: absolute;
+        position: relative;
         width: 30%;
-        margin-right: 0px;
-        display: flex;
+        margin: auto;
+        display: block;
+        
     }
 
     .header-content{
@@ -166,10 +167,142 @@
         margin-bottom: 50px;
     }
 
+    /* login (returning users) */
+
+      .login {
+          background-color: #F1F5FF;
+          border-radius: 100px 100px 0 0;
+          margin-top:-4%
+      }
+
+      .loginBody input[type=text], input[type=password] {
+            background-color: #FFFFFF;
+            width: 75%;
+            border-radius: 100px;
+      }
+
+      .loginBody {
+          margin: auto;
+          display: contents;
+      }
+
+      .loginHeader h1 {
+          font-size: 2em;
+          padding: 4% 0 4.5% 0;
+          color: #385FDC
+      }
+
+      .loginHeader p {
+        font-size: 0.9em;
+        padding-bottom: 2%
+    }
+
+        .loginBtn {
+            margin: 10% 0 3% 0;
+            border-radius: 100px;
+            border: none
+        }
+
+        .socialLogin {
+            border-left: none;
+            margin-bottom: 5%;
+            
+        }
+
+        .socialLogin button {
+            width: 85%;
+            padding:1.6%;
+            border-radius: 100px;
+            margin-bottom: -1%
+        }
+
+        .inputGroup ::placeholder {
+            color: #8196d3;
+            font-size: larger;
+        }
+
+        .horizLine {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding-bottom:5%
+        }
+
+        .horizLine hr{
+            border: 0.1rem solid #8196d3;
+            margin: 5%;
+            border-radius: 1000px;
+            width:40%
+        }
+
+        .midtext {
+            color: #8196d3;
+            text-align: center;
+        }
+
+        .google {
+            border:none
+        }
 
 
+    /* create an account */
 
-    
+    /* contact form */
+    .contact{
+        padding: 2rem 1rem;
+        background-color: #F1F5FF;
+        border-radius: 100px 100px 0 0;
+    }
 
-    
+    .contactName{
+        margin-top:10%;
+        width:48%;
+        border-radius: 100px;
+    }
+
+    .contactEmail {
+        margin-top: 4%;
+        width: 90%;
+        border-radius: 100px;
+    }
+
+    .contactMsg {
+        margin-top: 4%;
+        background-color: #FFFFFF;
+    }
+
+    .sayHi {
+        text-align: center;
+    }
+
+    #invalidInput{
+        border: none;
+        background-color: #FFFFFF;
+    }
+
+    .contactBtn {
+        margin-top: 12%;
+        border:none;
+        border-radius: 100px;
+        transform: translateX(94%);
+    }
+
+    .contactFooter {
+        display: inline-block;
+        position: relative;
+        text-align: center;
+        width:100%;
+    }
+
+    .contact div input {
+        border-radius: 100px;
+        background-color: #FFFFFF;
+    }
+
+    .termsAgreement {
+        text-align: center;
+        padding-top: 5%;
+    }
+
+
 }
