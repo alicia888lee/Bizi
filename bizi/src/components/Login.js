@@ -181,11 +181,11 @@ class Login extends Component {
         else if (width <= 768){
             return (
             <div>
-                    <Nav light={false} />
+                    <Nav light={false} id="lightNav"/>
                     <div className="login">
                     <div className="loginHeader">
                         <h1>Welcome Back!</h1>
-                        <p>New to Bizi? <Link to="/create">Create an Account</Link></p>
+                        <p className="toCreate"><font style={{color: "#385FDC"}}>New to Bizi? <Link to="/create">Create an Account</Link></font></p>
                     </div>
 
                     <div className="loginBody">

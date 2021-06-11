@@ -14,6 +14,7 @@ class VerifyStep extends Component {
         return (
             <div>
                 <Nav light={false} />
+                <div className="login">
                 <div className='createAccountHeader'>
                     <h1>Please Verify Your Email</h1>
                 </div>
@@ -21,7 +22,7 @@ class VerifyStep extends Component {
                     <form>
                         <div className='inputGroup'>
                             <label for='email'>A verification code was sent to your email</label>
-                            <input type='text' name='name' onInput={onCodeInputChange}/>
+                            <input type='text' name='name' onInput={onCodeInputChange} placeholder="Verification Code"/>
                             {invalidCode && <p>{errorMessage}</p>}
                         </div>
                     </form>
@@ -36,8 +37,9 @@ class VerifyStep extends Component {
                     <div className="circleCreateAcct"></div>
                 </div>
                 <div className='termsAgreement'>
-                    <a className="smallText" href="#">Terms of Agreement</a>   
+                <a className="smallText" href="https://www.termsfeed.com/live/cce55d58-2f48-4d9c-ab31-478dafcdca99" target='_blank'>Privacy Policy</a>
                 </div>
+            </div>
             </div>
         )
     }
