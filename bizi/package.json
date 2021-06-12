@@ -17,6 +17,7 @@
     "react-icons": "^3.11.0",
     "react-loader-spinner": "^3.1.14",
     "react-responsive": "^8.2.0",
+    "react-responsive-carousel": "^3.2.18",
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.3"
   },
