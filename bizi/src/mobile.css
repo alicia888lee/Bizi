@@ -260,10 +260,20 @@
 
     /* login (returning users) */
 
+        .toCreate a {
+            color: #575e61;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .toCreate a:active{
+            color: #385FDC
+        }
+
       .login {
           background-color: #F1F5FF;
           border-radius: 100px 100px 0 0;
-          margin-top:-4%
+          margin-top:-3%
       }
 
       .loginBody input[type=text], input[type=password] {
@@ -337,6 +347,35 @@
 
 
     /* create an account */
+        .create {
+            background-color: #F1F5FF;
+            border-radius: 100px 100px 0 0;
+            margin-top: -5.9%;
+            height: 100vmax
+        }
+
+        .createNextButton button {
+            border: none;
+            margin: 10% 0 3% 0;
+            border-radius: 100px;
+        }
+
+        .verifyEmailButton button {
+            border: none;
+            margin: 10% 0 3% 0;
+            border-radius: 100px;
+        }
+
+        .makeChange {
+            padding:7% 5% 0 5%;
+        }
+
+        .createUserLabel {
+            color: #385FDC;
+            float: left;
+            font-weight: 600;
+            padding:0 0 3% 7%;
+        }
 
     /* contact form */
     .contact{
