@@ -78,6 +78,8 @@
 
         border-bottom-left-radius: 5rem;
         border-bottom-right-radius: 5rem;
+
+        height: 100%;
         
     }
 
@@ -94,7 +96,7 @@
         height: auto;
     }
 
-    .header-content h3{
+    .tag-line h3{
         display: none;
     }
 
@@ -108,11 +110,24 @@
     }
 
     .whatsBizi{
-        padding-top: 150px;
-        z-index: -1;
         position: relative;
         background-color: #CDD8FC;
-        bottom: 150px;
+        height: 100%;
+    }
+
+    .whatsBizi div{
+        padding-top: 10px;
+    }
+
+    .filler-box{
+        /* z-index: -1;
+        position: absolute;
+        background-color: #CDD8FC;
+        height: 150px;
+        bottom: 0px;
+        width: 100%;
+        padding-top: 1000px;
+        padding-bottom: 1000px; */
     }
 
     .p2{
@@ -130,12 +145,18 @@
 
     .header-tags{
         display: flex;
-        padding-top: 15%;
+        flex-wrap: wrap;
+        padding-top: 5%;
+        justify-content: center;
     }
 
     .header-tag{
         padding: 0;
         margin:0;
+
+        margin-left: 5%;
+        margin-right: 5%;
+        margin-top: 5%;
 
     }
 
@@ -166,6 +187,76 @@
         width: 80vw;
         margin-bottom: 50px;
     }
+
+
+    /* read stories */
+    .read-stories{
+        position: relative;
+        /* bottom: 150px; */
+        background-color: #F1F5FF;
+        position: relative;
+    }
+
+    .read-more-col h2{
+        color: white;
+        background-color: #6B6BF7;
+        border: #6B6BF7;
+        
+        padding: 15px;
+
+        font-weight: normal;
+        width: auto;
+    }
+
+    .read-more-col a{
+        height: 10%;
+        position: relative;
+    }
+
+    .bus-cols p {
+        font-weight: 500;
+        font-size: 1em;
+        line-height: 1em;
+        padding-left: 10%;
+        padding-right: 10%;
+      }
+
+      .bus-cols img {
+        float: left;
+        height: 500px;
+        object-fit: cover;
+        border-radius: 0%;
+        position: relative;
+        margin-bottom: 50px;
+      }
+
+
+
+      .carousel-root{
+          max-width: 100%;
+      }
+
+      .read-stories h1{
+          margin-left: 0;
+      }
+
+      .read-stories{
+        width: 100%;
+        background-color: #F1F5FF;
+      }
+
+
+    /* footer */
+    .info{
+        position: relative;
+        /* bottom: 170px; */
+        background-color: #CDD8FC;
+    }
+
+    .info h1{
+        color: #385FDC;
+    }
+
 
     /* login (returning users) */
 

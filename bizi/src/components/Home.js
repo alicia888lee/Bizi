@@ -13,8 +13,8 @@ function Home(){
             <Header />
             <WhatsBizi />
             {/* <Discover /> */}
-            {/* <ReadStories />
-            <Footer /> */}
+            <ReadStories />
+            <Footer />
         </>
     )
 }
