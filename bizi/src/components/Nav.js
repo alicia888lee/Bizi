@@ -5,6 +5,7 @@ import DarkLogo from '../images/darkLogo.jpg';
 import { Auth } from 'aws-amplify'
 import {RiArrowDropDownLine} from 'react-icons/ri'
 
+var width = window.innerWidth;
 class Nav extends Component {
     constructor(props) {
       super(props)
@@ -15,7 +16,7 @@ class Nav extends Component {
 
       let isDiplayed = false;
       this.state = {
-        display: "flex"
+        display: "none"
       }
     }
     // check if user is signed in
@@ -73,8 +74,8 @@ class Nav extends Component {
         } = this.props;
 
         const { userAuthenticated } = this.state;
-
-        return (
+        if(width <= 768){
+          return (
             <nav className={!light && 'dark'}>
               <Link to='/'><img class="logo" src={light ? LightLogo : DarkLogo} alt="nav logo img"/></Link>
 
@@ -83,8 +84,9 @@ class Nav extends Component {
                 <span class="bar"></span>
                 <span class="bar"></span>
               </a>
-              
+
               <div className="nav-bar-links" style={{display: this.state.display}}>
+                
                 <ul>
                   <fieldset>
                     <input type="text" id="searchbar-nav" placeholder="&#xF002; What do you want to do, buy, or eat?" value={this.state.search} onChange={this.searchChange}/>
@@ -103,7 +105,29 @@ class Nav extends Component {
                 </ul>
               </div>
             </nav>          
-      )
+          );
+        } 
+        else{
+          return (
+            <nav className={!light && 'dark'}>
+              <Link to='/'><img class="logo" src={light ? LightLogo : DarkLogo} alt="nav logo img"/></Link>
+              <ul>
+                <li><Link to="/search">Search</Link></li>
+                <li><Link to="/stories">Stories</Link></li>
+                <li><Link to="/contact">Contact</Link></li>
+                  { userAuthenticated ?                  
+                    <div className="dropdown">
+                      <Link className="account-nav" to='/account'>My Account <RiArrowDropDownLine className="account-icon"/></Link>
+                      <div className="dropdown-content">
+                        <a style={{cursor: 'pointer'}} onClick={this.signOut}>Sign out</a>
+                      </div>
+                    </div> :
+                    <li className="login-nav"><Link to='/login'>Log In</Link></li> }                
+              </ul>
+            </nav>          
+          );
+        }
+        
     }
 }
 
