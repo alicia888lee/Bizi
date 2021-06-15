@@ -180,7 +180,7 @@
     fieldset button{
         border-radius: 5em 5em 5em 5em;
         cursor: pointer;
-        width: 25%;
+        width: auto;
         background-color: #6B6BF7;
         
     }
@@ -251,12 +251,16 @@
         display: none;
     }
 
+    .bus-cols{
+        margin: 0;
+    }
+
     .bus-cols p {
 
         font-family: Poppins;
         font-style: normal;
         font-weight: bold;
-        font-size: 12px;
+        font-size: 16px;
         line-height: 18px;
         text-align: center;
       }

@@ -156,11 +156,13 @@ class ReadStories extends React.Component {
                 </>
               }
             </div>
-
-
-            <div className='read-more-col'>
+              <fieldset> 
+              <Link to="/stories" ><button>Read More</button></Link>
+              </fieldset>
+           
+            {/* <div className='read-more-col'>
               <Link to='/stories'><h2 className="readMore">Read More</h2></Link>
-            </div>
+            </div> */}
           </div>
         </>
       );
