@@ -159,7 +159,7 @@ class ReadStories extends React.Component {
 
 
             <div className='read-more-col'>
-              <Link to='/stories'><h2>Read More</h2></Link>
+              <Link to='/stories'><h2 className="readMore">Read More</h2></Link>
             </div>
           </div>
         </>

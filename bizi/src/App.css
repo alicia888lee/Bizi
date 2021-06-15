@@ -285,6 +285,11 @@ fieldset button {
   white-space: nowrap;
   flex: 1 0 8em;
 }
+
+#searchbar-nav{
+  display: none;
+}
+
 #searchbar::placeholder{
   color: #a5b4e4;
 }

@@ -17,7 +17,12 @@
         width: 100%;
         background-color: #385FDC;
         border-radius: 10px;
-    }   
+    }
+    
+    .toggle-button{
+        position: absolute;
+        z-index: 2;
+    }
 
     .nav-bar-links{
         display: flex;
@@ -28,6 +33,8 @@
     }
 
     .nav-bar-links{
+        z-index: 1;
+        position: absolute;
         background-color: #FFFFFF;
         width: 100%;
         text-align: center;
@@ -62,6 +69,10 @@
         padding: 10px;
     }
 
+    #search{
+        display: none;
+    }
+
     nav li a{
         color: #385FDC;
         padding: 10px;
@@ -76,6 +87,7 @@
 
         background: white;
 
+
         border-bottom-left-radius: 5rem;
         border-bottom-right-radius: 5rem;
 
@@ -83,8 +95,14 @@
         
     }
 
+    #background{
+        height: 100%;
+        background-color: #CDD8FC;
+    }
+
     .logo {
         position: relative;
+        z-index: 3;
         width: 30%;
         margin: auto;
         display: block;
@@ -117,17 +135,6 @@
 
     .whatsBizi div{
         padding-top: 10px;
-    }
-
-    .filler-box{
-        /* z-index: -1;
-        position: absolute;
-        background-color: #CDD8FC;
-        height: 150px;
-        bottom: 0px;
-        width: 100%;
-        padding-top: 1000px;
-        padding-bottom: 1000px; */
     }
 
     .p2{
@@ -188,6 +195,17 @@
         margin-bottom: 50px;
     }
 
+    #searchbar-nav{
+        display: flex;
+        flex: none;
+        border-radius: 5em 5em 5em 5em;
+        width: 80vw;
+    }
+
+    #searchbar-nav::placeholder{
+        color: #a5b4e4;
+      }
+
 
     /* read stories */
     .read-stories{
@@ -213,6 +231,10 @@
         position: relative;
     }
 
+    .read-more-col img{
+        display: none;
+    }
+
     .bus-cols p {
         font-weight: 500;
         font-size: 1em;
@@ -225,7 +247,7 @@
         float: left;
         height: 500px;
         object-fit: cover;
-        border-radius: 0%;
+        border-radius: 10%;
         position: relative;
         margin-bottom: 50px;
       }
@@ -233,7 +255,7 @@
 
 
       .carousel-root{
-          max-width: 100%;
+          max-width: 80%;
       }
 
       .read-stories h1{
@@ -245,11 +267,17 @@
         background-color: #F1F5FF;
       }
 
+      .read-more-col {
+        position: relative;
+        width: 100%;
+        display: grid;
+        grid-template-columns: repeat(1, 1fr);
+      }
+
 
     /* footer */
     .info{
         position: relative;
-        /* bottom: 170px; */
         background-color: #CDD8FC;
     }
 

@@ -4,7 +4,6 @@ import logo from '../images/bigLogo.png';
 function WhatsBizi() {
     return (
         <>
-            <div className="filler-box"></div>
             <div className="whatsBizi">
                 <img id="bigLogo" src ={logo} />
                 <div>

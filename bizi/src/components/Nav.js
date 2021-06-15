@@ -86,7 +86,10 @@ class Nav extends Component {
               
               <div className="nav-bar-links" style={{display: this.state.display}}>
                 <ul>
-                  <li><Link to="/search">Search</Link></li>
+                  <fieldset>
+                    <input type="text" id="searchbar-nav" placeholder="&#xF002; What do you want to do, buy, or eat?" value={this.state.search} onChange={this.searchChange}/>
+                  </fieldset>
+                  <li id="search"><Link to="/search">Search</Link></li>
                   <li><Link to="/stories">Stories</Link></li>
                   <li><Link to="/contact">Contact</Link></li>
                     { userAuthenticated ?                  
