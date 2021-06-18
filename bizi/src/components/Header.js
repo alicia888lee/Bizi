@@ -37,7 +37,7 @@ class Header extends React.Component {
       return (
       <div id="background">
         <div id="header">
-          <Nav light={true} />
+          <Nav light={false} />
           <div className="header-content">
             {/* <img src={LightLogo} className="headerLogo" />         */}
             <div className="tag-line">
