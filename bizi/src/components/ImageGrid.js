@@ -17,7 +17,9 @@ class ImageGrid extends React.Component {
   constructor(props){
     super(props);
     this.state = {
+      //default to not display the modal 
       storyModal: false,
+      //array of all of the stories 
       storyBusinesses: [],
       storiesLoading: false,
       tiles: []
@@ -118,8 +120,11 @@ class ImageGrid extends React.Component {
 
     return (
       <>
+        {/* if false do loading screen */}
         {storiesLoading ?
           <Loader type='TailSpin' color='#385FDC' height={40}/> :
+
+          // else do this 
           <>{tiles.length > 0 ?
             <div className='imageContainer'>
               {tiles}

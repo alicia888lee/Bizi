@@ -14,6 +14,7 @@ import diversityImg from '../images/diversity.png';
 import communityImg from '../images/community_engagement.png';
 import { Storage } from 'aws-amplify';
 
+var width = window.innerWidth;
 
 function ModalComponent(props) {
     // read in business from prop
@@ -123,22 +124,80 @@ class StoriesModal extends React.Component {
         }
       };
 
-      return isVisible
+      if(width >  768){
+        return isVisible
+          ? createPortal(
+              <div ref={modalRef} className='story-modal'>
+                  <input type="hidden" onKeyPress={this.handleKeyPress}/>
+                  <div className="story-modal-header">
+                    <h2>{business?.story?.storyPerson}, <span>{business?.story?.storyPersonTitle}</span></h2>
+                    <AiOutlineClose className="story-modal-close" onClick={() => {
+                      hideModal();
+                      this.setState({
+                        page1: true,
+                        page2: false,
+                        page3: false
+                      });
+                    }}/>              
+                  </div>
+                  {page1 && <div className="story-modal-body">                  
+                      <img className="story-modal-img" src={img1} />
+                      <div className="story-modal-content">
+                        <h3>{business?.businessSubHeading}</h3>
+                        <p>{business?.story?.storySlide1}</p>
+                        <p className="story-modal-enter">Click <span onClick={() => this.handleClick(2)}>Enter</span> to follow {firstNamePlural} journey</p>
+                      </div>
+                    </div> }
+                  {page2 && <div className="story-modal-body">                  
+                      <img className="story-modal-img" src={img2} />
+                      <div className="story-modal-content">                  
+                        <p>{business?.story?.storySlide2}</p>
+                        <p className="story-modal-enter">Click <span onClick={() => this.handleClick(3)}>Enter</span> to follow {firstNamePlural} journey</p>
+                      </div>
+                    </div>}
+                  {page3 && <div className="story-modal-body">                  
+                      <div className='map-modal'><Map height={35} filteredBusinesses={[business]} modal/></div>
+                      <div className="story-modal-content story-modal-3">                  
+                        <h3>{business?.businessName}</h3>
+                        <div className='modal-initiatives'>
+                          {business?.initiatives?.map((init, index) => 
+                            Object.keys(iconDict).includes(init) && <img src={iconDict[init]?.img} title={init} key={index}/>
+                          )}
+                        </div>
+                        {/* <div className='modal-inits'>
+                          <img src={environmentImg} id='modal-icon'/>
+                          <img src={environmentImg} id='modal-icon'/>
+                        </div> */}
+                        <p>{business?.story?.storySlide3}</p>
+                        <p id="story-modal-3-address">{business?.address}</p>
+    
+                        <Link to={{pathname:`/search/${business?.id}`, state: {business: business}}}>View Business Profile</Link>                  
+                      </div>
+                    </div>}                                 
+              </div>,
+              //document.body.getElementsByClassName("imageContainer")[0]
+              document.body,
+        )
+        : null;
+      }
+      else{
+        return isVisible
         ? createPortal(
             <div ref={modalRef} className='story-modal'>
                 <input type="hidden" onKeyPress={this.handleKeyPress}/>
-                <div className="story-modal-header">
-                  <h2>{business?.story?.storyPerson}, <span>{business?.story?.storyPersonTitle}</span></h2>
-                  <AiOutlineClose className="story-modal-close" onClick={() => {
-                    hideModal();
-                    this.setState({
-                      page1: true,
-                      page2: false,
-                      page3: false
-                    });
-                  }}/>              
-                </div>
-                {page1 && <div className="story-modal-body">                  
+                
+                {page1 && <div className="story-modal-body"> 
+                    <div className="story-modal-header">
+                      <h2>{business?.story?.storyPerson}, <span>{business?.story?.storyPersonTitle}</span></h2>
+                      <AiOutlineClose className="story-modal-close" onClick={() => {
+                        hideModal();
+                        this.setState({
+                          page1: true,
+                          page2: false,
+                          page3: false
+                        });
+                      }}/>              
+                    </div>                 
                     <img className="story-modal-img" src={img1} />
                     <div className="story-modal-content">
                       <h3>{business?.businessSubHeading}</h3>
@@ -154,7 +213,7 @@ class StoriesModal extends React.Component {
                     </div>
                   </div>}
                 {page3 && <div className="story-modal-body">                  
-                    <div className='map-modal'><Map height={35} filteredBusinesses={[business]} modal/></div>
+                    <div className='map-modal'><Map height={70} filteredBusinesses={[business]} modal/></div>
                     <div className="story-modal-content story-modal-3">                  
                       <h3>{business?.businessName}</h3>
                       <div className='modal-initiatives'>
@@ -176,6 +235,7 @@ class StoriesModal extends React.Component {
             //document.body.getElementsByClassName("imageContainer")[0]
             document.body,
         )
-      : null;
+        : null;
+      }
     }
   }
