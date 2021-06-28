@@ -194,6 +194,14 @@ class StoriesModal extends React.Component {
                 <input type="hidden" onKeyPress={this.handleKeyPress}/>
                 
                 {page1 && <div className="story-modal-body"> 
+                    <AiOutlineClose className="story-modal-close" onClick={() => {
+                        hideModal();
+                        this.setState({
+                          page1: true,
+                          page2: false,
+                          page3: false
+                        });
+                    }}/>
                     <div className="story-modal-nav">
                       <ul>
                         <li><a href="#" class="button" id="active"/></li>
@@ -202,15 +210,7 @@ class StoriesModal extends React.Component {
                       </ul>
                     </div>
                     <div className="story-modal-header">
-                      <h2>{business?.story?.storyPerson}, <span>{business?.story?.storyPersonTitle}</span></h2>
-                      <AiOutlineClose className="story-modal-close" onClick={() => {
-                        hideModal();
-                        this.setState({
-                          page1: true,
-                          page2: false,
-                          page3: false
-                        });
-                      }}/>              
+                      <h2>{business?.story?.storyPerson}, <span>{business?.story?.storyPersonTitle}</span></h2>              
                     </div>                 
                     <img className="story-modal-img" src={img1} />
                     <div className="story-modal-content">
@@ -219,6 +219,14 @@ class StoriesModal extends React.Component {
                     </div>
                   </div> }
                 {page2 && <div className="story-modal-body">
+                    <AiOutlineClose className="story-modal-close" onClick={() => {
+                        hideModal();
+                        this.setState({
+                          page1: true,
+                          page2: false,
+                          page3: false
+                        });
+                    }}/>
                     <div className="story-modal-nav">
                       <ul>
                         <li><a href="#" class="button" onClick={() => this.handleClick(1)}/></li>
@@ -231,7 +239,15 @@ class StoriesModal extends React.Component {
                       <p>{business?.story?.storySlide2}</p>
                     </div>
                   </div>}
-                {page3 && <div className="story-modal-body">   
+                {page3 && <div className="story-modal-body">
+                    <AiOutlineClose className="story-modal-close" onClick={() => {
+                        hideModal();
+                        this.setState({
+                          page1: true,
+                          page2: false,
+                          page3: false
+                        });
+                    }}/>   
                     <div className="story-modal-nav">
                       <ul>
                         <li><a href="#" class="button" onClick={() => this.handleClick(1)}/></li>

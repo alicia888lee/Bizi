@@ -693,6 +693,17 @@
         background-color: #385FDC;
     }
 
+    .story-modal-close {
+        position: absolute;
+        z-index: 999;
+        top: 0.5em;
+        right: 0.5em;
+        font-size: 1.5em;
+        cursor: pointer;
+        color: white;
+        border: 4px;
+      }
+
 
 
 
