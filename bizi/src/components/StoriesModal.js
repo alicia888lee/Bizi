@@ -79,11 +79,17 @@ class StoriesModal extends React.Component {
     handleClick(step){        
       if(step === 2){
         this.setState({page1: false});
+        this.setState({page3: false});
         this.setState({page2: true});      
       } else if(step === 3) {
         this.setState({page2: false});
+        this.setState({page1: false});
         this.setState({page3: true});           
-      }    
+      } else if(step === 1){
+        this.setState({page3: false});
+        this.setState({page2: false});
+        this.setState({page1: true});
+      }
     }
 
     componentDidUpdate(prevProps) {
@@ -181,12 +187,20 @@ class StoriesModal extends React.Component {
         : null;
       }
       else{
+        
         return isVisible
         ? createPortal(
             <div ref={modalRef} className='story-modal'>
                 <input type="hidden" onKeyPress={this.handleKeyPress}/>
                 
                 {page1 && <div className="story-modal-body"> 
+                    <div className="story-modal-nav">
+                      <ul>
+                        <li><a href="#" class="button" id="active"/></li>
+                        <li><a href="#" class="button" onClick={() => this.handleClick(2)} /></li>
+                        <li><a href="#" class="button" onClick={() => this.handleClick(3)}/></li>
+                      </ul>
+                    </div>
                     <div className="story-modal-header">
                       <h2>{business?.story?.storyPerson}, <span>{business?.story?.storyPersonTitle}</span></h2>
                       <AiOutlineClose className="story-modal-close" onClick={() => {
@@ -202,17 +216,29 @@ class StoriesModal extends React.Component {
                     <div className="story-modal-content">
                       <h3>{business?.businessSubHeading}</h3>
                       <p>{business?.story?.storySlide1}</p>
-                      <p className="story-modal-enter">Click <span onClick={() => this.handleClick(2)}>Enter</span> to follow {firstNamePlural} journey</p>
                     </div>
                   </div> }
-                {page2 && <div className="story-modal-body">                  
+                {page2 && <div className="story-modal-body">
+                    <div className="story-modal-nav">
+                      <ul>
+                        <li><a href="#" class="button" onClick={() => this.handleClick(1)}/></li>
+                        <li><a href="#" class="button" id="active" /></li>
+                        <li><a href="#" class="button" onClick={() => this.handleClick(3)}/></li>
+                      </ul>
+                    </div>                  
                     <img className="story-modal-img" src={img2} />
                     <div className="story-modal-content">                  
                       <p>{business?.story?.storySlide2}</p>
-                      <p className="story-modal-enter">Click <span onClick={() => this.handleClick(3)}>Enter</span> to follow {firstNamePlural} journey</p>
                     </div>
                   </div>}
-                {page3 && <div className="story-modal-body">                  
+                {page3 && <div className="story-modal-body">   
+                    <div className="story-modal-nav">
+                      <ul>
+                        <li><a href="#" class="button" onClick={() => this.handleClick(1)}/></li>
+                        <li><a href="#" class="button" onClick={() => this.handleClick(2)} /></li>
+                        <li><a href="#" class="button" id="active" /></li>
+                      </ul>
+                    </div>               
                     <div className='map-modal'><Map height={70} filteredBusinesses={[business]} modal/></div>
                     <div className="story-modal-content story-modal-3">                  
                       <h3>{business?.businessName}</h3>

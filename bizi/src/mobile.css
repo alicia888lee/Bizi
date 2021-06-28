@@ -529,16 +529,25 @@
         bottom: 0;
         height: 120vw;
         /* width: 75%; */
-        width: 80%;
+        width: 85%;
         -webkit-transform: translateZ(0);
         transform: translateZ(0);
+        
+        -ms-overflow-style: none;  /* IE and Edge */
+        scrollbar-width: none;  /* Firefox */
       }
+      
+      /* Hide scrollbar for Chrome, Safari and Opera */
+      .story-modal::-webkit-scrollbar{
+          display: none;
+      }
+
       .story-modal-header {
         /* display: none; */
 
         text-align: start;
         position: absolute;
-        top: 75vw;
+        top: 70vw;
         right: 0;
         height: auto;
         width: 95%;
@@ -570,7 +579,7 @@
       }
       .story-modal-body img {
         width: 100%;  
-        height: 80vw;
+        height: 75vw;
         object-fit: cover;
         position: relative;
         flex: none;
@@ -650,8 +659,42 @@
 
       .map-modal{
           width: 100%;
-          height: 60%;
+          height: 75vw;
       }
+
+      .story-modal-nav{
+          position: absolute;
+          right: 0;
+          top: 45vw;
+          padding-right: 10px;
+          z-index: 999;
+      }
+
+      .story-modal-nav ul{
+          list-style-type: none;
+      }
+
+      .story-modal-nav a{
+        text-decoration: none;
+        background-color: #DEE6F9;
+        margin-top: 20px;
+
+        width: 3vw; 
+        height: 3vw;
+
+        display: block;
+
+        border-radius: 50%;
+
+        border: none;
+      }
+
+    #active{
+        background-color: #385FDC;
+    }
+
+
+
 
     
 
